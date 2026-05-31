@@ -25,6 +25,13 @@ return [
     'mysql_dsn' => 'mysql:host=localhost;dbname=your_db;charset=utf8mb4',
     'mysql_user' => 'your_db_user',
     'mysql_password' => 'your_db_password',
+    'admin_panel_roles' => [
+        '1463277998189838427',
+        '1463277637911970065',
+    ],
+    'admin_panel_user_ids' => [
+        '746289435309506581',
+    ],
     // Optional: separate Discord bot DB used for bot-side verification, player links, and tickets.
     // Leave blank when the bot tables live in the same DB as the website auth tables.
     'bot_mysql_dsn' => '',

@@ -1200,23 +1200,6 @@
               <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
             </div>
           </div>
-          <div class="neo-home__signals">
-            <article class="neo-signal">
-              <span class="neo-signal__label">Start</span>
-              <strong class="neo-signal__title">Join the city the right way</strong>
-              <span class="neo-signal__text">Use Start for first steps, Rules for standards, and Map for locations.</span>
-            </article>
-            <article class="neo-signal">
-              <span class="neo-signal__label">Live</span>
-              <strong class="neo-signal__title">Check the two signals that matter</strong>
-              <span class="neo-signal__text">See server status and Discord bot status before you move.</span>
-            </article>
-            <article class="neo-signal">
-              <span class="neo-signal__label">Support</span>
-              <strong class="neo-signal__title">Tickets stay in Discord</strong>
-              <span class="neo-signal__text">Support, ban history, and staff contact stay tracked in the Discord ticket channel.</span>
-            </article>
-          </div>
         </section>
 
       </div>
@@ -1645,33 +1628,6 @@
           </div>
         </section>
 
-        <section class="homefront__signalRow" data-reveal aria-label="Homepage routing">
-          <a class="homefront__signal" href="/start">
-            <span class="homefront__signalIcon" aria-hidden="true">◎</span>
-            <div class="homefront__signalCopy">
-              <span class="homefront__signalLabel">Start here</span>
-              <strong class="homefront__signalTitle">Join the city the right way</strong>
-              <span class="homefront__signalText">Use Start for first steps, Rules for standards, and Map for locations.</span>
-            </div>
-          </a>
-          <a class="homefront__signal" href="/live">
-            <span class="homefront__signalIcon" aria-hidden="true">◎</span>
-            <div class="homefront__signalCopy">
-              <span class="homefront__signalLabel">Live</span>
-              <strong class="homefront__signalTitle">Check the two signals that matter</strong>
-              <span class="homefront__signalText">See the server and Discord bot state before you move.</span>
-            </div>
-          </a>
-          <a class="homefront__signal" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL)}" target="_blank" rel="noopener noreferrer">
-            <span class="homefront__signalIcon" aria-hidden="true">◎</span>
-            <div class="homefront__signalCopy">
-              <span class="homefront__signalLabel">Support</span>
-              <strong class="homefront__signalTitle">Tickets stay in Discord</strong>
-              <span class="homefront__signalText">Support, ban history, and staff contact stay tracked in the ticket channel.</span>
-            </div>
-          </a>
-        </section>
-
       </div>
     `);
 
@@ -1744,33 +1700,6 @@
               ${renderHomefrontStatusCards()}
             </div>
           </div>
-        </section>
-
-        <section class="homefront__signalRow" data-reveal aria-label="Homepage routing">
-          <a class="homefront__signal" href="/start">
-            <span class="homefront__signalIcon" aria-hidden="true">01</span>
-            <div class="homefront__signalCopy">
-              <span class="homefront__signalLabel">Start here</span>
-              <strong class="homefront__signalTitle">Join the city the right way</strong>
-              <span class="homefront__signalText">Use Start for first steps, Rules for standards, and Map for locations.</span>
-            </div>
-          </a>
-          <a class="homefront__signal" href="/live">
-            <span class="homefront__signalIcon" aria-hidden="true">02</span>
-            <div class="homefront__signalCopy">
-              <span class="homefront__signalLabel">Live</span>
-              <strong class="homefront__signalTitle">Check the two signals that matter</strong>
-              <span class="homefront__signalText">See the server and Discord bot state before you move.</span>
-            </div>
-          </a>
-          <a class="homefront__signal" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL)}" target="_blank" rel="noopener noreferrer">
-            <span class="homefront__signalIcon" aria-hidden="true">03</span>
-            <div class="homefront__signalCopy">
-              <span class="homefront__signalLabel">Support</span>
-              <strong class="homefront__signalTitle">Tickets stay in Discord</strong>
-              <span class="homefront__signalText">Support, ban history, and staff contact stay tracked in the ticket channel.</span>
-            </div>
-          </a>
         </section>
 
       </div>

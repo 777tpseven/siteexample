@@ -37,6 +37,7 @@ const DEFAULT_SERVER_CONFIG = {
   authProfileUrl: "",
   adminPanelLabel: "Manager",
   adminPanelRoles: [],
+  adminPanelUserIds: [],
   statusRefreshMs: 60000,
   maxPlayerPreview: 12,
   region: "EU",
@@ -941,16 +942,37 @@ function getDiscordRoleList(account) {
     .filter(Boolean);
 }
 
+function getDiscordUserIdList(account) {
+  return [
+    account?.discordId,
+    account?.discordIdent,
+    account?.username
+  ]
+    .map((id) => String(id || "").trim())
+    .filter(Boolean);
+}
+
 function hasAdminAccess(account = getCurrentAccount()) {
   const requiredRoles = Array.isArray(SERVER_CONFIG.adminPanelRoles)
     ? SERVER_CONFIG.adminPanelRoles.map((role) => normalize(role)).filter(Boolean)
     : [];
+  const allowedUserIds = Array.isArray(SERVER_CONFIG.adminPanelUserIds)
+    ? SERVER_CONFIG.adminPanelUserIds.map((id) => normalize(id)).filter(Boolean)
+    : [];
 
-  if (!account || !requiredRoles.length) return false;
+  if (!account) return false;
 
-  return getDiscordRoleList(account).some((role) => requiredRoles.includes(normalize(role)));
+  if (
+    allowedUserIds.length &&
+    getDiscordUserIdList(account).some((id) => allowedUserIds.includes(normalize(id)))
+  ) {
+    return true;
+  }
+
+  return requiredRoles.length
+    ? getDiscordRoleList(account).some((role) => requiredRoles.includes(normalize(role)))
+    : false;
 }
-
 function updateAdminDockVisibility(account = getCurrentAccount()) {
   const adminDock = document.querySelector('.dock__item[data-dock="admin"]');
   if (!adminDock) return;
@@ -2112,10 +2134,10 @@ function renderAdminLockedPage() {
       ${renderHeader(`${label} Mode`, [{ label: label }])}
       <section class="section section--hero">
         <div class="section__eyebrow">Restricted access</div>
-        <h2>${escapeHtml(label)} role required</h2>
-        <p class="doc-p">This tab is reserved for Discord accounts with one of the configured manager/admin role IDs. Once your manager role is listed in <code>adminPanelRoles</code>, the website will unlock this tab automatically for that Discord account.</p>
+        <h2>${escapeHtml(label)} access required</h2>
+        <p class="doc-p">This tab is reserved for Discord accounts with one of the configured manager/admin role IDs or Discord user IDs. Once your role is listed in <code>adminPanelRoles</code> or your user ID is listed in <code>adminPanelUserIds</code>, the website will unlock this tab automatically for that Discord account.</p>
         <div class="status-note">
-          <strong>Next step:</strong> add the real Discord manager role ID to the live config so the website can match your synced Discord roles against the admin access rule.
+          <strong>Next step:</strong> add the real Discord manager role ID or Discord user ID to the live config so the website can match your account against the admin access rule.
         </div>
       </section>
     </div>
@@ -2141,7 +2163,7 @@ function renderAdminDashboard(account) {
           <div class="status-card">
             <div class="status-card__label">Access source</div>
             <div class="status-card__value">Discord role sync</div>
-            <div class="status-card__meta">Protected by the synced Discord role list</div>
+            <div class="status-card__meta">Protected by synced Discord roles and allowed user IDs</div>
           </div>
           <div class="status-card">
             <div class="status-card__label">Website identity</div>
@@ -2182,7 +2204,7 @@ function renderAdminDashboard(account) {
             ${roleMarkup}
           </div>
           <div class="status-note">
-            <strong>Setup note:</strong> the tab only appears when your synced Discord role list contains a role ID from the configured admin access rule.
+            <strong>Setup note:</strong> the tab appears when your synced Discord role list contains an admin role ID or your Discord user ID is explicitly allowed.
           </div>
         </aside>
       </div>

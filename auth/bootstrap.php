@@ -219,10 +219,36 @@ function auth_admin_panel_roles(): array
     ))));
 }
 
+function auth_admin_panel_user_ids(): array
+{
+    $configured = auth_config('admin_panel_user_ids', [
+        '746289435309506581',
+    ]);
+
+    if (is_string($configured)) {
+        $configured = array_map('trim', explode(',', $configured));
+    }
+
+    if (!is_array($configured)) {
+        return [];
+    }
+
+    return array_values(array_unique(array_filter(array_map(
+        static fn ($id) => trim((string) $id),
+        $configured
+    ))));
+}
+
 function auth_user_has_admin_panel_access(): bool
 {
     if (empty($_SESSION['logged_in'])) {
         return false;
+    }
+
+    $discordId = trim((string) ($_SESSION['discord_id'] ?? ''));
+    $allowedUserIds = auth_admin_panel_user_ids();
+    if ($discordId !== '' && $allowedUserIds && in_array($discordId, $allowedUserIds, true)) {
+        return true;
     }
 
     $requiredRoles = auth_admin_panel_roles();
