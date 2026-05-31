@@ -1219,28 +1219,6 @@
           </div>
         </section>
 
-        <section class="neo-home__grid" aria-label="Homepage shortcuts">
-          <a class="neo-card" href="/start" data-reveal>
-            <span class="neo-card__label">Start</span>
-            <strong class="neo-card__title">First steps</strong>
-            <span class="neo-card__text">Find the server, check the basics, and keep the useful pages close.</span>
-          </a>
-          <a class="neo-card" href="/wiki" data-reveal>
-            <span class="neo-card__label">Wiki</span>
-            <strong class="neo-card__title">Jobs and systems</strong>
-            <span class="neo-card__text">Browse roles, city jobs, systems, and activity pages through one filtered library.</span>
-          </a>
-          <a class="neo-card" href="/map" data-reveal>
-            <span class="neo-card__label">Map</span>
-            <strong class="neo-card__title">City layout</strong>
-            <span class="neo-card__text">Keep service locations and route context visible while you play.</span>
-          </a>
-          <a class="neo-card" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL)}" target="_blank" rel="noopener noreferrer" data-reveal>
-            <span class="neo-card__label">Support</span>
-            <strong class="neo-card__title">Discord tickets</strong>
-            <span class="neo-card__text">Staff applications, ban history, and support now stay inside the Discord ticket channel.</span>
-          </a>
-        </section>
       </div>
     `);
   };
@@ -1694,36 +1672,6 @@
           </a>
         </section>
 
-        <section class="homefront__grid" aria-label="Homepage shortcuts">
-          <article class="homefront__card" data-reveal>
-            <span class="homefront__cardIcon" aria-hidden="true">◉</span>
-            <span class="homefront__cardLabel">Start</span>
-            <strong class="homefront__cardTitle">First steps</strong>
-            <span class="homefront__cardText">Find the server, check the basics, and keep the useful pages close.</span>
-            <a class="homefront__cardButton" href="/start">View page</a>
-          </article>
-          <article class="homefront__card" data-reveal>
-            <span class="homefront__cardIcon" aria-hidden="true">▣</span>
-            <span class="homefront__cardLabel">Wiki</span>
-            <strong class="homefront__cardTitle">Jobs and systems</strong>
-            <span class="homefront__cardText">Browse roles, city jobs, systems, and activity pages through one filtered library.</span>
-            <a class="homefront__cardButton" href="/wiki">View page</a>
-          </article>
-          <article class="homefront__card" data-reveal>
-            <span class="homefront__cardIcon" aria-hidden="true">▤</span>
-            <span class="homefront__cardLabel">Map</span>
-            <strong class="homefront__cardTitle">City layout</strong>
-            <span class="homefront__cardText">Keep service locations and route context visible while you play.</span>
-            <a class="homefront__cardButton" href="/map">View map</a>
-          </article>
-          <article class="homefront__card" data-reveal>
-            <span class="homefront__cardIcon" aria-hidden="true">◌</span>
-            <span class="homefront__cardLabel">Support</span>
-            <strong class="homefront__cardTitle">Discord tickets</strong>
-            <span class="homefront__cardText">Support, ban history, and staff contact now stay inside the Discord ticket channel.</span>
-            <a class="homefront__cardButton" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL)}" target="_blank" rel="noopener noreferrer">Open Discord</a>
-          </article>
-        </section>
       </div>
     `);
 
@@ -1825,36 +1773,6 @@
           </a>
         </section>
 
-        <section class="homefront__grid" aria-label="Homepage shortcuts">
-          <article class="homefront__card" data-reveal>
-            <span class="homefront__cardIcon" aria-hidden="true">S</span>
-            <span class="homefront__cardLabel">Start</span>
-            <strong class="homefront__cardTitle">First steps</strong>
-            <span class="homefront__cardText">Find the server, check the basics, and keep the useful pages close.</span>
-            <a class="homefront__cardButton" href="/start">View page</a>
-          </article>
-          <article class="homefront__card" data-reveal>
-            <span class="homefront__cardIcon" aria-hidden="true">W</span>
-            <span class="homefront__cardLabel">Wiki</span>
-            <strong class="homefront__cardTitle">Jobs and systems</strong>
-            <span class="homefront__cardText">Browse roles, city jobs, systems, and activity pages through one filtered library.</span>
-            <a class="homefront__cardButton" href="/wiki">View page</a>
-          </article>
-          <article class="homefront__card" data-reveal>
-            <span class="homefront__cardIcon" aria-hidden="true">M</span>
-            <span class="homefront__cardLabel">Map</span>
-            <strong class="homefront__cardTitle">City layout</strong>
-            <span class="homefront__cardText">Keep service locations and route context visible while you play.</span>
-            <a class="homefront__cardButton" href="/map">View map</a>
-          </article>
-          <article class="homefront__card" data-reveal>
-            <span class="homefront__cardIcon" aria-hidden="true">D</span>
-            <span class="homefront__cardLabel">Support</span>
-            <strong class="homefront__cardTitle">Discord tickets</strong>
-            <span class="homefront__cardText">Support, ban history, and staff contact now stay inside the Discord ticket channel.</span>
-            <a class="homefront__cardButton" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL)}" target="_blank" rel="noopener noreferrer">Open Discord</a>
-          </article>
-        </section>
       </div>
     `);
 

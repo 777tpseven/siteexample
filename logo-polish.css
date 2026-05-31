@@ -1,4 +1,67 @@
 /* Final logo/header polish for the June 2026 SGCNR refresh. */
+.site-brand-backdrop{
+  position: fixed;
+  inset: 104px 0 auto;
+  height: min(52svh, 540px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: .20;
+  background:
+    radial-gradient(ellipse at center, rgba(104, 242, 155, .18), transparent 62%),
+    url("/branding/sgcnr-badge.png?v=20260601a") center top / min(980px, 88vw) auto no-repeat;
+  filter: saturate(1.08) contrast(1.05);
+  mask-image: linear-gradient(180deg, rgba(0,0,0,.88), rgba(0,0,0,.64) 56%, transparent);
+}
+
+.content,
+.footer{
+  position: relative;
+  z-index: 1;
+}
+
+.topbar,
+.dock{
+  z-index: 30 !important;
+}
+
+.page-hero,
+.homefront__hero,
+.startfront__hero,
+.neo-hero,
+.live-minimal__hero,
+.wiki-ledger__masthead{
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.page-hero::after,
+.homefront__hero::before,
+.startfront__hero::before,
+.neo-hero::after,
+.live-minimal__hero::after,
+.wiki-ledger__masthead::after{
+  content: "";
+  position: absolute;
+  inset: 8px;
+  z-index: 0;
+  pointer-events: none;
+  background: url("/branding/sgcnr-badge.png?v=20260601a") center / min(780px, 86%) auto no-repeat;
+  opacity: .105;
+  filter: saturate(1.08) contrast(1.04);
+  mask-image: linear-gradient(90deg, transparent, rgba(0,0,0,.88) 20%, rgba(0,0,0,.88) 80%, transparent);
+}
+
+.page-hero > *,
+.homefront__hero > *,
+.startfront__hero > *,
+.neo-hero > *,
+.live-minimal__hero > *,
+.wiki-ledger__masthead > *{
+  position: relative;
+  z-index: 1;
+}
+
 .topbar,
 body.is-landing .topbar,
 body.is-standard .topbar,
@@ -206,6 +269,23 @@ body.is-map .auth__btn--primary,
 }
 
 @media (max-width: 760px){
+  .site-brand-backdrop{
+    top: 126px;
+    height: min(48svh, 420px);
+    opacity: .16;
+    background-size: min(720px, 118vw) auto;
+  }
+
+  .page-hero::after,
+  .homefront__hero::before,
+  .startfront__hero::before,
+  .neo-hero::after,
+  .live-minimal__hero::after,
+  .wiki-ledger__masthead::after{
+    background-size: min(620px, 126%) auto;
+    opacity: .085;
+  }
+
   .topbar,
   body.is-landing .topbar,
   body.is-standard .topbar,

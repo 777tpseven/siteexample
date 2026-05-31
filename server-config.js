@@ -23,6 +23,9 @@ window.SGCNR_SERVER_CONFIG = {
     "1463277998189838427",
     "1463277637911970065"
   ],
+  adminPanelUserIds: [
+    "746289435309506581"
+  ],
   statusRefreshMs: 60000,
   maxPlayerPreview: 12,
   region: "EU",
