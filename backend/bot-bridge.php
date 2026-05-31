@@ -182,12 +182,6 @@ function sgcnr_bot_bridge_fetch_counts(PDO $pdo): array
             ['sql' => 'SELECT COUNT(*) FROM verified_players'],
             ['sql' => 'SELECT COUNT(*) FROM verified'],
         ]),
-        'openTickets' => sgcnr_bot_bridge_query_count_first($pdo, [
-            ['sql' => "SELECT COUNT(*) FROM active_tickets WHERE status = 'open'"],
-            ['sql' => 'SELECT COUNT(*) FROM active_tickets'],
-            ['sql' => "SELECT COUNT(*) FROM tickets WHERE status = 'open'"],
-            ['sql' => 'SELECT COUNT(*) FROM tickets'],
-        ]),
     ];
 }
 
@@ -201,10 +195,6 @@ function sgcnr_bot_bridge_enrich_live_snapshot(array $snapshot, PDO $pdo): array
 
     if (($snapshot['discord']['guild']['verifiedMembers'] ?? null) === null && $counts['verifiedAccounts'] !== null) {
         $snapshot['discord']['guild']['verifiedMembers'] = $counts['verifiedAccounts'];
-    }
-
-    if (($snapshot['discord']['support']['open_tickets'] ?? null) === null && $counts['openTickets'] !== null) {
-        $snapshot['discord']['support']['open_tickets'] = $counts['openTickets'];
     }
 
     return $snapshot;

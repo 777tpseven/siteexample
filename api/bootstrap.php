@@ -74,9 +74,7 @@ function api_default_snapshot(): array
                 'verifiedMembers' => null,
             ],
             'support' => [
-                'open_tickets' => null,
                 'pending_reports' => null,
-                'pendingApplications' => null,
                 'supportUrl' => api_config('support_url', ''),
             ],
             'linking' => [
@@ -205,6 +203,20 @@ function api_read_snapshot(): array
     }
 
     return api_merge_snapshot($defaults, $decoded);
+}
+
+function api_public_snapshot(array $snapshot): array
+{
+    unset(
+        $snapshot['discord']['support']['open_tickets'],
+        $snapshot['discord']['support']['openTickets'],
+        $snapshot['discord']['support']['ticketsOpen'],
+        $snapshot['discord']['support']['tickets'],
+        $snapshot['discord']['support']['pendingApplications'],
+        $snapshot['discord']['support']['pending_applications']
+    );
+
+    return $snapshot;
 }
 
 function api_write_snapshot(array $snapshot): void
@@ -394,19 +406,9 @@ function api_apply_named_update(array &$snapshot, string $key, $value, array &$a
             $applied[] = 'verified_members';
             return;
 
-        case 'open_tickets':
-            $snapshot['discord']['support']['open_tickets'] = api_to_number($value);
-            $applied[] = 'open_tickets';
-            return;
-
         case 'pending_reports':
             $snapshot['discord']['support']['pending_reports'] = api_to_number($value);
             $applied[] = 'pending_reports';
-            return;
-
-        case 'pending_applications':
-            $snapshot['discord']['support']['pendingApplications'] = api_to_number($value);
-            $applied[] = 'pending_applications';
             return;
 
         case 'linked_accounts':

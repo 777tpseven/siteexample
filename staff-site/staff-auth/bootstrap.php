@@ -287,46 +287,6 @@ function staff_auth_access_level(): string
     return 'staff';
 }
 
-function staff_auth_application_permissions(): array
-{
-    $accessLevel = staff_auth_access_level();
-    $canManage = in_array($accessLevel, ['manager', 'admin'], true)
-        || staff_auth_has_access_token('applications_manage', 'app_manage');
-    $canReview = $canManage
-        || staff_auth_has_access_token('applications', 'applications_review', 'app_review');
-
-    return [
-        'canReview' => $canReview,
-        'canManage' => $canManage,
-    ];
-}
-
-function staff_auth_require_application_review(): void
-{
-    $permissions = staff_auth_application_permissions();
-    if (!$permissions['canReview']) {
-        staff_auth_send_json([
-            'configured' => staff_auth_is_configured(),
-            'ok' => false,
-            'error' => 'permission_denied',
-            'permissions' => $permissions,
-        ], 403);
-    }
-}
-
-function staff_auth_require_application_manage(): void
-{
-    $permissions = staff_auth_application_permissions();
-    if (!$permissions['canManage']) {
-        staff_auth_send_json([
-            'configured' => staff_auth_is_configured(),
-            'ok' => false,
-            'error' => 'permission_denied',
-            'permissions' => $permissions,
-        ], 403);
-    }
-}
-
 function staff_auth_session_payload(): array
 {
     if (!staff_auth_has_session()) {
@@ -348,7 +308,6 @@ function staff_auth_session_payload(): array
             'clearance' => $_SESSION['staff_clearance'] ?? 'General Staff',
             'issuedBy' => $_SESSION['staff_issued_by'] ?? 'Management Team',
             'portalAccess' => $_SESSION['staff_portal_access'] ?? '',
-            'applicationPermissions' => staff_auth_application_permissions(),
             'active' => true,
         ],
     ];

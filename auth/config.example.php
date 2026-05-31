@@ -30,11 +30,4 @@ return [
     'bot_mysql_dsn' => '',
     'bot_mysql_user' => '',
     'bot_mysql_password' => '',
-    // Optional: point both the public site and staff portal at the same shared applications DB.
-    'applications_mysql_dsn' => '',
-    'applications_mysql_user' => '',
-    'applications_mysql_password' => '',
-    // Optional: Discord webhook that should receive new application / applicant reply alerts.
-    'applications_discord_webhook_url' => '',
-    'applications_staff_portal_url' => 'https://staff.sgcnr.net/#/applications',
 ];

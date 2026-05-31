@@ -1,37 +1,8 @@
 <?php
 
 require __DIR__ . '/bootstrap.php';
-require_once __DIR__ . '/applications-bootstrap.php';
 
 auth_require_admin_panel_access();
-
-function auth_admin_connect_applications_pdo(): ?PDO
-{
-    static $pdo = false;
-
-    if ($pdo instanceof PDO) {
-        return $pdo;
-    }
-
-    $dsn = trim((string) auth_config('applications_mysql_dsn', auth_config('mysql_dsn', '')));
-    $user = trim((string) auth_config('applications_mysql_user', auth_config('mysql_user', '')));
-    $password = (string) auth_config('applications_mysql_password', auth_config('mysql_password', ''));
-
-    if ($dsn === '' || $user === '') {
-        return null;
-    }
-
-    try {
-        $pdo = new PDO($dsn, $user, $password, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]);
-    } catch (Throwable $e) {
-        return null;
-    }
-
-    return $pdo;
-}
 
 try {
     $payload = [
@@ -39,21 +10,6 @@ try {
         'recentLogins' => [
             'available' => false,
             'items' => [],
-        ],
-        'applications' => [
-            'available' => false,
-            'counts' => [
-                'submitted' => 0,
-                'in_review' => 0,
-                'needs_info' => 0,
-                'interview' => 0,
-                'accepted' => 0,
-                'denied' => 0,
-                'closed' => 0,
-                'open' => 0,
-                'total' => 0,
-            ],
-            'recent' => [],
         ],
     ];
 
@@ -103,60 +59,6 @@ try {
                     'roleCount' => $roleCount,
                 ];
             }, $fallbackItems);
-        }
-    }
-
-    $applicationsPdo = auth_admin_connect_applications_pdo();
-    if ($applicationsPdo instanceof PDO && auth_table_exists($applicationsPdo, 'staff_applications')) {
-        $payload['applications']['available'] = true;
-
-        $countRows = $applicationsPdo->query(
-            "SELECT status, COUNT(*) AS total
-             FROM staff_applications
-             GROUP BY status"
-        )->fetchAll() ?: [];
-
-        foreach ($countRows as $row) {
-            $status = strtolower(trim((string) ($row['status'] ?? '')));
-            $count = (int) ($row['total'] ?? 0);
-            if ($status !== '' && array_key_exists($status, $payload['applications']['counts'])) {
-                $payload['applications']['counts'][$status] = $count;
-            }
-            $payload['applications']['counts']['total'] += $count;
-        }
-
-        $payload['applications']['counts']['open'] =
-            $payload['applications']['counts']['submitted'] +
-            $payload['applications']['counts']['in_review'] +
-            $payload['applications']['counts']['needs_info'] +
-            $payload['applications']['counts']['interview'];
-
-        $recentStmt = $applicationsPdo->query(
-            "SELECT public_id, applicant_name, role_requested, status, assigned_staff_name, updated_at
-             FROM staff_applications
-             ORDER BY updated_at DESC
-             LIMIT 8"
-        );
-
-        $payload['applications']['recent'] = array_map(static function (array $row): array {
-            return [
-                'publicId' => (string) ($row['public_id'] ?? ''),
-                'applicantName' => (string) ($row['applicant_name'] ?? ''),
-                'roleRequested' => (string) ($row['role_requested'] ?? ''),
-                'status' => (string) ($row['status'] ?? ''),
-                'assignedStaffName' => (string) ($row['assigned_staff_name'] ?? ''),
-                'updatedAt' => (string) ($row['updated_at'] ?? ''),
-            ];
-        }, $recentStmt->fetchAll() ?: []);
-    }
-
-    if (!$payload['applications']['available']) {
-        $store = auth_applications_store_load();
-        $counts = auth_applications_counts_from_store($store);
-        if ($counts['total'] > 0) {
-            $payload['applications']['available'] = true;
-            $payload['applications']['counts'] = $counts;
-            $payload['applications']['recent'] = auth_applications_recent_from_store($store, 8);
         }
     }
 

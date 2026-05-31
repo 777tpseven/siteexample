@@ -84,35 +84,6 @@ Optional richer fields such as display name, clearance, issued by, active, and p
 - Content Creator Team
 - Social Team
 
-## Applications desk
-
-The staff portal now also includes an `Applications` workspace with:
-
-- shared application list
-- status updates
-- assignment controls
-- private applicant / staff live chat
-
-Backend files:
-
-- `staff-auth/applications-bootstrap.php`
-- `staff-auth/applications-list.php`
-- `staff-auth/applications-detail.php`
-- `staff-auth/applications-update.php`
-- `staff-auth/applications-message.php`
-- `staff-auth/applications-schema.sql`
-
-Important setup note:
-
-- the public website auth side and the staff portal must point at the same application tables
-- if the main public auth DB and the staff DB are different, set `applications_mysql_dsn`, `applications_mysql_user`, and `applications_mysql_password` in both config files to the same shared database
-
-Application permissions:
-
-- `portal_access = app_review` lets a staff account open applications and reply in the applicant chat
-- `portal_access = app_manage` lets a staff account review applications and also change status or assignment
-- `portal_access = management` or `all`, or `clearance = Admin/Manager/Management`, also grants full application management access
-
 ## Auto deploy
 
 The GitHub workflow can deploy this folder automatically to `staff.sgcnr.net`.

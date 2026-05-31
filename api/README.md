@@ -83,7 +83,6 @@ Fallback values currently supported:
     "total_members": 1820,
     "online_members": 214,
     "verified_members": 906,
-    "open_tickets": 11,
     "pending_reports": 4
   }
 }
@@ -107,7 +106,6 @@ Fallback values currently supported:
       "verifiedMembers": 906
     },
     "support": {
-      "open_tickets": 11,
       "pending_reports": 4
     }
   },
@@ -135,9 +133,7 @@ These map straight into the website live dashboard:
 - `total_members`
 - `online_members`
 - `verified_members`
-- `open_tickets`
 - `pending_reports`
-- `pending_applications`
 - `linked_accounts`
 - `sync_roles`
 - `linking_enabled`

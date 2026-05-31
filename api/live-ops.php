@@ -11,4 +11,4 @@ if ($botPdo instanceof PDO) {
     $snapshot = sgcnr_bot_bridge_enrich_live_snapshot($snapshot, $botPdo);
 }
 
-api_json($snapshot);
+api_json(api_public_snapshot($snapshot));

@@ -481,37 +481,7 @@ let serverStatusPageState = {
 let leaderboardPageState = {
   requestId: 0
 };
-const APPLICATION_API = {
-  list: `${APP_ASSET_BASE_URL}auth/applications-list.php`,
-  detail: `${APP_ASSET_BASE_URL}auth/applications-detail.php`,
-  submit: `${APP_ASSET_BASE_URL}auth/applications-submit.php`,
-  message: `${APP_ASSET_BASE_URL}auth/applications-message.php`
-};
-const APPLICATION_STATUS_LABELS = {
-  submitted: "Submitted",
-  in_review: "Under Review",
-  needs_info: "Needs Info",
-  interview: "Interview",
-  accepted: "Accepted",
-  denied: "Rejected",
-  closed: "Closed"
-};
-const APPLICATION_OPEN_STATUSES = ["submitted", "in_review", "needs_info", "interview"];
 const ADMIN_OVERVIEW_API = `${APP_ASSET_BASE_URL}auth/admin-overview.php`;
-let applicationCenterState = {
-  loading: false,
-  submitting: false,
-  sending: false,
-  error: "",
-  success: "",
-  historyUnavailable: false,
-  items: [],
-  activeId: "",
-  detail: null,
-  formValues: {},
-  pollTimer: null,
-  requestId: 0
-};
 let adminOverviewState = {
   loading: false,
   loaded: false,
@@ -1878,7 +1848,7 @@ function renderHelp() {
             <div class="stack-list stack-list--compact">
               <div class="stack-list__item"><span class="stack-list__index">01</span><span>Linked website accounts with Discord roles and verification.</span></div>
               <div class="stack-list__item"><span class="stack-list__index">02</span><span>Live Discord bot status, guild member counts, and support queue panels.</span></div>
-              <div class="stack-list__item"><span class="stack-list__index">03</span><span>Application, appeal, and report dashboards shared between website and Discord.</span></div>
+              <div class="stack-list__item"><span class="stack-list__index">03</span><span>Ticket, appeal, and report guidance routed cleanly into Discord.</span></div>
               <div class="stack-list__item"><span class="stack-list__index">04</span><span>Automated server restart alerts, event posts, and leaderboard highlights.</span></div>
               <div class="stack-list__item"><span class="stack-list__index">05</span><span>Claimable rewards or perks after Discord verification or supporter role checks.</span></div>
               <div class="stack-list__item"><span class="stack-list__index">06</span><span>Role-locked website features that only open after backend verification confirms Discord membership.</span></div>
@@ -1888,87 +1858,6 @@ function renderHelp() {
       </div>
     `);
   }
-
-function renderApply() {
-  setView(`
-    <div>
-      ${renderHeader("Apply", [{ label: "Apply" }])}
-      <div class="content-grid content-grid--sidebar">
-        <section class="section section--hero account-hero">
-          <div class="section__eyebrow">Staff applications</div>
-          <h2>Application form</h2>
-          <p class="doc-p">Use this form to prepare a staff application for SGCNR. It is intentionally read-only for now, so nothing gets sent until the real backend intake is connected.</p>
-          <form class="account-form" autocomplete="off">
-            <div class="account-form__grid">
-              <label class="account-field">
-                <span class="account-field__label">Discord username</span>
-                <input class="account-field__input" type="text" placeholder="Your Discord username" />
-              </label>
-              <label class="account-field">
-                <span class="account-field__label">In-game name</span>
-                <input class="account-field__input" type="text" placeholder="Your in-game name" />
-              </label>
-              <label class="account-field">
-                <span class="account-field__label">In-game level</span>
-                <input class="account-field__input" type="number" min="1" placeholder="Your current level" />
-              </label>
-              <label class="account-field">
-                <span class="account-field__label">Playtime (hours)</span>
-                <input class="account-field__input" type="number" min="0" placeholder="Your total playtime" />
-              </label>
-              <label class="account-field">
-                <span class="account-field__label">Timezone</span>
-                <input class="account-field__input" type="text" placeholder="Example: CET / EST" />
-              </label>
-              <label class="account-field">
-                <span class="account-field__label">What role are you applying for?</span>
-                <input class="account-field__input" type="text" placeholder="Moderator, Tester, Helper, etc." />
-              </label>
-              <label class="account-field account-field--wide">
-                <span class="account-field__label">Availability</span>
-                <textarea class="account-field__input account-field__input--textarea" rows="3" placeholder="When are you usually online?"></textarea>
-              </label>
-              <label class="account-field account-field--wide">
-                <span class="account-field__label">Full ban history</span>
-                <textarea class="account-field__input account-field__input--textarea" rows="4" placeholder="Paste your full ban history here after requesting it in the SGCNR Discord ticket system."></textarea>
-              </label>
-              <label class="account-field account-field--wide">
-                <span class="account-field__label">Moderation experience</span>
-                <textarea class="account-field__input account-field__input--textarea" rows="4" placeholder="Tell us about any moderation experience you have."></textarea>
-              </label>
-              <label class="account-field account-field--wide">
-                <span class="account-field__label">Testing experience</span>
-                <textarea class="account-field__input account-field__input--textarea" rows="4" placeholder="Tell us about any QA, bug-reporting, or testing experience you have."></textarea>
-              </label>
-              <label class="account-field account-field--wide">
-                <span class="account-field__label">Why should we accept you?</span>
-                <textarea class="account-field__input account-field__input--textarea" rows="5" placeholder="Explain why you would be a good fit for staff."></textarea>
-              </label>
-            </div>
-            <div class="auth-modal__actions">
-              <button class="auth__btn auth__btn--primary" type="button" disabled>Send application</button>
-            </div>
-            <div class="status-note">
-              <strong>Current state:</strong> this form is live as a clean layout only. Submission is blocked until the real application backend is connected. Applicants should request their full ban history in the SGCNR Discord by opening a ticket and choosing <code>Ban history</code>.
-            </div>
-          </form>
-        </section>
-
-        <aside class="section section--stack">
-          <div class="section__eyebrow">What to include</div>
-          <h2>Before you apply</h2>
-          <div class="stack-list stack-list--compact">
-            <div class="stack-list__item"><span class="stack-list__index">01</span><span>Use your real Discord username and in-game name.</span></div>
-            <div class="stack-list__item"><span class="stack-list__index">02</span><span>Be honest about your level, playtime, and availability.</span></div>
-            <div class="stack-list__item"><span class="stack-list__index">03</span><span>Open a ticket in the SGCNR Discord and choose <strong>Ban history</strong> to get your full ban history first.</span></div>
-            <div class="stack-list__item"><span class="stack-list__index">04</span><span>Include any moderation or testing experience you already have.</span></div>
-            <div class="stack-list__item"><span class="stack-list__index">05</span><span>Take your time with the final answer about why you want to join staff.</span></div>
-          </div>
-        </aside>
-      </div>
-    </div>
-  `);
-}
 
 function setAccountFeedback(element, tone, text) {
   if (!element) return;
@@ -4434,9 +4323,9 @@ function renderStoreOrderStatus() {
         </div>
         <div class="store-sidebar__block order-status-sidecard">
           <div class="order-status-sidecard__icon">🤖</div>
-          <div class="store-sidecard__title">Bot / live chat</div>
+          <div class="store-sidecard__title">Discord support</div>
           <div class="store-sidecard__text">
-            Live Discord bot replies are not available from this static site alone. To make that work, you'll need a backend endpoint or bot integration that this form can send requests to.
+            Order support stays inside Discord tickets so staff can keep every reply in one tracked place.
           </div>
         </div>
         <div class="store-sidebar__block order-status-sidecard">
@@ -4886,9 +4775,7 @@ function normaliseDiscordOpsPayload(payload) {
       onlineMembers: null,
       totalMembers: null,
       verifiedMembers: null,
-      openTickets: null,
       pendingReports: null,
-      pendingApplications: null,
       linkedAccounts: null,
       syncRoles: false,
       linkingEnabled: Boolean(SERVER_CONFIG.discordOAuthUrl),
@@ -4908,9 +4795,7 @@ function normaliseDiscordOpsPayload(payload) {
     "total_members",
     "online_members",
     "verified_members",
-    "open_tickets",
     "pending_reports",
-    "pending_applications",
     "linked_accounts",
     "sync_roles",
     "linking_enabled",
@@ -4958,9 +4843,7 @@ function normaliseDiscordOpsPayload(payload) {
     onlineMembers: toFiniteNumber(pickFirstDefined(guild, ["onlineMembers", "membersOnline", "presenceCount", "online", "online_members"])),
     totalMembers: toFiniteNumber(pickFirstDefined(guild, ["totalMembers", "members", "memberCount", "total_members"])),
     verifiedMembers: toFiniteNumber(pickFirstDefined(guild, ["verifiedMembers", "linkedMembers", "whitelistedMembers", "verified_members"])),
-    openTickets: toFiniteNumber(pickFirstDefined(support, ["openTickets", "open_tickets", "ticketsOpen", "tickets"])),
     pendingReports: toFiniteNumber(pickFirstDefined(support, ["pendingReports", "pending_reports", "reportsOpen", "reports"])),
-    pendingApplications: toFiniteNumber(pickFirstDefined(support, ["pendingApplications", "applicationsOpen", "applications", "pending_applications"])),
     linkedAccounts: toFiniteNumber(pickFirstDefined(linking, ["linkedAccounts", "linkedUsers", "connections", "linked_accounts"])),
     syncRoles: syncRolesRaw == null ? false : Boolean(syncRolesRaw),
     linkingEnabled: linkingEnabledRaw == null ? Boolean(SERVER_CONFIG.discordOAuthUrl) : Boolean(linkingEnabledRaw),
@@ -5100,9 +4983,7 @@ async function loadLiveOpsSnapshot() {
     "total_members",
     "online_members",
     "verified_members",
-    "open_tickets",
     "pending_reports",
-    "pending_applications",
     "linked_accounts",
     "sync_roles",
     "linking_enabled",
@@ -6109,7 +5990,6 @@ function parseRoute() {
 
   if (parts[0] === "start") return { name: "start" };
   if (parts[0] === "rules") return { name: "rules" };
-  if (parts[0] === "apply" || parts[0] === "applications") return { name: "help" };
   if (parts[0] === "faq" || parts[0] === "help") return { name: "help" };
   if (parts[0] === "account") return { name: "account" };
   if (parts[0] === "admin") return { name: "admin" };
@@ -6160,7 +6040,6 @@ function route() {
   document.body.classList.toggle("is-map", r.name === "map");
   document.body.classList.toggle("is-wiki", r.name === "wiki");
   document.body.classList.toggle("is-standard", isStandardPage);
-  document.body.classList.toggle("is-apply", false);
   clearTopMeta();
 
   const inRulesFlow = (r.name === "rules" && ruleSections.length > 0) || r.name === "section" || r.name === "rule";
