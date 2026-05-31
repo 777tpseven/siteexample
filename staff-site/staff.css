@@ -938,3 +938,62 @@ body::after {
     grid-template-columns: 1fr;
   }
 }
+
+/* 2026-06-01 cleaner logo fit and text centering */
+.staff-brand{
+  align-items: center;
+  border-radius: 24px;
+}
+
+.staff-brand__badge{
+  width: clamp(136px, 12vw, 168px);
+  height: 44px;
+  object-fit: cover;
+  object-position: center 46%;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 10, 13, 0.72);
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.34),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  filter: saturate(1.06) contrast(1.04) brightness(1.02);
+}
+
+.staff-brand__copy{
+  align-content: center;
+}
+
+.staff-brand__eyebrow,
+.gate-kicker,
+.workspace-panel__eyebrow,
+.summary-card__label,
+.staff-account__eyebrow{
+  line-height: 1.2;
+}
+
+.staff-brand__title,
+.summary-card__value,
+.workspace-panel__title,
+.gate-title{
+  line-height: 1.12;
+}
+
+.staff-btn,
+.staff-application-status{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding-top: 2px;
+}
+
+@media (max-width: 560px){
+  .staff-brand{
+    justify-content: flex-start;
+  }
+
+  .staff-brand__badge{
+    width: min(144px, 42vw);
+    height: 42px;
+  }
+}

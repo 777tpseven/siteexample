@@ -1,0 +1,248 @@
+/* Final logo/header polish for the June 2026 SGCNR refresh. */
+.topbar,
+body.is-landing .topbar,
+body.is-standard .topbar,
+body.is-wiki .topbar,
+body.is-apply .topbar,
+body.is-map .topbar{
+  grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr) !important;
+  align-items: center !important;
+  min-height: 86px !important;
+  padding: 14px 24px !important;
+  gap: 18px !important;
+  border-radius: 28px !important;
+  overflow: hidden !important;
+}
+
+.topbar__status,
+.auth,
+.brandmark{
+  align-self: center !important;
+  align-items: center !important;
+}
+
+.topbar__status{
+  min-width: 0 !important;
+}
+
+.auth{
+  position: static !important;
+  justify-self: end !important;
+  min-height: 44px !important;
+}
+
+.brandmark{
+  justify-self: center !important;
+  min-width: 0 !important;
+  width: auto !important;
+}
+
+.brandmark__badge{
+  width: clamp(188px, 14vw, 218px) !important;
+  height: clamp(54px, 4vw, 62px) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 5px !important;
+  border-radius: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.brandmark__badge::before{
+  inset: 5px !important;
+  border-radius: 15px !important;
+  z-index: 3 !important;
+}
+
+.brandmark__light{
+  z-index: 2 !important;
+  opacity: .42 !important;
+}
+
+.brandmark__logo{
+  position: relative !important;
+  z-index: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: none !important;
+  object-fit: cover !important;
+  object-position: center 46% !important;
+  border-radius: 15px !important;
+  filter: saturate(1.08) contrast(1.05) brightness(1.03) !important;
+}
+
+.brandmark__logo.is-ready{
+  display: block !important;
+}
+
+.clock,
+.auth__btn,
+.homefront__actions .auth__btn,
+.startfront__actions .auth__btn,
+.homefront__cardButton,
+.dock__item,
+.breadcrumb__link,
+.breadcrumb__current{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+}
+
+.auth__btn,
+.auth__btn--primary,
+body.is-landing .auth__btn,
+body.is-landing .auth__btn--primary,
+body.is-standard .auth__btn,
+body.is-standard .auth__btn--primary,
+body.is-wiki .auth__btn,
+body.is-wiki .auth__btn--primary,
+body.is-apply .auth__btn,
+body.is-apply .auth__btn--primary,
+body.is-map .auth__btn,
+body.is-map .auth__btn--primary,
+.homefront__actions .auth__btn,
+.homefront__actions .auth__btn--primary,
+.startfront__actions .auth__btn,
+.startfront__actions .auth__btn--primary{
+  padding: 2px 18px 0 !important;
+  line-height: 1 !important;
+}
+
+[hidden],
+.auth__btn[style*="display:none"],
+.auth__btn[style*="display: none"]{
+  display: none !important;
+}
+
+.homefront__visual{
+  min-height: clamp(300px, 30vw, 390px) !important;
+  padding: clamp(18px, 2.1vw, 28px) !important;
+  border-radius: 30px !important;
+}
+
+.homefront__visualImage{
+  width: min(100%, 670px) !important;
+  height: clamp(150px, 17vw, 210px) !important;
+  object-fit: cover !important;
+  object-position: center 46% !important;
+  border-radius: 22px !important;
+  border: 1px solid rgba(216, 255, 230, .10) !important;
+  filter: saturate(1.08) contrast(1.04) brightness(1.02) !important;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, .42),
+    0 0 0 1px rgba(92, 255, 161, .07),
+    inset 0 0 0 1px rgba(255, 255, 255, .07) !important;
+}
+
+.homefront__statusCard{
+  align-content: center !important;
+  padding: 16px !important;
+}
+
+.homefront__signal{
+  align-items: center !important;
+}
+
+.homefront__signalCopy{
+  align-self: center !important;
+}
+
+.homefront__statusLabel,
+.homefront__signalLabel,
+.homefront__cardLabel,
+.startfront__eyebrow,
+.homefront__eyebrow,
+.section__eyebrow,
+.neo-kicker,
+.feature-card__label,
+.status-card__label,
+.status-live__label{
+  line-height: 1.2 !important;
+}
+
+.homefront__statusValue,
+.homefront__signalTitle,
+.homefront__cardTitle,
+.startfront__stepCopy strong,
+.page-title,
+.section h2,
+.section h3{
+  line-height: 1.15 !important;
+}
+
+@media (max-width: 1080px){
+  .topbar,
+  body.is-landing .topbar,
+  body.is-standard .topbar,
+  body.is-wiki .topbar,
+  body.is-apply .topbar,
+  body.is-map .topbar{
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas:
+      "brand auth"
+      "status status" !important;
+    min-height: 0 !important;
+    padding: 14px 16px !important;
+  }
+
+  .brandmark{
+    grid-area: brand !important;
+    justify-self: start !important;
+  }
+
+  .auth{
+    grid-area: auth !important;
+  }
+
+  .topbar__status{
+    grid-area: status !important;
+    justify-content: flex-start !important;
+  }
+}
+
+@media (max-width: 760px){
+  .topbar,
+  body.is-landing .topbar,
+  body.is-standard .topbar,
+  body.is-wiki .topbar,
+  body.is-apply .topbar,
+  body.is-map .topbar{
+    width: min(100%, calc(100% - 14px)) !important;
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas:
+      "status auth"
+      "brand brand" !important;
+    padding: 12px !important;
+    gap: 10px !important;
+    border-radius: 24px !important;
+  }
+
+  .brandmark{
+    grid-area: brand !important;
+    justify-self: center !important;
+  }
+
+  .topbar__status{
+    grid-area: status !important;
+  }
+
+  .brandmark__badge{
+    width: min(192px, calc(100vw - 48px)) !important;
+    height: 54px !important;
+  }
+
+  .homefront__visual{
+    min-height: 250px !important;
+    padding: 16px !important;
+  }
+
+  .homefront__visualImage{
+    height: clamp(132px, 36vw, 168px) !important;
+    border-radius: 18px !important;
+  }
+}
