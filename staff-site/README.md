@@ -73,8 +73,7 @@ Optional richer fields such as display name, clearance, issued by, active, and p
 
 ## Included teams
 
-- Management Team
-- Admin Team
+- Staff Panel
 - Moderation Team
 - Development Team
 - Testing Team

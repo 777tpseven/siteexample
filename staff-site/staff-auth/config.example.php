@@ -6,7 +6,7 @@ return [
     'mysql_password' => 'your_staff_db_password',
     'txadmin_base_url' => 'http://127.0.0.1:40120',
     'txadmin_bridge_enabled' => false,
-    'txadmin_console_manager_only' => true,
+    'txadmin_console_staff_only' => true,
     'staff_table' => 'staff_accounts',
     'staff_record_id_column' => 'staff_id',
     'staff_username_column' => 'username',
@@ -17,7 +17,7 @@ return [
     'staff_clearance_column' => '',
     'staff_issued_by_column' => '',
     // Example values in the mapped portal access column:
-    // management / all = full portal access
+    // staff / all = full portal access
     'staff_portal_access_column' => '',
     'staff_active_column' => '',
     'staff_audit_table' => '',

@@ -35,7 +35,7 @@ const DEFAULT_SERVER_CONFIG = {
   authLogoutUrl: "",
   authRegisterUrl: "",
   authProfileUrl: "",
-  adminPanelLabel: "Manager",
+  adminPanelLabel: "Staff",
   adminPanelRoles: [],
   adminPanelUserIds: [],
   statusRefreshMs: 60000,
@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260601a";
+const SITE_ASSET_VERSION = "20260601b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -552,7 +552,7 @@ async function requestJson(url, options = {}) {
 
 function isAdminRouteActive() {
   try {
-    return parseRoute().name === "admin";
+    return parseRoute().name === "staff";
   } catch {
     return false;
   }
@@ -574,11 +574,11 @@ async function loadAdminOverview(options = {}) {
   } catch (error) {
     const reason = error?.payload?.error || error?.message || "admin_overview_failed";
     if (reason === "forbidden") {
-      adminOverviewState.error = "Your Discord role does not allow this admin overview.";
+      adminOverviewState.error = "Your Discord role does not allow this staff overview.";
     } else if (reason === "not_authenticated") {
-      adminOverviewState.error = "Sign in again to refresh the admin overview.";
+      adminOverviewState.error = "Sign in again to refresh the staff overview.";
     } else {
-      adminOverviewState.error = "The admin overview could not be loaded right now.";
+      adminOverviewState.error = "The staff overview could not be loaded right now.";
     }
   } finally {
     adminOverviewState.loading = false;
@@ -974,7 +974,7 @@ function hasAdminAccess(account = getCurrentAccount()) {
     : false;
 }
 function updateAdminDockVisibility(account = getCurrentAccount()) {
-  const adminDock = document.querySelector('.dock__item[data-dock="admin"]');
+  const adminDock = document.querySelector('.dock__item[data-dock="staff"]');
   if (!adminDock) return;
   adminDock.style.display = hasAdminAccess(account) ? "inline-flex" : "none";
 }
@@ -1243,7 +1243,7 @@ function renderAccountUi() {
     { action: "profile", label: "Edit Profile", meta: "Display name, region, bio" },
     { action: "settings", label: "Settings", meta: "Tracking and website preferences" },
     { action: "services", label: "Linked Services", meta: "Discord, verification, FiveM sync" },
-    ...(hasAdminAccess(account) ? [{ action: "admin", label: "Admin Panel", meta: "Open the manager tools" }] : []),
+    ...(hasAdminAccess(account) ? [{ action: "staff", label: "Staff Panel", meta: "Open the staff tools" }] : []),
     { action: "logout", label: "Sign Out", meta: "End the current website session" }
   ];
 
@@ -2128,16 +2128,16 @@ function renderAccountDashboard(account) {
 }
 
 function renderAdminLockedPage() {
-  const label = SERVER_CONFIG.adminPanelLabel || "Manager";
+  const label = SERVER_CONFIG.adminPanelLabel || "Staff";
   return `
     <div>
-      ${renderHeader(`${label} Mode`, [{ label: label }])}
+      ${renderHeader(`${label} Panel`, [{ label: label }])}
       <section class="section section--hero">
         <div class="section__eyebrow">Restricted access</div>
         <h2>${escapeHtml(label)} access required</h2>
-        <p class="doc-p">This tab is reserved for Discord accounts with one of the configured manager/admin role IDs or Discord user IDs. Once your role is listed in <code>adminPanelRoles</code> or your user ID is listed in <code>adminPanelUserIds</code>, the website will unlock this tab automatically for that Discord account.</p>
+        <p class="doc-p">This tab is reserved for Discord accounts with one of the configured staff role IDs or Discord user IDs. Once your staff role or Discord user ID is listed in the live staff access config, the website will unlock this tab automatically for that Discord account.</p>
         <div class="status-note">
-          <strong>Next step:</strong> add the real Discord manager role ID or Discord user ID to the live config so the website can match your account against the admin access rule.
+          <strong>Next step:</strong> add the real Discord staff role ID or Discord user ID to the live config so the website can match your account against the staff access rule.
         </div>
       </section>
     </div>
@@ -2145,19 +2145,19 @@ function renderAdminLockedPage() {
 }
 
 function renderAdminDashboard(account) {
-  const label = SERVER_CONFIG.adminPanelLabel || "Manager";
+  const label = SERVER_CONFIG.adminPanelLabel || "Staff";
   const roleMarkup = getDiscordRoleList(account).length
     ? getDiscordRoleList(account).map((role) => `<span class="leaderboard-badge">${escapeHtml(role)}</span>`).join("")
     : `<span class="leaderboard-badge">No synced roles</span>`;
 
   setView(`
     <div class="admin-page">
-      ${renderHeader(`${label} Mode`, [{ label: label }])}
+      ${renderHeader(`${label} Panel`, [{ label: label }])}
 
       <section class="section section--hero">
         <div class="section__eyebrow">Discord synced access</div>
         <h2>${escapeHtml(label)} control panel</h2>
-        <p class="doc-p">This area is ideal for staff-side website control, live server coordination, and private community operations. It is unlocked only for Discord accounts that match the configured manager/admin roles.</p>
+        <p class="doc-p">This area is ideal for staff-side website control, live server coordination, and private community operations. It is unlocked only for Discord accounts that match the configured staff roles.</p>
 
         <div class="status-grid">
           <div class="status-card">
@@ -2168,7 +2168,7 @@ function renderAdminDashboard(account) {
           <div class="status-card">
             <div class="status-card__label">Website identity</div>
             <div class="status-card__value">${escapeHtml(getAccountDisplayName(account))}</div>
-            <div class="status-card__meta">Current signed-in manager account</div>
+            <div class="status-card__meta">Current signed-in staff account</div>
           </div>
           <div class="status-card">
             <div class="status-card__label">Verified identity</div>
@@ -2190,7 +2190,7 @@ function renderAdminDashboard(account) {
           <div class="stack-list stack-list--compact">
             <div class="stack-list__item"><span class="stack-list__index">01</span><span><strong>Announcements:</strong> homepage alerts, restart banners, maintenance notices, and event callouts.</span></div>
             <div class="stack-list__item"><span class="stack-list__index">02</span><span><strong>Reports & appeals:</strong> review queues for player reports, ban appeals, and moderation follow-up.</span></div>
-            <div class="stack-list__item"><span class="stack-list__index">03</span><span><strong>Live ops controls:</strong> toggle active events, hottest zones, and manager-side notices shown on the Live page.</span></div>
+            <div class="stack-list__item"><span class="stack-list__index">03</span><span><strong>Live ops controls:</strong> toggle active events, hottest zones, and staff-side notices shown on the Live page.</span></div>
             <div class="stack-list__item"><span class="stack-list__index">04</span><span><strong>Account oversight:</strong> inspect Discord-linked accounts, verification status, and identity mismatches.</span></div>
             <div class="stack-list__item"><span class="stack-list__index">05</span><span><strong>Support overview:</strong> pending reports, pending reviews, website health, and backend sync checks.</span></div>
             <div class="stack-list__item"><span class="stack-list__index">06</span><span><strong>Private notes:</strong> internal rollout reminders, changelog notes, and staff-only operational tasks.</span></div>
@@ -2204,7 +2204,7 @@ function renderAdminDashboard(account) {
             ${roleMarkup}
           </div>
           <div class="status-note">
-            <strong>Setup note:</strong> the tab appears when your synced Discord role list contains an admin role ID or your Discord user ID is explicitly allowed.
+            <strong>Setup note:</strong> the tab appears when your synced Discord role list contains a staff role ID or your Discord user ID is explicitly allowed.
           </div>
         </aside>
       </div>
@@ -2213,7 +2213,7 @@ function renderAdminDashboard(account) {
 }
 
 function renderAdminDashboard(account) {
-  const label = SERVER_CONFIG.adminPanelLabel || "Manager";
+  const label = SERVER_CONFIG.adminPanelLabel || "Staff";
   const payload = adminOverviewState.data || {};
   const recentLogins = Array.isArray(payload?.recentLogins?.items) ? payload.recentLogins.items : [];
   const loading = adminOverviewState.loading && !adminOverviewState.loaded;
@@ -2247,7 +2247,7 @@ function renderAdminDashboard(account) {
 
   setView(`
     <div class="admin-page">
-      ${renderHeader(`${label} Mode`, [{ label: label }])}
+      ${renderHeader(`${label} Panel`, [{ label: label }])}
 
       <section class="section section--hero admin-hero">
         <div class="section__eyebrow">Website control</div>
@@ -2267,8 +2267,8 @@ function renderAdminDashboard(account) {
           <a class="auth__btn" href="#/rules">Rules</a>
           <a class="auth__btn" href="${escapeHtml(SERVER_CONFIG.discordTicketChannelUrl || SERVER_CONFIG.discordUrl || "#")}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
         </div>
-        ${loading ? `<div class="status-note">Loading the admin overview...</div>` : ""}
-        ${adminOverviewState.error ? `<div class="status-note"><strong>Admin overview:</strong> ${escapeHtml(adminOverviewState.error)}</div>` : ""}
+        ${loading ? `<div class="status-note">Loading the staff overview...</div>` : ""}
+        ${adminOverviewState.error ? `<div class="status-note"><strong>Staff overview:</strong> ${escapeHtml(adminOverviewState.error)}</div>` : ""}
       </section>
 
       <div class="content-grid content-grid--sidebar">
@@ -2443,7 +2443,7 @@ function renderAccount() {
       <section class="section section--hero account-hero account-hero--compact">
         <div class="section__eyebrow">Website account</div>
         <h2>${escapeHtml(getAccountDisplayName(account))}</h2>
-        <p class="doc-p">Your account tools now live behind the profile button in the top bar. Use it for profile edits, settings, linked services, and admin tools if your Discord role allows them.</p>
+        <p class="doc-p">Your account tools now live behind the profile button in the top bar. Use it for profile edits, settings, linked services, and staff tools if your Discord role allows them.</p>
         <div class="status-actions">
           <button class="auth__btn auth__btn--primary" type="button" data-account-action="profile">Edit profile</button>
           <button class="auth__btn" type="button" data-account-action="settings">Settings</button>
@@ -5212,7 +5212,7 @@ function renderServerStatusError(message) {
         <div class="status-empty__title">Live status is not available right now</div>
         <div class="status-empty__text">${escapeHtml(message || "The live status feed could not be reached from the website at the moment.")}</div>
           <div class="status-note">
-            <strong>Ready for live setup:</strong> check the live status configuration if your server uses different Discord, txAdmin, or sync connections.
+            <strong>Ready for live setup:</strong> check the live status configuration if your server uses different Discord, runtime, or sync connections.
           </div>
         </div>
       </section>
@@ -6014,7 +6014,7 @@ function parseRoute() {
   if (parts[0] === "rules") return { name: "rules" };
   if (parts[0] === "faq" || parts[0] === "help") return { name: "help" };
   if (parts[0] === "account") return { name: "account" };
-  if (parts[0] === "admin") return { name: "admin" };
+  if (parts[0] === "staff" || parts[0] === "admin") return { name: "staff" };
   if (parts[0] === "leaderboard") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "wiki") return { name: "wiki", wikiPage: parts[1] || "" };
   if (parts[0] === "map") return { name: "map" };
@@ -6084,7 +6084,7 @@ function route() {
     renderAccount();
     return;
   }
-  if (r.name === "admin") {
+  if (r.name === "staff") {
     if (hasAdminAccess()) {
       renderAdminDashboard(getCurrentAccount());
     } else {
@@ -6453,9 +6453,9 @@ document.addEventListener("click", (event) => {
       return;
     }
 
-    if (action === "admin") {
+    if (action === "staff") {
       closeAccountUi();
-      navigateTo("/admin");
+      navigateTo("/staff");
       return;
     }
 

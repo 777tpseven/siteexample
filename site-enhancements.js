@@ -1188,21 +1188,7 @@
 
   renderLandingHome = function renderLandingHomeFinal() {
     setView(`
-      <div class="neo-home">
-        <section class="neo-home__hero section section--hero" data-reveal>
-          <div class="neo-home__copy">
-            <span class="neo-home__eyebrow">Los Santos network</span>
-            <h2 class="neo-home__title">One clean front door for SGCNR.</h2>
-            <p class="neo-home__text">Jump into the pages players actually use: getting started, the map, live status, and support. No filler, no duplicate routes, just the essentials in one place.</p>
-            <div class="neo-home__actions">
-              <a class="auth__btn auth__btn--primary" href="/start">Start here</a>
-              <a class="auth__btn" href="/map">Open map</a>
-              <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
-            </div>
-          </div>
-        </section>
-
-      </div>
+      <div class="homefront homefront--logo-only" aria-label="SGCNR homepage"></div>
     `);
   };
 
@@ -1604,34 +1590,8 @@
 
   renderLandingHome = function renderLandingHomeRebuilt() {
     setView(`
-      <div class="homefront">
-        <section class="homefront__hero" data-reveal>
-          <div class="homefront__copy">
-            <span class="homefront__eyebrow">Los Santos network</span>
-            <h2 class="homefront__title">One clean front door for <span>SGCNR.</span></h2>
-            <p class="homefront__text">Jump straight into the pages players actually use: Start, the map, live status, and support. No duplicate routes, no filler, just the pages that matter.</p>
-            <div class="homefront__actions">
-              <a class="auth__btn auth__btn--primary" href="/start">Start here</a>
-              <a class="auth__btn" href="/map">Open map</a>
-              <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord</a>
-            </div>
-          </div>
-
-          <div class="homefront__media">
-            <div class="homefront__visual">
-              <div class="homefront__visualGlow" aria-hidden="true"></div>
-              <img class="homefront__visualImage" src="${escapeHtml(BRAND_LOGO_BANNER_URL)}" alt="SGCNR branding" loading="eager" />
-            </div>
-            <div class="homefront__statusGrid" id="homefrontStatusGrid">
-              ${renderHomefrontStatusCards()}
-            </div>
-          </div>
-        </section>
-
-      </div>
+      <div class="homefront homefront--logo-only" aria-label="SGCNR homepage"></div>
     `);
-
-    void hydrateHomefrontStatus();
   };
 
   renderStart = function renderStartRebuilt() {
@@ -1678,34 +1638,8 @@
 
   renderLandingHome = function renderLandingHomeFinalPass() {
     setView(`
-      <div class="homefront">
-        <section class="homefront__hero" data-reveal>
-          <div class="homefront__copy">
-            <span class="homefront__eyebrow">Los Santos network</span>
-            <h2 class="homefront__title">One clean front door for <span>SGCNR.</span></h2>
-            <p class="homefront__text">Jump straight into the pages players actually use: Start, the map, live status, and support. No duplicate routes, no filler, just the pages that matter.</p>
-            <div class="homefront__actions">
-              <a class="auth__btn auth__btn--primary" href="/start">Start here</a>
-              <a class="auth__btn" href="/map">Open map</a>
-              <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord</a>
-            </div>
-          </div>
-
-          <div class="homefront__media">
-            <div class="homefront__visual">
-              <div class="homefront__visualGlow" aria-hidden="true"></div>
-              <img class="homefront__visualImage" src="${escapeHtml(BRAND_LOGO_BANNER_URL)}" alt="SGCNR branding" loading="eager" />
-            </div>
-            <div class="homefront__statusGrid" id="homefrontStatusGrid">
-              ${renderHomefrontStatusCards()}
-            </div>
-          </div>
-        </section>
-
-      </div>
+      <div class="homefront homefront--logo-only" aria-label="SGCNR homepage"></div>
     `);
-
-    void hydrateHomefrontStatus();
   };
 
   route();

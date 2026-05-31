@@ -43,7 +43,7 @@ try {
         $resetColumn . ' AS password_reset_required',
         ($displayNameColumn ? staff_auth_quote_identifier($displayNameColumn) : $usernameColumn) . ' AS display_name',
         ($clearanceColumn ? staff_auth_quote_identifier($clearanceColumn) : "'General Staff'") . ' AS clearance',
-        ($issuedByColumn ? staff_auth_quote_identifier($issuedByColumn) : "'Management Team'") . ' AS issued_by',
+        ($issuedByColumn ? staff_auth_quote_identifier($issuedByColumn) : "'Staff Panel'") . ' AS issued_by',
         ($portalAccessColumn ? staff_auth_quote_identifier($portalAccessColumn) : "''") . ' AS portal_access',
         ($activeColumn ? staff_auth_quote_identifier($activeColumn) : '1') . ' AS active',
     ];
@@ -85,7 +85,7 @@ $account = [
     'staff_id' => $record['staff_login'],
     'display_name' => $record['display_name'] ?: $record['staff_login'],
     'clearance' => $record['clearance'] ?: 'General Staff',
-    'issued_by' => $record['issued_by'] ?: 'Management Team',
+    'issued_by' => $record['issued_by'] ?: 'Staff Panel',
     'portal_access' => $record['portal_access'] ?? '',
     'password_reset_required' => !empty($record['password_reset_required']),
 ];

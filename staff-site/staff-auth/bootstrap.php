@@ -271,17 +271,10 @@ function staff_auth_access_level(): string
     $clearance = strtolower(trim((string) ($_SESSION['staff_clearance'] ?? '')));
 
     if (
-        staff_auth_has_access_token('all', 'management') ||
-        in_array($clearance, ['management', 'manager'], true)
+        staff_auth_has_access_token('all', 'staff', 'management', 'admin', 'operations') ||
+        in_array($clearance, ['staff', 'staff_panel', 'management', 'manager', 'admin'], true)
     ) {
-        return 'manager';
-    }
-
-    if (
-        staff_auth_has_access_token('admin', 'operations') ||
-        $clearance === 'admin'
-    ) {
-        return 'admin';
+        return 'staff_panel';
     }
 
     return 'staff';
@@ -306,7 +299,7 @@ function staff_auth_session_payload(): array
             'staffId' => $_SESSION['staff_id'] ?? '',
             'displayName' => $_SESSION['staff_display_name'] ?? ($_SESSION['staff_id'] ?? ''),
             'clearance' => $_SESSION['staff_clearance'] ?? 'General Staff',
-            'issuedBy' => $_SESSION['staff_issued_by'] ?? 'Management Team',
+            'issuedBy' => $_SESSION['staff_issued_by'] ?? 'Staff Panel',
             'portalAccess' => $_SESSION['staff_portal_access'] ?? '',
             'active' => true,
         ],

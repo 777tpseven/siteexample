@@ -1,16 +1,46 @@
 /* Final logo/header polish for the June 2026 SGCNR refresh. */
 .site-brand-backdrop{
-  position: fixed;
-  inset: 104px 0 auto;
-  height: min(52svh, 540px);
+  position: relative;
+  display: none;
+  width: min(1380px, calc(100% - 28px));
+  height: calc(100svh - 112px);
+  min-height: 560px;
+  margin: 12px auto 0;
   pointer-events: none;
-  z-index: 0;
-  opacity: .20;
-  background:
-    radial-gradient(ellipse at center, rgba(104, 242, 155, .18), transparent 62%),
-    url("/branding/sgcnr-badge.png?v=20260601a") center top / min(980px, 88vw) auto no-repeat;
-  filter: saturate(1.08) contrast(1.05);
-  mask-image: linear-gradient(180deg, rgba(0,0,0,.88), rgba(0,0,0,.64) 56%, transparent);
+  z-index: 1;
+  opacity: 1;
+  background: transparent;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+body.is-landing .site-brand-backdrop{
+  display: block;
+}
+
+.site-brand-backdrop::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260601b") center 52% / min(1120px, 86vw) auto no-repeat;
+  filter:
+    drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
+    saturate(1.02)
+    contrast(1.02)
+    brightness(1.02);
+  opacity: 1;
+  mix-blend-mode: normal;
+  -webkit-mask-image: none;
+  mask-image: none;
+  pointer-events: none;
+}
+
+.site-brand-backdrop::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 76%, rgba(5,10,7,.74) 100%);
+  pointer-events: none;
 }
 
 .content,
@@ -41,15 +71,7 @@
 .neo-hero::after,
 .live-minimal__hero::after,
 .wiki-ledger__masthead::after{
-  content: "";
-  position: absolute;
-  inset: 8px;
-  z-index: 0;
-  pointer-events: none;
-  background: url("/branding/sgcnr-badge.png?v=20260601a") center / min(780px, 86%) auto no-repeat;
-  opacity: .105;
-  filter: saturate(1.08) contrast(1.04);
-  mask-image: linear-gradient(90deg, transparent, rgba(0,0,0,.88) 20%, rgba(0,0,0,.88) 80%, transparent);
+  display: none !important;
 }
 
 .page-hero > *,
@@ -270,10 +292,15 @@ body.is-map .auth__btn--primary,
 
 @media (max-width: 760px){
   .site-brand-backdrop{
-    top: 126px;
-    height: min(48svh, 420px);
-    opacity: .16;
-    background-size: min(720px, 118vw) auto;
+    width: min(100%, calc(100% - 14px));
+    height: calc(100svh - 144px);
+    min-height: 460px;
+    margin-top: 10px;
+    border-radius: 24px;
+  }
+
+  .site-brand-backdrop::before{
+    background-size: min(760px, 132vw) auto;
   }
 
   .page-hero::after,

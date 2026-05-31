@@ -18,7 +18,7 @@ window.SGCNR_SERVER_CONFIG = {
   authLogoutUrl: "https://sgcnr.net/auth/logout.php",
   authRegisterUrl: "",
   authProfileUrl: "https://sgcnr.net/auth/api.php",
-  adminPanelLabel: "Manager",
+  adminPanelLabel: "Staff",
   adminPanelRoles: [
     "1463277998189838427",
     "1463277637911970065"

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS staff_accounts (
     password_hash VARCHAR(255) NOT NULL,
     display_name VARCHAR(120) NOT NULL,
     clearance VARCHAR(80) NOT NULL DEFAULT 'General Staff',
-    issued_by VARCHAR(120) NOT NULL DEFAULT 'Management Team',
+    issued_by VARCHAR(120) NOT NULL DEFAULT 'Staff Panel',
     portal_access VARCHAR(32) NOT NULL DEFAULT '',
     password_reset_required TINYINT(1) NOT NULL DEFAULT 1,
     active TINYINT(1) NOT NULL DEFAULT 1,

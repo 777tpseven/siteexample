@@ -12,7 +12,6 @@ return [
     'allowed_origins' => [
         'https://sgcnr.net',
         'https://staff.sgcnr.net',
-        'https://admin.sgcnr.net',
         'https://support.sgcnr.net',
         'https://testing.sgcnr.net',
     ],
