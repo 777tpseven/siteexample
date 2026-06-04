@@ -15,26 +15,9 @@
   }, { once: true });
 
   function initEditorialMotion() {
-    if (!("IntersectionObserver" in window)) {
-      document.querySelectorAll("[data-reveal]").forEach((node) => node.classList.add("is-visible"));
-      return;
-    }
-
-    if (!revealObserver) {
-      revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.18, rootMargin: "0px 0px -6% 0px" });
-    }
-
-    document.querySelectorAll("[data-reveal]").forEach((node, index) => {
-      node.style.setProperty("--reveal-delay", `${Math.min(index, 8) * 70}ms`);
-      node.classList.remove("is-visible");
-      revealObserver.observe(node);
+    document.querySelectorAll("[data-reveal]").forEach((node) => {
+      node.style.removeProperty("--reveal-delay");
+      node.classList.add("is-visible");
     });
   }
 
@@ -48,9 +31,9 @@
     return `
       <div class="landing-hub">
         <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
-          <div class="landing-hub__eyebrow">SGCNR Player Hub</div>
-          <h1 class="landing-hub__title">Server info, rules, and city tools.</h1>
-          <p class="landing-hub__text">Use this page before you log in: Discord rules, in-game notes, the map, live status, and support links in one place.</p>
+          <div class="landing-hub__eyebrow">SGCNR</div>
+          <h1 class="landing-hub__title">SGCNR Server Hub</h1>
+          <p class="landing-hub__text">Rules, map, live status, and support links for players.</p>
           <div class="landing-hub__actions">
             <a class="auth__btn auth__btn--primary" href="/start">Enter Start</a>
             <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord</a>
@@ -60,18 +43,18 @@
         <section class="landing-hub__grid" aria-label="Portal shortcuts">
           <a class="landing-hub__card" href="/rules" data-reveal>
             <span class="landing-hub__cardLabel">Rules</span>
-            <strong class="landing-hub__cardTitle">Discord and in-game rules</strong>
-            <span class="landing-hub__cardText">Check the community rules before you open tickets, join voice, or start playing.</span>
+            <strong class="landing-hub__cardTitle">Rules</strong>
+            <span class="landing-hub__cardText">Discord rules are live. Ingame rules are coming soon.</span>
           </a>
           <a class="landing-hub__card" href="/map" data-reveal>
             <span class="landing-hub__cardLabel">Map</span>
-            <strong class="landing-hub__cardTitle">Map and service points</strong>
-            <span class="landing-hub__cardText">Keep the city map close for locations, routes, and useful server spots.</span>
+            <strong class="landing-hub__cardTitle">Map</strong>
+            <span class="landing-hub__cardText">Open the city map and service locations.</span>
           </a>
           <a class="landing-hub__card" href="/live" data-reveal>
             <span class="landing-hub__cardLabel">Live</span>
-            <strong class="landing-hub__cardTitle">Server and Discord status</strong>
-            <span class="landing-hub__cardText">Check what is online before you spend time trying to connect.</span>
+            <strong class="landing-hub__cardTitle">Live Status</strong>
+            <span class="landing-hub__cardText">Check server and Discord status.</span>
           </a>
         </section>
       </div>

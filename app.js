@@ -1119,6 +1119,11 @@ function buildAuthRedirectUrl(baseUrl) {
 }
 
 function performLogout() {
+  try {
+    localStorage.setItem("sgcnr_auth_logout_pending_v1", String(Date.now()));
+  } catch {
+    // ignore
+  }
   clearSession();
   closeAccountUi();
   const logoutUrl = SERVER_CONFIG.authLogoutUrl || `${APP_ASSET_BASE_URL}auth/logout.php`;
@@ -1717,9 +1722,9 @@ function renderLandingHome() {
   setView(`
     <div class="landing-hub">
       <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
-        <div class="landing-hub__eyebrow">SGCNR Player Hub</div>
-        <h1 class="landing-hub__title">Server info, rules, and city tools.</h1>
-        <p class="landing-hub__text">Use this page before you log in: Discord rules, in-game notes, the map, live status, and support links in one place.</p>
+        <div class="landing-hub__eyebrow">SGCNR</div>
+        <h1 class="landing-hub__title">SGCNR Server Hub</h1>
+        <p class="landing-hub__text">Rules, map, live status, and support links for players.</p>
         <div class="landing-hub__actions">
           <a class="auth__btn auth__btn--primary" href="/start">Enter Start</a>
           <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord</a>
@@ -1729,18 +1734,18 @@ function renderLandingHome() {
       <section class="landing-hub__grid" aria-label="Portal shortcuts">
         <a class="landing-hub__card" href="/rules" data-reveal>
           <span class="landing-hub__cardLabel">Rules</span>
-          <strong class="landing-hub__cardTitle">Discord and in-game rules</strong>
-          <span class="landing-hub__cardText">Check the community rules before you open tickets, join voice, or start playing.</span>
+          <strong class="landing-hub__cardTitle">Rules</strong>
+          <span class="landing-hub__cardText">Discord rules are live. Ingame rules are coming soon.</span>
         </a>
         <a class="landing-hub__card" href="/map" data-reveal>
           <span class="landing-hub__cardLabel">Map</span>
-          <strong class="landing-hub__cardTitle">Map and service points</strong>
-          <span class="landing-hub__cardText">Keep the city map close for locations, routes, and useful server spots.</span>
+          <strong class="landing-hub__cardTitle">Map</strong>
+          <span class="landing-hub__cardText">Open the city map and service locations.</span>
         </a>
         <a class="landing-hub__card" href="/live" data-reveal>
           <span class="landing-hub__cardLabel">Live</span>
-            <strong class="landing-hub__cardTitle">Server and Discord status</strong>
-            <span class="landing-hub__cardText">Check what is online before you spend time trying to connect.</span>
+            <strong class="landing-hub__cardTitle">Live Status</strong>
+            <span class="landing-hub__cardText">Check server and Discord status.</span>
         </a>
       </section>
     </div>

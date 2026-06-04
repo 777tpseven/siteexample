@@ -17,6 +17,7 @@ window.addEventListener("load", async function () {
 
   const AUTH_ACCOUNTS_KEY = "sgcnr_demo_accounts_v1";
   const AUTH_SESSION_KEY = "sgcnr_demo_session_v1";
+  const AUTH_LOGOUT_MARKER_KEY = "sgcnr_auth_logout_pending_v1";
 
   function readAccounts() {
     try {
@@ -28,6 +29,40 @@ window.addEventListener("load", async function () {
 
   function clearDiscordSession() {
     localStorage.removeItem(AUTH_SESSION_KEY);
+  }
+
+  function hasCachedSession() {
+    try {
+      const raw = localStorage.getItem(AUTH_SESSION_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      return Boolean(parsed && parsed.username);
+    } catch {
+      return false;
+    }
+  }
+
+  function markLogoutPending() {
+    try {
+      localStorage.setItem(AUTH_LOGOUT_MARKER_KEY, String(Date.now()));
+    } catch {
+      // ignore
+    }
+  }
+
+  function clearLogoutPending() {
+    try {
+      localStorage.removeItem(AUTH_LOGOUT_MARKER_KEY);
+    } catch {
+      // ignore
+    }
+  }
+
+  function shouldClearCachedSession() {
+    try {
+      return Boolean(localStorage.getItem(AUTH_LOGOUT_MARKER_KEY));
+    } catch {
+      return false;
+    }
   }
 
   function buildAuthRedirectUrl(baseUrl) {
@@ -121,6 +156,7 @@ window.addEventListener("load", async function () {
 
     localStorage.setItem(AUTH_ACCOUNTS_KEY, JSON.stringify(accounts));
     localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({ username }));
+    clearLogoutPending();
 
     if (typeof updateAuthUi === "function") updateAuthUi();
     if (typeof route === "function" && typeof parseRoute === "function") {
@@ -129,8 +165,9 @@ window.addEventListener("load", async function () {
         route();
       }
     }
-  } else if (explicitlyLoggedOut) {
+  } else if (explicitlyLoggedOut && (!hasCachedSession() || shouldClearCachedSession())) {
     clearDiscordSession();
+    clearLogoutPending();
     if (typeof updateAuthUi === "function") updateAuthUi();
     if (typeof route === "function" && typeof parseRoute === "function") {
       const routeName = parseRoute().name;
@@ -161,6 +198,7 @@ window.addEventListener("load", async function () {
       newLogoutBtn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopImmediatePropagation();
+        markLogoutPending();
         clearDiscordSession();
         window.location.href = buildAuthRedirectUrl(LOGOUT_URL);
       });
