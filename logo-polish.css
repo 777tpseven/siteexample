@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260604m") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260604n") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260604m") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260604n") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -881,4 +881,93 @@ body.is-apply .dock{
 .map-toolbar__badge.is-active,
 .live-minimal__card--online .live-minimal__value{
   color: #f2d0b6 !important;
+}
+
+/* Practical portal finish: less template-glass, more server utility. */
+body.is-landing .landing-hub__hero,
+body.is-landing .landing-hub__card,
+.section,
+.page-hero,
+.startfront__hero,
+.startfront__step,
+.live-minimal__hero,
+.live-minimal__card,
+.status-card,
+.status-note,
+.feature-card,
+.info-faq__item,
+.rule-card,
+.rules-legal,
+.neo-help__panel,
+.neo-start__panel,
+.neo-wiki__hero,
+.neo-wiki__rail,
+.neo-wiki__article,
+.wiki-card,
+.wiki-sectionBlock,
+.wiki-fact,
+.map-panel,
+.map-detail,
+.map-stage-card,
+.map-stat{
+  border-radius: 10px !important;
+  border-color: rgba(218, 169, 133, .14) !important;
+  background:
+    linear-gradient(180deg, rgba(12, 13, 13, .88), rgba(5, 7, 8, .94)) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .34) !important;
+  backdrop-filter: none !important;
+}
+
+body.is-landing .landing-hub__hero::before,
+body.is-landing .landing-hub__hero::after,
+body.is-landing .landing-hub__card::before,
+body.is-landing .landing-hub__card::after,
+.section::before,
+.section::after,
+.page-hero::before,
+.page-hero::after,
+.startfront__hero::before,
+.startfront__hero::after,
+.live-minimal__hero::before,
+.live-minimal__hero::after,
+.live-minimal__card::before,
+.live-minimal__card::after{
+  content: none !important;
+  display: none !important;
+}
+
+body.is-landing .landing-hub__hero{
+  min-height: clamp(390px, 50svh, 540px) !important;
+  padding: clamp(28px, 4.5vw, 54px) !important;
+}
+
+body.is-landing .landing-hub__title{
+  max-width: 780px !important;
+  font-size: clamp(40px, 5.3vw, 72px) !important;
+  line-height: 1 !important;
+}
+
+body.is-landing .landing-hub__text{
+  max-width: 640px !important;
+}
+
+body.is-landing .landing-hub__eyebrow,
+body.is-landing .landing-hub__cardLabel,
+.section__eyebrow,
+.neo-kicker,
+.status-card__label,
+.feature-card__label,
+.live-minimal__label,
+.map-stage-card__eyebrow,
+.map-detail__eyebrow{
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, .035) !important;
+  border-color: rgba(218, 169, 133, .12) !important;
+  box-shadow: none !important;
+}
+
+body.is-landing .auth__btn,
+.auth__btn{
+  border-radius: 8px !important;
+  box-shadow: none !important;
 }
