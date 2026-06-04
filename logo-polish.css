@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260604c") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260604f") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260604c") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260604f") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -411,23 +411,57 @@ body.is-map .site-brand-backdrop{
     linear-gradient(180deg, transparent 70%, rgba(5, 8, 7, .72) 100%) !important;
 }
 
-body.is-landing .topbar,
 body.is-landing .content,
-body.is-landing .dock,
-body.is-landing .footer,
-body.is-landing #authModalRoot{
+body.is-landing .footer{
   position: relative !important;
 }
 
+body.is-landing .content{
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+body.is-landing #rules,
+body.is-landing .landing-hub{
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+body.is-landing .topbar{
+  position: sticky !important;
+  top: 0 !important;
+}
+
 body.is-landing .topbar,
-body.is-landing .dock,
 body.is-landing #authModalRoot{
   z-index: 30 !important;
+}
+
+body.is-landing .dock{
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
+  transform: translateX(-50%) !important;
+  width: max-content !important;
+  max-width: calc(100vw - 24px) !important;
+  z-index: 40 !important;
 }
 
 body.is-landing .content,
 body.is-landing .footer{
   z-index: 2 !important;
+}
+
+body.is-landing .landing-hub__hero::before,
+body.is-landing .landing-hub__hero::after{
+  content: none !important;
+  display: none !important;
 }
 
 body.is-landing .landing-hub::before{
