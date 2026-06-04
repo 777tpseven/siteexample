@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260604f") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260604g") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260604f") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260604g") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -474,4 +474,111 @@ body.is-landing .landing-hub::before{
   body.is-landing .landing-hub::before{
     height: clamp(760px, calc(100svh - 72px), 1120px);
   }
+}
+
+/* 2026-06-04 homepage glass palette tuned to the supplied sunset background */
+body.is-landing{
+  --accent: #d8ad8d !important;
+  --accent2: #f1d3bd !important;
+}
+
+body.is-landing .topbar{
+  border-bottom-color: rgba(214, 163, 126, .22) !important;
+  background: linear-gradient(180deg, rgba(8, 14, 13, .70), rgba(5, 9, 9, .54)) !important;
+  backdrop-filter: blur(18px) saturate(1.08) !important;
+}
+
+body.is-landing .landing-hub__hero{
+  border-color: rgba(218, 169, 133, .24) !important;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(150, 96, 86, .20), transparent 30%),
+    radial-gradient(circle at 84% 14%, rgba(214, 170, 130, .13), transparent 34%),
+    linear-gradient(135deg, rgba(8, 16, 15, .58), rgba(4, 8, 8, .68)) !important;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, .34),
+    inset 0 1px 0 rgba(255, 232, 212, .08) !important;
+  backdrop-filter: blur(18px) saturate(1.08) !important;
+}
+
+body.is-landing .landing-hub__card,
+body.is-landing .footer__inner{
+  border-color: rgba(218, 169, 133, .18) !important;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(150, 96, 86, .13), transparent 34%),
+    linear-gradient(180deg, rgba(8, 15, 14, .58), rgba(4, 8, 8, .70)) !important;
+  box-shadow: 0 22px 58px rgba(0, 0, 0, .28) !important;
+  backdrop-filter: blur(16px) saturate(1.06) !important;
+}
+
+body.is-landing .landing-hub__card:hover{
+  border-color: rgba(232, 184, 145, .34) !important;
+  box-shadow: 0 28px 64px rgba(0, 0, 0, .32) !important;
+}
+
+body.is-landing .landing-hub__eyebrow,
+body.is-landing .landing-hub__cardLabel,
+body.is-landing .section__eyebrow{
+  color: rgba(239, 205, 180, .86) !important;
+}
+
+body.is-landing .landing-hub__text,
+body.is-landing .landing-hub__cardText,
+body.is-landing .footer__legal{
+  color: rgba(232, 225, 214, .78) !important;
+}
+
+body.is-landing .auth__btn{
+  border-color: rgba(218, 169, 133, .22) !important;
+  background: linear-gradient(180deg, rgba(11, 18, 17, .54), rgba(5, 9, 9, .62)) !important;
+  color: rgba(244, 230, 216, .92) !important;
+}
+
+body.is-landing .auth__btn:hover{
+  border-color: rgba(232, 184, 145, .38) !important;
+  background: linear-gradient(180deg, rgba(25, 30, 26, .62), rgba(8, 12, 11, .70)) !important;
+}
+
+body.is-landing .auth__btn--primary{
+  border-color: rgba(232, 184, 145, .42) !important;
+  background: linear-gradient(180deg, rgba(122, 72, 59, .64), rgba(58, 40, 35, .68)) !important;
+  color: #fff1e3 !important;
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, .28),
+    inset 0 1px 0 rgba(255, 231, 210, .16) !important;
+}
+
+body.is-landing .auth__btn--primary:hover{
+  border-color: rgba(246, 201, 160, .56) !important;
+  background: linear-gradient(180deg, rgba(146, 84, 65, .72), rgba(70, 45, 38, .74)) !important;
+}
+
+body.is-landing .dock{
+  border-color: rgba(218, 169, 133, .18) !important;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(150, 96, 86, .16), transparent 38%),
+    linear-gradient(180deg, rgba(8, 15, 14, .70), rgba(4, 8, 8, .78)) !important;
+  box-shadow: 0 20px 58px rgba(0, 0, 0, .34) !important;
+  backdrop-filter: blur(18px) saturate(1.08) !important;
+}
+
+body.is-landing .dock__item{
+  border-color: rgba(218, 169, 133, .14) !important;
+  background: rgba(9, 17, 16, .42) !important;
+}
+
+body.is-landing .dock__item:hover{
+  border-color: rgba(232, 184, 145, .30) !important;
+  background: rgba(31, 34, 28, .52) !important;
+}
+
+body.is-landing .dock__item.is-active{
+  border-color: rgba(232, 184, 145, .42) !important;
+  background: linear-gradient(180deg, rgba(120, 72, 58, .62), rgba(54, 41, 35, .62)) !important;
+}
+
+body.is-landing .dock__item.is-active .dock__label,
+body.is-landing .dock__item.is-active .dock__icon,
+body.is-landing .footer__link,
+body.is-landing .footer__mail{
+  color: #f2d0b6 !important;
 }
