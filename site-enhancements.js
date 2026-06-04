@@ -31,9 +31,8 @@
     return `
       <div class="landing-hub">
         <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
-          <div class="landing-hub__eyebrow">San Andreas Cops and Robbers</div>
           <h1 class="landing-hub__title">SGCNR</h1>
-          <p class="landing-hub__text">Join from FiveM, check the rules, keep the map open, and use Discord for support.</p>
+          <p class="landing-hub__text">FiveM server links, rules, map, live status, and Discord.</p>
           <div class="landing-hub__actions">
             <a class="auth__btn auth__btn--primary" href="/start">Start</a>
             <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
@@ -42,17 +41,14 @@
 
         <section class="landing-hub__grid" aria-label="Portal shortcuts">
           <a class="landing-hub__card" href="/rules" data-reveal>
-            <span class="landing-hub__cardLabel">Rules</span>
             <strong class="landing-hub__cardTitle">Read before joining</strong>
             <span class="landing-hub__cardText">Discord rules are posted. Ingame rules will be added when ready.</span>
           </a>
           <a class="landing-hub__card" href="/map" data-reveal>
-            <span class="landing-hub__cardLabel">Map</span>
             <strong class="landing-hub__cardTitle">City services</strong>
             <span class="landing-hub__cardText">Police, hospital, fire, car wash, and other map spots.</span>
           </a>
           <a class="landing-hub__card" href="/live" data-reveal>
-            <span class="landing-hub__cardLabel">Live</span>
             <strong class="landing-hub__cardTitle">Server status</strong>
             <span class="landing-hub__cardText">Game server and Discord bot checks live here.</span>
           </a>
@@ -1624,9 +1620,7 @@
       <div class="startfront">
         <section class="startfront__hero" data-reveal>
           <div class="startfront__head">
-            <span class="startfront__eyebrow">Start</span>
-            <h2 class="startfront__title">Get into SGCNR the right way.</h2>
-            <p class="startfront__text">This page is the clean setup lane: find the server, lock in the rules, and keep the right links nearby before you jump into the city.</p>
+            <h2 class="startfront__title">Start</h2>
           </div>
           <div class="startfront__actions">
             <a class="auth__btn auth__btn--primary" href="/rules">Read rules</a>
@@ -1637,22 +1631,19 @@
             <article class="startfront__step">
               <span class="startfront__stepIndex">01</span>
               <div class="startfront__stepCopy">
-                <strong>Find SGCNR in FiveM</strong>
-                <span>Search for the server in FiveM and join from there.</span>
+                <strong>Find SGCNR</strong>
               </div>
             </article>
             <article class="startfront__step">
               <span class="startfront__stepIndex">02</span>
               <div class="startfront__stepCopy">
-                <strong>Read the rules first</strong>
-                <span>Check the rules before you enter active situations in the city.</span>
+                <strong>Read rules</strong>
               </div>
             </article>
             <article class="startfront__step">
               <span class="startfront__stepIndex">03</span>
               <div class="startfront__stepCopy">
-                <strong>Use Discord for support</strong>
-                <span>Support, ban history, and staff contact all stay tracked in Discord tickets.</span>
+                <strong>Use Discord</strong>
               </div>
             </article>
           </div>

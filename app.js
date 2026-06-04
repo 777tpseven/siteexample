@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260604w";
+const SITE_ASSET_VERSION = "20260604ab";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -1722,9 +1722,8 @@ function renderLandingHome() {
   setView(`
     <div class="landing-hub">
       <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
-        <div class="landing-hub__eyebrow">San Andreas Cops and Robbers</div>
         <h1 class="landing-hub__title">SGCNR</h1>
-        <p class="landing-hub__text">Join from FiveM, check the rules, keep the map open, and use Discord for support.</p>
+        <p class="landing-hub__text">FiveM server links, rules, map, live status, and Discord.</p>
         <div class="landing-hub__actions">
           <a class="auth__btn auth__btn--primary" href="/start">Start</a>
           <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
@@ -1733,17 +1732,14 @@ function renderLandingHome() {
 
       <section class="landing-hub__grid" aria-label="Portal shortcuts">
         <a class="landing-hub__card" href="/rules" data-reveal>
-          <span class="landing-hub__cardLabel">Rules</span>
           <strong class="landing-hub__cardTitle">Read before joining</strong>
           <span class="landing-hub__cardText">Discord rules are posted. Ingame rules will be added when ready.</span>
         </a>
         <a class="landing-hub__card" href="/map" data-reveal>
-          <span class="landing-hub__cardLabel">Map</span>
           <strong class="landing-hub__cardTitle">City services</strong>
           <span class="landing-hub__cardText">Police, hospital, fire, car wash, and other map spots.</span>
         </a>
         <a class="landing-hub__card" href="/live" data-reveal>
-          <span class="landing-hub__cardLabel">Live</span>
             <strong class="landing-hub__cardTitle">Server status</strong>
             <span class="landing-hub__cardText">Game server and Discord bot checks live here.</span>
         </a>
@@ -6407,10 +6403,15 @@ document.addEventListener("click", (e) => {
     : null;
 
   if (!link) return;
+  if (link.dataset.noRoute === "true") return;
   if (link.target === "_blank" || link.hasAttribute("download")) return;
 
   const href = link.getAttribute("href") || "";
   if (!href) return;
+
+  if (href.startsWith("/legal/") || /\.pdf(?:$|[?#])/i.test(href)) {
+    return;
+  }
 
   if (/^https?:\/\//i.test(href) || href.startsWith("mailto:") || href.startsWith("tel:")) {
     return;
