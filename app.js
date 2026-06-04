@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260604n";
+const SITE_ASSET_VERSION = "20260604w";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -1681,19 +1681,19 @@ function renderLanding() {
             <div class="landing-panel__eyebrow">Quick access</div>
             <div class="landing-panel__grid">
               <a class="quickstart__btn" href="#/start">
-                <span class="quickstart__icon" aria-hidden="true">▶</span>
+                <span class="quickstart__icon" aria-hidden="true"></span>
                 <span class="quickstart__label">Start Here</span>
               </a>
               <a class="quickstart__btn" href="#/rules">
-                <span class="quickstart__icon" aria-hidden="true">📖</span>
+                <span class="quickstart__icon" aria-hidden="true"></span>
                 <span class="quickstart__label">Rules</span>
               </a>
               <a class="quickstart__btn" href="#/map">
-                <span class="quickstart__icon" aria-hidden="true">🗺️</span>
+                <span class="quickstart__icon" aria-hidden="true"></span>
                 <span class="quickstart__label">Map</span>
               </a>
               <a class="quickstart__btn" href="#/status">
-                <span class="quickstart__icon" aria-hidden="true">📡</span>
+                <span class="quickstart__icon" aria-hidden="true"></span>
                 <span class="quickstart__label">Live Status</span>
               </a>
             </div>
@@ -1722,30 +1722,30 @@ function renderLandingHome() {
   setView(`
     <div class="landing-hub">
       <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
-        <div class="landing-hub__eyebrow">SGCNR</div>
-        <h1 class="landing-hub__title">SGCNR Server Hub</h1>
-        <p class="landing-hub__text">Rules, map, live status, and support links for players.</p>
+        <div class="landing-hub__eyebrow">San Andreas Cops and Robbers</div>
+        <h1 class="landing-hub__title">SGCNR</h1>
+        <p class="landing-hub__text">Join from FiveM, check the rules, keep the map open, and use Discord for support.</p>
         <div class="landing-hub__actions">
-          <a class="auth__btn auth__btn--primary" href="/start">Enter Start</a>
-          <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <a class="auth__btn auth__btn--primary" href="/start">Start</a>
+          <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
         </div>
       </section>
 
       <section class="landing-hub__grid" aria-label="Portal shortcuts">
         <a class="landing-hub__card" href="/rules" data-reveal>
           <span class="landing-hub__cardLabel">Rules</span>
-          <strong class="landing-hub__cardTitle">Rules</strong>
-          <span class="landing-hub__cardText">Discord rules are live. Ingame rules are coming soon.</span>
+          <strong class="landing-hub__cardTitle">Read before joining</strong>
+          <span class="landing-hub__cardText">Discord rules are posted. Ingame rules will be added when ready.</span>
         </a>
         <a class="landing-hub__card" href="/map" data-reveal>
           <span class="landing-hub__cardLabel">Map</span>
-          <strong class="landing-hub__cardTitle">Map</strong>
-          <span class="landing-hub__cardText">Open the city map and service locations.</span>
+          <strong class="landing-hub__cardTitle">City services</strong>
+          <span class="landing-hub__cardText">Police, hospital, fire, car wash, and other map spots.</span>
         </a>
         <a class="landing-hub__card" href="/live" data-reveal>
           <span class="landing-hub__cardLabel">Live</span>
-            <strong class="landing-hub__cardTitle">Live Status</strong>
-            <span class="landing-hub__cardText">Check server and Discord status.</span>
+            <strong class="landing-hub__cardTitle">Server status</strong>
+            <span class="landing-hub__cardText">Game server and Discord bot checks live here.</span>
         </a>
       </section>
     </div>
