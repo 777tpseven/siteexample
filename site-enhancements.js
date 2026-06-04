@@ -1638,7 +1638,35 @@
 
   renderLandingHome = function renderLandingHomeFinalPass() {
     setView(`
-      <div class="homefront homefront--logo-only" aria-label="SGCNR homepage"></div>
+      <div class="landing-hub">
+        <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
+          <div class="landing-hub__eyebrow">SGCNR Network</div>
+          <h1 class="landing-hub__title">Built for the city. Ready for the grind.</h1>
+          <p class="landing-hub__text">Step into SGCNR with the core pages that matter most: entry, map, live status, and support, all in one cleaner front door.</p>
+          <div class="landing-hub__actions">
+            <a class="auth__btn auth__btn--primary" href="/start">Enter Start</a>
+            <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          </div>
+        </section>
+
+        <section class="landing-hub__grid" aria-label="Portal shortcuts">
+          <a class="landing-hub__card" href="/rules" data-reveal>
+            <span class="landing-hub__cardLabel">Rules</span>
+            <strong class="landing-hub__cardTitle">Read the ground rules first</strong>
+            <span class="landing-hub__cardText">Keep the city standards, punishments, and expectations close before you move.</span>
+          </a>
+          <a class="landing-hub__card" href="/map" data-reveal>
+            <span class="landing-hub__cardLabel">Map</span>
+            <strong class="landing-hub__cardTitle">Hold the city layout nearby</strong>
+            <span class="landing-hub__cardText">Use the map as your live reference for services, key points, and movement.</span>
+          </a>
+          <a class="landing-hub__card" href="/live" data-reveal>
+            <span class="landing-hub__cardLabel">Live</span>
+            <strong class="landing-hub__cardTitle">Check the network in seconds</strong>
+            <span class="landing-hub__cardText">See whether the game server and Discord operations are online before you jump in.</span>
+          </a>
+        </section>
+      </div>
     `);
   };
 

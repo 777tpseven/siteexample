@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260601b") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260604c") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -351,5 +351,93 @@ body.is-map .auth__btn--primary,
   .homefront__visualImage{
     height: clamp(132px, 36vw, 168px) !important;
     border-radius: 18px !important;
+  }
+}
+
+/* 2026-06-04 fixed cinematic background from supplied reference */
+body:not(.is-map){
+  background: #050807 !important;
+}
+
+body:not(.is-map)::before{
+  opacity: 0 !important;
+}
+
+body:not(.is-map)::after{
+  opacity: .018 !important;
+}
+
+.site-brand-backdrop{
+  position: fixed !important;
+  inset: 0 !important;
+  display: none !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  background: #050807 !important;
+}
+
+body:not(.is-map) .site-brand-backdrop{
+  display: block !important;
+}
+
+body.is-map .site-brand-backdrop{
+  display: none !important;
+}
+
+.site-brand-backdrop::before{
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260604c") center center / cover no-repeat !important;
+  filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+.site-brand-backdrop::after{
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, .20), rgba(0, 0, 0, .20)),
+    linear-gradient(180deg, transparent 70%, rgba(5, 8, 7, .72) 100%) !important;
+}
+
+body.is-landing .topbar,
+body.is-landing .content,
+body.is-landing .dock,
+body.is-landing .footer,
+body.is-landing #authModalRoot{
+  position: relative !important;
+}
+
+body.is-landing .topbar,
+body.is-landing .dock,
+body.is-landing #authModalRoot{
+  z-index: 30 !important;
+}
+
+body.is-landing .content,
+body.is-landing .footer{
+  z-index: 2 !important;
+}
+
+body.is-landing .landing-hub::before{
+  content: "";
+  display: block;
+  height: clamp(720px, calc(100svh - 76px), 1040px);
+}
+
+@media (max-width: 760px){
+  body.is-landing .landing-hub::before{
+    height: clamp(760px, calc(100svh - 72px), 1120px);
   }
 }
