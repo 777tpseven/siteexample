@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260604i") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260604l") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -39,7 +39,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 76%, rgba(5,10,7,.74) 100%);
+  background: linear-gradient(180deg, transparent 76%, rgba(86, 50, 36, .74) 100%);
   pointer-events: none;
 }
 
@@ -216,11 +216,11 @@ body.is-map .auth__btn--primary,
   object-fit: cover !important;
   object-position: center 46% !important;
   border-radius: 22px !important;
-  border: 1px solid rgba(216, 255, 230, .10) !important;
+  border: 1px solid rgba(241, 211, 189, .10) !important;
   filter: saturate(1.08) contrast(1.04) brightness(1.02) !important;
   box-shadow:
     0 28px 60px rgba(0, 0, 0, .42),
-    0 0 0 1px rgba(92, 255, 161, .07),
+    0 0 0 1px rgba(218, 169, 133, .07),
     inset 0 0 0 1px rgba(255, 255, 255, .07) !important;
 }
 
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260604i") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260604l") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -535,7 +535,7 @@ body.is-landing .auth__btn{
 
 body.is-landing .auth__btn:hover{
   border-color: rgba(232, 184, 145, .38) !important;
-  background: linear-gradient(180deg, rgba(25, 30, 26, .62), rgba(8, 12, 11, .70)) !important;
+  background: linear-gradient(180deg, rgba(86, 50, 36, .62), rgba(8, 12, 11, .70)) !important;
 }
 
 body.is-landing .auth__btn--primary{
@@ -592,7 +592,7 @@ body.is-apply{
   --accent: #d8ad8d !important;
   --accent2: #f1d3bd !important;
   --site-gold: #d8ad8d !important;
-  --site-green: #d8ad8d !important;
+  --site-accent-warm: #d8ad8d !important;
   --site-border-strong: rgba(218, 169, 133, .24) !important;
   --site-border-soft: rgba(218, 169, 133, .16) !important;
   --site-surface-soft: linear-gradient(180deg, rgba(8, 15, 14, .62), rgba(4, 8, 8, .74)) !important;
@@ -653,7 +653,7 @@ body.is-wiki .auth__btn:hover,
 body.is-map .auth__btn:hover,
 body.is-apply .auth__btn:hover{
   border-color: rgba(232, 184, 145, .38) !important;
-  background: linear-gradient(180deg, rgba(25, 30, 26, .64), rgba(8, 12, 11, .72)) !important;
+  background: linear-gradient(180deg, rgba(86, 50, 36, .64), rgba(8, 12, 11, .72)) !important;
 }
 
 .auth__btn--primary,
@@ -881,4 +881,73 @@ body.is-apply .dock{
 .map-toolbar__badge.is-active,
 .live-minimal__card--online .live-minimal__value{
   color: #f2d0b6 !important;
+}
+
+.rules-document__section{
+  display: grid !important;
+  gap: 18px !important;
+}
+
+.rules-document__article{
+  display: grid;
+  gap: 12px;
+  padding: clamp(18px, 2vw, 26px);
+  border-radius: 22px;
+  border: 1px solid rgba(218, 169, 133, .14);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(150, 96, 86, .12), transparent 34%),
+    linear-gradient(180deg, rgba(8, 15, 14, .52), rgba(4, 8, 8, .66));
+}
+
+.rules-document__head{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rules-document__head h2{
+  margin: 0;
+}
+
+.rules-document__body{
+  display: grid;
+  gap: 10px;
+}
+
+.rules-document__paragraph,
+.rules-document__list{
+  margin: 0;
+  color: rgba(232, 225, 214, .80);
+  line-height: 1.68;
+}
+
+.rules-document__list{
+  padding-left: 1.25rem;
+}
+
+.rules-document__list li + li{
+  margin-top: 6px;
+}
+
+.rules-document__body strong{
+  color: #fff1e3;
+}
+
+.content,
+body.is-landing .content,
+body.is-standard .content,
+body.is-wiki .content,
+body.is-map .content,
+body.is-apply .content{
+  min-height: calc(100svh - 24px) !important;
+}
+
+.footer,
+body.is-landing .footer,
+body.is-standard .footer,
+body.is-wiki .footer,
+body.is-map .footer,
+body.is-apply .footer{
+  margin-top: clamp(88px, 12svh, 148px) !important;
+  padding-bottom: calc(154px + env(safe-area-inset-bottom, 0px)) !important;
 }

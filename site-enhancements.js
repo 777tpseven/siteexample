@@ -1682,5 +1682,84 @@
     setView(renderLandingHubHomeMarkup());
   };
 
+  function renderRuleBodyDocument(body) {
+    const formatInline = (value) => escapeHtml(value).replace(/__([^_]+)__/g, "<strong>$1</strong>");
+    const blocks = String(body || "")
+      .split(/\n{2,}/)
+      .map((block) => block.trim())
+      .filter(Boolean);
+
+    return blocks.map((block) => {
+      const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
+      if (lines.length && lines.every((line) => line.startsWith("- "))) {
+        return `<ul class="rules-document__list">${lines.map((line) => `<li>${formatInline(line.slice(2))}</li>`).join("")}</ul>`;
+      }
+      return `<p class="rules-document__paragraph">${formatInline(block).replace(/\n/g, "<br>")}</p>`;
+    }).join("");
+  }
+
+  renderSection = function renderSectionDocument(sectionId) {
+    const section = findSectionById(sectionId);
+    if (!section) {
+      setView(`<div>${renderHeader("Not found", [{ label: "Home", href: "#/" }, { label: "Not found" }])}</div>`);
+      return;
+    }
+
+    const title = renderHeader(section.title, [
+      { label: "Rules", href: "#/rules" },
+      { label: section.title }
+    ]);
+    const rules = Array.isArray(section.rules) ? section.rules : [];
+    const body = rules.map((rule) => `
+      <article class="rules-document__article" id="rule-${escapeHtml(rule.id)}">
+        <div class="rules-document__head">
+          <span class="rule__id">${escapeHtml(rule.id)}</span>
+          <h2>${escapeHtml(rule.title)}</h2>
+        </div>
+        <div class="rule__body rules-document__body">${renderRuleBodyDocument(rule.body)}</div>
+      </article>
+    `).join("");
+
+    setView(`
+      <div class="rules-document">
+        ${title}
+        <section class="section rules-document__section">
+          ${body || `<div class="empty">Comming soon</div>`}
+        </section>
+        ${renderRulesDisclaimer()}
+      </div>
+    `);
+  };
+
+  renderRule = function renderRuleDocument(sectionId, ruleId) {
+    const { section, rule } = findRule(sectionId, ruleId);
+    if (!section || !rule) {
+      setView(`<div>${renderHeader("Not found", [{ label: "Home", href: "#/" }, { label: "Not found" }])}</div>`);
+      return;
+    }
+
+    const title = renderHeader(rule.title, [
+      { label: "Rules", href: "#/rules" },
+      { label: section.title, href: `#/section/${escapeHtml(section.id)}` },
+      { label: `${rule.id}` }
+    ]);
+
+    setView(`
+      <div class="rules-document">
+        ${title}
+        <section class="section rules-document__section">
+          <article class="rules-document__article">
+            <div class="rules-document__head">
+              <span class="rule__id">${escapeHtml(rule.id)}</span>
+              <h2>${escapeHtml(rule.title)}</h2>
+            </div>
+            <div class="rule__body rules-document__body">${renderRuleBodyDocument(rule.body)}</div>
+          </article>
+        </section>
+        ${renderRulesDisclaimer()}
+      </div>
+    `);
+  };
+
   route();
 })();

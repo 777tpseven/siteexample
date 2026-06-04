@@ -46,9 +46,9 @@
 }
 
 .store-nav__item.is-active {
-  border-color: rgba(201,255,90,.45);
-  background: rgba(201,255,90,.08);
-  color: rgba(201,255,90,.95);
+  border-color: rgba(216,173,141,.42);
+  background: rgba(216,173,141,.08);
+  color: rgba(241,211,189,.95);
 }
 
 /* Store Sidebar Cards */
@@ -108,7 +108,7 @@
 
 .store-product:hover {
   transform: translateY(-2px);
-  border-color: rgba(201,255,90,.25);
+  border-color: rgba(216,173,141,.24);
   box-shadow: 0 12px 32px rgba(0,0,0,.45);
 }
 
@@ -130,7 +130,7 @@
 .store-product__price {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(201,255,90,.95);
+  color: rgba(241,211,189,.95);
   white-space: nowrap;
 }
 
@@ -167,7 +167,7 @@
   content: "•";
   position: absolute;
   left: 0;
-  color: rgba(201,255,90,.70);
+  color: rgba(241,211,189,.70);
 }
 
 .store-product__actions {
@@ -215,7 +215,7 @@
   width: 220px;
   height: 220px;
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(201,255,90,.12) 0%, rgba(201,255,90,0) 72%);
+  background: radial-gradient(circle, rgba(216,173,141,.12) 0%, rgba(216,173,141,0) 72%);
   pointer-events: none;
 }
 
@@ -241,9 +241,9 @@
   min-height: 28px;
   padding: 0 12px;
   border-radius: 999px;
-  border: 1px solid rgba(201,255,90,.22);
-  background: rgba(201,255,90,.08);
-  color: rgba(231,255,186,.92);
+  border: 1px solid rgba(216,173,141,.22);
+  background: rgba(216,173,141,.08);
+  color: rgba(241, 211, 189, .92);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .08em;
@@ -324,12 +324,12 @@
   position: absolute;
   inset: 0 0 auto 0;
   height: 2px;
-  background: linear-gradient(90deg, rgba(201,255,90,.65), rgba(106,188,255,.55));
+  background: linear-gradient(90deg, rgba(216,173,141,.65), rgba(194,111,91,.50));
   opacity: .75;
 }
 
 .order-status-sidecard--support {
-  background: linear-gradient(180deg, rgba(201,255,90,.06), rgba(255,255,255,.03));
+  background: linear-gradient(180deg, rgba(216,173,141,.06), rgba(255,255,255,.03));
 }
 
 .order-status-sidecard__icon {
@@ -404,9 +404,9 @@
 }
 
 .order-status-form__input:focus {
-  border-color: rgba(201,255,90,.42);
+  border-color: rgba(216,173,141,.40);
   background: rgba(255,255,255,.06);
-  box-shadow: 0 0 0 3px rgba(201,255,90,.10);
+  box-shadow: 0 0 0 3px rgba(216,173,141,.10);
 }
 
 .order-status-card {
@@ -423,13 +423,13 @@
 }
 
 .order-status-card--progress {
-  border-color: rgba(106,188,255,.28);
-  background: rgba(106,188,255,.08);
+  border-color: rgba(194,111,91,.26);
+  background: rgba(194,111,91,.08);
 }
 
 .order-status-card--complete {
-  border-color: rgba(106,224,155,.28);
-  background: rgba(106,224,155,.08);
+  border-color: rgba(216, 173, 141, .28);
+  background: rgba(216, 173, 141, .08);
 }
 
 .order-status-card--review,
@@ -485,8 +485,8 @@
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: #c9ff5a;
-  box-shadow: 0 0 0 4px rgba(201,255,90,.12);
+  background: #d8ad8d;
+  box-shadow: 0 0 0 4px rgba(216,173,141,.12);
   flex: 0 0 auto;
 }
 
@@ -518,14 +518,14 @@
 
 .order-status-pill--progress {
   color: #9cd1ff;
-  border-color: rgba(106,188,255,.32);
-  background: rgba(106,188,255,.12);
+  border-color: rgba(194,111,91,.30);
+  background: rgba(194,111,91,.10);
 }
 
 .order-status-pill--complete {
-  color: #9df0bf;
-  border-color: rgba(106,224,155,.32);
-  background: rgba(106,224,155,.12);
+  color: #d8ad8d;
+  border-color: rgba(216, 173, 141, .32);
+  background: rgba(216, 173, 141, .12);
 }
 
 .order-status-pill--review,
@@ -633,15 +633,15 @@
   content: "✓";
   position: absolute;
   left: 0;
-  color: rgba(201,255,90,.85);
+  color: rgba(241,211,189,.85);
   font-weight: 700;
 }
 
 .store-modal__note {
   padding: 14px;
   border-radius: 12px;
-  background: rgba(201,255,90,.08);
-  border: 1px solid rgba(201,255,90,.20);
+  background: rgba(216,173,141,.08);
+  border: 1px solid rgba(216,173,141,.20);
   color: rgba(230,237,246,.85);
   font-size: 13px;
   line-height: 1.6;
@@ -661,7 +661,7 @@
 .store-modal__price {
   font-size: 28px;
   font-weight: 700;
-  color: rgba(201,255,90,.95);
+  color: rgba(241,211,189,.95);
 }
 
 .store-modal__buy {
@@ -776,7 +776,7 @@
 .basket-item__price {
   font-size: 18px;
   font-weight: 700;
-  color: rgba(201,255,90,.95);
+  color: rgba(241,211,189,.95);
 }
 
 /* Basket Summary */
@@ -821,7 +821,7 @@
 .basket-summary__value {
   font-size: 16px;
   font-weight: 600;
-  color: rgba(201,255,90,.95);
+  color: rgba(241,211,189,.95);
 }
 
 .basket-summary__row--total .basket-summary__value {
@@ -850,7 +850,7 @@
 }
 
 .empty a {
-  color: rgba(201,255,90,.95);
+  color: rgba(241,211,189,.95);
   text-decoration: underline;
   transition: opacity .22s var(--ease);
 }
