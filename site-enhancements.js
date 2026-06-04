@@ -2,6 +2,18 @@
   const originalRoute = route;
   let revealObserver = null;
 
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  window.addEventListener("load", () => {
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      const contentEl = document.querySelector(".content");
+      if (contentEl) contentEl.scrollTop = 0;
+    });
+  }, { once: true });
+
   function initEditorialMotion() {
     if (!("IntersectionObserver" in window)) {
       document.querySelectorAll("[data-reveal]").forEach((node) => node.classList.add("is-visible"));
@@ -1352,7 +1364,7 @@
   };
 
   if (MAP_TYPE_META?.police) MAP_TYPE_META.police = { ...MAP_TYPE_META.police, color: "#79ffb4", glow: "rgba(121, 255, 180, .24)" };
-  if (MAP_TYPE_META?.hospital) MAP_TYPE_META.hospital = { ...MAP_TYPE_META.hospital, color: "#d9ffeb", glow: "rgba(217, 255, 235, .22)" };
+  if (MAP_TYPE_META?.hospital) MAP_TYPE_META.hospital = { ...MAP_TYPE_META.hospital, color: "#f1d3bd", glow: "rgba(241, 211, 189, .22)" };
   if (MAP_TYPE_META?.fire) MAP_TYPE_META.fire = { ...MAP_TYPE_META.fire, color: "#56d88a", glow: "rgba(86, 216, 138, .24)" };
   if (MAP_TYPE_META?.carwash) MAP_TYPE_META.carwash = { ...MAP_TYPE_META.carwash, color: "#9cf6c2", glow: "rgba(156, 246, 194, .22)" };
   if (MAP_TYPE_META?.underground) MAP_TYPE_META.underground = { ...MAP_TYPE_META.underground, color: "#48b76e", glow: "rgba(72, 183, 110, .24)" };

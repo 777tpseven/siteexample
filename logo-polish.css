@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260604g") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260604i") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260604g") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260604i") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -467,12 +467,12 @@ body.is-landing .landing-hub__hero::after{
 body.is-landing .landing-hub::before{
   content: "";
   display: block;
-  height: clamp(720px, calc(100svh - 76px), 1040px);
+  height: 0;
 }
 
 @media (max-width: 760px){
   body.is-landing .landing-hub::before{
-    height: clamp(760px, calc(100svh - 72px), 1120px);
+    height: 0;
   }
 }
 
@@ -580,5 +580,305 @@ body.is-landing .dock__item.is-active .dock__label,
 body.is-landing .dock__item.is-active .dock__icon,
 body.is-landing .footer__link,
 body.is-landing .footer__mail{
+  color: #f2d0b6 !important;
+}
+
+/* 2026-06-04 site-wide sunset palette and route top alignment */
+body.is-landing,
+body.is-standard,
+body.is-wiki,
+body.is-map,
+body.is-apply{
+  --accent: #d8ad8d !important;
+  --accent2: #f1d3bd !important;
+  --site-gold: #d8ad8d !important;
+  --site-green: #d8ad8d !important;
+  --site-border-strong: rgba(218, 169, 133, .24) !important;
+  --site-border-soft: rgba(218, 169, 133, .16) !important;
+  --site-surface-soft: linear-gradient(180deg, rgba(8, 15, 14, .62), rgba(4, 8, 8, .74)) !important;
+}
+
+body.is-standard .content,
+body.is-wiki .content,
+body.is-map .content,
+body.is-apply .content{
+  padding-top: 12px !important;
+}
+
+body.is-standard #rules,
+body.is-wiki #rules,
+body.is-map #rules,
+body.is-apply #rules{
+  padding-top: 0 !important;
+}
+
+body.is-landing .topbar,
+body.is-standard .topbar,
+body.is-wiki .topbar,
+body.is-map .topbar,
+body.is-apply .topbar{
+  border-color: rgba(218, 169, 133, .16) !important;
+  border-bottom-color: rgba(218, 169, 133, .24) !important;
+  background: linear-gradient(180deg, rgba(8, 14, 13, .76), rgba(5, 9, 9, .62)) !important;
+  backdrop-filter: blur(18px) saturate(1.08) !important;
+}
+
+body.is-landing .brandmark__badge,
+body.is-standard .brandmark__badge,
+body.is-wiki .brandmark__badge,
+body.is-map .brandmark__badge,
+body.is-apply .brandmark__badge,
+.clock{
+  border-color: rgba(218, 169, 133, .18) !important;
+  background: linear-gradient(180deg, rgba(10, 17, 16, .76), rgba(5, 9, 9, .74)) !important;
+}
+
+.auth__btn,
+body.is-landing .auth__btn,
+body.is-standard .auth__btn,
+body.is-wiki .auth__btn,
+body.is-map .auth__btn,
+body.is-apply .auth__btn,
+.homefront__actions .auth__btn,
+.startfront__actions .auth__btn{
+  border-color: rgba(218, 169, 133, .22) !important;
+  background: linear-gradient(180deg, rgba(11, 18, 17, .58), rgba(5, 9, 9, .68)) !important;
+  color: rgba(244, 230, 216, .92) !important;
+}
+
+.auth__btn:hover,
+body.is-landing .auth__btn:hover,
+body.is-standard .auth__btn:hover,
+body.is-wiki .auth__btn:hover,
+body.is-map .auth__btn:hover,
+body.is-apply .auth__btn:hover{
+  border-color: rgba(232, 184, 145, .38) !important;
+  background: linear-gradient(180deg, rgba(25, 30, 26, .64), rgba(8, 12, 11, .72)) !important;
+}
+
+.auth__btn--primary,
+body.is-landing .auth__btn--primary,
+body.is-standard .auth__btn--primary,
+body.is-wiki .auth__btn--primary,
+body.is-map .auth__btn--primary,
+body.is-apply .auth__btn--primary,
+.homefront__actions .auth__btn--primary,
+.startfront__actions .auth__btn--primary{
+  border-color: rgba(232, 184, 145, .42) !important;
+  background: linear-gradient(180deg, rgba(122, 72, 59, .66), rgba(58, 40, 35, .70)) !important;
+  color: #fff1e3 !important;
+}
+
+.auth__btn--primary:hover,
+body.is-landing .auth__btn--primary:hover,
+body.is-standard .auth__btn--primary:hover,
+body.is-wiki .auth__btn--primary:hover,
+body.is-map .auth__btn--primary:hover,
+body.is-apply .auth__btn--primary:hover{
+  border-color: rgba(246, 201, 160, .56) !important;
+  background: linear-gradient(180deg, rgba(146, 84, 65, .74), rgba(70, 45, 38, .76)) !important;
+}
+
+.section,
+.neo-hero,
+.page-hero,
+.startfront__hero,
+.startfront__step,
+.landing-hub__hero,
+.landing-hub__card,
+.live-minimal__hero,
+.live-minimal__card,
+.status-card,
+.status-note,
+.feature-card,
+.stack-list__item,
+.info-faq__item,
+.rule-card,
+.card,
+.rules-legal,
+.neo-help__panel,
+.neo-start__panel,
+.neo-wiki__hero,
+.neo-wiki__rail,
+.neo-wiki__article,
+.wiki-card,
+.wiki-sectionBlock,
+.wiki-fact,
+.wiki-pager__card,
+.map-panel,
+.map-detail,
+.map-stage-card,
+.map-stat,
+.map-filter,
+.map-tool,
+.map-toolbar__badge,
+.map-legend__item,
+.service-map-shell{
+  border-color: rgba(218, 169, 133, .16) !important;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(150, 96, 86, .12), transparent 32%),
+    linear-gradient(180deg, rgba(8, 15, 14, .62), rgba(4, 8, 8, .74)) !important;
+  box-shadow: 0 22px 58px rgba(0, 0, 0, .28) !important;
+}
+
+.section::before,
+.section::after,
+.neo-hero::before,
+.neo-hero::after,
+.page-hero::before,
+.page-hero::after,
+.startfront__hero::before,
+.startfront__hero::after,
+.live-minimal__hero::before,
+.live-minimal__hero::after,
+.landing-hub__hero::before,
+.landing-hub__hero::after,
+.landing-hub__card::before,
+.landing-hub__card::after,
+.live-minimal__card::before,
+.live-minimal__card::after{
+  background:
+    radial-gradient(circle at 14% 8%, rgba(150, 96, 86, .13), transparent 30%),
+    linear-gradient(90deg, rgba(218, 169, 133, .06), transparent 40%) !important;
+}
+
+.section__eyebrow,
+body.is-standard .section__eyebrow,
+body.is-wiki .section__eyebrow,
+body.is-map .section__eyebrow,
+body.is-apply .section__eyebrow,
+.neo-hero__eyebrow,
+.neo-kicker,
+.startfront__eyebrow,
+.landing-hub__eyebrow,
+.landing-hub__cardLabel,
+.live-minimal__label,
+.status-card__label,
+.status-live__label,
+.feature-card__label,
+.map-panel .section__eyebrow,
+.map-stage-card__eyebrow,
+.map-detail__eyebrow,
+.map-panel__title,
+.map-panel__sourceLabel,
+.map-filter__count,
+.map-stat__label{
+  border-color: rgba(218, 169, 133, .18) !important;
+  background: rgba(218, 169, 133, .08) !important;
+  color: rgba(239, 205, 180, .86) !important;
+}
+
+body.is-map .map-panel,
+body.is-map .map-detail,
+body.is-map .map-stage-card,
+body.is-map .map-stat,
+body.is-map .map-filter,
+body.is-map .map-tool,
+body.is-map .map-toolbar__badge,
+body.is-map .map-legend__item,
+body.is-map .service-map-shell{
+  border-color: rgba(218, 169, 133, .16) !important;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(150, 96, 86, .12), transparent 32%),
+    linear-gradient(180deg, rgba(8, 15, 14, .62), rgba(4, 8, 8, .74)) !important;
+}
+
+body.is-map .map-filter.is-active,
+body.is-map .map-quick__item.is-active,
+body.is-map .map-tool.is-active,
+body.is-map .map-toolbar__badge.is-active{
+  border-color: rgba(232, 184, 145, .42) !important;
+  background: linear-gradient(180deg, rgba(120, 72, 58, .62), rgba(54, 41, 35, .62)) !important;
+  color: #f2d0b6 !important;
+}
+
+body.is-standard .section__eyebrow,
+body.is-standard .neo-kicker,
+body.is-standard .status-card__label,
+body.is-standard .feature-card__label{
+  border-color: rgba(218, 169, 133, .18) !important;
+  background: rgba(218, 169, 133, .08) !important;
+  color: rgba(239, 205, 180, .86) !important;
+}
+
+.section p,
+.doc-p,
+.startfront__text,
+.startfront__stepCopy span,
+.landing-hub__text,
+.landing-hub__cardText,
+.live-minimal__text,
+.live-minimal__meta,
+.status-card__meta,
+.status-note,
+.info-faq__a,
+.wiki-ledger .doc-list li,
+.wiki-ledger .wiki-card__text,
+.map-panel__intro,
+.map-stage-card__body,
+.map-detail__body,
+.map-toolbar__hint,
+.footer__legal{
+  color: rgba(232, 225, 214, .78) !important;
+}
+
+.footer__inner{
+  border-color: rgba(218, 169, 133, .18) !important;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(150, 96, 86, .12), transparent 32%),
+    linear-gradient(180deg, rgba(8, 15, 14, .62), rgba(4, 8, 8, .74)) !important;
+  backdrop-filter: blur(16px) saturate(1.06) !important;
+}
+
+.footer__link,
+.footer__mail,
+a:hover{
+  color: #f2d0b6 !important;
+}
+
+.dock,
+body.is-landing .dock,
+body.is-standard .dock,
+body.is-wiki .dock,
+body.is-map .dock,
+body.is-apply .dock{
+  border-color: rgba(218, 169, 133, .18) !important;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(150, 96, 86, .16), transparent 38%),
+    linear-gradient(180deg, rgba(8, 15, 14, .70), rgba(4, 8, 8, .78)) !important;
+  box-shadow: 0 20px 58px rgba(0, 0, 0, .34) !important;
+  backdrop-filter: blur(18px) saturate(1.08) !important;
+}
+
+.dock__item{
+  border-color: rgba(218, 169, 133, .14) !important;
+  background: rgba(9, 17, 16, .42) !important;
+}
+
+.dock__item:hover,
+.map-filter:hover,
+.map-quick__item:hover,
+.map-tool:hover:not(:disabled){
+  border-color: rgba(232, 184, 145, .30) !important;
+  background: rgba(31, 34, 28, .52) !important;
+}
+
+.dock__item.is-active,
+.map-filter.is-active,
+.map-quick__item.is-active,
+.map-tool.is-active,
+.map-toolbar__badge.is-active,
+.live-minimal__card--online{
+  border-color: rgba(232, 184, 145, .42) !important;
+  background: linear-gradient(180deg, rgba(120, 72, 58, .62), rgba(54, 41, 35, .62)) !important;
+}
+
+.dock__item.is-active .dock__label,
+.dock__item.is-active .dock__icon,
+.map-filter.is-active,
+.map-quick__item.is-active,
+.map-tool.is-active,
+.map-toolbar__badge.is-active,
+.live-minimal__card--online .live-minimal__value{
   color: #f2d0b6 !important;
 }
