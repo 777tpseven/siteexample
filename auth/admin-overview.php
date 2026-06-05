@@ -45,6 +45,12 @@ try {
 
     if (!$payload['recentLogins']['available']) {
         $fallbackItems = auth_read_web_sessions_fallback(10);
+        if (!$fallbackItems) {
+            $currentSession = auth_current_web_session_record();
+            if ($currentSession) {
+                $fallbackItems = [$currentSession];
+            }
+        }
         if ($fallbackItems) {
             $payload['recentLogins']['available'] = true;
             $payload['recentLogins']['items'] = array_map(static function (array $row): array {
@@ -60,6 +66,11 @@ try {
                 ];
             }, $fallbackItems);
         }
+    }
+
+    if (!$payload['recentLogins']['available']) {
+        $payload['recentLogins']['available'] = true;
+        $payload['recentLogins']['source'] = 'empty';
     }
 
     auth_send_json($payload);

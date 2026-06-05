@@ -6,6 +6,8 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     auth_send_json(['authenticated' => false, 'logged_in' => false]);
 }
 
+auth_touch_current_web_session_fallback();
+
 $botIdentity = [
     'verificationStatus' => 'pending',
     'source' => '',

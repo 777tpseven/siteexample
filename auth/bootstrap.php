@@ -403,6 +403,38 @@ function auth_record_web_session_fallback(array $record): void
     auth_storage_write_json('web_sessions.json', $store);
 }
 
+function auth_current_web_session_record(): ?array
+{
+    $discordId = trim((string) ($_SESSION['discord_id'] ?? ''));
+    if ($discordId === '') {
+        return null;
+    }
+
+    $roles = $_SESSION['discord_roles'] ?? [];
+    if (!is_array($roles)) {
+        $roles = [];
+    }
+
+    return [
+        'discord_id' => $discordId,
+        'username' => (string) ($_SESSION['discord_username'] ?? $_SESSION['discord_display_name'] ?? $discordId),
+        'avatar' => (string) ($_SESSION['discord_avatar_url'] ?? ''),
+        'roles' => array_values(array_filter(array_map(
+            static fn ($role) => trim((string) $role),
+            $roles
+        ))),
+        'last_seen' => gmdate('Y-m-d H:i:s'),
+    ];
+}
+
+function auth_touch_current_web_session_fallback(): void
+{
+    $record = auth_current_web_session_record();
+    if ($record) {
+        auth_record_web_session_fallback($record);
+    }
+}
+
 function auth_read_web_sessions_fallback(int $limit = 10): array
 {
     $store = auth_storage_read_json('web_sessions.json', ['items' => []]);

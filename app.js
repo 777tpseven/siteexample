@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260605j";
+const SITE_ASSET_VERSION = "20260606b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -2227,7 +2227,7 @@ function renderAdminDashboard(account) {
       ? recentLogins.length
         ? `<div class="admin-list">${recentLogins.map((entry) => `<article class="admin-list__item"><div class="admin-list__title">${escapeHtml(entry.username || entry.discordId || "Unknown account")}</div><div class="admin-list__meta">${escapeHtml(entry.discordId || "No Discord ID")} / ${escapeHtml(formatServerTimestamp(entry.lastSeen || "") || "Recently")}</div></article>`).join("")}</div>`
         : `<div class="empty">No Discord website logins have been recorded yet.</div>`
-      : `<div class="empty">Login history needs live database access for the <code>web_sessions</code> table. The live auth database user still needs create, alter, insert, and select access there.</div>`;
+      : `<div class="empty">No Discord website logins have been recorded yet. The list will fill after staff sign in through Discord.</div>`;
   setView(`<div class="admin-page">${renderHeader(`${label} Panel`, [{ label: label }])}<section class="section section--hero admin-hero"><div class="section__eyebrow">Website control</div><h2>${escapeHtml(label)} dashboard</h2><p class="doc-p">Website logins, live status, and Discord ticket access in one staff view.</p><div class="status-grid admin-metrics">${cards.map((card) => `<div class="status-card"><div class="status-card__label">${escapeHtml(card.label)}</div><div class="status-card__value">${escapeHtml(card.value)}</div><div class="status-card__meta">${escapeHtml(card.meta)}</div></div>`).join("")}</div><div class="status-actions"><a class="auth__btn auth__btn--primary" href="/live">Live</a><a class="auth__btn" href="/rules">Rules</a><a class="auth__btn" href="${escapeHtml(SERVER_CONFIG.discordTicketChannelUrl || SERVER_CONFIG.discordUrl || "#")}" target="_blank" rel="noopener noreferrer">Discord tickets</a></div>${loading ? `<div class="status-note">Loading the staff overview...</div>` : ""}${adminOverviewState.error ? `<div class="status-note"><strong>Staff overview:</strong> ${escapeHtml(adminOverviewState.error)}</div>` : ""}</section><section class="section section--stack admin-login-section"><div class="section__eyebrow">Who signed in</div><h2>Recent Discord logins</h2>${loginMarkup}</section></div>`);
 }
 function bindAccountPageControls() {
