@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260605h") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260605j") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260605h") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260605j") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -2826,3 +2826,159 @@ body.is-standard :is(.cards .card::before, .cards .card::after, .rules-picker__i
 }
 
 
+
+/* 2026-06-05 final rules line removal and people-first staff list. */
+body.is-standard .rules-picker,
+body.is-standard .cards{
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+body.is-standard .rules-picker__item,
+body.is-standard .cards .card{
+  border: 1px solid rgba(245, 238, 230, .10) !important;
+  border-top: 1px solid rgba(245, 238, 230, .10) !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: linear-gradient(180deg, rgba(14, 12, 12, .96), rgba(7, 7, 7, .98)) !important;
+  background-color: rgba(9, 8, 8, .96) !important;
+}
+
+body.is-standard .rules-picker__item:hover,
+body.is-standard .rules-picker__item:focus-visible,
+body.is-standard .cards .card:hover,
+body.is-standard .cards .card:focus-visible{
+  border-color: rgba(245, 238, 230, .18) !important;
+  border-top-color: rgba(245, 238, 230, .18) !important;
+  background: linear-gradient(180deg, rgba(18, 15, 14, .98), rgba(8, 8, 8, .98)) !important;
+}
+
+body.is-standard :is(.rules-picker__item, .rules-picker__item *, .cards .card, .cards .card *)::before,
+body.is-standard :is(.rules-picker__item, .rules-picker__item *, .cards .card, .cards .card *)::after{
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.is-standard .rules-picker__index{
+  color: rgba(245, 238, 230, .88) !important;
+  background: rgba(245, 238, 230, .045) !important;
+  border-color: rgba(245, 238, 230, .12) !important;
+}
+
+body.is-standard .rules-picker__copy span,
+body.is-standard .rules-document__paragraph,
+body.is-standard .rules-document__list,
+body.is-standard .rules-document__list li{
+  color: rgba(224, 214, 204, .76) !important;
+}
+
+.live-staff__people{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  gap: 12px !important;
+}
+
+.live-staff__person{
+  display: grid !important;
+  gap: 11px !important;
+  padding: 13px !important;
+  border: 1px solid rgba(245, 238, 230, .10) !important;
+  border-radius: 8px !important;
+  background: rgba(8, 7, 7, .54) !important;
+  box-shadow: none !important;
+}
+
+.live-staff__identity{
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+}
+
+.live-staff__identity img,
+.live-staff__identity .live-staff__avatar{
+  width: 34px !important;
+  height: 34px !important;
+  flex: 0 0 34px !important;
+}
+
+.live-staff__nameBlock{
+  display: grid !important;
+  gap: 2px !important;
+  min-width: 0 !important;
+}
+
+.live-staff__nameBlock strong{
+  color: rgba(250, 246, 240, .96) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.live-staff__nameBlock span{
+  color: rgba(224, 214, 204, .66) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.live-staff__rolePills{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+.live-staff__rolePills span,
+.live-staff__roleChip{
+  border: 1px solid rgba(245, 238, 230, .10) !important;
+  border-radius: 999px !important;
+  background: rgba(245, 238, 230, .045) !important;
+  color: rgba(224, 214, 204, .78) !important;
+}
+
+.live-staff__rolePills span{
+  padding: 5px 8px !important;
+  font-size: .82rem !important;
+  line-height: 1 !important;
+}
+
+.live-staff__rolesSummary{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-top: 13px !important;
+}
+
+.live-staff__roleChip{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 6px 9px !important;
+  font-size: .84rem !important;
+}
+
+.live-staff__roleChip strong{
+  color: rgba(250, 246, 240, .92) !important;
+}
+
+/* Absolute final rules picker top-line removal. */
+html body.is-standard main.content #rules .rules-picker > .rules-picker__item,
+html body.is-standard main.content #rules .cards > .card{
+  border-top: 0 !important;
+  border-right-color: rgba(245, 238, 230, .10) !important;
+  border-bottom-color: rgba(245, 238, 230, .10) !important;
+  border-left-color: rgba(245, 238, 230, .10) !important;
+  box-shadow: none !important;
+}
+
+html body.is-standard main.content #rules .rules-picker::before,
+html body.is-standard main.content #rules .rules-picker::after,
+html body.is-standard main.content #rules .cards::before,
+html body.is-standard main.content #rules .cards::after{
+  content: none !important;
+  display: none !important;
+}

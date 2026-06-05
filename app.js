@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260605h";
+const SITE_ASSET_VERSION = "20260605j";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -5403,32 +5403,85 @@ function renderDiscordLinking(discord) {
 
 function renderDiscordStaffList(discord) {
   const roles = Array.isArray(discord?.staffRoles) ? discord.staffRoles : [];
-  const members = Array.isArray(discord?.staffMembers) ? discord.staffMembers : [];
-  const hasData = roles.some((role) => Array.isArray(role.members) && role.members.length) || members.length;
+  const sourceMembers = Array.isArray(discord?.staffMembers) ? discord.staffMembers : [];
+  const byId = new Map();
+  const roleNameById = new Map();
 
-  const roleMarkup = roles.length
-    ? roles.map((role) => {
-        const roleMembers = Array.isArray(role.members) ? role.members : [];
-        const shown = roleMembers.slice(0, 8);
-        return `
-          <article class="live-staff__role">
-            <div class="live-staff__roleTop">
-              <strong>${escapeHtml(role.name || "Staff role")}</strong>
-              <span>${escapeHtml(String(role.count ?? roleMembers.length ?? 0))}</span>
-            </div>
-            <div class="live-staff__members">
-              ${shown.length ? shown.map((member) => `
-                <div class="live-staff__member">
-                  ${member.avatarUrl ? `<img src="${escapeHtml(member.avatarUrl)}" alt="" loading="lazy" />` : `<span class="live-staff__avatar">${escapeHtml((member.displayName || member.username || "S").slice(0, 1).toUpperCase())}</span>`}
-                  <span>${escapeHtml(member.displayName || member.username || "Unknown staff")}</span>
-                </div>
-              `).join("") : `<div class="live-staff__empty">No members returned for this role.</div>`}
-              ${roleMembers.length > shown.length ? `<div class="live-staff__more">+${escapeHtml(String(roleMembers.length - shown.length))} more</div>` : ""}
-            </div>
-          </article>
-        `;
-      }).join("")
-    : "";
+  roles.forEach((role) => {
+    if (role?.id) roleNameById.set(String(role.id), role.name || "Staff role");
+    (Array.isArray(role?.members) ? role.members : []).forEach((member) => {
+      const id = String(member?.id || member?.discordId || member?.username || member?.displayName || "");
+      if (!id) return;
+      const existing = byId.get(id) || {
+        id,
+        username: member?.username || "",
+        displayName: member?.displayName || member?.username || "Unknown staff",
+        avatarUrl: member?.avatarUrl || "",
+        roles: [],
+        roleIds: []
+      };
+      existing.username = existing.username || member?.username || "";
+      existing.displayName = existing.displayName || member?.displayName || member?.username || "Unknown staff";
+      existing.avatarUrl = existing.avatarUrl || member?.avatarUrl || "";
+      const roleNames = Array.isArray(member?.roles) ? member.roles : [];
+      const roleIds = Array.isArray(member?.roleIds) ? member.roleIds : [];
+      existing.roles = Array.from(new Set([...existing.roles, ...roleNames.map((roleName) => String(roleName || "")).filter(Boolean), role?.name || ""].filter(Boolean)));
+      existing.roleIds = Array.from(new Set([...existing.roleIds, ...roleIds.map((roleId) => String(roleId || "")).filter(Boolean), role?.id || ""].filter(Boolean)));
+      byId.set(id, existing);
+    });
+  });
+
+  sourceMembers.forEach((member) => {
+    const id = String(member?.id || member?.discordId || member?.username || member?.displayName || "");
+    if (!id) return;
+    const roleIds = Array.isArray(member?.roleIds) ? member.roleIds.map((roleId) => String(roleId || "")).filter(Boolean) : [];
+    const roleNames = Array.isArray(member?.roles) ? member.roles.map((roleName) => String(roleName || "")).filter(Boolean) : roleIds.map((roleId) => roleNameById.get(roleId)).filter(Boolean);
+    const existing = byId.get(id) || {
+      id,
+      username: member?.username || "",
+      displayName: member?.displayName || member?.username || "Unknown staff",
+      avatarUrl: member?.avatarUrl || "",
+      roles: [],
+      roleIds: []
+    };
+    existing.username = member?.username || existing.username;
+    existing.displayName = member?.displayName || existing.displayName;
+    existing.avatarUrl = member?.avatarUrl || existing.avatarUrl;
+    existing.roles = Array.from(new Set([...existing.roles, ...roleNames].filter(Boolean)));
+    existing.roleIds = Array.from(new Set([...existing.roleIds, ...roleIds].filter(Boolean)));
+    byId.set(id, existing);
+  });
+
+  const members = Array.from(byId.values()).sort((a, b) => String(a.displayName || a.username).localeCompare(String(b.displayName || b.username)));
+  const roleSummary = roles.map((role) => `
+    <div class="live-staff__roleChip">
+      <span>${escapeHtml(role.name || "Staff role")}</span>
+      <strong>${escapeHtml(String(role.count ?? (Array.isArray(role.members) ? role.members.length : 0)))}</strong>
+    </div>
+  `).join("");
+  const peopleMarkup = members.map((member) => {
+    const displayName = member.displayName || member.username || "Unknown staff";
+    const username = member.username ? `@${member.username}` : (member.id ? `ID ${member.id}` : "Discord user");
+    const roleNames = Array.isArray(member.roles) && member.roles.length
+      ? member.roles
+      : (Array.isArray(member.roleIds) ? member.roleIds.map((roleId) => roleNameById.get(String(roleId)) || String(roleId)).filter(Boolean) : []);
+
+    return `
+      <article class="live-staff__person">
+        <div class="live-staff__identity">
+          ${member.avatarUrl ? `<img src="${escapeHtml(member.avatarUrl)}" alt="" loading="lazy" />` : `<span class="live-staff__avatar">${escapeHtml(displayName.slice(0, 1).toUpperCase())}</span>`}
+          <div class="live-staff__nameBlock">
+            <strong>${escapeHtml(displayName)}</strong>
+            <span>${escapeHtml(username)}</span>
+          </div>
+        </div>
+        <div class="live-staff__rolePills">
+          ${roleNames.length ? roleNames.map((roleName) => `<span>${escapeHtml(roleName)}</span>`).join("") : `<span>No staff role returned</span>`}
+        </div>
+      </article>
+    `;
+  }).join("");
+  const count = members.length || roles.reduce((sum, role) => sum + (Number(role.count) || 0), 0);
 
   return `
     <section class="section live-staff" data-reveal>
@@ -5437,9 +5490,9 @@ function renderDiscordStaffList(discord) {
           <div class="section__eyebrow">Discord staff</div>
           <h2>Current staff list</h2>
         </div>
-        <span class="live-staff__count">${escapeHtml(String(members.length || roles.reduce((sum, role) => sum + (Number(role.count) || 0), 0)))}</span>
+        <span class="live-staff__count">${escapeHtml(String(count))}</span>
       </div>
-      ${hasData ? `<div class="live-staff__grid">${roleMarkup}</div>` : `<div class="status-empty__text">Staff roles are wired. Add the bot token on the server and enable guild member access for live member names.</div>`}
+      ${members.length ? `<div class="live-staff__people">${peopleMarkup}</div>${roleSummary ? `<div class="live-staff__rolesSummary">${roleSummary}</div>` : ""}` : `<div class="status-empty__text">Staff roles are wired. Add the bot token on the server and enable guild member access for live member names and usernames.</div>`}
     </section>
   `;
 }
