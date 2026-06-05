@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260604ab";
+const SITE_ASSET_VERSION = "20260605d";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -6017,7 +6017,6 @@ function parseRoute() {
   if (parts[0] === "account") return { name: "account" };
   if (parts[0] === "staff" || parts[0] === "admin") return { name: "staff" };
   if (parts[0] === "leaderboard") return { name: "live", metric: parts[1] || "kd" };
-  if (parts[0] === "wiki") return { name: "wiki", wikiPage: parts[1] || "" };
   if (parts[0] === "map") return { name: "map" };
   if (parts[0] === "status") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "live") return { name: "live", metric: parts[1] || "kd" };
@@ -6058,10 +6057,10 @@ function route() {
   }
   updateDockActive(r.name);
 
-  const isStandardPage = !["home", "map", "wiki"].includes(r.name);
+  const isStandardPage = !["home", "map"].includes(r.name);
   document.body.classList.toggle("is-landing", r.name === "home");
   document.body.classList.toggle("is-map", r.name === "map");
-  document.body.classList.toggle("is-wiki", r.name === "wiki");
+  document.body.classList.remove("is-wiki");
   document.body.classList.toggle("is-standard", isStandardPage);
   clearTopMeta();
 
@@ -6091,10 +6090,6 @@ function route() {
     } else {
       setView(renderAdminLockedPage());
     }
-    return;
-  }
-  if (r.name === "wiki") {
-    renderWiki(r.wikiPage);
     return;
   }
   if (r.name === "map") {

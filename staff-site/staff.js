@@ -30,7 +30,7 @@ const teams=[
 const STAFF_PANEL_USER_IDS=["746289435309506581"];
 const staffPanelRoleIds=teams[0].roleIds||[teams[0].roleId].filter(Boolean);
 const teamsBySlug=Object.fromEntries(teams.map((team)=>[team.slug,team]));
-const state={gate:{loggedIn:false,account:null,error:"",mode:"legacy",passwordResetRequired:false,resetError:"",backendConfigured:false},discord:{status:"idle",user:null,roles:[],syncStatus:"",verifiedAt:"",error:""},txadmin:{status:"idle",data:null,error:""}};
+const state={gate:{initializing:true,loggedIn:false,account:null,error:"",mode:"legacy",passwordResetRequired:false,resetError:"",backendConfigured:false},discord:{status:"idle",user:null,roles:[],syncStatus:"",verifiedAt:"",error:""},txadmin:{status:"idle",data:null,error:""}};
 
 function esc(value){return String(value??"").replace(/[&<>\"']/g,(char)=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[char]));}
 function normalize(value){return String(value??"").trim().toLowerCase();}
@@ -39,7 +39,7 @@ function routeSlug(){const slug=(window.location.hash||"").replace(/^#\/?/,"").s
 function teamLoginHref(team){const target=`${window.location.origin}${window.location.pathname}#/${team.slug}`;return `${AUTH.login}?return_to=${encodeURIComponent(target)}`;}
 function clearStaffSession(){sessionStorage.removeItem(GATE_KEY);}
 function gateStoragePayload(account){return {username:account.username||account.staffId||"",displayName:account.displayName||account.name||account.username||account.staffId||"Staff Access",clearance:account.clearance||"General Staff",issuedBy:account.issuedBy||"Staff Panel",portalAccess:account.portalAccess||""};}
-function saveStaffSession(account,options={}){const payload=gateStoragePayload(account);sessionStorage.setItem(GATE_KEY,JSON.stringify(payload));state.gate.loggedIn=true;state.gate.account=payload;state.gate.error="";state.gate.passwordResetRequired=!!options.passwordResetRequired;state.gate.mode=options.mode||state.gate.mode||"legacy";state.gate.backendConfigured=!!options.backendConfigured;}
+function saveStaffSession(account,options={}){const payload=gateStoragePayload(account);sessionStorage.setItem(GATE_KEY,JSON.stringify(payload));state.gate.initializing=false;state.gate.loggedIn=true;state.gate.account=payload;state.gate.error="";state.gate.passwordResetRequired=!!options.passwordResetRequired;state.gate.mode=options.mode||state.gate.mode||"legacy";state.gate.backendConfigured=!!options.backendConfigured;}
 function loadStaffSession(){try{const raw=sessionStorage.getItem(GATE_KEY);if(!raw)return;const parsed=JSON.parse(raw);if(parsed&&parsed.username){state.gate.loggedIn=true;state.gate.account=parsed;}}catch{clearStaffSession();}}
 function fetchJson(url){return fetch(url,{method:"GET",cache:"no-store",credentials:"include",headers:{"X-Requested-With":"fetch"}}).then(async(response)=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json();});}
 function postJson(url,payload){return fetch(url,{method:"POST",cache:"no-store",credentials:"include",headers:{"Content-Type":"application/json","X-Requested-With":"fetch"},body:JSON.stringify(payload)}).then(async(response)=>{const text=await response.text();let data={};try{data=text?JSON.parse(text):{};}catch{data={};}if(!response.ok)throw Object.assign(new Error(data.error||`HTTP ${response.status}`),{payload:data,status:response.status});return data;});}
@@ -52,17 +52,20 @@ function hasTeamRole(team){const roles=teamRoleIds(team);return roles.some((role
 function hasTeamAccess(team){return hasStaffPanelAccess()||(hasDiscordSession()&&hasTeamRole(team));}
 function verifiedIdentity(){return !state.discord.user?"Discord account not verified yet":state.discord.user.verifiedIdentity||state.discord.user.discordDisplayName||state.discord.user.discordUsername||"Verified Discord staff";}
 function shellMode(){
-  const gated=!state.gate.loggedIn||state.gate.passwordResetRequired;
+  const gated=state.gate.initializing||!state.gate.loggedIn||state.gate.passwordResetRequired;
+  shell.classList.toggle("is-loading",state.gate.initializing);
   shell.classList.toggle("is-gated",gated);
   document.body.classList.toggle("is-staff-authenticated",!gated);
 }
 function statusBadge(label,variant){return `<span class="staff-state-pill staff-state-pill--${variant}">${esc(label)}</span>`;}
+function setHtml(element,html){if(element&&element.innerHTML!==html)element.innerHTML=html;}
 function rowStatus(stateName){const label=stateName==="ready"?"Ready":stateName==="prepared"?"Prepared":"Locked";return `<span class="workspace-row__status workspace-row__status--${stateName}">${esc(label)}</span>`;}
 function rowsMarkup(items,locked=false){return items.map(([title,body,status])=>`<li class="workspace-row"><div class="workspace-row__copy"><strong class="workspace-row__title">${esc(title)}</strong><span class="workspace-row__body">${esc(body)}</span></div>${rowStatus(locked?"restricted":status)}</li>`).join("");}
 function statCard(label,value,meta){return `<article class="summary-card"><span class="summary-card__label">${esc(label)}</span><strong class="summary-card__value">${esc(value)}</strong><p class="summary-card__meta">${esc(meta)}</p></article>`;}
 function workspaceBoard(items){if(!Array.isArray(items)||!items.length)return "";return `<section class="workspace-board">${items.map(([label,value,meta,status])=>`<article class="summary-card workspace-summary workspace-summary--${status||"ready"}"><div class="workspace-summary__top"><span class="summary-card__label">${esc(label)}</span>${statusBadge(status==="prepared"?"Prepared":"Ready",status==="prepared"?"prepared":"open")}</div><strong class="summary-card__value">${esc(value)}</strong><p class="summary-card__meta">${esc(meta)}</p></article>`).join("")}</section>`;}
 function syncGateFromBackend(payload){
   state.gate.backendConfigured=!!payload?.configured;
+  state.gate.initializing=false;
   state.gate.mode=payload?.mode||"database";
   state.gate.error="";
   state.gate.resetError="";
@@ -86,6 +89,7 @@ async function loadBackendGateState(){
     return !!payload?.configured;
   }catch{
     state.gate.backendConfigured=false;
+    state.gate.initializing=false;
     state.gate.mode="database";
     state.gate.loggedIn=false;
     state.gate.account=null;
@@ -121,10 +125,10 @@ async function loadTxAdminState(){
 
 function renderTopbar(){
   shellMode();
-  if(!state.gate.loggedIn){authActions.innerHTML="";return;}
+  if(state.gate.initializing||!state.gate.loggedIn){setHtml(authActions,"");return;}
   const account=state.gate.account||{displayName:"Staff Access",clearance:"General Staff",issuedBy:"Staff Panel"};
   const discordStatus=state.gate.passwordResetRequired?`<span class="staff-mini-pill staff-mini-pill--warn">Password reset required</span>`:hasStaffPanelAccess()?`<span class="staff-mini-pill staff-mini-pill--good">Staff access</span>`:hasDiscordSession()?`<span class="staff-mini-pill staff-mini-pill--good">Discord verified</span>`:state.discord.status==="error"?`<span class="staff-mini-pill staff-mini-pill--warn">Discord check needs attention</span>`:`<span class="staff-mini-pill">Discord team check pending</span>`;
-  authActions.innerHTML=`<div class="staff-account"><span class="staff-account__eyebrow">Signed in</span><strong class="staff-account__name">${esc(account.displayName)}</strong><span class="staff-account__meta">${esc(account.clearance)} access</span></div>${discordStatus}<button class="staff-action staff-action--primary" type="button" data-action="logout-staff">Log out</button>`;
+  setHtml(authActions,`<div class="staff-account"><span class="staff-account__eyebrow">Signed in</span><strong class="staff-account__name">${esc(account.displayName)}</strong><span class="staff-account__meta">${esc(account.clearance)} access</span></div>${discordStatus}<button class="staff-action staff-action--primary" type="button" data-action="logout-staff">Log out</button>`);
 }
 
 function teamStatus(team){
@@ -142,6 +146,10 @@ function gateView(){
     ?"Use the username and password issued for your staff account. New accounts will be pushed into a password reset before the dashboard opens."
     :"Staff database login is not available right now. Check the staff-auth backend configuration.";
   return `<section class="staff-view staff-gate"><article class="staff-gate__card"><div class="staff-gate__layout"><div class="staff-gate__copy"><span class="gate-kicker">General staff access</span><h1 class="staff-heading">Staff login</h1><p class="staff-copy">Sign in to open the internal dashboard. Team workspaces are selected after login.</p></div><div class="staff-gate__panel"><form class="gate-form" data-form="staff-gate" autocomplete="off"><label class="gate-form__field"><span>Username</span><input class="gate-form__input" type="text" name="staffId" placeholder="Enter your username" /></label><label class="gate-form__field"><span>Password</span><input class="gate-form__input" type="password" name="password" placeholder="Enter your password" /></label>${state.gate.error?`<p class="gate-form__error">${esc(state.gate.error)}</p>`:""}<p class="gate-form__hint">${esc(hint)}</p><div class="staff-panel__actions"><button class="staff-panel__button staff-panel__button--primary gate-form__submit" type="submit" ${configured?"":"disabled"}>Open dashboard</button></div></form></div></div></article></section>`;
+}
+
+function bootView(){
+  return `<section class="staff-view staff-gate staff-gate--boot"><article class="staff-gate__card"><div class="staff-gate__layout"><div class="staff-gate__copy"><span class="gate-kicker">Staff access</span><h1 class="staff-heading">Checking session</h1><p class="staff-copy">One moment while the staff dashboard verifies the current login.</p></div></div></article></section>`;
 }
 
 function changePasswordView(){
@@ -237,14 +245,15 @@ function render(){
   const current=routeSlug();
   document.querySelectorAll(".staff-dock__item").forEach((link)=>{link.classList.toggle("is-active",link.dataset.team===current);});
   shell.dataset.route=current;
-  if(!state.gate.loggedIn){app.innerHTML=gateView();return;}
-  if(state.gate.passwordResetRequired){app.innerHTML=changePasswordView();return;}
-  if(current===DEFAULT_ROUTE){app.innerHTML=dashboardView();return;}
-  if(current===PASSWORD_ROUTE){app.innerHTML=changePasswordView();return;}
+  if(state.gate.initializing){setHtml(app,bootView());return;}
+  if(!state.gate.loggedIn){setHtml(app,gateView());return;}
+  if(state.gate.passwordResetRequired){setHtml(app,changePasswordView());return;}
+  if(current===DEFAULT_ROUTE){setHtml(app,dashboardView());return;}
+  if(current===PASSWORD_ROUTE){setHtml(app,changePasswordView());return;}
   const team=teamsBySlug[current]||teams[0];
-  if(!hasDiscordSession()){app.innerHTML=verificationView(team);return;}
-  if(!hasTeamAccess(team)){app.innerHTML=lockedView(team);return;}
-  app.innerHTML=workspaceView(team);
+  if(!hasDiscordSession()){setHtml(app,verificationView(team));return;}
+  if(!hasTeamAccess(team)){setHtml(app,lockedView(team));return;}
+  setHtml(app,workspaceView(team));
 }
 
 async function loadDiscordState(){
@@ -370,7 +379,7 @@ async function handleStaffLogout(){
     try{await postJson(GATE_API.logout,{});}catch{}
   }
   clearStaffSession();
-  state.gate={loggedIn:false,account:null,error:"",mode:state.gate.backendConfigured?"database":"legacy",passwordResetRequired:false,resetError:"",backendConfigured:state.gate.backendConfigured};
+  state.gate={initializing:false,loggedIn:false,account:null,error:"",mode:state.gate.backendConfigured?"database":"legacy",passwordResetRequired:false,resetError:"",backendConfigured:state.gate.backendConfigured};
   state.discord={status:"idle",user:null,roles:[],syncStatus:"",verifiedAt:"",error:""};
   resetTxAdminState();
   window.location.hash="#/dashboard";

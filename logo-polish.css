@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260604ab") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260605d") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260604ab") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260605d") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -1156,6 +1156,77 @@ body.is-landing .auth__btn--primary{
   color: #d8ad8d !important;
   fill: currentColor !important;
   stroke: currentColor !important;
+}
+
+/* 2026-06-05 final footer fit: smaller copyright, cleaner placement, no old green tint. */
+.footer,
+body.is-landing .footer,
+body.is-standard .footer,
+body.is-wiki .footer,
+body.is-apply .footer,
+body.is-map .footer{
+  width: min(1120px, calc(100% - 32px)) !important;
+  margin: 10px auto 0 !important;
+  padding: 0 0 calc(118px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+.footer__inner{
+  gap: 6px !important;
+  padding: 12px 16px !important;
+  border-radius: 14px !important;
+  border-color: rgba(216, 173, 141, .14) !important;
+  background:
+    linear-gradient(180deg, rgba(18, 14, 13, .78), rgba(8, 7, 7, .88)) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .22) !important;
+}
+
+.footer__brand{
+  color: rgba(241, 211, 189, .72) !important;
+  font-size: 10px !important;
+  font-weight: 650 !important;
+  line-height: 1.3 !important;
+  letter-spacing: .01em !important;
+}
+
+.footer__legal{
+  color: rgba(232, 225, 214, .60) !important;
+  font-size: 10px !important;
+  line-height: 1.45 !important;
+}
+
+.footer__links{
+  gap: 6px 12px !important;
+}
+
+.footer__link,
+.footer__mail{
+  color: rgba(241, 211, 189, .76) !important;
+  font-size: 10px !important;
+  line-height: 1.35 !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+.footer__link:hover,
+.footer__mail:hover{
+  color: rgba(250, 237, 226, .94) !important;
+  background-color: rgba(216, 173, 141, .06) !important;
+}
+
+@media (max-width: 780px){
+  .footer,
+  body.is-landing .footer,
+  body.is-standard .footer,
+  body.is-wiki .footer,
+  body.is-apply .footer,
+  body.is-map .footer{
+    width: min(100% - 20px, 1120px) !important;
+    padding-bottom: calc(126px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .footer__inner{
+    padding: 11px 12px !important;
+  }
 }
 
 /* Compact pass: remove filler labels and oversized spacing. */
