@@ -90,7 +90,7 @@ window.SGCNR_SERVER_CONFIG = {
   livePlayerMapUrl: "",
   uptimeStatusUrl: "",
   restartInfoUrl: "",
-  discordStatusUrl: "",
+  discordStatusUrl: "/api/discord-live.php",
   serverHealthUrl: "",
   websiteHealthUrl: "",
 

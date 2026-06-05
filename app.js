@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260605f";
+const SITE_ASSET_VERSION = "20260605h";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -1720,8 +1720,10 @@ function renderLandingHome() {
         <h1 class="landing-hub__title">SGCNR</h1>
         <p class="landing-hub__text">FiveM server links, rules, map, live status, and Discord.</p>
         <div class="landing-hub__actions">
-          <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord for support</a>
+          <a class="auth__btn auth__btn--primary" href="/rules">Start</a>
+          <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
         </div>
+        <p class="landing-hub__support">Help can be found in the <a href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
       </section>
 
       <section class="landing-hub__grid" aria-label="Portal shortcuts">
@@ -4732,7 +4734,9 @@ function normaliseDiscordOpsPayload(payload) {
       oauthUrl: SERVER_CONFIG.discordOAuthUrl || "",
       supportUrl: DISCORD_TICKET_CHANNEL_URL,
       botInviteUrl: SERVER_CONFIG.discordBotInviteUrl || "",
-      announcements: []
+      announcements: [],
+      staffRoles: [],
+      staffMembers: []
     };
   }
 
@@ -4781,6 +4785,34 @@ function normaliseDiscordOpsPayload(payload) {
     );
   const botStatus = normaliseHealthPayload(botStatusSource, "Discord Bot");
 
+  const staffMemberSource = Array.isArray(payload.staffMembers)
+    ? payload.staffMembers
+    : Array.isArray(payload.staff)
+      ? payload.staff
+      : [];
+  const normaliseStaffMember = (member) => ({
+    id: String(pickFirstDefined(member || {}, ["id", "discordId", "userId"]) || ""),
+    username: pickFirstDefined(member || {}, ["username", "name"]) || "",
+    displayName: pickFirstDefined(member || {}, ["displayName", "nick", "nickname", "username", "name"]) || "Unknown staff",
+    avatarUrl: pickFirstDefined(member || {}, ["avatarUrl", "avatar", "image"]) || "",
+    roles: Array.isArray(member?.roles) ? member.roles.map((role) => String(role || "")).filter(Boolean) : [],
+    roleIds: Array.isArray(member?.roleIds) ? member.roleIds.map((role) => String(role || "")).filter(Boolean) : []
+  });
+  const staffRoleSource = Array.isArray(payload.staffRoles)
+    ? payload.staffRoles
+    : Array.isArray(payload.staff_roles)
+      ? payload.staff_roles
+      : [];
+  const staffRoles = staffRoleSource.map((role) => {
+    const members = Array.isArray(role?.members) ? role.members.map(normaliseStaffMember) : [];
+    return {
+      id: String(pickFirstDefined(role || {}, ["id", "roleId"]) || ""),
+      name: pickFirstDefined(role || {}, ["name", "label", "title"]) || "Staff role",
+      count: toFiniteNumber(pickFirstDefined(role || {}, ["count", "memberCount"])) ?? members.length,
+      members
+    };
+  });
+  const staffMembers = staffMemberSource.map(normaliseStaffMember);
   return {
     configured: true,
     botStatus: {
@@ -4800,6 +4832,8 @@ function normaliseDiscordOpsPayload(payload) {
     oauthUrl: pickFirstDefined(linking, ["oauthUrl", "connectUrl", "linkUrl", "oauth_url"]) || SERVER_CONFIG.discordOAuthUrl || "",
     supportUrl: pickFirstDefined(support, ["supportUrl", "ticketUrl", "dashboardUrl", "support_url"]) || DISCORD_TICKET_CHANNEL_URL,
     botInviteUrl: pickFirstDefined(payload, ["botInviteUrl", "inviteUrl"]) || SERVER_CONFIG.discordBotInviteUrl || "",
+    staffRoles,
+    staffMembers,
     announcements: announcementSource.map((entry, index) => ({
       id: pickFirstDefined(entry, ["id", "slug"]) || `discord-announcement-${index + 1}`,
       title: pickFirstDefined(entry, ["title", "name"]) || `Discord update ${index + 1}`,
@@ -5367,6 +5401,48 @@ function renderDiscordLinking(discord) {
   `;
 }
 
+function renderDiscordStaffList(discord) {
+  const roles = Array.isArray(discord?.staffRoles) ? discord.staffRoles : [];
+  const members = Array.isArray(discord?.staffMembers) ? discord.staffMembers : [];
+  const hasData = roles.some((role) => Array.isArray(role.members) && role.members.length) || members.length;
+
+  const roleMarkup = roles.length
+    ? roles.map((role) => {
+        const roleMembers = Array.isArray(role.members) ? role.members : [];
+        const shown = roleMembers.slice(0, 8);
+        return `
+          <article class="live-staff__role">
+            <div class="live-staff__roleTop">
+              <strong>${escapeHtml(role.name || "Staff role")}</strong>
+              <span>${escapeHtml(String(role.count ?? roleMembers.length ?? 0))}</span>
+            </div>
+            <div class="live-staff__members">
+              ${shown.length ? shown.map((member) => `
+                <div class="live-staff__member">
+                  ${member.avatarUrl ? `<img src="${escapeHtml(member.avatarUrl)}" alt="" loading="lazy" />` : `<span class="live-staff__avatar">${escapeHtml((member.displayName || member.username || "S").slice(0, 1).toUpperCase())}</span>`}
+                  <span>${escapeHtml(member.displayName || member.username || "Unknown staff")}</span>
+                </div>
+              `).join("") : `<div class="live-staff__empty">No members returned for this role.</div>`}
+              ${roleMembers.length > shown.length ? `<div class="live-staff__more">+${escapeHtml(String(roleMembers.length - shown.length))} more</div>` : ""}
+            </div>
+          </article>
+        `;
+      }).join("")
+    : "";
+
+  return `
+    <section class="section live-staff" data-reveal>
+      <div class="live-staff__head">
+        <div>
+          <div class="section__eyebrow">Discord staff</div>
+          <h2>Current staff list</h2>
+        </div>
+        <span class="live-staff__count">${escapeHtml(String(members.length || roles.reduce((sum, role) => sum + (Number(role.count) || 0), 0)))}</span>
+      </div>
+      ${hasData ? `<div class="live-staff__grid">${roleMarkup}</div>` : `<div class="status-empty__text">Staff roles are wired. Add the bot token on the server and enable guild member access for live member names.</div>`}
+    </section>
+  `;
+}
 function renderServerStatusContent(snapshot) {
   const liveOps = snapshot.liveOps || {};
   const discordOps = liveOps.discord || normaliseDiscordOpsPayload(null);
@@ -5412,10 +5488,11 @@ function renderServerStatusContent(snapshot) {
           <div class="live-minimal__label">Discord bot status</div>
           <div class="live-minimal__value">${escapeHtml(botValue)}</div>
           <div class="live-minimal__text">${escapeHtml(botStatus.message || "Waiting for the Discord bot live push.")}</div>
-          <div class="live-minimal__meta">${escapeHtml(botStatus.latencyMs != null ? `${botStatus.latencyMs} ms latency` : (discordOps.lastPushAt ? `Last push ${formatServerTimestamp(discordOps.lastPushAt)}` : "Connect WEB_API_URL and WEB_API_SECRET to enable live bot data."))}</div>
+          <div class="live-minimal__meta">${escapeHtml(botStatus.latencyMs != null ? `${botStatus.latencyMs} ms latency` : (discordOps.lastPushAt ? `Last push ${formatServerTimestamp(discordOps.lastPushAt)}` : "Connect the Discord live endpoint with the server-side bot token."))}</div>
         </article>
       </div>
       ${liveNote ? `<div class="status-note"><strong>Live note:</strong> ${escapeHtml(liveNote)}</div>` : ""}
+      ${renderDiscordStaffList(discordOps)}
     </section>
   `;
 }

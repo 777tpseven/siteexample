@@ -34,8 +34,10 @@
           <h1 class="landing-hub__title">SGCNR</h1>
           <p class="landing-hub__text">FiveM server links, rules, map, live status, and Discord.</p>
           <div class="landing-hub__actions">
-            <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord for support</a>
+            <a class="auth__btn auth__btn--primary" href="/rules">Start</a>
+            <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
           </div>
+          <p class="landing-hub__support">Help can be found in the <a href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
         </section>
 
         <section class="landing-hub__grid" aria-label="Portal shortcuts">
@@ -134,6 +136,47 @@
 
   renderLandingHome = function renderLandingHomeFinalPass() {
     setView(renderLandingHubHomeMarkup());
+  };
+
+  renderRulesHub = function renderRulesHubClean(sections) {
+    const title = renderHeader("Rules", [{ label: "Rules" }]);
+    if (!sections.length) {
+      setView(`
+        <div class="rules-clean">
+          ${title}
+          <section class="section">
+            <div class="empty">The rules are currently being rewritten.</div>
+          </section>
+          ${renderRulesDisclaimer()}
+        </div>
+      `);
+      return;
+    }
+
+    const descriptions = {
+      "discord-rules": "Community conduct, Discord channels, tickets, appeals, and punishments.",
+      "ingame-rules": "Server rules will be published here when they are ready."
+    };
+
+    const cards = sections.map((section, index) => `
+      <a class="rules-picker__item" href="/section/${escapeHtml(section.id)}" data-reveal>
+        <span class="rules-picker__index">${escapeHtml(String(index + 1).padStart(2, "0"))}</span>
+        <span class="rules-picker__copy">
+          <strong>${escapeHtml(section.title)}</strong>
+          <span>${escapeHtml(descriptions[section.id] || "Read this category before joining.")}</span>
+        </span>
+      </a>
+    `).join("");
+
+    setView(`
+      <div class="rules-clean">
+        ${title}
+        <section class="rules-picker" aria-label="Rule categories">
+          ${cards}
+        </section>
+        ${renderRulesDisclaimer()}
+      </div>
+    `);
   };
 
   function renderRuleBodyDocument(body) {
