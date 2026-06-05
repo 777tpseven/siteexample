@@ -34,8 +34,7 @@
           <h1 class="landing-hub__title">SGCNR</h1>
           <p class="landing-hub__text">FiveM server links, rules, map, live status, and Discord.</p>
           <div class="landing-hub__actions">
-            <a class="auth__btn auth__btn--primary" href="/start">Start</a>
-            <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord for support</a>
           </div>
         </section>
 
@@ -56,57 +55,6 @@
       </div>
     `;
   }
-
-  renderStart = function renderStartEnhanced() {
-    const quickLinks = [
-      { label: "Rules", detail: "Learn the basics before you join.", href: "/rules" },
-      { label: "Map", detail: "Keep the city layout nearby.", href: "/map" },
-      { label: "Live", detail: "Check the server and bot state fast.", href: "/live" }
-    ];
-
-    setView(`
-      <div>
-        ${renderHeader("Start Here", [{ label: "Start" }], { showBadge: false })}
-        <section class="section section--hero start-clean" data-reveal>
-          <div class="section__eyebrow">New player entry</div>
-          <h2>Get into the city without missing the basics.</h2>
-          <p class="doc-p">This page is your fast lane: find the server, lock in the rules, and keep the right links ready before you start moving.</p>
-          <div class="start-clean__flow">
-            <article class="start-clean__step" data-reveal>
-              <span class="start-clean__stepIndex">01</span>
-              <div class="start-clean__stepCopy">
-                <strong>Find SGCNR in FiveM</strong>
-                <span>Search for the server in FiveM and join from there.</span>
-              </div>
-            </article>
-            <article class="start-clean__step" data-reveal>
-              <span class="start-clean__stepIndex">02</span>
-              <div class="start-clean__stepCopy">
-                <strong>Read the rules first</strong>
-                <span>Use the Rules page before you jump into active situations in the city.</span>
-              </div>
-            </article>
-            <article class="start-clean__step" data-reveal>
-              <span class="start-clean__stepIndex">03</span>
-              <div class="start-clean__stepCopy">
-                <strong>Use Discord for support</strong>
-                <span>Tickets, ban history, and staff help stay in Discord so everything is tracked properly.</span>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="start-clean__links" aria-label="Start shortcuts">
-          ${quickLinks.map((item) => `
-            <a class="start-clean__linkCard" href="${escapeHtml(item.href)}" data-reveal>
-              <span class="start-clean__linkLabel">${escapeHtml(item.label)}</span>
-              <strong class="start-clean__linkTitle">${escapeHtml(item.detail)}</strong>
-            </a>
-          `).join("")}
-        </section>
-      </div>
-    `);
-  };
 
   function renderHomefrontStatusCards(snapshot = null) {
     const liveOps = snapshot?.liveOps || {};
@@ -182,43 +130,6 @@
 
   renderLandingHome = function renderLandingHomeRebuilt() {
     setView(renderLandingHubHomeMarkup());
-  };
-
-  renderStart = function renderStartRebuilt() {
-    setView(`
-      <div class="startfront">
-        <section class="startfront__hero" data-reveal>
-          <div class="startfront__head">
-            <h2 class="startfront__title">Start</h2>
-          </div>
-          <div class="startfront__actions">
-            <a class="auth__btn auth__btn--primary" href="/rules">Read rules</a>
-            <a class="auth__btn" href="/map">Open map</a>
-            <a class="auth__btn" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
-          </div>
-          <div class="startfront__stepGrid">
-            <article class="startfront__step">
-              <span class="startfront__stepIndex">01</span>
-              <div class="startfront__stepCopy">
-                <strong>Find SGCNR</strong>
-              </div>
-            </article>
-            <article class="startfront__step">
-              <span class="startfront__stepIndex">02</span>
-              <div class="startfront__stepCopy">
-                <strong>Read rules</strong>
-              </div>
-            </article>
-            <article class="startfront__step">
-              <span class="startfront__stepIndex">03</span>
-              <div class="startfront__stepCopy">
-                <strong>Use Discord</strong>
-              </div>
-            </article>
-          </div>
-        </section>
-      </div>
-    `);
   };
 
   renderLandingHome = function renderLandingHomeFinalPass() {

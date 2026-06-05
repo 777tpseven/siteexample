@@ -4,7 +4,7 @@ RewriteEngine On
 RewriteRule ^legal/.*\.pdf$ - [NC,L]
 
 # Force known SPA routes to index.html even if stale route folders still exist on the server.
-RewriteRule ^(start|rules|map|live|help|faq|account|admin|definitions|info|section|rule|leaderboard)(/.*)?$ index.html [L]
+RewriteRule ^(rules|map|live|account|admin|definitions|info|section|rule|leaderboard)(/.*)?$ index.html [L]
 
 # Serve existing files and directories normally.
 RewriteCond %{REQUEST_FILENAME} -f [OR]

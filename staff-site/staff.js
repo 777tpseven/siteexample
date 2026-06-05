@@ -37,10 +37,10 @@ function normalize(value){return String(value??"").trim().toLowerCase();}
 function accessTokens(value){return normalize(value).split(/[\s,|;]+/).filter(Boolean);}
 function routeSlug(){const slug=(window.location.hash||"").replace(/^#\/?/,"").split("/")[0].toLowerCase();return !slug?DEFAULT_ROUTE:slug===DEFAULT_ROUTE||slug===PASSWORD_ROUTE||teamsBySlug[slug]?slug:DEFAULT_ROUTE;}
 function teamLoginHref(team){const target=`${window.location.origin}${window.location.pathname}#/${team.slug}`;return `${AUTH.login}?return_to=${encodeURIComponent(target)}`;}
-function clearStaffSession(){sessionStorage.removeItem(GATE_KEY);}
+function clearStaffSession(){localStorage.removeItem(GATE_KEY);sessionStorage.removeItem(GATE_KEY);}
 function gateStoragePayload(account){return {username:account.username||account.staffId||"",displayName:account.displayName||account.name||account.username||account.staffId||"Staff Access",clearance:account.clearance||"General Staff",issuedBy:account.issuedBy||"Staff Panel",portalAccess:account.portalAccess||""};}
-function saveStaffSession(account,options={}){const payload=gateStoragePayload(account);sessionStorage.setItem(GATE_KEY,JSON.stringify(payload));state.gate.initializing=false;state.gate.loggedIn=true;state.gate.account=payload;state.gate.error="";state.gate.passwordResetRequired=!!options.passwordResetRequired;state.gate.mode=options.mode||state.gate.mode||"legacy";state.gate.backendConfigured=!!options.backendConfigured;}
-function loadStaffSession(){try{const raw=sessionStorage.getItem(GATE_KEY);if(!raw)return;const parsed=JSON.parse(raw);if(parsed&&parsed.username){state.gate.loggedIn=true;state.gate.account=parsed;}}catch{clearStaffSession();}}
+function saveStaffSession(account,options={}){const payload=gateStoragePayload(account);const raw=JSON.stringify(payload);localStorage.setItem(GATE_KEY,raw);sessionStorage.setItem(GATE_KEY,raw);state.gate.initializing=false;state.gate.loggedIn=true;state.gate.account=payload;state.gate.error="";state.gate.passwordResetRequired=!!options.passwordResetRequired;state.gate.mode=options.mode||state.gate.mode||"legacy";state.gate.backendConfigured=!!options.backendConfigured;}
+function loadStaffSession(){try{const raw=localStorage.getItem(GATE_KEY)||sessionStorage.getItem(GATE_KEY);if(!raw)return;const parsed=JSON.parse(raw);if(parsed&&parsed.username){state.gate.loggedIn=true;state.gate.account=parsed;sessionStorage.setItem(GATE_KEY,raw);}}catch{clearStaffSession();}}
 function fetchJson(url){return fetch(url,{method:"GET",cache:"no-store",credentials:"include",headers:{"X-Requested-With":"fetch"}}).then(async(response)=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json();});}
 function postJson(url,payload){return fetch(url,{method:"POST",cache:"no-store",credentials:"include",headers:{"Content-Type":"application/json","X-Requested-With":"fetch"},body:JSON.stringify(payload)}).then(async(response)=>{const text=await response.text();let data={};try{data=text?JSON.parse(text):{};}catch{data={};}if(!response.ok)throw Object.assign(new Error(data.error||`HTTP ${response.status}`),{payload:data,status:response.status});return data;});}
 function hasDiscordSession(){return state.discord.status==="connected"&&!!state.discord.user;}
@@ -74,7 +74,9 @@ function syncGateFromBackend(payload){
     const account=gateStoragePayload(payload.user);
     state.gate.loggedIn=true;
     state.gate.account=account;
-    sessionStorage.setItem(GATE_KEY,JSON.stringify(account));
+    const raw=JSON.stringify(account);
+    localStorage.setItem(GATE_KEY,raw);
+    sessionStorage.setItem(GATE_KEY,raw);
     return;
   }
   state.gate.loggedIn=false;

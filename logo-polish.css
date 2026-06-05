@@ -1,4 +1,4 @@
-/* Final logo/header polish for the June 2026 SGCNR refresh. */
+﻿/* Final logo/header polish for the June 2026 SGCNR refresh. */
 .site-brand-backdrop{
   position: relative;
   display: none;
@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260605d") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260605f") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260605d") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260605f") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -1158,6 +1158,493 @@ body.is-landing .auth__btn--primary{
   stroke: currentColor !important;
 }
 
+/* 2026-06-05 actual final pass: warm neutral everywhere, no green carry-over. */
+:root{
+  --accent: #d8ad8d !important;
+  --accent2: #f1d3bd !important;
+  --site-green: #d8ad8d !important;
+  --site-gold: #d8ad8d !important;
+  --site-border-strong: rgba(218, 177, 148, .18) !important;
+  --sgcnr-ink: rgba(246, 239, 231, .94);
+  --sgcnr-muted: rgba(224, 208, 196, .72);
+  --sgcnr-line: rgba(218, 177, 148, .18);
+}
+
+a:hover,
+.info-link,
+.dock__item.is-active,
+.section__eyebrow,
+.rule__id,
+.stack-list__index,
+.map-filter__count,
+.map-panel__sourceLabel,
+.map-stage-card__eyebrow,
+.live-minimal__label,
+.status-card__label,
+.admin-list__meta{
+  color: #d8ad8d !important;
+  border-color: var(--sgcnr-line) !important;
+  text-decoration-color: rgba(218, 177, 148, .42) !important;
+}
+
+.auth__btn--primary,
+.dock__item.is-active,
+.map-filter.is-active,
+.map-tool:hover,
+.map-tool:focus-visible{
+  background: linear-gradient(180deg, rgba(112, 67, 52, .82), rgba(54, 34, 29, .9)) !important;
+  border-color: rgba(238, 192, 160, .34) !important;
+  color: #fff7ef !important;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, .28) !important;
+}
+
+.landing-hub__card::before,
+.landing-hub__card::after,
+.live-minimal__hero::before,
+.live-minimal__hero::after,
+.live-minimal__card::before,
+.live-minimal__card::after,
+.rule-card::after,
+.map-panel::before,
+.map-stage-card::before{
+  display: none !important;
+}
+
+.rules-choice .card,
+.rules-document__section,
+body.is-standard .rule-card,
+body.is-standard .rules-legal,
+body.is-standard .status-note,
+body.is-standard .card{
+  background: linear-gradient(180deg, rgba(18, 14, 13, .88), rgba(8, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .26) !important;
+  transition: transform .16s ease, border-color .16s ease, background-color .16s ease, box-shadow .16s ease !important;
+}
+
+.rules-choice .card:hover,
+body.is-standard .rule-card:hover{
+  transform: translateY(-1px) !important;
+  background: linear-gradient(180deg, rgba(25, 18, 16, .92), rgba(10, 8, 8, .94)) !important;
+  border-color: rgba(238, 192, 160, .32) !important;
+}
+
+.rules-document__section{
+  padding: 20px !important;
+}
+
+.rules-document__article + .rules-document__article{
+  margin-top: 18px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(218, 177, 148, .12) !important;
+}
+
+.rules-document__paragraph,
+.rules-document__list,
+.rules-document__list li,
+.rule-card__body,
+.rule-card__section{
+  color: var(--sgcnr-muted) !important;
+}
+
+body.is-map .content{
+  width: min(1540px, calc(100% - 32px)) !important;
+  max-width: none !important;
+}
+
+body.is-map .section--map{
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.is-map .map-layout{
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) !important;
+  gap: 14px !important;
+}
+
+body.is-map .map-panel,
+body.is-map .map-stage,
+body.is-map .service-map-shell,
+body.is-map .map-detail,
+body.is-map .map-stage-card,
+body.is-map .map-filter,
+body.is-map .map-stat,
+body.is-map .map-tool,
+body.is-map .map-toolbar__badge,
+body.is-map .map-legend__item{
+  background: linear-gradient(180deg, rgba(17, 13, 12, .88), rgba(7, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  color: var(--sgcnr-ink) !important;
+  box-shadow: none !important;
+}
+
+body.is-map .map-stage{
+  min-height: min(720px, calc(100svh - 150px)) !important;
+  padding: 12px !important;
+}
+
+body.is-map .service-map-shell{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 238px !important;
+  gap: 12px !important;
+  min-height: min(700px, calc(100svh - 170px)) !important;
+  padding: 12px !important;
+}
+
+body.is-map #serviceMap{
+  height: min(680px, calc(100svh - 190px)) !important;
+  min-height: 560px !important;
+}
+
+body.is-map .map-stage__aside{
+  gap: 10px !important;
+}
+
+body.is-map .map-stage__aside .map-stage-card:nth-child(n+3){
+  display: none !important;
+}
+
+body.is-map .map-stage-card__body,
+body.is-map .map-panel__intro,
+body.is-map .map-detail__body,
+body.is-map .map-toolbar__hint,
+body.is-map .map-panel *{
+  color: var(--sgcnr-muted) !important;
+}
+
+body.is-map .map-panel__headline,
+body.is-map .map-detail__title,
+body.is-map .map-stage-card__title,
+body.is-map .map-stat__value,
+body.is-map .map-filter{
+  color: var(--sgcnr-ink) !important;
+}
+
+body.is-map .service-marker__core,
+body.is-map .custom-map__dot{
+  background: #d8ad8d !important;
+  border-color: rgba(246, 239, 231, .42) !important;
+  box-shadow: 0 0 16px rgba(218, 177, 148, .22) !important;
+}
+
+.live-minimal,
+.live-minimal *{
+  font-family: "Bahnschrift", "Segoe UI Variable Text", "Segoe UI", Arial, sans-serif !important;
+  letter-spacing: 0 !important;
+}
+
+.live-minimal__hero,
+.live-minimal__card{
+  background: linear-gradient(180deg, rgba(17, 13, 12, .88), rgba(8, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .25) !important;
+}
+
+.live-minimal__hero{
+  padding: 20px !important;
+}
+
+.live-minimal__hero h2{
+  font-size: clamp(30px, 3vw, 44px) !important;
+  line-height: 1.04 !important;
+  font-weight: 750 !important;
+}
+
+.live-minimal__value{
+  font-size: clamp(30px, 3.2vw, 46px) !important;
+  line-height: 1 !important;
+  font-weight: 650 !important;
+  text-transform: none !important;
+}
+
+.live-minimal__text,
+.live-minimal__meta{
+  color: var(--sgcnr-muted) !important;
+}
+
+.admin-page .section,
+.admin-page .status-card,
+.admin-page .admin-list__item{
+  background: linear-gradient(180deg, rgba(18, 14, 13, .88), rgba(8, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.admin-metrics{
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+@media (max-width: 980px){
+  body.is-map .map-layout,
+  body.is-map .service-map-shell{
+    grid-template-columns: 1fr !important;
+  }
+
+  body.is-map #serviceMap{
+    min-height: 440px !important;
+  }
+
+  .admin-metrics{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+body.is-map .map-filter.is-active,
+body.is-map .map-tool:hover,
+body.is-map .map-tool:focus-visible{
+  background: linear-gradient(180deg, rgba(112, 67, 52, .84), rgba(54, 34, 29, .9)) !important;
+  border-color: rgba(238, 192, 160, .34) !important;
+  color: #fff7ef !important;
+}
+
+/* Final route cleanup: no green remnants, less generated-looking glow, steadier page sizing. */
+:root{
+  --sgcnr-ink: rgba(246, 239, 231, .94);
+  --sgcnr-muted: rgba(224, 208, 196, .72);
+  --sgcnr-line: rgba(218, 177, 148, .18);
+  --sgcnr-panel: rgba(13, 11, 11, .84);
+  --sgcnr-panel-strong: rgba(16, 12, 12, .92);
+  --sgcnr-accent: #d8ad8d;
+  --sgcnr-accent-deep: #704334;
+}
+
+body,
+body.is-landing,
+body.is-standard,
+body.is-map{
+  color: var(--sgcnr-ink) !important;
+}
+
+body :is(
+  .section__eyebrow,
+  .breadcrumb__sep,
+  .rule__id,
+  .stack-list__index,
+  .map-filter__count,
+  .map-panel__sourceLabel,
+  .map-stage-card__eyebrow,
+  .live-minimal__label,
+  .status-card__label,
+  .admin-list__meta
+){
+  color: rgba(218, 177, 148, .74) !important;
+  border-color: var(--sgcnr-line) !important;
+}
+
+body :is(
+  .auth__btn--primary,
+  .dock__item.is-active,
+  .map-filter.is-active,
+  .map-tool:hover,
+  .map-tool:focus-visible,
+  .rule-card:hover,
+  .rules-choice .card:hover
+){
+  background:
+    linear-gradient(180deg, rgba(112, 67, 52, .82), rgba(60, 37, 31, .88)) !important;
+  border-color: rgba(238, 192, 160, .34) !important;
+  color: #fff7ef !important;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, .28) !important;
+}
+
+body :is(
+  .landing-hub__card::before,
+  .landing-hub__card::after,
+  .live-minimal__hero::before,
+  .live-minimal__hero::after,
+  .live-minimal__card::before,
+  .live-minimal__card::after,
+  .rule-card::after
+){
+  display: none !important;
+}
+
+.rules-choice{
+  align-items: stretch !important;
+}
+
+.rules-choice .card,
+.rules-document__section,
+body.is-standard .rule-card,
+body.is-standard .rules-legal,
+body.is-standard .status-note{
+  background:
+    linear-gradient(180deg, rgba(18, 14, 13, .88), rgba(8, 7, 7, .92)) !important;
+  border: 1px solid var(--sgcnr-line) !important;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .26) !important;
+  transition:
+    transform .16s ease,
+    border-color .16s ease,
+    background-color .16s ease,
+    box-shadow .16s ease !important;
+}
+
+.rules-choice .card:hover,
+body.is-standard .rule-card:hover{
+  transform: translateY(-1px) !important;
+}
+
+.rules-document__section{
+  padding: 20px !important;
+}
+
+.rules-document__article + .rules-document__article{
+  margin-top: 18px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(218, 177, 148, .12) !important;
+}
+
+.rules-document__paragraph,
+.rules-document__list,
+.rules-document__list li,
+.rule-card__body,
+.rule-card__section{
+  color: var(--sgcnr-muted) !important;
+}
+
+body.is-map .content{
+  width: min(1540px, calc(100% - 32px)) !important;
+  max-width: none !important;
+}
+
+body.is-map .section--map{
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.is-map .map-layout{
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) !important;
+  gap: 14px !important;
+}
+
+body.is-map .map-panel,
+body.is-map .map-stage,
+body.is-map .service-map-shell,
+body.is-map .map-detail,
+body.is-map .map-stage-card{
+  background:
+    linear-gradient(180deg, rgba(17, 13, 12, .88), rgba(7, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: none !important;
+}
+
+body.is-map .map-stage{
+  min-height: min(720px, calc(100svh - 150px)) !important;
+  padding: 12px !important;
+}
+
+body.is-map .service-map-shell{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 238px !important;
+  gap: 12px !important;
+  min-height: min(700px, calc(100svh - 170px)) !important;
+  padding: 12px !important;
+}
+
+body.is-map #serviceMap{
+  height: min(680px, calc(100svh - 190px)) !important;
+  min-height: 560px !important;
+}
+
+body.is-map .map-stage__aside{
+  gap: 10px !important;
+}
+
+body.is-map .map-stage__aside .map-stage-card:nth-child(n+3){
+  display: none !important;
+}
+
+body.is-map .map-stage-card{
+  padding: 12px !important;
+}
+
+body.is-map .map-stage-card__body,
+body.is-map .map-panel__intro,
+body.is-map .map-detail__body,
+body.is-map .map-toolbar__hint{
+  color: var(--sgcnr-muted) !important;
+}
+
+body.is-map .service-marker__core,
+body.is-map .custom-map__dot{
+  background: var(--sgcnr-accent) !important;
+  border-color: rgba(246, 239, 231, .42) !important;
+  box-shadow: 0 0 16px rgba(218, 177, 148, .22) !important;
+}
+
+.live-minimal,
+.live-minimal *{
+  font-family: "Bahnschrift", "Segoe UI Variable Text", "Segoe UI", Arial, sans-serif !important;
+  letter-spacing: 0 !important;
+}
+
+.live-minimal__hero{
+  padding: 20px !important;
+  background:
+    linear-gradient(180deg, rgba(17, 13, 12, .88), rgba(8, 7, 7, .9)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .25) !important;
+}
+
+.live-minimal__hero h2{
+  font-size: clamp(30px, 3vw, 44px) !important;
+  line-height: 1.04 !important;
+  font-weight: 750 !important;
+}
+
+.live-minimal__card{
+  background:
+    linear-gradient(180deg, rgba(17, 13, 12, .86), rgba(8, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: none !important;
+}
+
+.live-minimal__value{
+  font-size: clamp(30px, 3.2vw, 46px) !important;
+  line-height: 1 !important;
+  font-weight: 650 !important;
+  text-transform: none !important;
+}
+
+.live-minimal__text,
+.live-minimal__meta{
+  color: var(--sgcnr-muted) !important;
+}
+
+.admin-page .section,
+.admin-page .status-card,
+.admin-page .admin-list__item{
+  background:
+    linear-gradient(180deg, rgba(18, 14, 13, .88), rgba(8, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.admin-metrics{
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+@media (max-width: 980px){
+  body.is-map .map-layout,
+  body.is-map .service-map-shell{
+    grid-template-columns: 1fr !important;
+  }
+
+  body.is-map #serviceMap{
+    min-height: 440px !important;
+  }
+
+  .admin-metrics{
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* 2026-06-05 final footer fit: smaller copyright, cleaner placement, no old green tint. */
 .footer,
 body.is-landing .footer,
@@ -1848,4 +2335,264 @@ body.is-standard .rules-choice .card{
   color: #d8ad8d !important;
   fill: currentColor !important;
   stroke: currentColor !important;
+}
+/* 2026-06-05 actual final pass: warm neutral everywhere, no green carry-over. */
+:root{
+  --accent: #d8ad8d !important;
+  --accent2: #f1d3bd !important;
+  --site-green: #d8ad8d !important;
+  --site-gold: #d8ad8d !important;
+  --site-border-strong: rgba(218, 177, 148, .18) !important;
+  --sgcnr-ink: rgba(246, 239, 231, .94);
+  --sgcnr-muted: rgba(224, 208, 196, .72);
+  --sgcnr-line: rgba(218, 177, 148, .18);
+}
+
+a:hover,
+.info-link,
+.dock__item.is-active,
+.section__eyebrow,
+.rule__id,
+.stack-list__index,
+.map-filter__count,
+.map-panel__sourceLabel,
+.map-stage-card__eyebrow,
+.live-minimal__label,
+.status-card__label,
+.admin-list__meta{
+  color: #d8ad8d !important;
+  border-color: var(--sgcnr-line) !important;
+  text-decoration-color: rgba(218, 177, 148, .42) !important;
+}
+
+.auth__btn--primary,
+.dock__item.is-active,
+.map-filter.is-active,
+.map-tool:hover,
+.map-tool:focus-visible{
+  background: linear-gradient(180deg, rgba(112, 67, 52, .82), rgba(54, 34, 29, .9)) !important;
+  border-color: rgba(238, 192, 160, .34) !important;
+  color: #fff7ef !important;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, .28) !important;
+}
+
+.landing-hub__card::before,
+.landing-hub__card::after,
+.live-minimal__hero::before,
+.live-minimal__hero::after,
+.live-minimal__card::before,
+.live-minimal__card::after,
+.rule-card::after,
+.map-panel::before,
+.map-stage-card::before{
+  display: none !important;
+}
+
+.rules-choice .card,
+.rules-document__section,
+body.is-standard .rule-card,
+body.is-standard .rules-legal,
+body.is-standard .status-note,
+body.is-standard .card{
+  background: linear-gradient(180deg, rgba(18, 14, 13, .88), rgba(8, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .26) !important;
+  transition: transform .16s ease, border-color .16s ease, background-color .16s ease, box-shadow .16s ease !important;
+}
+
+.rules-choice .card:hover,
+body.is-standard .rule-card:hover{
+  transform: translateY(-1px) !important;
+  background: linear-gradient(180deg, rgba(25, 18, 16, .92), rgba(10, 8, 8, .94)) !important;
+  border-color: rgba(238, 192, 160, .32) !important;
+}
+
+.rules-document__section{
+  padding: 20px !important;
+}
+
+.rules-document__article + .rules-document__article{
+  margin-top: 18px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(218, 177, 148, .12) !important;
+}
+
+.rules-document__paragraph,
+.rules-document__list,
+.rules-document__list li,
+.rule-card__body,
+.rule-card__section{
+  color: var(--sgcnr-muted) !important;
+}
+
+body.is-map .content{
+  width: min(1540px, calc(100% - 32px)) !important;
+  max-width: none !important;
+}
+
+body.is-map .section--map{
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.is-map .map-layout{
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) !important;
+  gap: 14px !important;
+}
+
+body.is-map .map-panel,
+body.is-map .map-stage,
+body.is-map .service-map-shell,
+body.is-map .map-detail,
+body.is-map .map-stage-card,
+body.is-map .map-filter,
+body.is-map .map-stat,
+body.is-map .map-tool,
+body.is-map .map-toolbar__badge,
+body.is-map .map-legend__item{
+  background: linear-gradient(180deg, rgba(17, 13, 12, .88), rgba(7, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  color: var(--sgcnr-ink) !important;
+  box-shadow: none !important;
+}
+
+body.is-map .map-stage{
+  min-height: min(720px, calc(100svh - 150px)) !important;
+  padding: 12px !important;
+}
+
+body.is-map .service-map-shell{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 238px !important;
+  gap: 12px !important;
+  min-height: min(700px, calc(100svh - 170px)) !important;
+  padding: 12px !important;
+}
+
+body.is-map #serviceMap{
+  height: min(680px, calc(100svh - 190px)) !important;
+  min-height: 560px !important;
+}
+
+body.is-map .map-stage__aside{
+  gap: 10px !important;
+}
+
+body.is-map .map-stage__aside .map-stage-card:nth-child(n+3){
+  display: none !important;
+}
+
+body.is-map .map-stage-card__body,
+body.is-map .map-panel__intro,
+body.is-map .map-detail__body,
+body.is-map .map-toolbar__hint,
+body.is-map .map-panel *{
+  color: var(--sgcnr-muted) !important;
+}
+
+body.is-map .map-panel__headline,
+body.is-map .map-detail__title,
+body.is-map .map-stage-card__title,
+body.is-map .map-stat__value,
+body.is-map .map-filter{
+  color: var(--sgcnr-ink) !important;
+}
+
+body.is-map .service-marker__core,
+body.is-map .custom-map__dot{
+  background: #d8ad8d !important;
+  border-color: rgba(246, 239, 231, .42) !important;
+  box-shadow: 0 0 16px rgba(218, 177, 148, .22) !important;
+}
+
+.live-minimal,
+.live-minimal *{
+  font-family: "Bahnschrift", "Segoe UI Variable Text", "Segoe UI", Arial, sans-serif !important;
+  letter-spacing: 0 !important;
+}
+
+.live-minimal__hero,
+.live-minimal__card{
+  background: linear-gradient(180deg, rgba(17, 13, 12, .88), rgba(8, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .25) !important;
+}
+
+.live-minimal__hero{
+  padding: 20px !important;
+}
+
+.live-minimal__hero h2{
+  font-size: clamp(30px, 3vw, 44px) !important;
+  line-height: 1.04 !important;
+  font-weight: 750 !important;
+}
+
+.live-minimal__value{
+  font-size: clamp(30px, 3.2vw, 46px) !important;
+  line-height: 1 !important;
+  font-weight: 650 !important;
+  text-transform: none !important;
+}
+
+.live-minimal__text,
+.live-minimal__meta{
+  color: var(--sgcnr-muted) !important;
+}
+
+.admin-page .section,
+.admin-page .status-card,
+.admin-page .admin-list__item{
+  background: linear-gradient(180deg, rgba(18, 14, 13, .88), rgba(8, 7, 7, .92)) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.admin-metrics{
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+@media (max-width: 980px){
+  body.is-map .map-layout,
+  body.is-map .service-map-shell{
+    grid-template-columns: 1fr !important;
+  }
+
+  body.is-map #serviceMap{
+    min-height: 440px !important;
+  }
+
+  .admin-metrics{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+body.is-map .map-filter.is-active,
+body.is-map .map-tool:hover,
+body.is-map .map-tool:focus-visible{
+  background: linear-gradient(180deg, rgba(112, 67, 52, .84), rgba(54, 34, 29, .9)) !important;
+  border-color: rgba(238, 192, 160, .34) !important;
+  color: #fff7ef !important;
+}
+/* Final map sizing: remove the right rail so the map is the main surface. */
+body.is-map .service-map-shell{
+  grid-template-columns: 1fr !important;
+}
+
+body.is-map .map-stage__aside{
+  display: none !important;
+}
+
+body.is-map #serviceMap{
+  min-height: 620px !important;
+  height: min(720px, calc(100svh - 170px)) !important;
+}
+/* Keep Staff hidden until the auth script unlocks it for a permitted Discord account. */
+.dock__item[data-dock="staff"][style*="display:none"],
+.dock__item[data-dock="staff"][style*="display: none"]{
+  display: none !important;
 }

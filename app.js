@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260605d";
+const SITE_ASSET_VERSION = "20260605f";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -566,12 +566,11 @@ async function loadAdminOverview(options = {}) {
 
   adminOverviewState.loading = true;
   adminOverviewState.error = "";
-  if (isAdminRouteActive()) renderAdminDashboard(getCurrentAccount());
-
   try {
     adminOverviewState.data = await requestJson(ADMIN_OVERVIEW_API);
     adminOverviewState.loaded = true;
   } catch (error) {
+    adminOverviewState.loaded = true;
     const reason = error?.payload?.error || error?.message || "admin_overview_failed";
     if (reason === "forbidden") {
       adminOverviewState.error = "Your Discord role does not allow this staff overview.";
@@ -1680,10 +1679,6 @@ function renderLanding() {
           <div class="landing-panel">
             <div class="landing-panel__eyebrow">Quick access</div>
             <div class="landing-panel__grid">
-              <a class="quickstart__btn" href="#/start">
-                <span class="quickstart__icon" aria-hidden="true"></span>
-                <span class="quickstart__label">Start Here</span>
-              </a>
               <a class="quickstart__btn" href="#/rules">
                 <span class="quickstart__icon" aria-hidden="true"></span>
                 <span class="quickstart__label">Rules</span>
@@ -1725,8 +1720,7 @@ function renderLandingHome() {
         <h1 class="landing-hub__title">SGCNR</h1>
         <p class="landing-hub__text">FiveM server links, rules, map, live status, and Discord.</p>
         <div class="landing-hub__actions">
-          <a class="auth__btn auth__btn--primary" href="/start">Start</a>
-          <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Join Discord for support</a>
         </div>
       </section>
 
@@ -2217,92 +2211,23 @@ function renderAdminDashboard(account) {
   const label = SERVER_CONFIG.adminPanelLabel || "Staff";
   const payload = adminOverviewState.data || {};
   const recentLogins = Array.isArray(payload?.recentLogins?.items) ? payload.recentLogins.items : [];
-  const loading = adminOverviewState.loading && !adminOverviewState.loaded;
-
-  if (!adminOverviewState.loading && !adminOverviewState.loaded) {
-    loadAdminOverview();
-  }
-
-  const metricCards = [
-    {
-      label: "Recent website logins",
-      value: payload?.recentLogins?.available ? String(recentLogins.length) : "-",
-      meta: "Latest Discord-authenticated sessions"
-    },
-    {
-      label: "Support route",
-      value: "Discord",
-      meta: "Applications and support stay in tickets"
-    },
-    {
-      label: "Staff intake",
-      value: "Tickets",
-      meta: "Website apply path removed"
-    },
-    {
-      label: "Signed in as",
-      value: getAccountDisplayName(account),
-      meta: account?.verifiedIdentity || "Discord linked"
-    }
+  const available = payload?.recentLogins?.available === true;
+  const loading = adminOverviewState.loading || !adminOverviewState.loaded;
+  if (!adminOverviewState.loading && !adminOverviewState.loaded) loadAdminOverview();
+  const cards = [
+    { label: "Recent website logins", value: loading ? "Loading" : available ? String(recentLogins.length) : "-", meta: "Latest Discord-authenticated sessions" },
+    { label: "Support route", value: "Discord", meta: "Support stays in tickets" },
+    { label: "Signed in as", value: getAccountDisplayName(account), meta: account?.verifiedIdentity || "Discord linked" }
   ];
-
-  setView(`
-    <div class="admin-page">
-      ${renderHeader(`${label} Panel`, [{ label: label }])}
-
-      <section class="section section--hero admin-hero">
-        <div class="section__eyebrow">Website control</div>
-        <h2>${escapeHtml(label)} dashboard</h2>
-        <p class="doc-p">Keep an eye on website Discord logins, the live page, and the direct Discord ticket route without digging through filler panels.</p>
-        <div class="status-grid admin-metrics">
-          ${metricCards.map((card) => `
-            <div class="status-card">
-              <div class="status-card__label">${escapeHtml(card.label)}</div>
-              <div class="status-card__value">${escapeHtml(card.value)}</div>
-              <div class="status-card__meta">${escapeHtml(card.meta)}</div>
-            </div>
-          `).join("")}
-        </div>
-        <div class="status-actions">
-          <a class="auth__btn auth__btn--primary" href="#/live">Live page</a>
-          <a class="auth__btn" href="#/rules">Rules</a>
-          <a class="auth__btn" href="${escapeHtml(SERVER_CONFIG.discordTicketChannelUrl || SERVER_CONFIG.discordUrl || "#")}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
-        </div>
-        ${loading ? `<div class="status-note">Loading the staff overview...</div>` : ""}
-        ${adminOverviewState.error ? `<div class="status-note"><strong>Staff overview:</strong> ${escapeHtml(adminOverviewState.error)}</div>` : ""}
-      </section>
-
-      <div class="content-grid content-grid--sidebar">
-        <section class="section section--stack">
-          <div class="section__eyebrow">Who signed in</div>
-          <h2>Recent Discord logins</h2>
-          ${payload?.recentLogins?.available
-            ? recentLogins.length
-              ? `<div class="admin-list">
-                  ${recentLogins.map((entry) => `
-                    <article class="admin-list__item">
-                      <div class="admin-list__title">${escapeHtml(entry.username || entry.discordId || "Unknown account")}</div>
-                      <div class="admin-list__meta">${escapeHtml(entry.discordId || "No Discord ID")} · ${escapeHtml(formatServerTimestamp(entry.lastSeen || "") || "Recently")}</div>
-                    </article>
-                  `).join("")}
-                </div>`
-              : `<div class="empty">No Discord website logins have been recorded yet.</div>`
-            : `<div class="empty">Login history needs live database access for the <code>web_sessions</code> table. The live auth database user still needs create, alter, insert, and select access there.</div>`}
-        </section>
-
-        <aside class="section section--stack">
-          <div class="section__eyebrow">Support route</div>
-          <h2>Discord tickets only</h2>
-          <div class="empty">Staff applications, ban history requests, and player support now stay in the Discord ticket channel instead of a website application page.</div>
-          <div class="status-actions">
-            <a class="auth__btn auth__btn--primary" href="${escapeHtml(SERVER_CONFIG.discordTicketChannelUrl || SERVER_CONFIG.discordUrl || "#")}" target="_blank" rel="noopener noreferrer">Open Discord tickets</a>
-          </div>
-        </aside>
-      </div>
-    </div>
-  `);
+  const loginMarkup = loading
+    ? `<div class="empty">Loading recent Discord logins...</div>`
+    : available
+      ? recentLogins.length
+        ? `<div class="admin-list">${recentLogins.map((entry) => `<article class="admin-list__item"><div class="admin-list__title">${escapeHtml(entry.username || entry.discordId || "Unknown account")}</div><div class="admin-list__meta">${escapeHtml(entry.discordId || "No Discord ID")} / ${escapeHtml(formatServerTimestamp(entry.lastSeen || "") || "Recently")}</div></article>`).join("")}</div>`
+        : `<div class="empty">No Discord website logins have been recorded yet.</div>`
+      : `<div class="empty">Login history needs live database access for the <code>web_sessions</code> table. The live auth database user still needs create, alter, insert, and select access there.</div>`;
+  setView(`<div class="admin-page">${renderHeader(`${label} Panel`, [{ label: label }])}<section class="section section--hero admin-hero"><div class="section__eyebrow">Website control</div><h2>${escapeHtml(label)} dashboard</h2><p class="doc-p">Website logins, live status, and Discord ticket access in one staff view.</p><div class="status-grid admin-metrics">${cards.map((card) => `<div class="status-card"><div class="status-card__label">${escapeHtml(card.label)}</div><div class="status-card__value">${escapeHtml(card.value)}</div><div class="status-card__meta">${escapeHtml(card.meta)}</div></div>`).join("")}</div><div class="status-actions"><a class="auth__btn auth__btn--primary" href="/live">Live</a><a class="auth__btn" href="/rules">Rules</a><a class="auth__btn" href="${escapeHtml(SERVER_CONFIG.discordTicketChannelUrl || SERVER_CONFIG.discordUrl || "#")}" target="_blank" rel="noopener noreferrer">Discord tickets</a></div>${loading ? `<div class="status-note">Loading the staff overview...</div>` : ""}${adminOverviewState.error ? `<div class="status-note"><strong>Staff overview:</strong> ${escapeHtml(adminOverviewState.error)}</div>` : ""}</section><section class="section section--stack admin-login-section"><div class="section__eyebrow">Who signed in</div><h2>Recent Discord logins</h2>${loginMarkup}</section></div>`);
 }
-
 function bindAccountPageControls() {
   const loginCta = document.getElementById("accountLoginCta");
   if (loginCta) {
@@ -5567,243 +5492,6 @@ function renderStatus() {
   });
 }
 
-function getWikiDataset() {
-  const wiki = window.WIKI_DATA;
-  if (!wiki || typeof wiki !== "object") {
-    return { categories: [], pages: {} };
-  }
-  return wiki;
-}
-
-function findWikiCategoryForPage(categories, slug) {
-  return categories.find((category) => Array.isArray(category.pages) && category.pages.includes(slug)) || null;
-}
-
-function getWikiPageOrder(categories) {
-  return categories.flatMap((category) => Array.isArray(category.pages) ? category.pages : []);
-}
-
-function renderWikiSidebar(categories, pages, currentSlug, updatedAt) {
-  return `
-    <aside class="section section--stack wiki-ledger__directory">
-      <div class="wiki-ledger__directoryTop">
-        <div class="section__eyebrow">Guide directory</div>
-        <h2>Wiki pages</h2>
-        <p class="doc-p">Move through systems, roles, and procedures from one cleaner library view.</p>
-      </div>
-      <div class="wiki-ledger__directoryGroups">
-        ${categories.map((category) => {
-          const links = (category.pages || []).map((slug) => {
-            const page = pages[slug];
-            if (!page) return "";
-            const isActive = slug === currentSlug ? " is-active" : "";
-            return `
-              <a class="wiki-ledger__directoryLink${isActive}" href="/wiki/${escapeHtml(slug)}">
-                ${escapeHtml(page.navLabel || page.title)}
-              </a>
-            `;
-          }).join("");
-
-          return `
-            <section class="wiki-ledger__directoryGroup">
-              <div class="wiki-ledger__directoryGroupTop">
-                <span>${escapeHtml(category.title)}</span>
-                <span class="wiki-ledger__directoryCount">${escapeHtml(String((category.pages || []).length))}</span>
-              </div>
-              <div class="wiki-ledger__directoryList">${links}</div>
-            </section>
-          `;
-        }).join("")}
-      </div>
-    </aside>
-  `;
-}
-
-function renderWikiPager(categories, pages, currentSlug) {
-  const order = getWikiPageOrder(categories).filter((slug) => pages[slug]);
-  const currentIndex = order.indexOf(currentSlug);
-  if (currentIndex === -1) return "";
-
-  const previousSlug = order[currentIndex - 1] || null;
-  const nextSlug = order[currentIndex + 1] || null;
-  if (!previousSlug && !nextSlug) return "";
-
-  const renderLink = (slug, direction) => {
-    if (!slug || !pages[slug]) return `<div class="wiki-pager__card wiki-pager__card--empty"></div>`;
-    const page = pages[slug];
-    const label = direction === "prev" ? "Previous page" : "Next page";
-    return `
-      <a class="wiki-pager__card" href="/wiki/${escapeHtml(slug)}">
-        <div class="wiki-pager__eyebrow">${escapeHtml(label)}</div>
-        <div class="wiki-pager__title">${escapeHtml(page.navLabel || page.title)}</div>
-        <div class="wiki-pager__text">${escapeHtml(page.eyebrow || "Wiki page")}</div>
-      </a>
-    `;
-  };
-
-  return `
-    <section class="wiki-pager">
-      ${renderLink(previousSlug, "prev")}
-      ${renderLink(nextSlug, "next")}
-    </section>
-  `;
-}
-
-function renderWikiFacts(page) {
-  const facts = Array.isArray(page?.facts) ? page.facts : [];
-  if (!facts.length) return "";
-
-  return `
-    <div class="wiki-facts">
-      ${facts.map(([label, value]) => `
-        <div class="wiki-fact">
-          <div class="wiki-fact__label">${escapeHtml(label)}</div>
-          <div class="wiki-fact__value">${escapeHtml(value)}</div>
-        </div>
-      `).join("")}
-    </div>
-  `;
-}
-
-function renderWikiSections(sections) {
-  const entries = Array.isArray(sections) ? sections : [];
-  return entries.map((section) => {
-    const paragraphs = (section.paragraphs || []).map((paragraph) => `<p class="doc-p">${escapeHtml(paragraph)}</p>`).join("");
-    const bullets = Array.isArray(section.bullets) && section.bullets.length
-      ? `<ul class="doc-list">${section.bullets.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
-      : "";
-
-    return `
-      <section class="wiki-sectionBlock">
-        <h3 class="wiki-sectionBlock__title">${escapeHtml(section.title)}</h3>
-        ${paragraphs}
-        ${bullets}
-      </section>
-    `;
-  }).join("");
-}
-
-function renderWikiOverviewCards(cards) {
-  const items = Array.isArray(cards) ? cards : [];
-  if (!items.length) return "";
-  return `
-    <section class="wiki-sectionBlock">
-      <h3 class="wiki-sectionBlock__title">Guide overview</h3>
-      <div class="wiki-grid">
-        ${items.map((card) => `
-          <article class="wiki-card">
-            <div class="wiki-card__title">${escapeHtml(card.title)}</div>
-            <div class="wiki-card__text">${escapeHtml(card.text)}</div>
-          </article>
-        `).join("")}
-      </div>
-    </section>
-  `;
-}
-
-function renderWikiUpdates(items) {
-  const entries = Array.isArray(items) ? items : [];
-  if (!entries.length) return "";
-  return `
-    <section class="wiki-sectionBlock">
-      <h3 class="wiki-sectionBlock__title">Current direction</h3>
-      <div class="stack-list stack-list--compact">
-        ${entries.map((item, index) => `
-          <div class="stack-list__item">
-            <span class="stack-list__index">${escapeHtml(String(index + 1).padStart(2, "0"))}</span>
-            <span>${escapeHtml(item)}</span>
-          </div>
-        `).join("")}
-      </div>
-    </section>
-  `;
-}
-
-function renderWiki(pageSlug) {
-  const wiki = getWikiDataset();
-  const categories = Array.isArray(wiki.categories) ? wiki.categories : [];
-  const pages = wiki.pages && typeof wiki.pages === "object" ? wiki.pages : {};
-  const requestedSlug = (pageSlug || "introduction").toString().toLowerCase();
-  const currentSlug = pages[requestedSlug] ? requestedSlug : "introduction";
-  const page = pages[currentSlug];
-
-  if (!page) {
-    setView(`
-      <div class="wiki-ledger">
-        ${renderHeader("Wiki", [{ label: "Wiki" }])}
-        <section class="section">
-          <div class="empty">Wiki data is missing right now.</div>
-        </section>
-      </div>
-    `);
-    return;
-  }
-
-  const category = findWikiCategoryForPage(categories, currentSlug);
-  const heading = page.navLabel || page.title;
-  const sidebar = renderWikiSidebar(categories, pages, currentSlug, wiki.updatedAt);
-  const facts = renderWikiFacts(page);
-  const overview = renderWikiOverviewCards(page.overviewCards);
-  const updates = renderWikiUpdates(page.updates);
-  const content = renderWikiSections(page.sections);
-  const pager = renderWikiPager(categories, pages, currentSlug);
-
-  setView(`
-    <div class="wiki-ledger">
-      ${renderHeader("Wiki", [{ label: "Wiki" }, { label: heading }])}
-      <section class="section section--hero wiki-ledger__masthead">
-        <div class="wiki-ledger__mastheadGrid">
-          <div class="wiki-ledger__mastheadCopy">
-            <div class="section__eyebrow">${escapeHtml(page.eyebrow || "Wiki page")}</div>
-            <h2>${escapeHtml(page.title)}</h2>
-            <p class="doc-p">${escapeHtml(page.summary || "")}</p>
-          </div>
-          <div class="wiki-ledger__mastheadMeta">
-            <article class="wiki-ledger__metaCard">
-              <span>Category</span>
-              <strong>${escapeHtml(category?.title || "Wiki")}</strong>
-            </article>
-            <article class="wiki-ledger__metaCard">
-              <span>Page</span>
-              <strong>${escapeHtml(String(getWikiPageOrder(categories).filter((slug) => pages[slug]).indexOf(currentSlug) + 1))} / ${escapeHtml(String(getWikiPageOrder(categories).filter((slug) => pages[slug]).length || 1))}</strong>
-            </article>
-            <article class="wiki-ledger__metaCard">
-              <span>Updated</span>
-              <strong>${escapeHtml(wiki.updatedAt || "2026-04-01")}</strong>
-            </article>
-          </div>
-        </div>
-      </section>
-      <div class="wiki-ledger__layout">
-        ${sidebar}
-        <div class="wiki-ledger__body">
-          <section class="section wiki-ledger__summary">
-            <div class="section__eyebrow">Overview</div>
-            <h3>Quick reference</h3>
-            ${facts}
-            ${overview}
-          </section>
-          <section class="section wiki-ledger__document">
-            <div class="section__eyebrow">Guide content</div>
-            <h3>${escapeHtml(page.title)}</h3>
-            ${content}
-          </section>
-          <section class="section wiki-ledger__updates">
-            <div class="section__eyebrow">Recent notes</div>
-            <h3>Updates</h3>
-            ${updates || `<div class="empty">No update notes are listed for this page.</div>`}
-          </section>
-          <section class="section wiki-ledger__navigator">
-            <div class="section__eyebrow">Continue</div>
-            <h3>Next guide</h3>
-            ${pager}
-          </section>
-        </div>
-      </div>
-    </div>
-  `);
-}
-
 function findSectionById(sectionId) {
   const data = getData();
   const sections = Array.isArray(data?.sections) ? data.sections : [];
@@ -6010,10 +5698,7 @@ function parseRoute() {
   const clean = getCurrentRoutePath();
   const parts = clean.split("/").filter(Boolean);
   if (!parts.length) return { name: "home" };
-
-  if (parts[0] === "start") return { name: "start" };
   if (parts[0] === "rules") return { name: "rules" };
-  if (parts[0] === "faq" || parts[0] === "help") return { name: "help" };
   if (parts[0] === "account") return { name: "account" };
   if (parts[0] === "staff" || parts[0] === "admin") return { name: "staff" };
   if (parts[0] === "leaderboard") return { name: "live", metric: parts[1] || "kd" };
@@ -6069,15 +5754,6 @@ function route() {
 
   if (inRulesFlow && normalize(currentQuery)) {
     renderSearch(sections);
-    return;
-  }
-
-  if (r.name === "start") {
-    renderStart();
-    return;
-  }
-  if (r.name === "help") {
-    renderHelp();
     return;
   }
   if (r.name === "account") {
