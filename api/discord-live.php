@@ -118,11 +118,16 @@ function discord_live_request(string $path, string $token, array $query = []): a
         }
     }
 
+    $errorMessage = $error ?: (is_array($data) ? (string) ($data['message'] ?? '') : '');
+    if ($errorMessage === '' && ($status < 200 || $status >= 300)) {
+        $errorMessage = $status > 0 ? ('HTTP ' . $status) : 'request_failed';
+    }
+
     return [
         'ok' => $status >= 200 && $status < 300,
         'status' => $status,
         'data' => $data,
-        'error' => $error ?: (is_array($data) ? (string) ($data['message'] ?? '') : ''),
+        'error' => $errorMessage,
         'latencyMs' => $latencyMs,
     ];
 }

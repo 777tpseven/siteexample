@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260606b";
+const SITE_ASSET_VERSION = "20260606d";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -4736,7 +4736,8 @@ function normaliseDiscordOpsPayload(payload) {
       botInviteUrl: SERVER_CONFIG.discordBotInviteUrl || "",
       announcements: [],
       staffRoles: [],
-      staffMembers: []
+      staffMembers: [],
+      memberError: ""
     };
   }
 
@@ -4834,6 +4835,7 @@ function normaliseDiscordOpsPayload(payload) {
     botInviteUrl: pickFirstDefined(payload, ["botInviteUrl", "inviteUrl"]) || SERVER_CONFIG.discordBotInviteUrl || "",
     staffRoles,
     staffMembers,
+    memberError: pickFirstDefined(meta, ["memberError", "staffMemberError"]) || pickFirstDefined(payload, ["memberError", "staffMemberError"]) || "",
     announcements: announcementSource.map((entry, index) => ({
       id: pickFirstDefined(entry, ["id", "slug"]) || `discord-announcement-${index + 1}`,
       title: pickFirstDefined(entry, ["title", "name"]) || `Discord update ${index + 1}`,
@@ -5482,6 +5484,16 @@ function renderDiscordStaffList(discord) {
     `;
   }).join("");
   const count = members.length || roles.reduce((sum, role) => sum + (Number(role.count) || 0), 0);
+  const staffError = String(discord?.memberError || discord?.staffMemberError || "").trim();
+  const emptyStaffMessage = staffError
+    ? staffError === "missing_bot_token"
+      ? "Discord bot token is still missing on the server."
+      : /401|unauthorized|invalid token/i.test(staffError)
+        ? "Discord rejected the bot token. Generate a new bot token and update the server config."
+        : /missing access|403|privileged|intent/i.test(staffError)
+          ? "Discord blocked the member list. Make sure the bot is in the guild and Server Members Intent is enabled in the Discord Developer Portal."
+        : `Discord member list is not available yet: ${staffError}.`
+    : "Staff roles are wired. Waiting for Discord to return staff member names and usernames.";
 
   return `
     <section class="section live-staff" data-reveal>
@@ -5492,7 +5504,7 @@ function renderDiscordStaffList(discord) {
         </div>
         <span class="live-staff__count">${escapeHtml(String(count))}</span>
       </div>
-      ${members.length ? `<div class="live-staff__people">${peopleMarkup}</div>${roleSummary ? `<div class="live-staff__rolesSummary">${roleSummary}</div>` : ""}` : `<div class="status-empty__text">Staff roles are wired. Add the bot token on the server and enable guild member access for live member names and usernames.</div>`}
+      ${members.length ? `<div class="live-staff__people">${peopleMarkup}</div>${roleSummary ? `<div class="live-staff__rolesSummary">${roleSummary}</div>` : ""}` : `<div class="status-empty__text">${escapeHtml(emptyStaffMessage)}</div>`}
     </section>
   `;
 }
