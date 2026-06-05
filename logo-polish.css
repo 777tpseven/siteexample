@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260606d") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260606e") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260606d") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260606e") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -2965,6 +2965,77 @@ body.is-standard .rules-document__list li{
   color: rgba(250, 246, 240, .92) !important;
 }
 
+.live-staff__manual{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)) !important;
+  gap: 12px !important;
+}
+
+.live-staff__group{
+  display: grid !important;
+  align-content: start !important;
+  gap: 9px !important;
+  padding: 13px !important;
+  border: 1px solid rgba(245, 238, 230, .10) !important;
+  border-radius: 8px !important;
+  background: rgba(8, 7, 7, .48) !important;
+}
+
+.live-staff__group h3{
+  margin: 0 !important;
+  color: rgba(250, 246, 240, .94) !important;
+  font-size: .96rem !important;
+  line-height: 1.2 !important;
+}
+
+.live-staff__manualList{
+  display: grid !important;
+  gap: 7px !important;
+}
+
+.live-staff__manualItem{
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  min-width: 0 !important;
+  padding: 7px 0 !important;
+  border-top: 1px solid rgba(245, 238, 230, .07) !important;
+}
+
+.live-staff__manualItem:first-child{
+  border-top: 0 !important;
+}
+
+.live-staff__manualName{
+  min-width: 0 !important;
+  color: rgba(250, 246, 240, .94) !important;
+  font-weight: 800 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.live-staff__manualRole{
+  flex: 0 1 auto !important;
+  color: rgba(224, 214, 204, .68) !important;
+  font-size: .86rem !important;
+  text-align: right !important;
+}
+
+@media (max-width: 640px){
+  .live-staff__manual{
+    grid-template-columns: 1fr !important;
+  }
+
+  .live-staff__manualItem{
+    display: grid !important;
+    gap: 3px !important;
+  }
+
+  .live-staff__manualRole{
+    text-align: left !important;
+  }
+}
+
 /* Absolute final rules picker top-line removal. */
 html body.is-standard main.content #rules .rules-picker > .rules-picker__item,
 html body.is-standard main.content #rules .cards > .card{
@@ -2982,6 +3053,7 @@ html body.is-standard main.content #rules .cards::after{
   content: none !important;
   display: none !important;
 }
+
 
 
 

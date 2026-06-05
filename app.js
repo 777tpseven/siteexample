@@ -66,12 +66,88 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260606d";
+const SITE_ASSET_VERSION = "20260606e";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
 const BRAND_LOGO_BANNER_URL = `${APP_ASSET_BASE_URL}branding/sg-cops-and-robbers.png?v=${SITE_ASSET_VERSION}`;
 const BRAND_LOGO_BADGE_URL = `${APP_ASSET_BASE_URL}branding/sgcnr-badge.png?v=${SITE_ASSET_VERSION}`;
+const MANUAL_STAFF_GROUPS = [
+  {
+    title: "Owner",
+    members: [
+      { name: "SecurityGuard92", role: "Server Owner" }
+    ]
+  },
+  {
+    title: "Management Team",
+    members: [
+      { name: "\u2020 777 \u2020", role: "Lead Manager" },
+      { name: "\u2020 777 \u2020", role: "Staff Manager" },
+      { name: "WolficekCZ", role: "Community Manager" }
+    ]
+  },
+  {
+    title: "Admin Team",
+    members: [
+      { name: "Mono", role: "Admin" },
+      { name: "SirPenguini", role: "Admin" }
+    ]
+  },
+  {
+    title: "Moderation Team",
+    members: [
+      { name: "TheFrup!", role: "Moderator" },
+      { name: "Jay rod0004", role: "Moderator" }
+    ]
+  },
+  {
+    title: "Development Team",
+    members: [
+      { name: "cue", role: "Lead Developer" },
+      { name: "WolficekCZ", role: "Bot Developer" },
+      { name: "\u2020 777 \u2020", role: "Web Developer, Vehicle Developer" },
+      { name: "TheFrup!", role: "Vehicle Developer" }
+    ]
+  },
+  {
+    title: "Testing Team",
+    members: [
+      { name: "Ollie", role: "Lead Tester" },
+      { name: "cue", role: "Tester" },
+      { name: "Jay rod0004", role: "Tester" },
+      { name: "\u2020 777 \u2020", role: "Tester" },
+      { name: "Jamstar", role: "Tester" },
+      { name: "Sanman", role: "Tester" },
+      { name: "Bulki_TV", role: "Tester" },
+      { name: "TheFrup!", role: "Tester" },
+      { name: "ApexyesthatApex", role: "Tester" },
+      { name: "Squ4ty", role: "Tester" },
+      { name: "Cyph", role: "Tester" },
+      { name: "lucaf2850", role: "Tester" },
+      { name: "Scotty Ramirez", role: "Tester" }
+    ]
+  },
+  {
+    title: "Translation Team",
+    members: [
+      { name: "WolficekCZ", role: "Czech Translator" }
+    ]
+  },
+  {
+    title: "Security Team",
+    members: [
+      { name: "Mono", role: "Lead Security" },
+      { name: "SirPenguini", role: "Security (Anti-Cheat)" }
+    ]
+  },
+  {
+    title: "Content Creator Team",
+    members: [
+      { name: "Ollie", role: "Content Creator" }
+    ]
+  }
+];
 const MAP_SOURCE_URL = "https://gta-5-map.com?embed=light";
 const MAP_IMAGE_URL = `${APP_ASSET_BASE_URL}map-assets/los-santos-satellite-z6.jpg?v=${SITE_ASSET_VERSION}`;
 const MAP_IMAGE_FALLBACK_URL = `${APP_ASSET_BASE_URL}satellite-map.jpg?v=${SITE_ASSET_VERSION}`;
@@ -5403,6 +5479,35 @@ function renderDiscordLinking(discord) {
   `;
 }
 
+function renderManualStaffList(discord) {
+  const totalEntries = MANUAL_STAFF_GROUPS.reduce((sum, group) => sum + group.members.length, 0);
+  const groupMarkup = MANUAL_STAFF_GROUPS.map((group) => `
+    <article class="live-staff__group">
+      <h3>${escapeHtml(group.title)}</h3>
+      <div class="live-staff__manualList">
+        ${group.members.map((member) => `
+          <div class="live-staff__manualItem">
+            <span class="live-staff__manualName">@${escapeHtml(member.name)}</span>
+            <span class="live-staff__manualRole">${escapeHtml(member.role)}</span>
+          </div>
+        `).join("")}
+      </div>
+    </article>
+  `).join("");
+
+  return `
+    <section class="section live-staff" data-reveal>
+      <div class="live-staff__head">
+        <div>
+          <div class="section__eyebrow">Staff</div>
+          <h2>Current staff list</h2>
+        </div>
+        <span class="live-staff__count">${escapeHtml(String(totalEntries))}</span>
+      </div>
+      <div class="live-staff__manual">${groupMarkup}</div>
+    </section>
+  `;
+}
 function renderDiscordStaffList(discord) {
   const roles = Array.isArray(discord?.staffRoles) ? discord.staffRoles : [];
   const sourceMembers = Array.isArray(discord?.staffMembers) ? discord.staffMembers : [];
@@ -5455,6 +5560,7 @@ function renderDiscordStaffList(discord) {
   });
 
   const members = Array.from(byId.values()).sort((a, b) => String(a.displayName || a.username).localeCompare(String(b.displayName || b.username)));
+  if (!members.length) return renderManualStaffList(discord);
   const roleSummary = roles.map((role) => `
     <div class="live-staff__roleChip">
       <span>${escapeHtml(role.name || "Staff role")}</span>
