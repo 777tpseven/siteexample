@@ -1,6 +1,8 @@
 <?php
 
 return [
+    // Env fallback names used by httpdocs/auth/config.php:
+    // SGCNR_DISCORD_CLIENT_ID, SGCNR_DISCORD_CLIENT_SECRET
     'discord_client_id' => 'YOUR_DISCORD_CLIENT_ID',
     'discord_client_secret' => 'YOUR_DISCORD_CLIENT_SECRET',
     'discord_redirect_uri' => 'https://sgcnr.net/auth/callback.php',
@@ -21,6 +23,9 @@ return [
     'session_cookie_samesite' => 'Lax',
     // Keep website logins active across refreshes and browser restarts.
     'session_cookie_lifetime' => 2592000,
+    // Env fallback names:
+    // SGCNR_AUTH_MYSQL_DSN, SGCNR_AUTH_MYSQL_USER, SGCNR_AUTH_MYSQL_PASSWORD
+    // SGCNR_BOT_MYSQL_DSN, SGCNR_BOT_MYSQL_USER, SGCNR_BOT_MYSQL_PASSWORD
     'mysql_dsn' => 'mysql:host=localhost;dbname=your_db;charset=utf8mb4',
     'mysql_user' => 'your_db_user',
     'mysql_password' => 'your_db_password',

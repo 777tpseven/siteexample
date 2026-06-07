@@ -1,6 +1,8 @@
 <?php
 
 return [
+    // Env fallback names used by staff-auth/config.php:
+    // SGCNR_STAFF_MYSQL_DSN, SGCNR_STAFF_MYSQL_USER, SGCNR_STAFF_MYSQL_PASSWORD
     'mysql_dsn' => 'mysql:host=localhost;dbname=your_staff_db;charset=utf8mb4',
     'mysql_user' => 'your_staff_db_user',
     'mysql_password' => 'your_staff_db_password',

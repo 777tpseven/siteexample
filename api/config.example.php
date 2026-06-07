@@ -1,6 +1,10 @@
 <?php
 
 return [
+    // Env fallback names used by httpdocs/api/config.php:
+    // SGCNR_WEB_API_SECRET, SGCNR_BOT_MYSQL_DSN, SGCNR_BOT_MYSQL_USER, SGCNR_BOT_MYSQL_PASSWORD
+    // SGCNR_GAME_MYSQL_DSN, SGCNR_GAME_MYSQL_USER, SGCNR_GAME_MYSQL_PASSWORD
+    // SGCNR_DISCORD_BOT_TOKEN (or DISCORD_BOT_TOKEN)
     // Shared secret used by the Discord bot / bridge when POSTing to api/update.php.
     'web_api_secret' => 'CHANGE_ME',
 
