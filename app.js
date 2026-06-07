@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260606e";
+const SITE_ASSET_VERSION = "20260608a";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -4873,7 +4873,9 @@ function normaliseDiscordOpsPayload(payload) {
     displayName: pickFirstDefined(member || {}, ["displayName", "nick", "nickname", "username", "name"]) || "Unknown staff",
     avatarUrl: pickFirstDefined(member || {}, ["avatarUrl", "avatar", "image"]) || "",
     roles: Array.isArray(member?.roles) ? member.roles.map((role) => String(role || "")).filter(Boolean) : [],
-    roleIds: Array.isArray(member?.roleIds) ? member.roleIds.map((role) => String(role || "")).filter(Boolean) : []
+    roleIds: Array.isArray(member?.roleIds) ? member.roleIds.map((role) => String(role || "")).filter(Boolean) : [],
+    status: String(pickFirstDefined(member || {}, ["status", "presenceStatus"]) || "offline").toLowerCase(),
+    isOnline: Boolean(pickFirstDefined(member || {}, ["isOnline", "online"]))
   });
   const staffRoleSource = Array.isArray(payload.staffRoles)
     ? payload.staffRoles
@@ -4886,6 +4888,7 @@ function normaliseDiscordOpsPayload(payload) {
       id: String(pickFirstDefined(role || {}, ["id", "roleId"]) || ""),
       name: pickFirstDefined(role || {}, ["name", "label", "title"]) || "Staff role",
       count: toFiniteNumber(pickFirstDefined(role || {}, ["count", "memberCount"])) ?? members.length,
+      onlineCount: toFiniteNumber(pickFirstDefined(role || {}, ["onlineCount", "onlineMembers"])) ?? members.filter((member) => member.isOnline).length,
       members
     };
   });
@@ -5514,6 +5517,13 @@ function renderDiscordStaffList(discord) {
   const byId = new Map();
   const roleNameById = new Map();
 
+  const statusLabel = (member) => {
+    if (!member?.isOnline) return "Offline";
+    if (member.status === "idle") return "Idle";
+    if (member.status === "dnd") return "DND";
+    return "Online";
+  };
+
   roles.forEach((role) => {
     if (role?.id) roleNameById.set(String(role.id), role.name || "Staff role");
     (Array.isArray(role?.members) ? role.members : []).forEach((member) => {
@@ -5525,11 +5535,15 @@ function renderDiscordStaffList(discord) {
         displayName: member?.displayName || member?.username || "Unknown staff",
         avatarUrl: member?.avatarUrl || "",
         roles: [],
-        roleIds: []
+        roleIds: [],
+        status: String(member?.status || "offline").toLowerCase(),
+        isOnline: Boolean(member?.isOnline)
       };
       existing.username = existing.username || member?.username || "";
       existing.displayName = existing.displayName || member?.displayName || member?.username || "Unknown staff";
       existing.avatarUrl = existing.avatarUrl || member?.avatarUrl || "";
+      existing.status = member?.isOnline ? String(member?.status || existing.status || "online").toLowerCase() : (existing.status || String(member?.status || "offline").toLowerCase());
+      existing.isOnline = Boolean(existing.isOnline || member?.isOnline);
       const roleNames = Array.isArray(member?.roles) ? member.roles : [];
       const roleIds = Array.isArray(member?.roleIds) ? member.roleIds : [];
       existing.roles = Array.from(new Set([...existing.roles, ...roleNames.map((roleName) => String(roleName || "")).filter(Boolean), role?.name || ""].filter(Boolean)));
@@ -5549,22 +5563,30 @@ function renderDiscordStaffList(discord) {
       displayName: member?.displayName || member?.username || "Unknown staff",
       avatarUrl: member?.avatarUrl || "",
       roles: [],
-      roleIds: []
+      roleIds: [],
+      status: String(member?.status || "offline").toLowerCase(),
+      isOnline: Boolean(member?.isOnline)
     };
     existing.username = member?.username || existing.username;
     existing.displayName = member?.displayName || existing.displayName;
     existing.avatarUrl = member?.avatarUrl || existing.avatarUrl;
+    existing.status = member?.isOnline ? String(member?.status || existing.status || "online").toLowerCase() : (existing.status || String(member?.status || "offline").toLowerCase());
+    existing.isOnline = Boolean(existing.isOnline || member?.isOnline);
     existing.roles = Array.from(new Set([...existing.roles, ...roleNames].filter(Boolean)));
     existing.roleIds = Array.from(new Set([...existing.roleIds, ...roleIds].filter(Boolean)));
     byId.set(id, existing);
   });
 
-  const members = Array.from(byId.values()).sort((a, b) => String(a.displayName || a.username).localeCompare(String(b.displayName || b.username)));
+  const members = Array.from(byId.values()).sort((a, b) => {
+    const onlineOrder = Number(Boolean(b.isOnline)) - Number(Boolean(a.isOnline));
+    if (onlineOrder !== 0) return onlineOrder;
+    return String(a.displayName || a.username).localeCompare(String(b.displayName || b.username));
+  });
   if (!members.length) return renderManualStaffList(discord);
   const roleSummary = roles.map((role) => `
     <div class="live-staff__roleChip">
       <span>${escapeHtml(role.name || "Staff role")}</span>
-      <strong>${escapeHtml(String(role.count ?? (Array.isArray(role.members) ? role.members.length : 0)))}</strong>
+      <strong>${escapeHtml(`${String(role.onlineCount ?? 0)}/${String(role.count ?? (Array.isArray(role.members) ? role.members.length : 0))}`)}</strong>
     </div>
   `).join("");
   const peopleMarkup = members.map((member) => {
@@ -5585,6 +5607,7 @@ function renderDiscordStaffList(discord) {
         </div>
         <div class="live-staff__rolePills">
           ${roleNames.length ? roleNames.map((roleName) => `<span>${escapeHtml(roleName)}</span>`).join("") : `<span>No staff role returned</span>`}
+          <span class="live-staff__status live-staff__status--${escapeHtml(String(member.isOnline ? member.status : "offline"))}">${escapeHtml(statusLabel(member))}</span>
         </div>
       </article>
     `;
