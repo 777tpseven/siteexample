@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260608a";
+const SITE_ASSET_VERSION = "20260608b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -5503,7 +5503,7 @@ function renderManualStaffList(discord) {
       <div class="live-staff__head">
         <div>
           <div class="section__eyebrow">Staff</div>
-          <h2>Current staff list</h2>
+          <h2>Staff List</h2>
         </div>
         <span class="live-staff__count">${escapeHtml(String(totalEntries))}</span>
       </div>
@@ -5629,7 +5629,7 @@ function renderDiscordStaffList(discord) {
       <div class="live-staff__head">
         <div>
           <div class="section__eyebrow">Discord staff</div>
-          <h2>Current staff list</h2>
+          <h2>Staff List</h2>
         </div>
         <span class="live-staff__count">${escapeHtml(String(count))}</span>
       </div>

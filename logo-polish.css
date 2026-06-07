@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260608a") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260608b") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260608a") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260608b") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -3071,6 +3071,139 @@ html body.is-standard main.content #rules .cards > .card{
   box-shadow: none !important;
 }
 
+/* Staff list compact layout. */
+.live-staff{
+  padding: 18px !important;
+}
+
+.live-staff__head{
+  margin-bottom: 12px !important;
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid rgba(245, 238, 230, .08) !important;
+}
+
+.live-staff__head .section__eyebrow{
+  display: none !important;
+}
+
+.live-staff__head h2{
+  font-size: 1.55rem !important;
+  letter-spacing: 0 !important;
+}
+
+.live-staff__count{
+  height: 30px !important;
+  min-width: 38px !important;
+  border-color: rgba(245, 238, 230, .12) !important;
+  color: rgba(250, 246, 240, .9) !important;
+  background: rgba(245, 238, 230, .055) !important;
+}
+
+.live-staff__people{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)) !important;
+  gap: 8px !important;
+}
+
+.live-staff__person{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 10px 12px !important;
+  border-radius: 7px !important;
+  background: rgba(6, 6, 6, .42) !important;
+}
+
+.live-staff__identity img,
+.live-staff__identity .live-staff__avatar{
+  width: 30px !important;
+  height: 30px !important;
+  flex-basis: 30px !important;
+}
+
+.live-staff__nameBlock strong{
+  font-size: .95rem !important;
+}
+
+.live-staff__nameBlock span{
+  font-size: .82rem !important;
+}
+
+.live-staff__rolePills{
+  justify-content: flex-end !important;
+  gap: 5px !important;
+}
+
+.live-staff__rolePills span,
+.live-staff__status,
+.live-staff__roleChip{
+  border-radius: 6px !important;
+}
+
+.live-staff__rolePills span,
+.live-staff__status{
+  padding: 5px 7px !important;
+}
+
+.live-staff__rolesSummary{
+  margin-top: 10px !important;
+  padding-top: 10px !important;
+  border-top: 1px solid rgba(245, 238, 230, .07) !important;
+}
+
+.live-staff__manual{
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+  gap: 8px !important;
+}
+
+.live-staff__group{
+  padding: 11px !important;
+  border-radius: 7px !important;
+  background: rgba(6, 6, 6, .42) !important;
+}
+
+.live-staff__group h3{
+  font-size: .92rem !important;
+  color: rgba(245, 238, 230, .88) !important;
+}
+
+.live-staff__manualItem{
+  padding: 6px 0 !important;
+}
+
+.live-staff__manualName{
+  font-size: .92rem !important;
+}
+
+.live-staff__manualRole{
+  font-size: .82rem !important;
+}
+
+@media (max-width: 760px){
+  .live-staff{
+    padding: 14px !important;
+  }
+
+  .live-staff__head{
+    align-items: flex-start !important;
+  }
+
+  .live-staff__people,
+  .live-staff__manual{
+    grid-template-columns: 1fr !important;
+  }
+
+  .live-staff__person{
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+
+  .live-staff__rolePills{
+    justify-content: flex-start !important;
+  }
+}
+
 html body.is-standard main.content #rules .rules-picker::before,
 html body.is-standard main.content #rules .rules-picker::after,
 html body.is-standard main.content #rules .cards::before,
@@ -3078,6 +3211,7 @@ html body.is-standard main.content #rules .cards::after{
   content: none !important;
   display: none !important;
 }
+
 
 
 
