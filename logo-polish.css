@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260608b") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers.png?v=20260608c") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260608b") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon.png?v=20260608c") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -3071,14 +3071,14 @@ html body.is-standard main.content #rules .cards > .card{
   box-shadow: none !important;
 }
 
-/* Staff list compact layout. */
+/* Staff list role-separated layout. */
 .live-staff{
-  padding: 18px !important;
+  padding: 13px !important;
 }
 
 .live-staff__head{
-  margin-bottom: 12px !important;
-  padding-bottom: 10px !important;
+  margin-bottom: 9px !important;
+  padding-bottom: 8px !important;
   border-bottom: 1px solid rgba(245, 238, 230, .08) !important;
 }
 
@@ -3087,120 +3087,142 @@ html body.is-standard main.content #rules .cards > .card{
 }
 
 .live-staff__head h2{
-  font-size: 1.55rem !important;
+  margin: 0 !important;
+  font-size: 1.32rem !important;
   letter-spacing: 0 !important;
 }
 
 .live-staff__count{
-  height: 30px !important;
-  min-width: 38px !important;
+  height: 26px !important;
+  min-width: 34px !important;
+  border-radius: 6px !important;
   border-color: rgba(245, 238, 230, .12) !important;
   color: rgba(250, 246, 240, .9) !important;
   background: rgba(245, 238, 230, .055) !important;
 }
 
-.live-staff__people{
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)) !important;
-  gap: 8px !important;
-}
-
-.live-staff__person{
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) auto !important;
-  align-items: center !important;
-  gap: 12px !important;
-  padding: 10px 12px !important;
-  border-radius: 7px !important;
-  background: rgba(6, 6, 6, .42) !important;
-}
-
-.live-staff__identity img,
-.live-staff__identity .live-staff__avatar{
-  width: 30px !important;
-  height: 30px !important;
-  flex-basis: 30px !important;
-}
-
-.live-staff__nameBlock strong{
-  font-size: .95rem !important;
-}
-
-.live-staff__nameBlock span{
-  font-size: .82rem !important;
-}
-
-.live-staff__rolePills{
-  justify-content: flex-end !important;
-  gap: 5px !important;
-}
-
-.live-staff__rolePills span,
-.live-staff__status,
-.live-staff__roleChip{
-  border-radius: 6px !important;
-}
-
-.live-staff__rolePills span,
-.live-staff__status{
-  padding: 5px 7px !important;
-}
-
-.live-staff__rolesSummary{
-  margin-top: 10px !important;
-  padding-top: 10px !important;
-  border-top: 1px solid rgba(245, 238, 230, .07) !important;
-}
-
-.live-staff__manual{
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-  gap: 8px !important;
+.live-staff__groups{
+  display: block !important;
+  column-width: 250px !important;
+  column-gap: 7px !important;
 }
 
 .live-staff__group{
-  padding: 11px !important;
-  border-radius: 7px !important;
-  background: rgba(6, 6, 6, .42) !important;
+  display: block !important;
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  margin: 0 0 7px !important;
+  padding: 8px 9px !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(245, 238, 230, .10) !important;
+  background: rgba(6, 6, 6, .44) !important;
+  box-shadow: none !important;
 }
 
-.live-staff__group h3{
-  font-size: .92rem !important;
-  color: rgba(245, 238, 230, .88) !important;
+.live-staff__groupHead{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin-bottom: 4px !important;
+  padding-bottom: 5px !important;
+  border-bottom: 1px solid rgba(245, 238, 230, .07) !important;
 }
 
-.live-staff__manualItem{
-  padding: 6px 0 !important;
+.live-staff__groupHead h3{
+  margin: 0 !important;
+  color: rgba(250, 246, 240, .9) !important;
+  font-size: .84rem !important;
+  line-height: 1.2 !important;
 }
 
-.live-staff__manualName{
-  font-size: .92rem !important;
+.live-staff__groupHead span{
+  flex: 0 0 auto !important;
+  min-width: 26px !important;
+  padding: 2px 6px !important;
+  border-radius: 5px !important;
+  color: rgba(224, 214, 204, .72) !important;
+  background: rgba(245, 238, 230, .045) !important;
+  font-size: .72rem !important;
+  font-weight: 800 !important;
+  text-align: center !important;
 }
 
-.live-staff__manualRole{
+.live-staff__rows{
+  display: grid !important;
+  gap: 1px !important;
+}
+
+.live-staff__row{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+  padding: 3px 0 !important;
+}
+
+.live-staff__row + .live-staff__row{
+  border-top: 1px solid rgba(245, 238, 230, .045) !important;
+}
+
+.live-staff__rowIdentity{
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  min-width: 0 !important;
+}
+
+.live-staff__rowIdentity img,
+.live-staff__rowIdentity .live-staff__avatar{
+  width: 23px !important;
+  height: 23px !important;
+  flex: 0 0 23px !important;
+}
+
+.live-staff__rowName{
+  display: grid !important;
+  gap: 1px !important;
+  min-width: 0 !important;
+}
+
+.live-staff__rowName strong{
+  color: rgba(250, 246, 240, .94) !important;
   font-size: .82rem !important;
+  line-height: 1.15 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
 }
 
-@media (max-width: 760px){
+.live-staff__rowName span{
+  color: rgba(224, 214, 204, .62) !important;
+  font-size: .73rem !important;
+  line-height: 1.15 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.live-staff__status{
+  flex: 0 0 auto !important;
+  padding: 3px 6px !important;
+  border-radius: 5px !important;
+  font-size: .7rem !important;
+}
+
+@media (max-width: 560px){
   .live-staff{
-    padding: 14px !important;
+    padding: 13px !important;
   }
 
   .live-staff__head{
     align-items: flex-start !important;
   }
 
-  .live-staff__people,
-  .live-staff__manual{
-    grid-template-columns: 1fr !important;
-  }
-
-  .live-staff__person{
-    grid-template-columns: 1fr !important;
-    align-items: start !important;
-  }
-
-  .live-staff__rolePills{
-    justify-content: flex-start !important;
+  .live-staff__groups{
+    column-count: 1 !important;
+    column-width: auto !important;
   }
 }
 
@@ -3211,6 +3233,7 @@ html body.is-standard main.content #rules .cards::after{
   content: none !important;
   display: none !important;
 }
+
 
 
 

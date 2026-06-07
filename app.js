@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260608b";
+const SITE_ASSET_VERSION = "20260608c";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -5482,22 +5482,14 @@ function renderDiscordLinking(discord) {
   `;
 }
 
-function renderManualStaffList(discord) {
-  const totalEntries = MANUAL_STAFF_GROUPS.reduce((sum, group) => sum + group.members.length, 0);
-  const groupMarkup = MANUAL_STAFF_GROUPS.map((group) => `
-    <article class="live-staff__group">
-      <h3>${escapeHtml(group.title)}</h3>
-      <div class="live-staff__manualList">
-        ${group.members.map((member) => `
-          <div class="live-staff__manualItem">
-            <span class="live-staff__manualName">@${escapeHtml(member.name)}</span>
-            <span class="live-staff__manualRole">${escapeHtml(member.role)}</span>
-          </div>
-        `).join("")}
-      </div>
-    </article>
-  `).join("");
+function getStaffStatusLabel(member) {
+  if (!member?.isOnline) return "Offline";
+  if (member.status === "idle") return "Idle";
+  if (member.status === "dnd") return "DND";
+  return "Online";
+}
 
+function renderStaffListShell(count, bodyMarkup) {
   return `
     <section class="section live-staff" data-reveal>
       <div class="live-staff__head">
@@ -5505,137 +5497,130 @@ function renderManualStaffList(discord) {
           <div class="section__eyebrow">Staff</div>
           <h2>Staff List</h2>
         </div>
-        <span class="live-staff__count">${escapeHtml(String(totalEntries))}</span>
+        <span class="live-staff__count">${escapeHtml(String(count))}</span>
       </div>
-      <div class="live-staff__manual">${groupMarkup}</div>
+      ${bodyMarkup}
     </section>
   `;
 }
+
+function renderStaffStatusBadge(member) {
+  const status = String(member?.isOnline ? (member.status || "online") : "offline").toLowerCase();
+  return `<span class="live-staff__status live-staff__status--${escapeHtml(status)}">${escapeHtml(getStaffStatusLabel(member))}</span>`;
+}
+
+function renderStaffInitial(name) {
+  return escapeHtml(String(name || "S").slice(0, 1).toUpperCase());
+}
+
+function renderManualStaffList(discord) {
+  const totalEntries = MANUAL_STAFF_GROUPS.reduce((sum, group) => sum + group.members.length, 0);
+  const groupMarkup = MANUAL_STAFF_GROUPS.map((group) => `
+    <article class="live-staff__group">
+      <div class="live-staff__groupHead">
+        <h3>${escapeHtml(group.title)}</h3>
+        <span>${escapeHtml(String(group.members.length))}</span>
+      </div>
+      <div class="live-staff__rows">
+        ${group.members.map((member) => `
+          <div class="live-staff__row">
+            <div class="live-staff__rowIdentity">
+              <span class="live-staff__avatar">${renderStaffInitial(member.name)}</span>
+              <div class="live-staff__rowName">
+                <strong>@${escapeHtml(member.name)}</strong>
+                <span>${escapeHtml(member.role)}</span>
+              </div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </article>
+  `).join("");
+
+  return renderStaffListShell(totalEntries, `<div class="live-staff__groups">${groupMarkup}</div>`);
+}
+
 function renderDiscordStaffList(discord) {
   const roles = Array.isArray(discord?.staffRoles) ? discord.staffRoles : [];
   const sourceMembers = Array.isArray(discord?.staffMembers) ? discord.staffMembers : [];
-  const byId = new Map();
   const roleNameById = new Map();
-
-  const statusLabel = (member) => {
-    if (!member?.isOnline) return "Offline";
-    if (member.status === "idle") return "Idle";
-    if (member.status === "dnd") return "DND";
-    return "Online";
-  };
 
   roles.forEach((role) => {
     if (role?.id) roleNameById.set(String(role.id), role.name || "Staff role");
-    (Array.isArray(role?.members) ? role.members : []).forEach((member) => {
-      const id = String(member?.id || member?.discordId || member?.username || member?.displayName || "");
-      if (!id) return;
-      const existing = byId.get(id) || {
-        id,
-        username: member?.username || "",
-        displayName: member?.displayName || member?.username || "Unknown staff",
-        avatarUrl: member?.avatarUrl || "",
-        roles: [],
-        roleIds: [],
-        status: String(member?.status || "offline").toLowerCase(),
-        isOnline: Boolean(member?.isOnline)
-      };
-      existing.username = existing.username || member?.username || "";
-      existing.displayName = existing.displayName || member?.displayName || member?.username || "Unknown staff";
-      existing.avatarUrl = existing.avatarUrl || member?.avatarUrl || "";
-      existing.status = member?.isOnline ? String(member?.status || existing.status || "online").toLowerCase() : (existing.status || String(member?.status || "offline").toLowerCase());
-      existing.isOnline = Boolean(existing.isOnline || member?.isOnline);
-      const roleNames = Array.isArray(member?.roles) ? member.roles : [];
-      const roleIds = Array.isArray(member?.roleIds) ? member.roleIds : [];
-      existing.roles = Array.from(new Set([...existing.roles, ...roleNames.map((roleName) => String(roleName || "")).filter(Boolean), role?.name || ""].filter(Boolean)));
-      existing.roleIds = Array.from(new Set([...existing.roleIds, ...roleIds.map((roleId) => String(roleId || "")).filter(Boolean), role?.id || ""].filter(Boolean)));
-      byId.set(id, existing);
-    });
   });
 
-  sourceMembers.forEach((member) => {
-    const id = String(member?.id || member?.discordId || member?.username || member?.displayName || "");
-    if (!id) return;
-    const roleIds = Array.isArray(member?.roleIds) ? member.roleIds.map((roleId) => String(roleId || "")).filter(Boolean) : [];
-    const roleNames = Array.isArray(member?.roles) ? member.roles.map((roleName) => String(roleName || "")).filter(Boolean) : roleIds.map((roleId) => roleNameById.get(roleId)).filter(Boolean);
-    const existing = byId.get(id) || {
-      id,
-      username: member?.username || "",
-      displayName: member?.displayName || member?.username || "Unknown staff",
-      avatarUrl: member?.avatarUrl || "",
-      roles: [],
-      roleIds: [],
-      status: String(member?.status || "offline").toLowerCase(),
-      isOnline: Boolean(member?.isOnline)
+  const normaliseStaffMember = (member) => ({
+    id: String(member?.id || member?.discordId || member?.username || member?.displayName || ""),
+    username: member?.username || "",
+    displayName: member?.displayName || member?.username || "Unknown staff",
+    avatarUrl: member?.avatarUrl || "",
+    roles: Array.isArray(member?.roles) ? member.roles.map((roleName) => String(roleName || "")).filter(Boolean) : [],
+    roleIds: Array.isArray(member?.roleIds) ? member.roleIds.map((roleId) => String(roleId || "")).filter(Boolean) : [],
+    status: String(member?.status || "offline").toLowerCase(),
+    isOnline: Boolean(member?.isOnline)
+  });
+
+  const sourceById = new Map();
+  sourceMembers.map(normaliseStaffMember).forEach((member) => {
+    if (member.id) sourceById.set(member.id, member);
+  });
+
+  const roleGroups = roles.map((role) => {
+    const roleId = String(role?.id || "");
+    const directMembers = Array.isArray(role?.members) ? role.members.map(normaliseStaffMember) : [];
+    const fallbackMembers = directMembers.length
+      ? []
+      : Array.from(sourceById.values()).filter((member) => member.roleIds.includes(roleId));
+    const members = [...directMembers, ...fallbackMembers]
+      .filter((member, index, list) => member.id && list.findIndex((candidate) => candidate.id === member.id) === index)
+      .sort((a, b) => {
+        const onlineOrder = Number(Boolean(b.isOnline)) - Number(Boolean(a.isOnline));
+        if (onlineOrder !== 0) return onlineOrder;
+        return String(a.displayName || a.username).localeCompare(String(b.displayName || b.username));
+      });
+
+    return {
+      id: roleId,
+      name: role?.name || "Staff role",
+      count: toFiniteNumber(pickFirstDefined(role || {}, ["count", "memberCount"])) ?? members.length,
+      onlineCount: toFiniteNumber(pickFirstDefined(role || {}, ["onlineCount", "onlineMembers"])) ?? members.filter((member) => member.isOnline).length,
+      members
     };
-    existing.username = member?.username || existing.username;
-    existing.displayName = member?.displayName || existing.displayName;
-    existing.avatarUrl = member?.avatarUrl || existing.avatarUrl;
-    existing.status = member?.isOnline ? String(member?.status || existing.status || "online").toLowerCase() : (existing.status || String(member?.status || "offline").toLowerCase());
-    existing.isOnline = Boolean(existing.isOnline || member?.isOnline);
-    existing.roles = Array.from(new Set([...existing.roles, ...roleNames].filter(Boolean)));
-    existing.roleIds = Array.from(new Set([...existing.roleIds, ...roleIds].filter(Boolean)));
-    byId.set(id, existing);
-  });
+  }).filter((role) => role.members.length);
 
-  const members = Array.from(byId.values()).sort((a, b) => {
-    const onlineOrder = Number(Boolean(b.isOnline)) - Number(Boolean(a.isOnline));
-    if (onlineOrder !== 0) return onlineOrder;
-    return String(a.displayName || a.username).localeCompare(String(b.displayName || b.username));
-  });
-  if (!members.length) return renderManualStaffList(discord);
-  const roleSummary = roles.map((role) => `
-    <div class="live-staff__roleChip">
-      <span>${escapeHtml(role.name || "Staff role")}</span>
-      <strong>${escapeHtml(`${String(role.onlineCount ?? 0)}/${String(role.count ?? (Array.isArray(role.members) ? role.members.length : 0))}`)}</strong>
-    </div>
-  `).join("");
-  const peopleMarkup = members.map((member) => {
-    const displayName = member.displayName || member.username || "Unknown staff";
-    const username = member.username ? `@${member.username}` : (member.id ? `ID ${member.id}` : "Discord user");
-    const roleNames = Array.isArray(member.roles) && member.roles.length
-      ? member.roles
-      : (Array.isArray(member.roleIds) ? member.roleIds.map((roleId) => roleNameById.get(String(roleId)) || String(roleId)).filter(Boolean) : []);
+  if (!roleGroups.length) return renderManualStaffList(discord);
 
-    return `
-      <article class="live-staff__person">
-        <div class="live-staff__identity">
-          ${member.avatarUrl ? `<img src="${escapeHtml(member.avatarUrl)}" alt="" loading="lazy" />` : `<span class="live-staff__avatar">${escapeHtml(displayName.slice(0, 1).toUpperCase())}</span>`}
-          <div class="live-staff__nameBlock">
-            <strong>${escapeHtml(displayName)}</strong>
-            <span>${escapeHtml(username)}</span>
-          </div>
-        </div>
-        <div class="live-staff__rolePills">
-          ${roleNames.length ? roleNames.map((roleName) => `<span>${escapeHtml(roleName)}</span>`).join("") : `<span>No staff role returned</span>`}
-          <span class="live-staff__status live-staff__status--${escapeHtml(String(member.isOnline ? member.status : "offline"))}">${escapeHtml(statusLabel(member))}</span>
-        </div>
-      </article>
-    `;
-  }).join("");
-  const count = members.length || roles.reduce((sum, role) => sum + (Number(role.count) || 0), 0);
-  const staffError = String(discord?.memberError || discord?.staffMemberError || "").trim();
-  const emptyStaffMessage = staffError
-    ? staffError === "missing_bot_token"
-      ? "Discord bot token is still missing on the server."
-      : /401|unauthorized|invalid token/i.test(staffError)
-        ? "Discord rejected the bot token. Generate a new bot token and update the server config."
-        : /missing access|403|privileged|intent/i.test(staffError)
-          ? "Discord blocked the member list. Make sure the bot is in the guild and Server Members Intent is enabled in the Discord Developer Portal."
-        : `Discord member list is not available yet: ${staffError}.`
-    : "Staff roles are wired. Waiting for Discord to return staff member names and usernames.";
-
-  return `
-    <section class="section live-staff" data-reveal>
-      <div class="live-staff__head">
-        <div>
-          <div class="section__eyebrow">Discord staff</div>
-          <h2>Staff List</h2>
-        </div>
-        <span class="live-staff__count">${escapeHtml(String(count))}</span>
+  const uniqueStaff = new Set();
+  roleGroups.forEach((role) => role.members.forEach((member) => uniqueStaff.add(member.id)));
+  const count = uniqueStaff.size || roleGroups.reduce((sum, role) => sum + role.members.length, 0);
+  const groupMarkup = roleGroups.map((role) => `
+    <article class="live-staff__group">
+      <div class="live-staff__groupHead">
+        <h3>${escapeHtml(role.name)}</h3>
+        <span>${escapeHtml(`${String(role.onlineCount)}/${String(role.count)}`)}</span>
       </div>
-      ${members.length ? `<div class="live-staff__people">${peopleMarkup}</div>${roleSummary ? `<div class="live-staff__rolesSummary">${roleSummary}</div>` : ""}` : `<div class="status-empty__text">${escapeHtml(emptyStaffMessage)}</div>`}
-    </section>
-  `;
+      <div class="live-staff__rows">
+        ${role.members.map((member) => {
+          const displayName = member.displayName || member.username || "Unknown staff";
+          const username = member.username ? `@${member.username}` : (member.id ? `ID ${member.id}` : "Discord user");
+          return `
+            <div class="live-staff__row">
+              <div class="live-staff__rowIdentity">
+                ${member.avatarUrl ? `<img src="${escapeHtml(member.avatarUrl)}" alt="" loading="lazy" />` : `<span class="live-staff__avatar">${renderStaffInitial(displayName)}</span>`}
+                <div class="live-staff__rowName">
+                  <strong>${escapeHtml(displayName)}</strong>
+                  <span>${escapeHtml(username)}</span>
+                </div>
+              </div>
+              ${renderStaffStatusBadge(member)}
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </article>
+  `).join("");
+
+  return renderStaffListShell(count, `<div class="live-staff__groups">${groupMarkup}</div>`);
 }
 function renderServerStatusContent(snapshot) {
   const liveOps = snapshot.liveOps || {};
