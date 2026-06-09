@@ -97,6 +97,7 @@ const MANUAL_STAFF_GROUPS = [
   {
     title: "Moderation Team",
     members: [
+      { name: "Ollie", role: "Lead Moderator" },
       { name: "TheFrup!", role: "Moderator" },
       { name: "Jay rod0004", role: "Moderator" }
     ]
