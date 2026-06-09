@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers.png?v=20260608c") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers-web.png?v=20260609b") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon.png?v=20260608c") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon-web.jpg?v=20260609b") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -3232,6 +3232,95 @@ html body.is-standard main.content #rules .cards::before,
 html body.is-standard main.content #rules .cards::after{
   content: none !important;
   display: none !important;
+}
+
+/* Performance pass for slower devices and mobile browsers. */
+html.is-low-power body,
+html.is-low-power body::before,
+html.is-low-power body::after{
+  background-attachment: scroll !important;
+}
+
+html.is-low-power .site-fx{
+  display: none !important;
+}
+
+html.is-low-power .site-brand-backdrop::before{
+  filter: none !important;
+}
+
+html.is-low-power .topbar,
+html.is-low-power .dock,
+html.is-low-power .section,
+html.is-low-power .landing-hub__hero,
+html.is-low-power .landing-hub__card,
+html.is-low-power .footer__inner,
+html.is-low-power .auth-modal,
+html.is-low-power .rules-picker__item,
+html.is-low-power .rules-document__section,
+html.is-low-power .service-map,
+html.is-low-power .map-stage,
+html.is-low-power .live-minimal__card,
+html.is-low-power .live-staff{
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+html.is-low-power .service-map__marker,
+html.is-low-power .live-map__marker,
+html.is-low-power [data-reveal],
+html.is-low-power .view,
+html.is-low-power .auth__btn,
+html.is-low-power .dock__item,
+html.is-low-power .landing-hub__card,
+html.is-low-power .rules-picker__item{
+  animation: none !important;
+  transition: none !important;
+}
+
+@media (max-width: 760px), (prefers-reduced-motion: reduce){
+  body,
+  body::before,
+  body::after{
+    background-attachment: scroll !important;
+  }
+
+  .site-fx{
+    display: none !important;
+  }
+
+  .site-brand-backdrop::before{
+    filter: none !important;
+  }
+
+  .topbar,
+  .dock,
+  .section,
+  .landing-hub__hero,
+  .landing-hub__card,
+  .footer__inner,
+  .auth-modal,
+  .rules-picker__item,
+  .rules-document__section,
+  .service-map,
+  .map-stage,
+  .live-minimal__card,
+  .live-staff{
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .service-map__marker,
+  .live-map__marker,
+  [data-reveal],
+  .view,
+  .auth__btn,
+  .dock__item,
+  .landing-hub__card,
+  .rules-picker__item{
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 

@@ -66,12 +66,27 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260608c";
+const SITE_ASSET_VERSION = "20260609b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
-const BRAND_LOGO_BANNER_URL = `${APP_ASSET_BASE_URL}branding/sg-cops-and-robbers.png?v=${SITE_ASSET_VERSION}`;
-const BRAND_LOGO_BADGE_URL = `${APP_ASSET_BASE_URL}branding/sgcnr-badge.png?v=${SITE_ASSET_VERSION}`;
+const BRAND_LOGO_BANNER_URL = `${APP_ASSET_BASE_URL}branding/sg-cops-and-robbers-web.png?v=${SITE_ASSET_VERSION}`;
+const BRAND_LOGO_BADGE_URL = `${APP_ASSET_BASE_URL}branding/sgcnr-badge-header.png?v=${SITE_ASSET_VERSION}`;
+const CLIENT_LOW_POWER_MODE = (() => {
+  try {
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const slowConnection = Boolean(connection?.saveData) || /(^2g|slow-2g|3g)$/i.test(connection?.effectiveType || "");
+    const lowMemory = typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 4;
+    const lowCpu = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+    const coarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    return Boolean(slowConnection || lowMemory || lowCpu || coarsePointer || reducedMotion);
+  } catch {
+    return false;
+  }
+})();
+
+document.documentElement.classList.toggle("is-low-power", CLIENT_LOW_POWER_MODE);
 const MANUAL_STAFF_GROUPS = [
   {
     title: "Owner",
@@ -150,7 +165,7 @@ const MANUAL_STAFF_GROUPS = [
   }
 ];
 const MAP_SOURCE_URL = "https://gta-5-map.com?embed=light";
-const MAP_IMAGE_URL = `${APP_ASSET_BASE_URL}map-assets/los-santos-satellite-z6.jpg?v=${SITE_ASSET_VERSION}`;
+const MAP_IMAGE_URL = `${APP_ASSET_BASE_URL}map-assets/los-santos-satellite-z6-web.jpg?v=${SITE_ASSET_VERSION}`;
 const MAP_IMAGE_FALLBACK_URL = `${APP_ASSET_BASE_URL}satellite-map.jpg?v=${SITE_ASSET_VERSION}`;
 const MAP_IMAGE_LEGACY_URL = `${APP_ASSET_BASE_URL}map.jpg?v=${SITE_ASSET_VERSION}`;
 const MAP_TILE_GRID = {
@@ -6304,7 +6319,7 @@ function init() {
   }
 
   initAuth();
-  initPointerFx();
+  // The full-screen pointer canvas is expensive on weaker devices, so keep it off.
   startLocalClock();
   const legacyHashPath = location.hash && location.hash.startsWith("#/")
     ? normalizeRouteTarget(location.hash)
