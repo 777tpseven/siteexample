@@ -8,30 +8,41 @@ on:
 jobs:
   deploy-public-site:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Deploy public site to ZAP Webspace
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.ZAP_FTP_HOST }}
           username: ${{ secrets.ZAP_FTP_USER }}
           password: ${{ secrets.ZAP_FTP_PASS }}
           port: ${{ secrets.ZAP_FTP_PORT }}
           protocol: ftp
+          timeout: 120000
+          log-level: minimal
           server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
+            **/.github/**
             **/node_modules/**
+            .codex-screenshots/**
             staff-site/**
+            branding/cinematic-sunset-horizon.png
+            branding/sg-cops-and-robbers.png
+            branding/sgcnr-badge.png
+            map-assets/los-santos-satellite-z6.jpg
             README.md
             sgcnr-site.zip
 
   deploy-staff-site:
     runs-on: ubuntu-latest
+    needs: deploy-public-site
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -53,13 +64,15 @@ jobs:
 
       - name: Deploy staff portal to staff.sgcnr.net
         if: ${{ steps.staff-config.outputs.enabled == 'true' }}
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.ZAP_FTP_HOST }}
           username: ${{ secrets.ZAP_STAFF_FTP_USER }}
           password: ${{ secrets.ZAP_STAFF_FTP_PASS }}
           port: ${{ secrets.ZAP_FTP_PORT }}
           protocol: ftp
+          timeout: 120000
+          log-level: minimal
           local-dir: ./staff-site/
           server-dir: ./
           exclude: |
