@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260609b";
+const SITE_ASSET_VERSION = "20260612a";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -1890,85 +1890,22 @@ function renderStart() {
 }
 
 function renderHelp() {
-  const ticketLink = `<a class="info-link" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL)}" target="_blank" rel="noopener noreferrer">open a Discord ticket</a>`;
+  const topics = ["Memberships", "Server Events", "Rules", "Jobs"];
   setView(`
-      <div>
+    <div class="help-clean">
       ${renderHeader("Help", [{ label: "Help" }])}
-        <div class="content-grid content-grid--sidebar">
-          <section class="section section--hero">
-            <div class="section__eyebrow">Frequently asked</div>
-            <h2>Quick answers</h2>
-          <div class="info-faq">
-            <div class="info-faq__item">
-              <div class="info-faq__q">Do I need a microphone?</div>
-              <div class="info-faq__a">Recommended for support and roleplay. You can still play, but talking helps.</div>
-            </div>
-            <div class="info-faq__item">
-              <div class="info-faq__q">Where do I report a player or get support?</div>
-              <div class="info-faq__a">Join Discord and ${ticketLink}. Include video/screenshot evidence when possible.</div>
-            </div>
-            <div class="info-faq__item">
-              <div class="info-faq__q">How do I appeal a punishment?</div>
-              <div class="info-faq__a">Use ${ticketLink}. Provide context, your ID, and any evidence.</div>
-            </div>
-            <div class="info-faq__item">
-              <div class="info-faq__q">What should I do if I'm not sure about a rule?</div>
-              <div class="info-faq__a">Ask staff in Discord before doing it — it's better than getting punished later.</div>
-            </div>
-          </div>
-        </section>
-
-          <aside class="section section--stack">
-            <div class="section__eyebrow">Best practice</div>
-            <h2>Need help faster?</h2>
-            <div class="stack-list stack-list--compact">
-              <div class="stack-list__item"><span class="stack-list__index">01</span><span>Use the direct Discord ticket channel.</span></div>
-              <div class="stack-list__item"><span class="stack-list__index">02</span><span>Include your ID and screenshots.</span></div>
-              <div class="stack-list__item"><span class="stack-list__index">03</span><span>Explain the issue clearly.</span></div>
-            </div>
-          </aside>
+      <section class="section help-clean__section" aria-label="Help categories">
+        <div class="help-clean__grid">
+          ${topics.map((topic) => `
+            <article class="help-clean__item">
+              <strong>${escapeHtml(topic)}</strong>
+            </article>
+          `).join("")}
         </div>
-
-        <div class="content-grid content-grid--sidebar">
-          <section class="section">
-            <div class="section__eyebrow">Discord integration</div>
-            <h2>Website and bot connection</h2>
-            <div class="info-faq">
-              <div class="info-faq__item">
-                <div class="info-faq__q">Does the website already have a real database?</div>
-                <div class="info-faq__a">The website is now prepared for Discord-only account access. Real synced accounts across devices, ticket sync, punishments, and Discord role rewards still need backend services and a database behind it.</div>
-              </div>
-              <div class="info-faq__item">
-                <div class="info-faq__q">Can the website be connected to a Discord bot later?</div>
-                <div class="info-faq__a">Yes. The site is now prepared for Discord guild stats, bot status, account linking, support queues, announcement feeds, and role-based sync once those endpoints are connected.</div>
-              </div>
-              <div class="info-faq__item">
-                <div class="info-faq__q">What is needed for real Discord linking?</div>
-                <div class="info-faq__a">You will need Discord OAuth on the website, a secure service that verifies the Discord login, a database for linked accounts, and bot-driven role checks so roles can be confirmed safely.</div>
-              </div>
-              <div class="info-faq__item">
-                <div class="info-faq__q">How would Discord role sync actually work?</div>
-                <div class="info-faq__a">The user starts with a Discord OAuth login button on the website. After login, the backend verifies the returned Discord token, checks the player's roles in your SGCNR Discord, and stores that link in the database so the verified Discord identity or guild nickname can become the website and in-game reference safely.</div>
-              </div>
-            </div>
-          </section>
-
-          <aside class="section section--stack">
-            <div class="section__eyebrow">Good features</div>
-            <h2>What Discord can unlock</h2>
-            <div class="stack-list stack-list--compact">
-              <div class="stack-list__item"><span class="stack-list__index">01</span><span>Linked website accounts with Discord roles and verification.</span></div>
-              <div class="stack-list__item"><span class="stack-list__index">02</span><span>Live Discord bot status, guild member counts, and support queue panels.</span></div>
-              <div class="stack-list__item"><span class="stack-list__index">03</span><span>Ticket, appeal, and report guidance routed cleanly into Discord.</span></div>
-              <div class="stack-list__item"><span class="stack-list__index">04</span><span>Automated server restart alerts, event posts, and leaderboard highlights.</span></div>
-              <div class="stack-list__item"><span class="stack-list__index">05</span><span>Claimable rewards or perks after Discord verification or supporter role checks.</span></div>
-              <div class="stack-list__item"><span class="stack-list__index">06</span><span>Role-locked website features that only open after backend verification confirms Discord membership.</span></div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    `);
-  }
+      </section>
+    </div>
+  `);
+}
 
 function setAccountFeedback(element, tone, text) {
   if (!element) return;
@@ -5977,6 +5914,7 @@ function parseRoute() {
   if (parts[0] === "map") return { name: "map" };
   if (parts[0] === "status") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "live") return { name: "live", metric: parts[1] || "kd" };
+  if (parts[0] === "help") return { name: "help" };
   if (parts[0] === "info") return { name: "info" };
   if (parts[0] === "definitions") return { name: "definitions" };
   if (parts[0] === "section" && parts[1]) return { name: "section", sectionId: parts[1] };
@@ -6046,6 +5984,10 @@ function route() {
   }
   if (r.name === "live") {
     renderStatus();
+    return;
+  }
+  if (r.name === "help") {
+    renderHelp();
     return;
   }
   if (r.name === "definitions") {
