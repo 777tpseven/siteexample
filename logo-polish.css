@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers-web.png?v=20260612a") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers-web.png?v=20260613a") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon-web.jpg?v=20260612a") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon-web.jpg?v=20260613a") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -3350,6 +3350,65 @@ html.is-low-power .rules-picker__item{
   .rules-picker__item{
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Keep all public dock links visible on small screens. */
+@media (max-width: 560px){
+  .dock,
+  body.is-landing .dock,
+  body.is-standard .dock,
+  body.is-wiki .dock,
+  body.is-apply .dock,
+  body.is-map .dock{
+    width: calc(100% - 16px) !important;
+    max-width: calc(100% - 16px) !important;
+    gap: 4px !important;
+    padding: 8px !important;
+    justify-content: center !important;
+    overflow-x: visible !important;
+  }
+
+  .dock__item{
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 58px !important;
+    height: 42px !important;
+    padding: 0 4px !important;
+  }
+
+  .dock__icon{
+    display: none !important;
+  }
+
+  .dock__label{
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 9px !important;
+  }
+}
+
+@media (max-width: 380px){
+  .dock,
+  body.is-landing .dock,
+  body.is-standard .dock,
+  body.is-wiki .dock,
+  body.is-apply .dock,
+  body.is-map .dock{
+    gap: 3px !important;
+    padding: 7px !important;
+  }
+
+  .dock__item{
+    height: 40px !important;
+    padding: 0 2px !important;
+  }
+
+  .dock__label{
+    font-size: 8px !important;
   }
 }
 
