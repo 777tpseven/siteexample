@@ -131,6 +131,13 @@
     return parts[0] === "help" && parts[1] === "memberships" && parts[2] === "gold" && parts[3] === "cars";
   }
 
+  function getHelpRuleSectionIdFromPath() {
+    const clean = getEnhancedRoutePath();
+    const parts = clean.split("/").filter(Boolean);
+    if (parts[0] !== "help" || parts[1] !== "rules" || !parts[2]) return null;
+    return parts[2];
+  }
+
   function initEditorialMotion() {
     document.querySelectorAll("[data-reveal]").forEach((node) => {
       node.style.removeProperty("--reveal-delay");
@@ -139,6 +146,8 @@
   }
 
   route = function enhancedRoute() {
+    document.body.classList.remove("is-help-rules");
+
     if (isGoldMembershipCarsPath()) {
       if (typeof clearServerStatusPageState === "function") clearServerStatusPageState();
       if (typeof destroyCustomMap === "function") destroyCustomMap();
@@ -149,6 +158,21 @@
       document.body.classList.remove("is-landing", "is-map", "is-wiki");
       document.body.classList.add("is-standard");
       renderGoldMembershipCarsPage();
+      window.requestAnimationFrame(initEditorialMotion);
+      return;
+    }
+
+    const helpRuleSectionId = getHelpRuleSectionIdFromPath();
+    if (helpRuleSectionId) {
+      if (typeof clearServerStatusPageState === "function") clearServerStatusPageState();
+      if (typeof destroyCustomMap === "function") destroyCustomMap();
+      if (typeof updateDockActive === "function") updateDockActive("help");
+      if (typeof setSearchVisible === "function") setSearchVisible(false);
+      if (typeof clearTopMeta === "function") clearTopMeta();
+
+      document.body.classList.remove("is-landing", "is-map", "is-wiki");
+      document.body.classList.add("is-standard", "is-help-rules");
+      renderHelpRuleSection(helpRuleSectionId);
       window.requestAnimationFrame(initEditorialMotion);
       return;
     }
@@ -332,8 +356,8 @@
         href: "/rules",
         cta: "Open rules",
         items: [
-          { name: "Discord rules", meta: "Community conduct", detail: "How to behave in channels, tickets, and official SGCNR spaces.", href: "https://sgcnr.net/section/discord-rules" },
-          { name: "In-game rules", meta: "Server conduct", detail: "Gameplay rules will be kept in the Rules tab as staff finalizes them.", href: "/section/ingame-rules" },
+          { name: "Discord rules", meta: "Community conduct", detail: "How to behave in channels, tickets, and official SGCNR spaces.", href: "/help/rules/discord-rules" },
+          { name: "In-game rules", meta: "Server conduct", detail: "Gameplay rules will be kept in the Rules tab as staff finalizes them.", href: "/help/rules/ingame-rules" },
           { name: "Support route", meta: "Ask before guessing", detail: "If something is unclear, open a Discord ticket before acting.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL }
         ]
       },
@@ -541,6 +565,40 @@
       }
       return `<p class="rules-document__paragraph">${formatInline(block).replace(/\n/g, "<br>")}</p>`;
     }).join("");
+  }
+
+  function renderHelpRuleSection(sectionId) {
+    const section = findSectionById(sectionId);
+    if (!section) {
+      setView(`<div>${renderHeader("Not found", [{ label: "Help", href: "/help" }, { label: "Not found" }], { showBadge: false })}</div>`);
+      return;
+    }
+
+    const title = renderHeader(section.title, [
+      { label: "Help", href: "/help" },
+      { label: "Rules", href: "/help" },
+      { label: section.title }
+    ], { showBadge: false });
+    const rules = Array.isArray(section.rules) ? section.rules : [];
+    const body = rules.map((rule) => `
+      <article class="rules-document__article" id="rule-${escapeHtml(rule.id)}">
+        <div class="rules-document__head">
+          <span class="rule__id">${escapeHtml(rule.id)}</span>
+          <h2>${escapeHtml(rule.title)}</h2>
+        </div>
+        <div class="rule__body rules-document__body">${renderRuleBodyDocument(rule.body)}</div>
+      </article>
+    `).join("");
+
+    setView(`
+      <div class="rules-document rules-document--help">
+        ${title}
+        <section class="section rules-document__section">
+          ${body || `<div class="empty">Coming soon</div>`}
+        </section>
+        ${renderRulesDisclaimer()}
+      </div>
+    `);
   }
 
   renderSection = function renderSectionDocument(sectionId) {
