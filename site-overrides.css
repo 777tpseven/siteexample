@@ -13992,3 +13992,81 @@ body.is-standard .rules-document .breadcrumb__sep,
 body.is-help-rules .rules-document .breadcrumb__sep{
   color: rgba(235, 241, 248, .28) !important;
 }
+
+/* 2026-06-15 EOF membership/readability lock */
+body:not(.is-map) .site-brand-backdrop::before{
+  filter: saturate(.72) contrast(1.04) brightness(.34) !important;
+  opacity: .55 !important;
+}
+
+body:not(.is-map) .site-brand-backdrop::after{
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .06), transparent 34%),
+    linear-gradient(180deg, rgba(2, 6, 4, .72), rgba(2, 6, 4, .86) 48%, rgba(2, 6, 4, .92)) !important;
+}
+
+body.is-membership .page-hero,
+body.is-membership .neo-membership__hero,
+body.is-membership .neo-membership__benefit,
+body.is-membership .neo-membership__aside,
+body.is-standard.is-membership .page-hero,
+body.is-standard.is-membership .section,
+body.is-standard.is-membership :is(.neo-membership__hero, .neo-membership__benefit, .neo-membership__aside){
+  border-color: rgba(255, 255, 255, .10) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .055), transparent 34%),
+    linear-gradient(180deg, rgba(8, 18, 12, .99), rgba(3, 9, 6, .995)) !important;
+  box-shadow:
+    0 24px 54px rgba(0, 0, 0, .46),
+    inset 0 1px 0 rgba(255, 255, 255, .055) !important;
+  backdrop-filter: blur(18px) saturate(112%) !important;
+}
+
+body.is-membership .neo-membership__hero{
+  min-height: 0 !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  padding: clamp(24px, 4vw, 46px) !important;
+}
+
+body.is-membership .neo-membership__hero h2{
+  max-width: 900px !important;
+  color: #f6fff8 !important;
+  font-size: clamp(2.45rem, 6.2vw, 5.2rem) !important;
+  line-height: .94 !important;
+  letter-spacing: -.07em !important;
+}
+
+body.is-membership :is(.neo-membership__hero p, .neo-membership__benefit p, .neo-membership__aside p){
+  color: rgba(224, 231, 227, .84) !important;
+}
+
+body.is-membership :is(.neo-membership__benefit h3, .neo-membership__aside strong){
+  color: #f7fff9 !important;
+}
+
+body.is-membership :is(.neo-membership__benefitNumber, .neo-kicker, .neo-membership__inlineLink, .neo-help__link){
+  border-color: rgba(255, 255, 255, .11) !important;
+  background: rgba(255, 255, 255, .052) !important;
+  color: rgba(235, 241, 248, .86) !important;
+}
+
+body.is-membership :is(.auth__btn--primary, .neo-help__link){
+  border-color: rgba(255, 255, 255, .13) !important;
+  background: linear-gradient(180deg, rgba(24, 40, 30, .98), rgba(10, 21, 14, .98)) !important;
+  color: #f6fff8 !important;
+}
+
+body.is-membership :is(.neo-membership__benefit:hover, .neo-membership__inlineLink:hover, .neo-help__link:hover){
+  border-color: rgba(255, 255, 255, .20) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .075), transparent 34%),
+    linear-gradient(180deg, rgba(10, 22, 15, .99), rgba(4, 12, 8, .995)) !important;
+  color: #ffffff !important;
+}
+
+@media (max-width: 920px){
+  body.is-membership .neo-membership__hero{
+    grid-template-columns: 1fr !important;
+  }
+}

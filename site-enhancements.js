@@ -146,7 +146,7 @@
   }
 
   route = function enhancedRoute() {
-    document.body.classList.remove("is-help-rules");
+    document.body.classList.remove("is-help-rules", "is-membership");
 
     if (isGoldMembershipCarsPath()) {
       if (typeof clearServerStatusPageState === "function") clearServerStatusPageState();
@@ -156,7 +156,7 @@
       if (typeof clearTopMeta === "function") clearTopMeta();
 
       document.body.classList.remove("is-landing", "is-map", "is-wiki");
-      document.body.classList.add("is-standard");
+      document.body.classList.add("is-standard", "is-membership");
       renderGoldMembershipCarsPage();
       window.requestAnimationFrame(initEditorialMotion);
       return;
@@ -186,7 +186,7 @@
       if (typeof clearTopMeta === "function") clearTopMeta();
 
       document.body.classList.remove("is-landing", "is-map", "is-wiki");
-      document.body.classList.add("is-standard");
+      document.body.classList.add("is-standard", "is-membership");
       renderHelpMembershipPage(membershipId);
       window.requestAnimationFrame(initEditorialMotion);
       return;
