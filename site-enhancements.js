@@ -82,6 +82,26 @@
           text: "Gain exclusive access to the private Silver Supporter lounge in our official Discord. Enjoy high-level chat, early sneak peeks at upcoming updates, and community perks. Please ensure your Discord account is linked to your Tebex profile for automatic role assignment."
         }
       ]
+    },
+    free: {
+      title: "Free Access",
+      eyebrow: "Default player access",
+      summary: "Free access is the normal SGCNR player baseline. No paid membership is required to join, play, use Discord support, and take part in the city.",
+      note: "Free access does not include paid supporter perks, priority queue, supporter vehicles, supporter wardrobe items, or private supporter Discord lounges.",
+      benefits: [
+        {
+          title: "Normal Server Access",
+          text: "Join the server, follow the rules, and play normally without needing any paid membership."
+        },
+        {
+          title: "Discord Support",
+          text: "Use the official Discord ticket flow for support, ban history requests, reports, and staff questions."
+        },
+        {
+          title: "Public Website Access",
+          text: "Use the public website for rules, map information, live status, and Help pages."
+        }
+      ]
     }
   };
 
@@ -98,6 +118,9 @@
   function getHelpMembershipIdFromPath() {
     const clean = getEnhancedRoutePath();
     const parts = clean.split("/").filter(Boolean);
+    if (parts[0] === "help" && parts[1] === "memberships" && parts[2]) {
+      return helpMembershipPages[parts[2]] ? parts[2] : null;
+    }
     if (parts[0] !== "help" || !parts[1]) return null;
     return helpMembershipPages[parts[1]] ? parts[1] : null;
   }
@@ -274,18 +297,19 @@
             name: "Gold",
             meta: "Highest supporter tier",
             detail: "Includes the strongest supporter package, Gold Discord role recognition, and the available Silver benefits where supported.",
-            href: "/help/gold"
+            href: "/help/memberships/gold"
           },
           {
             name: "Silver",
             meta: "Standard supporter tier",
             detail: "A lighter supporter package with Silver Discord role recognition and the listed Silver membership benefits.",
-            href: "/help/silver"
+            href: "/help/memberships/silver"
           },
           {
             name: "Free",
             meta: "Default player access",
-            detail: "No paid membership required. Join the server, follow the rules, use Discord support, and play normally."
+            detail: "No paid membership required. Join the server, follow the rules, use Discord support, and play normally.",
+            href: "/help/memberships/free"
           }
         ]
       },
@@ -429,7 +453,7 @@
       <div class="neo-help neo-membership">
         ${renderHeader("Gold Membership Cars", [
           { label: "Help", href: "/help" },
-          { label: "Gold Executive", href: "/help/gold" },
+          { label: "Gold Executive", href: "/help/memberships/gold" },
           { label: "Cars" }
         ], { showBadge: false })}
 
@@ -439,7 +463,7 @@
             <h2>Gold car list</h2>
             <p>The Gold Executive membership car catalogue is prepared here. Add the finalized vehicle list when staff confirms the public names and availability.</p>
           </div>
-          <a class="auth__btn auth__btn--primary" href="/help/gold">Back to Gold</a>
+          <a class="auth__btn auth__btn--primary" href="/help/memberships/gold">Back to Gold</a>
         </section>
 
         <section class="neo-membership__layout" aria-label="Gold membership car list">
