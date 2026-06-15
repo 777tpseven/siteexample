@@ -13995,14 +13995,14 @@ body.is-help-rules .rules-document .breadcrumb__sep{
 
 /* 2026-06-15 EOF membership/readability lock */
 body:not(.is-map) .site-brand-backdrop::before{
-  filter: saturate(.72) contrast(1.04) brightness(.34) !important;
-  opacity: .55 !important;
+  filter: saturate(.96) contrast(1.03) brightness(.78) !important;
+  opacity: .96 !important;
 }
 
 body:not(.is-map) .site-brand-backdrop::after{
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .06), transparent 34%),
-    linear-gradient(180deg, rgba(2, 6, 4, .72), rgba(2, 6, 4, .86) 48%, rgba(2, 6, 4, .92)) !important;
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .05), transparent 34%),
+    linear-gradient(180deg, rgba(2, 6, 4, .28), rgba(2, 6, 4, .42) 48%, rgba(2, 6, 4, .58)) !important;
 }
 
 body.is-membership .page-hero,
