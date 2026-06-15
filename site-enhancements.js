@@ -138,6 +138,112 @@
     setView(renderLandingHubHomeMarkup());
   };
 
+  renderHelp = function renderHelpCleanSlate() {
+    const helpSections = [
+      {
+        title: "Memberships",
+        eyebrow: "Subscriber tiers",
+        text: "Compare the current SGCNR access tiers before buying or asking staff. Paid tiers are handled through the official store/support flow, while Free is the normal player baseline.",
+        href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL,
+        cta: "Ask in Discord",
+        items: [
+          {
+            name: "Gold",
+            meta: "Highest supporter tier",
+            detail: "Includes the strongest supporter package, Gold Discord role recognition, and the available Silver benefits where supported."
+          },
+          {
+            name: "Silver",
+            meta: "Standard supporter tier",
+            detail: "A lighter supporter package with Silver Discord role recognition and the listed Silver membership benefits."
+          },
+          {
+            name: "Free",
+            meta: "Default player access",
+            detail: "No paid membership required. Join the server, follow the rules, use Discord support, and play normally."
+          }
+        ]
+      },
+      {
+        title: "Server Events",
+        eyebrow: "Live activities",
+        text: "Use this section to understand where official events, live activity, and temporary announcements will be checked once staff posts or syncs them.",
+        href: "/live",
+        cta: "Check live status",
+        items: [
+          { name: "Official events", meta: "Staff-hosted", detail: "Scheduled or announced activities from the SGCNR team." },
+          { name: "Live server state", meta: "Status checks", detail: "Server and bot status stay on the Live page." },
+          { name: "Event support", meta: "Discord tickets", detail: "Questions, issues, or event reports should go through Discord tickets." }
+        ]
+      },
+      {
+        title: "Rules",
+        eyebrow: "Player standards",
+        text: "Rules remain their own page so they can be updated without mixing them into support text.",
+        href: "/rules",
+        cta: "Open rules",
+        items: [
+          { name: "Discord rules", meta: "Community conduct", detail: "How to behave in channels, tickets, and official SGCNR spaces." },
+          { name: "In-game rules", meta: "Server conduct", detail: "Gameplay rules will be kept in the Rules tab as staff finalizes them." },
+          { name: "Support route", meta: "Ask before guessing", detail: "If something is unclear, open a Discord ticket before acting." }
+        ]
+      },
+      {
+        title: "Jobs",
+        eyebrow: "City roles",
+        text: "Job and system information belongs in Discord support until the public job library is ready.",
+        href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL,
+        cta: "Ask in Discord",
+        items: [
+          { name: "Legal jobs", meta: "City work", detail: "Ask staff in Discord for current job basics, expectations, and systems." },
+          { name: "Criminal systems", meta: "Risk activities", detail: "Crime-related systems should be clarified through staff support until the public library is ready." },
+          { name: "Staff help", meta: "Discord tickets", detail: "If a job/system seems broken, report it through Discord support." }
+        ]
+      }
+    ];
+
+    setView(`
+      <div class="neo-help">
+        ${renderHeader("Help", [{ label: "Help" }], { showBadge: false })}
+        <section class="section neo-help__hero" data-reveal>
+          <div>
+            <span class="neo-kicker">Help section</span>
+            <h2>Pick the topic you need.</h2>
+            <p>Clean support hub for memberships, server events, rules, and jobs. No extra filler, no duplicate routes.</p>
+          </div>
+          <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Open Discord tickets</a>
+        </section>
+
+        <section class="neo-help__grid" aria-label="Help topics">
+          ${helpSections.map((section, index) => `
+            <article class="neo-help__panel neo-help__topic" data-reveal>
+              <div class="neo-help__topicTop">
+                <span class="neo-help__number">${escapeHtml(String(index + 1).padStart(2, "0"))}</span>
+                <div>
+                  <span class="neo-kicker">${escapeHtml(section.eyebrow)}</span>
+                  <h3>${escapeHtml(section.title)}</h3>
+                </div>
+              </div>
+              <p class="neo-help__text">${escapeHtml(section.text)}</p>
+              <div class="neo-help__list">
+                ${section.items.map((item) => `
+                  <div class="neo-help__item">
+                    <div class="neo-help__itemHead">
+                      <strong>${escapeHtml(item.name)}</strong>
+                      <span>${escapeHtml(item.meta)}</span>
+                    </div>
+                    <p>${escapeHtml(item.detail)}</p>
+                  </div>
+                `).join("")}
+              </div>
+              <a class="neo-help__link" href="${escapeHtml(section.href)}" ${/^https?:\/\//.test(section.href) ? 'target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(section.cta)}</a>
+            </article>
+          `).join("")}
+        </section>
+      </div>
+    `);
+  };
+
   renderRulesHub = function renderRulesHubClean(sections) {
     const title = renderHeader("Rules", [{ label: "Rules" }]);
     if (!sections.length) {
