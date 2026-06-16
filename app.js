@@ -1891,7 +1891,30 @@ function renderStart() {
 
 function renderHelp() {
   const topics = [
-    { label: "Memberships", text: "Perks, payments, and account questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
+    {
+      label: "Memberships",
+      text: "Compare the current SGCNR access tiers before buying or asking staff. Paid tiers are handled through the official store/support flow, while Free is the normal player baseline.",
+      memberships: [
+        {
+          name: "Gold",
+          meta: "Highest supporter tier",
+          detail: "Includes the strongest supporter package, Gold Discord role recognition, and the available Silver benefits where supported.",
+          href: "/help/memberships/gold"
+        },
+        {
+          name: "Silver",
+          meta: "Standard supporter tier",
+          detail: "A lighter supporter package with Silver Discord role recognition and the listed Silver membership benefits.",
+          href: "/help/memberships/silver"
+        },
+        {
+          name: "Free",
+          meta: "Default player access",
+          detail: "No paid membership required. Join the server, follow the rules, use Discord support, and play normally.",
+          href: "/help/memberships/free"
+        }
+      ]
+    },
     { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
     { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
     { label: "Jobs", text: "Job info and requests.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true }
@@ -1908,10 +1931,28 @@ function renderHelp() {
       <section class="section help-clean__section" aria-label="Help categories">
         <div class="help-clean__grid">
           ${topics.map((topic) => `
-            <a class="help-clean__item" href="${escapeHtml(topic.href)}"${topic.external ? ' target="_blank" rel="noopener noreferrer" data-no-route="true"' : ""}>
-              <strong>${escapeHtml(topic.label)}</strong>
-              <span>${escapeHtml(topic.text)}</span>
-            </a>
+            ${topic.memberships ? `
+              <article class="help-clean__item help-clean__item--membership">
+                <strong>${escapeHtml(topic.label)}</strong>
+                <span>${escapeHtml(topic.text)}</span>
+                <div class="help-clean__membershipList">
+                  ${topic.memberships.map((item) => `
+                    <a class="help-clean__membershipLink" href="${escapeHtml(item.href)}">
+                      <span>
+                        <strong>${escapeHtml(item.name)}</strong>
+                        <em>${escapeHtml(item.meta)}</em>
+                      </span>
+                      <small>${escapeHtml(item.detail)}</small>
+                    </a>
+                  `).join("")}
+                </div>
+              </article>
+            ` : `
+              <a class="help-clean__item" href="${escapeHtml(topic.href)}"${topic.external ? ' target="_blank" rel="noopener noreferrer" data-no-route="true"' : ""}>
+                <strong>${escapeHtml(topic.label)}</strong>
+                <span>${escapeHtml(topic.text)}</span>
+              </a>
+            `}
           `).join("")}
         </div>
       </section>

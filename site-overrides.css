@@ -14441,6 +14441,59 @@ html body :is(.landing-hub__card::before, .landing-hub__card::after, .page-hero:
   line-height: 1.45 !important;
 }
 
+.help-clean__item--membership{
+  grid-column: span 2 !important;
+}
+
+.help-clean__membershipList{
+  display: grid !important;
+  gap: 7px !important;
+  margin-top: 4px !important;
+}
+
+.help-clean__membershipLink{
+  display: grid !important;
+  gap: 3px !important;
+  padding: 10px !important;
+  border: 1px solid rgba(218, 173, 141, .14) !important;
+  border-radius: 7px !important;
+  background: rgba(255, 255, 255, .03) !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  transition: border-color .16s ease, background-color .16s ease !important;
+}
+
+.help-clean__membershipLink:hover{
+  border-color: rgba(238, 192, 160, .28) !important;
+  background: rgba(255, 255, 255, .055) !important;
+}
+
+.help-clean__membershipLink span{
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+}
+
+.help-clean__membershipLink strong{
+  color: #fff7ef !important;
+  font-size: .92rem !important;
+  line-height: 1.1 !important;
+}
+
+.help-clean__membershipLink em{
+  color: rgba(218, 173, 141, .78) !important;
+  font-size: .72rem !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+}
+
+.help-clean__membershipLink small{
+  color: rgba(224, 208, 196, .72) !important;
+  font-size: .8rem !important;
+  line-height: 1.35 !important;
+}
+
 html body .live-minimal__hero{
   min-height: 0 !important;
   padding: 16px !important;
@@ -14482,5 +14535,15 @@ html body .live-minimal__value{
 
   .help-clean__grid{
     grid-template-columns: 1fr !important;
+  }
+
+  .help-clean__item--membership{
+    grid-column: auto !important;
+  }
+
+  .help-clean__membershipLink span{
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 2px !important;
   }
 }
