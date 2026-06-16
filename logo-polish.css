@@ -22,7 +22,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/branding/sg-cops-and-robbers-web.png?v=20260613a") center 52% / min(1120px, 86vw) auto no-repeat;
+  background: url("/branding/sg-cops-and-robbers-web.png?v=20260616a") center 52% / min(1120px, 86vw) auto no-repeat;
   filter:
     drop-shadow(0 34px 62px rgba(0, 0, 0, .42))
     saturate(1.02)
@@ -39,7 +39,7 @@ body.is-landing .site-brand-backdrop{
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 76%, rgba(5,10,7,.74) 100%);
+  background: linear-gradient(180deg, transparent 76%, rgba(9,7,6,.74) 100%);
   pointer-events: none;
 }
 
@@ -216,11 +216,11 @@ body.is-map .auth__btn--primary,
   object-fit: cover !important;
   object-position: center 46% !important;
   border-radius: 22px !important;
-  border: 1px solid rgba(216, 255, 230, .10) !important;
+  border: 1px solid rgba(216, 173, 141, .10) !important;
   filter: saturate(1.08) contrast(1.04) brightness(1.02) !important;
   box-shadow:
     0 28px 60px rgba(0, 0, 0, .42),
-    0 0 0 1px rgba(92, 255, 161, .07),
+    0 0 0 1px rgba(216, 173, 141, .07),
     inset 0 0 0 1px rgba(255, 255, 255, .07) !important;
 }
 
@@ -356,7 +356,7 @@ body.is-map .auth__btn--primary,
 
 /* 2026-06-04 fixed cinematic background from supplied reference */
 body:not(.is-map){
-  background: #050807 !important;
+  background: #090706 !important;
 }
 
 body:not(.is-map)::before{
@@ -379,7 +379,7 @@ body:not(.is-map)::after{
   overflow: hidden !important;
   z-index: 0 !important;
   pointer-events: none !important;
-  background: #050807 !important;
+  background: #090706 !important;
 }
 
 body:not(.is-map) .site-brand-backdrop{
@@ -394,7 +394,7 @@ body.is-map .site-brand-backdrop{
   content: "" !important;
   position: absolute !important;
   inset: 0 !important;
-  background: url("/branding/cinematic-sunset-horizon-web.jpg?v=20260613a") center center / cover no-repeat !important;
+  background: url("/branding/cinematic-sunset-horizon-web.jpg?v=20260616a") center center / cover no-repeat !important;
   filter: saturate(1.02) contrast(1.02) brightness(.92) !important;
   opacity: 1 !important;
   mix-blend-mode: normal !important;
@@ -408,7 +408,7 @@ body.is-map .site-brand-backdrop{
   inset: 0 !important;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, .20), rgba(0, 0, 0, .20)),
-    linear-gradient(180deg, transparent 70%, rgba(5, 8, 7, .72) 100%) !important;
+    linear-gradient(180deg, transparent 70%, rgba(9, 7, 6, .72) 100%) !important;
 }
 
 body.is-landing .content,
@@ -3410,6 +3410,228 @@ html.is-low-power .rules-picker__item{
   .dock__label{
     font-size: 8px !important;
   }
+}
+
+/* 2026-06-16 warm neutral palette restore */
+:root{
+  --accent: #d8ad8d !important;
+  --accent2: #f1d3bd !important;
+  --site-gold: #d8ad8d !important;
+  --site-green: #d8ad8d !important;
+  --site-border-strong: rgba(218, 173, 141, .18) !important;
+  --sgcnr-ink: rgba(246, 239, 231, .94) !important;
+  --sgcnr-muted: rgba(224, 208, 196, .74) !important;
+  --sgcnr-line: rgba(218, 173, 141, .18) !important;
+  --sgcnr-panel: rgba(13, 10, 9, .86) !important;
+  --sgcnr-panel-strong: rgba(17, 12, 10, .94) !important;
+  --sgcnr-accent: #d8ad8d !important;
+  --sgcnr-accent-deep: #704334 !important;
+}
+
+html body,
+html body.is-landing,
+html body.is-standard,
+html body.is-map,
+html body.is-help-rules,
+html body.is-membership{
+  color: var(--sgcnr-ink) !important;
+}
+
+html body:not(.is-map){
+  background: #090706 !important;
+}
+
+html body:not(.is-map) .site-brand-backdrop,
+html body:not(.is-map) .site-brand-backdrop::before{
+  background-color: #090706 !important;
+}
+
+html body:not(.is-map) .site-brand-backdrop::before{
+  filter: saturate(.86) contrast(1.04) brightness(.82) sepia(.08) !important;
+}
+
+html body:not(.is-map) .site-brand-backdrop::after{
+  background:
+    radial-gradient(circle at 50% 0%, rgba(216, 173, 141, .055), transparent 34%),
+    linear-gradient(180deg, rgba(8, 5, 4, .30), rgba(8, 5, 4, .48) 52%, rgba(8, 5, 4, .66)) !important;
+}
+
+html body :is(
+  .topbar,
+  .dock,
+  .section,
+  .page-hero,
+  .landing-hub__hero,
+  .landing-hub__card,
+  .rules-picker__item,
+  .rules-document__section,
+  .rules-document__article,
+  .rules-legal,
+  .status-note,
+  .live-minimal__hero,
+  .live-minimal__card,
+  .live-staff,
+  .map-panel,
+  .map-stage,
+  .service-map-shell,
+  .service-map,
+  .map-filter,
+  .map-tool,
+  .neo-help__panel,
+  .neo-help__card,
+  .neo-membership__hero,
+  .neo-membership__benefit,
+  .neo-membership__aside,
+  .help-clean__item,
+  .admin-page .section,
+  .admin-page .status-card,
+  .admin-page .admin-list__item,
+  .footer__inner,
+  .auth-modal
+){
+  border-color: var(--sgcnr-line) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .045), transparent 32%),
+    linear-gradient(180deg, rgba(17, 12, 10, .90), rgba(8, 7, 7, .94)) !important;
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, .34),
+    inset 0 1px 0 rgba(255, 255, 255, .045) !important;
+}
+
+html body :is(
+  .auth__btn--primary,
+  .dock__item.is-active,
+  .map-filter.is-active,
+  .map-tool:hover,
+  .map-tool:focus-visible,
+  .rules-picker__item:hover,
+  .rule-card:hover,
+  .neo-help__link:hover,
+  .neo-membership__inlineLink:hover,
+  .store-nav__item.is-active
+){
+  border-color: rgba(238, 192, 160, .34) !important;
+  background: linear-gradient(180deg, rgba(112, 67, 52, .84), rgba(54, 34, 29, .94)) !important;
+  color: #fff7ef !important;
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, .30),
+    inset 0 1px 0 rgba(255, 255, 255, .06) !important;
+}
+
+html body :is(
+  a:hover,
+  .info-link,
+  .section__eyebrow,
+  .neo-kicker,
+  .breadcrumb__sep,
+  .breadcrumb__link,
+  .breadcrumb__current,
+  .rules-picker__index,
+  .rule__id,
+  .stack-list__index,
+  .map-filter__count,
+  .map-panel__sourceLabel,
+  .map-stage-card__eyebrow,
+  .live-minimal__label,
+  .status-card__label,
+  .admin-list__meta,
+  .neo-membership__benefitNumber,
+  .neo-membership__inlineLink,
+  .neo-help__link
+){
+  color: rgba(218, 173, 141, .86) !important;
+  border-color: rgba(218, 173, 141, .20) !important;
+  text-decoration-color: rgba(218, 173, 141, .42) !important;
+}
+
+html body :is(
+  .breadcrumb__link,
+  .breadcrumb__current,
+  .rules-picker__index,
+  .rule__id,
+  .neo-membership__benefitNumber,
+  .neo-membership__inlineLink,
+  .neo-help__link,
+  .live-staff__role,
+  .staff-chip
+){
+  background: rgba(218, 173, 141, .075) !important;
+}
+
+html body :is(
+  .dock__item,
+  .auth__btn,
+  .homefront__cardButton,
+  .startfront__actions .auth__btn
+){
+  border-color: rgba(218, 173, 141, .16) !important;
+  background: rgba(12, 9, 8, .72) !important;
+  color: rgba(246, 239, 231, .88) !important;
+}
+
+html body :is(.dock__item:hover, .auth__btn:hover, .homefront__cardButton:hover){
+  border-color: rgba(238, 192, 160, .28) !important;
+  background: rgba(41, 28, 23, .78) !important;
+  color: #fff7ef !important;
+}
+
+html body :is(
+  h1,
+  h2,
+  h3,
+  .page-title,
+  .landing-hub__title,
+  .live-minimal__value,
+  .status-card__value,
+  .neo-membership__hero h2
+){
+  color: #fff7ef !important;
+}
+
+html body :is(
+  p,
+  .section p,
+  .landing-hub__support,
+  .live-minimal__text,
+  .live-minimal__meta,
+  .status-card__text,
+  .rules-document__section li,
+  .neo-membership__benefit p,
+  .neo-membership__aside p
+){
+  color: var(--sgcnr-muted) !important;
+}
+
+html body :is(
+  .brandmark__light,
+  .site-fx,
+  .landing-hub__hero::before,
+  .landing-hub__hero::after,
+  .live-minimal__hero::before,
+  .live-minimal__hero::after,
+  .live-minimal__card::before,
+  .live-minimal__card::after,
+  .rule-card::after
+){
+  opacity: 0 !important;
+}
+
+html body :is(.homefront__visualImage, .brandmark__logo){
+  border-color: rgba(216, 173, 141, .12) !important;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, .42),
+    inset 0 0 0 1px rgba(255, 255, 255, .055) !important;
+}
+
+html body :is(input, select, textarea){
+  border-color: rgba(218, 173, 141, .16) !important;
+  background: rgba(10, 8, 7, .82) !important;
+  color: #fff7ef !important;
+}
+
+html body :is(input:focus, select:focus, textarea:focus){
+  border-color: rgba(238, 192, 160, .36) !important;
+  box-shadow: 0 0 0 3px rgba(218, 173, 141, .12) !important;
 }
 
 

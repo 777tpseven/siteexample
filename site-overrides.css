@@ -1,4 +1,4 @@
-:root{
+﻿:root{
   --site-panel: linear-gradient(180deg, rgba(12,18,26,.96), rgba(8,13,20,.96));
   --site-border: rgba(120,147,182,.16);
   --site-shadow: 0 24px 54px rgba(0,0,0,.34);
@@ -12,10 +12,10 @@
   gap: 22px;
   padding: 28px !important;
   border-radius: 28px !important;
-  border: 1px solid rgba(104, 242, 155, .16) !important;
+  border: 1px solid rgba(216, 173, 141, .16) !important;
   background:
-    radial-gradient(circle at 12% 18%, rgba(104, 242, 155, .16), transparent 34%),
-    linear-gradient(135deg, rgba(8, 18, 13, .98), rgba(5, 8, 7, .96)) !important;
+    radial-gradient(circle at 12% 18%, rgba(216, 173, 141, .16), transparent 34%),
+    linear-gradient(135deg, rgba(8, 18, 13, .98), rgba(9, 7, 6, .96)) !important;
 }
 
 .neo-help__hero h2{
@@ -55,9 +55,9 @@
   width: 54px;
   height: 54px;
   border-radius: 18px;
-  border: 1px solid rgba(104, 242, 155, .22);
-  background: rgba(104, 242, 155, .10);
-  color: #eafff0;
+  border: 1px solid rgba(216, 173, 141, .22);
+  background: rgba(216, 173, 141, .10);
+  color: #fff7ef;
   font-weight: 900;
 }
 
@@ -83,7 +83,7 @@
   display: block;
   padding: 15px;
   border-radius: 18px;
-  border: 1px solid rgba(104, 242, 155, .10);
+  border: 1px solid rgba(216, 173, 141, .10);
   background: rgba(255, 255, 255, .025);
   color: inherit;
   text-decoration: none;
@@ -95,8 +95,8 @@
 }
 
 .neo-help__item--link:hover{
-  border-color: rgba(104, 242, 155, .34);
-  background: rgba(104, 242, 155, .08);
+  border-color: rgba(216, 173, 141, .34);
+  background: rgba(216, 173, 141, .08);
   transform: translateY(-1px);
 }
 
@@ -114,7 +114,7 @@
 }
 
 .neo-help__itemHead span{
-  color: rgba(104, 242, 155, .78);
+  color: rgba(216, 173, 141, .78);
   font-size: 11px;
   font-weight: 900;
   letter-spacing: .12em;
@@ -135,8 +135,8 @@
   margin-top: auto;
   padding: 0 18px;
   border-radius: 15px;
-  border: 1px solid rgba(104, 242, 155, .24);
-  background: rgba(104, 242, 155, .10);
+  border: 1px solid rgba(216, 173, 141, .24);
+  background: rgba(216, 173, 141, .10);
   color: #f5fff8;
   font-size: 12px;
   font-weight: 900;
@@ -145,8 +145,8 @@
 }
 
 .neo-help__link:hover{
-  border-color: rgba(104, 242, 155, .5);
-  background: rgba(104, 242, 155, .18);
+  border-color: rgba(216, 173, 141, .5);
+  background: rgba(216, 173, 141, .18);
 }
 
 @media (max-width: 900px){
@@ -9940,8 +9940,8 @@ body.is-landing .footer__inner{
 
 /* 2026-04-19 public theme refresh and dock clearance */
 :root{
-  --accent: #68f29b;
-  --accent2: #e7fff2;
+  --accent: #d8ad8d;
+  --accent2: #f1d3bd;
   --border: rgba(160,197,175,.18);
 }
 
@@ -9955,14 +9955,14 @@ body.is-apply{
 
 body.is-landing{
   background:
-    radial-gradient(circle at 14% 12%, rgba(104,242,155,.12), transparent 24%),
+    radial-gradient(circle at 14% 12%, rgba(216,173,141,.12), transparent 24%),
     radial-gradient(circle at 86% 16%, rgba(255,255,255,.08), transparent 26%),
     linear-gradient(180deg, #08100c 0%, #101913 100%) !important;
 }
 
 .topbar{
   background: linear-gradient(180deg, rgba(10,16,13,.94), rgba(8,12,10,.88)) !important;
-  border-bottom-color: rgba(104,242,155,.14) !important;
+  border-bottom-color: rgba(216,173,141,.14) !important;
 }
 
 .section,
@@ -10011,8 +10011,8 @@ body.is-map .dock{
 }
 
 .dock__item.is-active{
-  background: rgba(104,242,155,.14) !important;
-  border-color: rgba(104,242,155,.34) !important;
+  background: rgba(216,173,141,.14) !important;
+  border-color: rgba(216,173,141,.34) !important;
 }
 
 /* 2026-04-20 public site redesign */
@@ -10501,16 +10501,16 @@ body.is-map .dock{
 :root{
   --site-bg: #070d0a;
   --site-bg-deep: #040806;
-  --site-surface: linear-gradient(180deg, rgba(12, 20, 16, .96), rgba(7, 12, 10, .98));
+  --site-surface: linear-gradient(180deg, rgba(16, 12, 10, .96), rgba(10, 8, 7, .98));
   --site-surface-soft: linear-gradient(180deg, rgba(16, 27, 21, .88), rgba(9, 16, 12, .94));
-  --site-border-strong: rgba(104, 242, 155, .16);
+  --site-border-strong: rgba(216, 173, 141, .16);
   --site-border-soft: rgba(160, 197, 175, .13);
   --site-ink-strong: #f4faf6;
   --site-copy-strong: rgba(220, 231, 224, .78);
   --site-muted-strong: rgba(171, 193, 179, .56);
-  --site-gold: #68f29b;
-  --site-blue: #e7fff2;
-  --site-green: #68f29b;
+  --site-gold: #d8ad8d;
+  --site-blue: #f1d3bd;
+  --site-green: #d8ad8d;
   --site-shadow-strong: 0 28px 80px rgba(0, 0, 0, .38);
 }
 
@@ -10525,7 +10525,7 @@ body.is-wiki,
 body.is-apply,
 body.is-map{
   background:
-    radial-gradient(circle at 14% 10%, rgba(104, 242, 155, .16), transparent 24%),
+    radial-gradient(circle at 14% 10%, rgba(216, 173, 141, .16), transparent 24%),
     radial-gradient(circle at 82% 10%, rgba(255, 255, 255, .08), transparent 26%),
     linear-gradient(180deg, #0a120d 0%, #070d0a 34%, #050907 100%) !important;
   background-color: var(--site-bg) !important;
@@ -10555,12 +10555,12 @@ body.is-map .topbar{
   width: min(1380px, calc(100% - 28px)) !important;
   margin: 14px auto 0 !important;
   padding: 14px 18px !important;
-  border: 1px solid rgba(104, 242, 155, .12) !important;
+  border: 1px solid rgba(216, 173, 141, .12) !important;
   border-radius: 26px !important;
   background:
-    radial-gradient(circle at 14% 0%, rgba(104, 242, 155, .12), transparent 32%),
+    radial-gradient(circle at 14% 0%, rgba(216, 173, 141, .12), transparent 32%),
     radial-gradient(circle at 84% 0%, rgba(255, 255, 255, .08), transparent 30%),
-    linear-gradient(180deg, rgba(9, 16, 13, .88), rgba(7, 12, 10, .94)) !important;
+    linear-gradient(180deg, rgba(14, 10, 8, .88), rgba(10, 8, 7, .94)) !important;
   box-shadow: 0 18px 50px rgba(0, 0, 0, .26) !important;
   backdrop-filter: blur(20px) saturate(125%) !important;
   z-index: 30 !important;
@@ -10579,7 +10579,7 @@ body.is-map .topbar{
 
 .clock{
   border-radius: 999px !important;
-  border: 1px solid rgba(104, 242, 155, .16) !important;
+  border: 1px solid rgba(216, 173, 141, .16) !important;
   background: rgba(255, 255, 255, .03) !important;
   color: rgba(238, 244, 250, .86) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04) !important;
@@ -10611,9 +10611,9 @@ body.is-map .brandmark{
   min-width: 264px !important;
   min-height: 62px !important;
   border-radius: 22px !important;
-  border: 1px solid rgba(104, 242, 155, .18) !important;
+  border: 1px solid rgba(216, 173, 141, .18) !important;
   background:
-    radial-gradient(circle at 14% -10%, rgba(104, 242, 155, .22), transparent 36%),
+    radial-gradient(circle at 14% -10%, rgba(216, 173, 141, .22), transparent 36%),
     radial-gradient(circle at 86% -8%, rgba(255, 255, 255, .12), transparent 34%),
     linear-gradient(180deg, rgba(10, 18, 14, .98), rgba(6, 10, 8, .99)) !important;
   box-shadow:
@@ -10643,20 +10643,20 @@ body.is-map .brandmark{
 .auth__btn{
   min-height: 42px !important;
   border-radius: 14px !important;
-  border-color: rgba(104, 242, 155, .14) !important;
+  border-color: rgba(216, 173, 141, .14) !important;
   background: rgba(255, 255, 255, .03) !important;
   color: rgba(236, 242, 248, .88) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03) !important;
 }
 
 .auth__btn:hover{
-  border-color: rgba(104, 242, 155, .26) !important;
+  border-color: rgba(216, 173, 141, .26) !important;
   background: rgba(255, 255, 255, .05) !important;
 }
 
 .auth__btn--primary{
-  background: linear-gradient(180deg, rgba(104, 242, 155, .18), rgba(104, 242, 155, .10)) !important;
-  border-color: rgba(104, 242, 155, .28) !important;
+  background: linear-gradient(180deg, rgba(216, 173, 141, .18), rgba(216, 173, 141, .10)) !important;
+  border-color: rgba(216, 173, 141, .28) !important;
   color: #ecfff3 !important;
 }
 
@@ -10669,10 +10669,10 @@ body.is-map .brandmark{
   margin: 14px auto 4px !important;
   padding: 16px 18px !important;
   border-radius: 24px !important;
-  border: 1px solid rgba(104, 242, 155, .14) !important;
+  border: 1px solid rgba(216, 173, 141, .14) !important;
   background:
-    radial-gradient(circle at 0% 0%, rgba(104, 242, 155, .08), transparent 30%),
-    linear-gradient(180deg, rgba(10, 17, 14, .84), rgba(7, 12, 10, .90)) !important;
+    radial-gradient(circle at 0% 0%, rgba(216, 173, 141, .08), transparent 30%),
+    linear-gradient(180deg, rgba(14, 10, 9, .84), rgba(10, 8, 7, .90)) !important;
   box-shadow: 0 16px 36px rgba(0, 0, 0, .22) !important;
 }
 
@@ -10683,8 +10683,8 @@ body.is-map .brandmark{
   min-height: 34px !important;
   padding: 0 14px !important;
   border-radius: 999px !important;
-  border: 1px solid rgba(104, 242, 155, .18) !important;
-  background: rgba(104, 242, 155, .08) !important;
+  border: 1px solid rgba(216, 173, 141, .18) !important;
+  background: rgba(216, 173, 141, .08) !important;
   color: #ddffe9 !important;
   letter-spacing: .14em !important;
 }
@@ -10711,8 +10711,8 @@ body.is-map .brandmark{
 
 .legal-rail__link:hover{
   transform: translateY(-1px) !important;
-  border-color: rgba(104, 242, 155, .26) !important;
-  background: rgba(104, 242, 155, .08) !important;
+  border-color: rgba(216, 173, 141, .26) !important;
+  background: rgba(216, 173, 141, .08) !important;
 }
 
 .content,
@@ -10801,11 +10801,11 @@ body.is-map .content{
   min-height: 280px !important;
   padding: 24px !important;
   border-radius: 30px !important;
-  border: 1px solid rgba(104, 242, 155, .15) !important;
+  border: 1px solid rgba(216, 173, 141, .15) !important;
   background:
-    radial-gradient(circle at 12% 18%, rgba(104, 242, 155, .16), transparent 28%),
+    radial-gradient(circle at 12% 18%, rgba(216, 173, 141, .16), transparent 28%),
     radial-gradient(circle at 82% 16%, rgba(255, 255, 255, .12), transparent 26%),
-    linear-gradient(135deg, rgba(12, 20, 16, .96), rgba(6, 10, 8, .98)) !important;
+    linear-gradient(135deg, rgba(16, 12, 10, .96), rgba(6, 10, 8, .98)) !important;
   box-shadow: 0 30px 80px rgba(0, 0, 0, .38) !important;
 }
 
@@ -10816,7 +10816,7 @@ body.is-map .content{
   width: 520px !important;
   height: 520px !important;
   border-radius: 50% !important;
-  background: radial-gradient(circle, rgba(104, 242, 155, .18), transparent 62%) !important;
+  background: radial-gradient(circle, rgba(216, 173, 141, .18), transparent 62%) !important;
   pointer-events: none !important;
 }
 
@@ -10866,7 +10866,7 @@ body.is-map .content{
 
 .landing-hub__card:hover{
   transform: translateY(-4px) !important;
-  border-color: rgba(104, 242, 155, .24) !important;
+  border-color: rgba(216, 173, 141, .24) !important;
   box-shadow: 0 24px 48px rgba(0, 0, 0, .30) !important;
 }
 
@@ -10912,8 +10912,8 @@ body.is-map .content{
   width: 52px !important;
   height: 52px !important;
   border-radius: 18px !important;
-  border: 1px solid rgba(104, 242, 155, .22) !important;
-  background: rgba(104, 242, 155, .10) !important;
+  border: 1px solid rgba(216, 173, 141, .22) !important;
+  background: rgba(216, 173, 141, .10) !important;
   color: #e4ffef !important;
   font-weight: 800 !important;
 }
@@ -10981,8 +10981,8 @@ body.is-map .content{
   width: 32px !important;
   height: 32px !important;
   border-radius: 12px !important;
-  border: 1px solid rgba(104, 242, 155, .20) !important;
-  background: rgba(104, 242, 155, .08) !important;
+  border: 1px solid rgba(216, 173, 141, .20) !important;
+  background: rgba(216, 173, 141, .08) !important;
   color: #e6fff0 !important;
 }
 
@@ -11050,7 +11050,7 @@ textarea{
 }
 
 .live-minimal__card--pending{
-  border-color: rgba(104, 242, 155, .18) !important;
+  border-color: rgba(216, 173, 141, .18) !important;
 }
 
 .live-minimal__value{
@@ -11068,9 +11068,9 @@ textarea{
   padding: 22px !important;
   border-radius: 30px !important;
   background:
-    radial-gradient(circle at 14% 8%, rgba(104, 242, 155, .12), transparent 26%),
+    radial-gradient(circle at 14% 8%, rgba(216, 173, 141, .12), transparent 26%),
     radial-gradient(circle at 88% 12%, rgba(255, 255, 255, .08), transparent 24%),
-    linear-gradient(135deg, rgba(12, 20, 16, .96), rgba(6, 10, 8, .98)) !important;
+    linear-gradient(135deg, rgba(16, 12, 10, .96), rgba(6, 10, 8, .98)) !important;
 }
 
 .wiki-ledger__mastheadGrid{
@@ -11152,13 +11152,13 @@ textarea{
 
 .wiki-ledger__directoryLink:hover{
   transform: translateX(2px) !important;
-  border-left-color: rgba(104, 242, 155, .34) !important;
-  background: rgba(104, 242, 155, .07) !important;
+  border-left-color: rgba(216, 173, 141, .34) !important;
+  background: rgba(216, 173, 141, .07) !important;
 }
 
 .wiki-ledger__directoryLink.is-active{
-  border-left-color: rgba(104, 242, 155, .72) !important;
-  background: rgba(104, 242, 155, .12) !important;
+  border-left-color: rgba(216, 173, 141, .72) !important;
+  background: rgba(216, 173, 141, .12) !important;
   color: #ecfff3 !important;
 }
 
@@ -11193,7 +11193,7 @@ textarea{
 
 .wiki-ledger .wiki-sectionBlock{
   padding: 22px !important;
-  border-left: 3px solid rgba(104, 242, 155, .30) !important;
+  border-left: 3px solid rgba(216, 173, 141, .30) !important;
 }
 
 .wiki-ledger .wiki-grid,
@@ -11215,10 +11215,10 @@ body.is-map .dock{
   padding: 12px !important;
   gap: 8px !important;
   border-radius: 24px !important;
-  border: 1px solid rgba(104, 242, 155, .16) !important;
+  border: 1px solid rgba(216, 173, 141, .16) !important;
   background:
-    radial-gradient(circle at 50% 0%, rgba(104, 242, 155, .10), transparent 40%),
-    linear-gradient(180deg, rgba(11, 18, 14, .94), rgba(7, 12, 10, .98)) !important;
+    radial-gradient(circle at 50% 0%, rgba(216, 173, 141, .10), transparent 40%),
+    linear-gradient(180deg, rgba(15, 11, 9, .94), rgba(10, 8, 7, .98)) !important;
   backdrop-filter: blur(18px) saturate(120%) !important;
   box-shadow: 0 24px 52px rgba(0, 0, 0, .36) !important;
   bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
@@ -11234,7 +11234,7 @@ body.is-map .dock{
 }
 
 .dock__item:hover{
-  border-color: rgba(104, 242, 155, .18) !important;
+  border-color: rgba(216, 173, 141, .18) !important;
   background: rgba(255, 255, 255, .045) !important;
 }
 
@@ -11250,13 +11250,13 @@ body.is-map .dock{
 }
 
 .dock__item.is-active{
-  border-color: rgba(104, 242, 155, .28) !important;
-  background: linear-gradient(180deg, rgba(104, 242, 155, .16), rgba(104, 242, 155, .10)) !important;
+  border-color: rgba(216, 173, 141, .28) !important;
+  background: linear-gradient(180deg, rgba(216, 173, 141, .16), rgba(216, 173, 141, .10)) !important;
 }
 
 .dock__item.is-active .dock__label,
 .dock__item.is-active .dock__icon{
-  color: #eafff2 !important;
+  color: #fff7ef !important;
 }
 
 /* 2026-06-01 logo/header polish */
@@ -11308,7 +11308,7 @@ body.is-map .topbar{
   overflow: hidden !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .10), transparent 34%),
-    linear-gradient(180deg, rgba(9, 24, 15, .98), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .98), rgba(9, 7, 6, .98)) !important;
   box-shadow:
     0 14px 30px rgba(0, 0, 0, .34),
     inset 0 1px 0 rgba(255, 255, 255, .06) !important;
@@ -11404,10 +11404,10 @@ body.is-map .topbar{
   gap: 22px;
   align-items: end;
   padding: clamp(24px, 4vw, 44px) !important;
-  border: 1px solid rgba(104, 242, 155, .15) !important;
+  border: 1px solid rgba(216, 173, 141, .15) !important;
   border-radius: 30px !important;
   background:
-    radial-gradient(circle at 14% 10%, rgba(104, 242, 155, .14), transparent 34%),
+    radial-gradient(circle at 14% 10%, rgba(216, 173, 141, .14), transparent 34%),
     linear-gradient(135deg, rgba(13, 24, 17, .96), rgba(5, 10, 8, .98)) !important;
   box-shadow: 0 28px 58px rgba(0, 0, 0, .32);
 }
@@ -11441,10 +11441,10 @@ body.is-map .topbar{
 
 .neo-membership__benefit,
 .neo-membership__aside{
-  border: 1px solid rgba(104, 242, 155, .12);
+  border: 1px solid rgba(216, 173, 141, .12);
   border-radius: 24px;
   background:
-    linear-gradient(180deg, rgba(12, 20, 16, .95), rgba(6, 10, 8, .98));
+    linear-gradient(180deg, rgba(16, 12, 10, .95), rgba(6, 10, 8, .98));
   box-shadow: 0 22px 44px rgba(0, 0, 0, .25);
 }
 
@@ -11462,8 +11462,8 @@ body.is-map .topbar{
   width: 52px;
   height: 52px;
   border-radius: 18px;
-  border: 1px solid rgba(104, 242, 155, .24);
-  background: rgba(104, 242, 155, .10);
+  border: 1px solid rgba(216, 173, 141, .24);
+  background: rgba(216, 173, 141, .10);
   color: #e8fff0;
   font-weight: 900;
   letter-spacing: .08em;
@@ -11491,8 +11491,8 @@ body.is-map .topbar{
   margin-top: 14px;
   padding: 0 14px;
   border-radius: 13px;
-  border: 1px solid rgba(104, 242, 155, .22);
-  background: rgba(104, 242, 155, .08);
+  border: 1px solid rgba(216, 173, 141, .22);
+  background: rgba(216, 173, 141, .08);
   color: #ecfff3;
   font-size: 12px;
   font-weight: 850;
@@ -11502,8 +11502,8 @@ body.is-map .topbar{
 }
 
 .neo-membership__inlineLink:hover{
-  border-color: rgba(104, 242, 155, .42);
-  background: rgba(104, 242, 155, .14);
+  border-color: rgba(216, 173, 141, .42);
+  background: rgba(216, 173, 141, .14);
 }
 
 .neo-membership__aside{
@@ -11531,7 +11531,7 @@ body.is-map .topbar{
   border-color: rgba(255, 255, 255, .08) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .08), transparent 34%),
-    linear-gradient(180deg, rgba(9, 24, 15, .98), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .98), rgba(9, 7, 6, .98)) !important;
   box-shadow:
     0 18px 42px rgba(0, 0, 0, .34),
     inset 0 1px 0 rgba(255, 255, 255, .06) !important;
@@ -11542,7 +11542,7 @@ body.is-map .topbar{
   border-color: rgba(255, 255, 255, .08) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .045), transparent 30%),
-    linear-gradient(180deg, rgba(9, 24, 15, .96), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .96), rgba(9, 7, 6, .98)) !important;
 }
 
 .neo-membership .neo-kicker,
@@ -11556,7 +11556,7 @@ body.is-map .topbar{
 .neo-membership__inlineLink:hover{
   border-color: rgba(255, 255, 255, .18) !important;
   background: rgba(255, 255, 255, .075) !important;
-  color: #f6fff8 !important;
+  color: #fff7ef !important;
 }
 
 .homefront__visualImage{
@@ -11565,11 +11565,11 @@ body.is-map .topbar{
   object-fit: cover !important;
   object-position: center 46% !important;
   border-radius: 22px !important;
-  border: 1px solid rgba(216, 255, 230, .10) !important;
+  border: 1px solid rgba(216, 173, 141, .10) !important;
   filter: saturate(1.08) contrast(1.04) brightness(1.02) !important;
   box-shadow:
     0 28px 60px rgba(0, 0, 0, .42),
-    0 0 0 1px rgba(92, 255, 161, .07),
+    0 0 0 1px rgba(216, 173, 141, .07),
     inset 0 0 0 1px rgba(255, 255, 255, .07) !important;
 }
 
@@ -11679,7 +11679,7 @@ body.is-help-rules .page-hero{
   border-color: rgba(255, 255, 255, .08) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .08), transparent 34%),
-    linear-gradient(180deg, rgba(9, 24, 15, .98), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .98), rgba(9, 7, 6, .98)) !important;
 }
 
 body.is-standard .rules-clean :is(.section, .rules-picker__item),
@@ -11688,7 +11688,7 @@ body.is-help-rules .rules-document :is(.section, .rules-document__section, .rule
   border-color: rgba(255, 255, 255, .08) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .045), transparent 30%),
-    linear-gradient(180deg, rgba(9, 24, 15, .96), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .96), rgba(9, 7, 6, .98)) !important;
 }
 
 body.is-standard .rules-clean :is(.breadcrumb__link, .breadcrumb__current, .rules-picker__index),
@@ -11712,7 +11712,7 @@ body.is-help-rules .page-hero,
   border-color: rgba(255, 255, 255, .08) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .08), transparent 34%),
-    linear-gradient(180deg, rgba(9, 24, 15, .98), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .98), rgba(9, 7, 6, .98)) !important;
   box-shadow:
     0 18px 42px rgba(0, 0, 0, .34),
     inset 0 1px 0 rgba(255, 255, 255, .06) !important;
@@ -11733,7 +11733,7 @@ body.is-help-rules .section,
   border-color: rgba(255, 255, 255, .08) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .045), transparent 30%),
-    linear-gradient(180deg, rgba(9, 24, 15, .96), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .96), rgba(9, 7, 6, .98)) !important;
   box-shadow:
     0 18px 42px rgba(0, 0, 0, .30),
     inset 0 1px 0 rgba(255, 255, 255, .04) !important;
@@ -11773,7 +11773,7 @@ body.is-help-rules .breadcrumb__link:hover,
 .rules-document__head h2,
 .rules-document .page-title,
 .rules-clean .page-title{
-  color: #f6fff8 !important;
+  color: #fff7ef !important;
 }
 
 .rules-picker__copy span,
@@ -11841,7 +11841,7 @@ body.is-map{
   align-items: center !important;
   gap: 12px !important;
   border-radius: 24px !important;
-  border: 1px solid rgba(92, 255, 161, .12) !important;
+  border: 1px solid rgba(216, 173, 141, .12) !important;
   background: linear-gradient(180deg, rgba(6, 17, 11, .96), rgba(5, 13, 9, .92)) !important;
   box-shadow:
     0 18px 46px rgba(0, 0, 0, .34),
@@ -11862,7 +11862,7 @@ body.is-map{
   align-items: center !important;
   justify-content: center !important;
   border-radius: 14px !important;
-  border: 1px solid rgba(92, 255, 161, .16) !important;
+  border: 1px solid rgba(216, 173, 141, .16) !important;
   background: linear-gradient(180deg, rgba(8, 20, 13, .98), rgba(5, 14, 9, .96)) !important;
   color: rgba(229, 255, 237, .86) !important;
   font-size: 12px !important;
@@ -11888,10 +11888,10 @@ body.is-wiki .clock{
   min-height: 50px !important;
   padding: 6px 18px !important;
   border-radius: 18px !important;
-  border: 1px solid rgba(92, 255, 161, .12) !important;
+  border: 1px solid rgba(216, 173, 141, .12) !important;
   background:
-    radial-gradient(circle at 20% 20%, rgba(92, 255, 161, .08), transparent 26%),
-    linear-gradient(180deg, rgba(10, 22, 15, .98), rgba(6, 15, 10, .98)) !important;
+    radial-gradient(circle at 20% 20%, rgba(216, 173, 141, .08), transparent 26%),
+    linear-gradient(180deg, rgba(15, 10, 8, .98), rgba(6, 15, 10, .98)) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .03),
     0 12px 28px rgba(0, 0, 0, .22) !important;
@@ -11913,7 +11913,7 @@ body.is-wiki .clock{
   min-height: 40px !important;
   padding: 0 18px !important;
   border-radius: 14px !important;
-  border: 1px solid rgba(92, 255, 161, .14) !important;
+  border: 1px solid rgba(216, 173, 141, .14) !important;
   background: linear-gradient(180deg, rgba(8, 20, 13, .94), rgba(5, 14, 9, .94)) !important;
   color: #ecfff2 !important;
   font-size: 12px !important;
@@ -11924,15 +11924,15 @@ body.is-wiki .clock{
 }
 
 .auth__btn:hover{
-  border-color: rgba(92, 255, 161, .3) !important;
+  border-color: rgba(216, 173, 141, .3) !important;
   background: linear-gradient(180deg, rgba(11, 28, 18, .96), rgba(7, 18, 12, .96)) !important;
-  color: #f6fff8 !important;
+  color: #fff7ef !important;
 }
 
 .auth__btn--primary{
-  border-color: rgba(92, 255, 161, .34) !important;
+  border-color: rgba(216, 173, 141, .34) !important;
   background: linear-gradient(180deg, rgba(27, 165, 92, .96), rgba(18, 122, 67, .96)) !important;
-  color: #f7fff9 !important;
+  color: #fff7ef !important;
 }
 
 .auth__btn--primary:hover{
@@ -11975,7 +11975,7 @@ body.is-wiki .content{
 }
 
 .dock{
-  border-color: rgba(92, 255, 161, .12) !important;
+  border-color: rgba(216, 173, 141, .12) !important;
   background: linear-gradient(180deg, rgba(6, 17, 11, .94), rgba(5, 13, 9, .92)) !important;
 }
 
@@ -11983,23 +11983,23 @@ body.is-wiki .content{
   height: 46px !important;
   padding: 0 14px !important;
   border-radius: 14px !important;
-  border-color: rgba(92, 255, 161, .08) !important;
+  border-color: rgba(216, 173, 141, .08) !important;
   background: rgba(255, 255, 255, .02) !important;
 }
 
 .dock__item:hover{
-  border-color: rgba(92, 255, 161, .18) !important;
-  background: rgba(92, 255, 161, .06) !important;
+  border-color: rgba(216, 173, 141, .18) !important;
+  background: rgba(216, 173, 141, .06) !important;
 }
 
 .dock__item.is-active{
-  border-color: rgba(92, 255, 161, .32) !important;
+  border-color: rgba(216, 173, 141, .32) !important;
   background: linear-gradient(180deg, rgba(27, 165, 92, .22), rgba(17, 109, 60, .16)) !important;
 }
 
 .dock__label,
 .dock__icon{
-  color: rgba(230, 255, 238, .82) !important;
+  color: rgba(246, 239, 231, .82) !important;
 }
 
 .page-hero,
@@ -12011,7 +12011,7 @@ body.is-wiki .content{
 .map-filter,
 .map-tool,
 .map-toolbar__badge{
-  border-color: rgba(92, 255, 161, .10) !important;
+  border-color: rgba(216, 173, 141, .10) !important;
 }
 
 .section__eyebrow,
@@ -12020,8 +12020,8 @@ body.is-wiki .content{
 .feature-card__label,
 .status-card__label,
 .status-live__label{
-  border-color: rgba(92, 255, 161, .14) !important;
-  background: rgba(92, 255, 161, .07) !important;
+  border-color: rgba(216, 173, 141, .14) !important;
+  background: rgba(216, 173, 141, .07) !important;
   color: rgba(210, 255, 225, .78) !important;
 }
 
@@ -12036,8 +12036,8 @@ body.is-wiki .content{
 .homefront__card,
 .startfront__hero,
 .startfront__step{
-  border: 1px solid rgba(92, 255, 161, .10);
-  background: linear-gradient(180deg, rgba(7, 17, 11, .96), rgba(4, 12, 8, .98));
+  border: 1px solid rgba(216, 173, 141, .10);
+  background: linear-gradient(180deg, rgba(7, 17, 11, .96), rgba(9, 7, 6, .98));
   box-shadow:
     0 20px 54px rgba(0, 0, 0, .30),
     inset 0 1px 0 rgba(255, 255, 255, .03);
@@ -12111,10 +12111,10 @@ body.is-wiki .content{
   position: relative;
   min-height: 340px;
   border-radius: 24px;
-  border: 1px solid rgba(92, 255, 161, .10);
+  border: 1px solid rgba(216, 173, 141, .10);
   background:
-    radial-gradient(circle at 20% 18%, rgba(92, 255, 161, .10), transparent 24%),
-    radial-gradient(circle at 78% 18%, rgba(92, 255, 161, .06), transparent 20%),
+    radial-gradient(circle at 20% 18%, rgba(216, 173, 141, .10), transparent 24%),
+    radial-gradient(circle at 78% 18%, rgba(216, 173, 141, .06), transparent 20%),
     linear-gradient(180deg, rgba(9, 20, 14, .98), rgba(4, 11, 8, .98));
   overflow: hidden;
   display: flex;
@@ -12128,7 +12128,7 @@ body.is-wiki .content{
   inset: auto 10% 20px;
   height: 96px;
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(92, 255, 161, .20) 0%, rgba(92, 255, 161, 0) 70%);
+  background: radial-gradient(circle, rgba(216, 173, 141, .20) 0%, rgba(216, 173, 141, 0) 70%);
   filter: blur(30px);
   pointer-events: none;
 }
@@ -12153,12 +12153,12 @@ body.is-wiki .content{
   min-height: 108px;
   padding: 14px;
   border-radius: 18px;
-  border: 1px solid rgba(92, 255, 161, .10);
+  border: 1px solid rgba(216, 173, 141, .10);
   background: linear-gradient(180deg, rgba(9, 20, 14, .98), rgba(5, 12, 9, .98));
 }
 
 .homefront__statusCard--online{
-  border-color: rgba(92, 255, 161, .24);
+  border-color: rgba(216, 173, 141, .24);
 }
 
 .homefront__statusLabel{
@@ -12204,7 +12204,7 @@ body.is-wiki .content{
 
 .homefront__signal:hover{
   transform: translateY(-1px);
-  background: rgba(92, 255, 161, .05);
+  background: rgba(216, 173, 141, .05);
 }
 
 .homefront__signalIcon{
@@ -12214,8 +12214,8 @@ body.is-wiki .content{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(92, 255, 161, .18);
-  background: rgba(92, 255, 161, .08);
+  border: 1px solid rgba(216, 173, 141, .18);
+  background: rgba(216, 173, 141, .08);
   color: #86ffb4;
   font-size: 18px;
 }
@@ -12267,8 +12267,8 @@ body.is-wiki .content{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(92, 255, 161, .18);
-  background: rgba(92, 255, 161, .08);
+  border: 1px solid rgba(216, 173, 141, .18);
+  background: rgba(216, 173, 141, .08);
   color: #86ffb4;
   font-size: 20px;
 }
@@ -12301,8 +12301,8 @@ body.is-wiki .content{
   min-height: 42px;
   padding: 0 16px;
   border-radius: 14px;
-  border: 1px solid rgba(92, 255, 161, .16);
-  background: rgba(92, 255, 161, .08);
+  border: 1px solid rgba(216, 173, 141, .16);
+  background: rgba(216, 173, 141, .08);
   color: #effff4;
   text-decoration: none;
   font-size: 12px;
@@ -12312,8 +12312,8 @@ body.is-wiki .content{
 }
 
 .homefront__cardButton:hover{
-  border-color: rgba(92, 255, 161, .30);
-  background: rgba(92, 255, 161, .14);
+  border-color: rgba(216, 173, 141, .30);
+  background: rgba(216, 173, 141, .14);
 }
 
 .startfront{
@@ -12369,8 +12369,8 @@ body.is-wiki .content{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(92, 255, 161, .18);
-  background: rgba(92, 255, 161, .08);
+  border: 1px solid rgba(216, 173, 141, .18);
+  background: rgba(216, 173, 141, .08);
   color: #86ffb4;
   font-size: 16px;
   font-weight: 800;
@@ -12484,8 +12484,8 @@ body.is-map .footer{
   gap: 8px !important;
   padding: 18px 20px !important;
   border-radius: 22px !important;
-  border: 1px solid rgba(104, 242, 155, .12) !important;
-  background: linear-gradient(180deg, rgba(10, 17, 14, .84), rgba(7, 12, 10, .92)) !important;
+  border: 1px solid rgba(216, 173, 141, .12) !important;
+  background: linear-gradient(180deg, rgba(14, 10, 9, .84), rgba(10, 8, 7, .92)) !important;
   box-shadow: 0 16px 34px rgba(0, 0, 0, .24) !important;
 }
 
@@ -12667,8 +12667,8 @@ body.is-map .footer{
   position: absolute !important;
   inset: 0 !important;
   background:
-    linear-gradient(180deg, rgba(7, 12, 10, .12) 0%, rgba(7, 12, 10, .18) 26%, rgba(7, 12, 10, .58) 100%),
-    linear-gradient(90deg, rgba(104, 242, 155, .07), transparent 34%, rgba(255, 255, 255, .06)) !important;
+    linear-gradient(180deg, rgba(10, 8, 7, .12) 0%, rgba(10, 8, 7, .18) 26%, rgba(10, 8, 7, .58) 100%),
+    linear-gradient(90deg, rgba(216, 173, 141, .07), transparent 34%, rgba(255, 255, 255, .06)) !important;
   pointer-events: none !important;
 }
 
@@ -12711,7 +12711,7 @@ body.is-map .footer{
   inset: 0 !important;
   background:
     linear-gradient(135deg, rgba(255,255,255,.04), transparent 28%),
-    radial-gradient(circle at 100% 0%, rgba(104,242,155,.07), transparent 28%);
+    radial-gradient(circle at 100% 0%, rgba(216,173,141,.07), transparent 28%);
   pointer-events: none !important;
 }
 
@@ -12721,7 +12721,7 @@ body.is-map .footer{
   position: absolute !important;
   inset: auto 18px 0 18px !important;
   height: 1px !important;
-  background: linear-gradient(90deg, rgba(104,242,155,0), rgba(104,242,155,.38), rgba(104,242,155,0)) !important;
+  background: linear-gradient(90deg, rgba(216,173,141,0), rgba(216,173,141,.38), rgba(216,173,141,0)) !important;
   opacity: .55 !important;
 }
 
@@ -12755,7 +12755,7 @@ body.is-map .footer{
   position: absolute !important;
   inset: 0 !important;
   background:
-    radial-gradient(circle at 12% 16%, rgba(104,242,155,.12), transparent 24%),
+    radial-gradient(circle at 12% 16%, rgba(216,173,141,.12), transparent 24%),
     radial-gradient(circle at 88% 12%, rgba(255,255,255,.07), transparent 22%);
   pointer-events: none !important;
 }
@@ -12780,7 +12780,7 @@ body.is-map .footer{
   inset: 0 !important;
   background:
     linear-gradient(180deg, rgba(10,14,20,.06), rgba(10,14,20,.46)),
-    radial-gradient(circle at 88% 12%, rgba(104,242,155,.10), transparent 20%);
+    radial-gradient(circle at 88% 12%, rgba(216,173,141,.10), transparent 20%);
   pointer-events: none !important;
 }
 
@@ -12810,8 +12810,8 @@ body.is-map .footer{
   padding: 26px 28px !important;
   border-radius: 28px !important;
   background:
-    radial-gradient(circle at 18% 10%, rgba(104,242,155,.10), transparent 22%),
-    linear-gradient(180deg, rgba(11,18,14,.95), rgba(7,12,10,.98)) !important;
+    radial-gradient(circle at 18% 10%, rgba(216,173,141,.10), transparent 22%),
+    linear-gradient(180deg, rgba(15,11,9,.95), rgba(10,8,7,.98)) !important;
 }
 
 .page-title{
@@ -12905,14 +12905,14 @@ body.is-standard .topbar,
 body.is-wiki .topbar,
 body.is-apply .topbar,
 body.is-map .topbar{
-  background: linear-gradient(180deg, rgba(7, 14, 10, .96), rgba(5, 10, 7, .90)) !important;
-  border-bottom: 1px solid rgba(104, 242, 155, .16) !important;
+  background: linear-gradient(180deg, rgba(12, 8, 7, .96), rgba(9, 7, 6, .90)) !important;
+  border-bottom: 1px solid rgba(216, 173, 141, .16) !important;
 }
 
 .brandmark__badge{
-  border-color: rgba(104, 242, 155, .18) !important;
+  border-color: rgba(216, 173, 141, .18) !important;
   background:
-    linear-gradient(180deg, rgba(12, 22, 16, .98), rgba(7, 12, 10, .98)) !important;
+    linear-gradient(180deg, rgba(17, 12, 9, .98), rgba(10, 8, 7, .98)) !important;
 }
 
 .brandmark__title{
@@ -12935,13 +12935,13 @@ body.is-apply .auth__btn--primary{
 }
 
 .auth__btn{
-  border: 1px solid rgba(104, 242, 155, .16) !important;
-  background: linear-gradient(180deg, rgba(12, 20, 16, .92), rgba(8, 13, 11, .98)) !important;
+  border: 1px solid rgba(216, 173, 141, .16) !important;
+  background: linear-gradient(180deg, rgba(16, 12, 10, .92), rgba(8, 13, 11, .98)) !important;
   color: rgba(233, 245, 236, .92) !important;
 }
 
 .auth__btn:hover{
-  border-color: rgba(104, 242, 155, .28) !important;
+  border-color: rgba(216, 173, 141, .28) !important;
   background: linear-gradient(180deg, rgba(15, 28, 20, .96), rgba(8, 14, 11, .98)) !important;
 }
 
@@ -12951,7 +12951,7 @@ body.is-standard .auth__btn--primary,
 body.is-wiki .auth__btn--primary,
 body.is-map .auth__btn--primary,
 body.is-apply .auth__btn--primary{
-  border: 1px solid rgba(104, 242, 155, .32) !important;
+  border: 1px solid rgba(216, 173, 141, .32) !important;
   background: linear-gradient(180deg, rgba(18, 58, 34, .98), rgba(9, 31, 19, .98)) !important;
   color: #ecfff3 !important;
   box-shadow: 0 14px 28px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(217, 255, 235, .10) !important;
@@ -12963,13 +12963,13 @@ body.is-standard .auth__btn--primary:hover,
 body.is-wiki .auth__btn--primary:hover,
 body.is-map .auth__btn--primary:hover,
 body.is-apply .auth__btn--primary:hover{
-  border-color: rgba(104, 242, 155, .46) !important;
+  border-color: rgba(216, 173, 141, .46) !important;
   background: linear-gradient(180deg, rgba(22, 72, 41, .98), rgba(11, 38, 23, .98)) !important;
 }
 
 .section__eyebrow{
-  border-color: rgba(104, 242, 155, .14) !important;
-  background: rgba(104, 242, 155, .06) !important;
+  border-color: rgba(216, 173, 141, .14) !important;
+  background: rgba(216, 173, 141, .06) !important;
   color: rgba(212, 246, 225, .74) !important;
 }
 
@@ -12985,9 +12985,9 @@ body.is-apply .auth__btn--primary:hover{
   margin-bottom: 22px;
   padding: 24px 28px;
   border-radius: 30px;
-  border: 1px solid rgba(104, 242, 155, .14);
+  border: 1px solid rgba(216, 173, 141, .14);
   background:
-    radial-gradient(circle at 0% 0%, rgba(104, 242, 155, .10), transparent 20%),
+    radial-gradient(circle at 0% 0%, rgba(216, 173, 141, .10), transparent 20%),
     linear-gradient(180deg, rgba(10, 18, 13, .96), rgba(6, 10, 8, .98));
   box-shadow: 0 28px 58px rgba(0, 0, 0, .34);
 }
@@ -13006,8 +13006,8 @@ body.is-apply .auth__btn--primary:hover{
   min-height: 28px;
   padding: 0 12px;
   border-radius: 999px;
-  border: 1px solid rgba(104, 242, 155, .16);
-  background: rgba(104, 242, 155, .08);
+  border: 1px solid rgba(216, 173, 141, .16);
+  background: rgba(216, 173, 141, .08);
   color: rgba(214, 255, 228, .82);
   font-size: 11px;
   font-weight: 800;
@@ -13088,7 +13088,7 @@ body.is-apply .auth__btn--primary:hover{
 .neo-wiki__rail,
 .neo-wiki__article{
   border-radius: 26px;
-  border: 1px solid rgba(104, 242, 155, .12);
+  border: 1px solid rgba(216, 173, 141, .12);
   background:
     linear-gradient(180deg, rgba(11, 19, 14, .96), rgba(6, 10, 8, .98));
   box-shadow: 0 24px 48px rgba(0, 0, 0, .28);
@@ -13138,8 +13138,8 @@ body.is-apply .auth__btn--primary:hover{
   align-items: start;
   padding: 18px;
   border-radius: 22px;
-  border: 1px solid rgba(104, 242, 155, .10);
-  background: rgba(104, 242, 155, .05);
+  border: 1px solid rgba(216, 173, 141, .10);
+  background: rgba(216, 173, 141, .05);
 }
 
 .neo-step--compact{
@@ -13153,8 +13153,8 @@ body.is-apply .auth__btn--primary:hover{
   width: 48px;
   height: 48px;
   border-radius: 16px;
-  border: 1px solid rgba(104, 242, 155, .18);
-  background: rgba(104, 242, 155, .10);
+  border: 1px solid rgba(216, 173, 141, .18);
+  background: rgba(216, 173, 141, .10);
   color: #e7fff0;
   font-weight: 900;
 }
@@ -13195,7 +13195,7 @@ body.is-apply .auth__btn--primary:hover{
 }
 
 .info-faq__item{
-  border: 1px solid rgba(104, 242, 155, .10) !important;
+  border: 1px solid rgba(216, 173, 141, .10) !important;
   background: rgba(255, 255, 255, .02) !important;
   border-radius: 20px !important;
 }
@@ -13223,7 +13223,7 @@ body.is-apply .auth__btn--primary:hover{
   min-height: 52px;
   padding: 0 16px;
   border-radius: 16px;
-  border: 1px solid rgba(104, 242, 155, .14);
+  border: 1px solid rgba(216, 173, 141, .14);
   background: rgba(255, 255, 255, .03);
   color: #f1fff5;
 }
@@ -13238,7 +13238,7 @@ body.is-apply .auth__btn--primary:hover{
   min-height: 40px;
   padding: 0 14px;
   border-radius: 999px;
-  border: 1px solid rgba(104, 242, 155, .14);
+  border: 1px solid rgba(216, 173, 141, .14);
   background: rgba(255, 255, 255, .03);
   color: rgba(226, 239, 231, .78);
   font-weight: 800;
@@ -13248,8 +13248,8 @@ body.is-apply .auth__btn--primary:hover{
 }
 
 .neo-wiki__filter.is-active{
-  border-color: rgba(104, 242, 155, .32);
-  background: rgba(104, 242, 155, .14);
+  border-color: rgba(216, 173, 141, .32);
+  background: rgba(216, 173, 141, .14);
   color: #edfff4;
 }
 
@@ -13274,14 +13274,14 @@ body.is-apply .auth__btn--primary:hover{
   gap: 8px;
   padding: 16px;
   border-radius: 18px;
-  border: 1px solid rgba(104, 242, 155, .10);
+  border: 1px solid rgba(216, 173, 141, .10);
   background: rgba(255, 255, 255, .02);
   color: inherit;
 }
 
 .neo-wiki__card.is-current{
-  border-color: rgba(104, 242, 155, .28);
-  background: rgba(104, 242, 155, .09);
+  border-color: rgba(216, 173, 141, .28);
+  background: rgba(216, 173, 141, .09);
 }
 
 .neo-wiki__cardMeta{
@@ -13314,7 +13314,7 @@ body.is-apply .auth__btn--primary:hover{
   gap: 4px;
   padding: 14px;
   border-radius: 18px;
-  border: 1px solid rgba(104, 242, 155, .10);
+  border: 1px solid rgba(216, 173, 141, .10);
   background: rgba(255, 255, 255, .02);
 }
 
@@ -13338,7 +13338,7 @@ body.is-apply .auth__btn--primary:hover{
 .neo-wiki__section{
   padding: 20px;
   border-radius: 22px;
-  border: 1px solid rgba(104, 242, 155, .10);
+  border: 1px solid rgba(216, 173, 141, .10);
   background: rgba(255, 255, 255, .02);
 }
 
@@ -13358,8 +13358,8 @@ body.is-apply .auth__btn--primary:hover{
   width: 40px;
   height: 40px;
   border-radius: 14px;
-  background: rgba(104, 242, 155, .10);
-  border: 1px solid rgba(104, 242, 155, .16);
+  background: rgba(216, 173, 141, .10);
+  border: 1px solid rgba(216, 173, 141, .16);
   color: #e9fff1;
   font-weight: 900;
 }
@@ -13384,7 +13384,7 @@ body.is-apply .auth__btn--primary:hover{
 .apply-app,
 .apply-chat,
 .apply-queue__item{
-  border-color: rgba(104, 242, 155, .12) !important;
+  border-color: rgba(216, 173, 141, .12) !important;
 }
 
 .apply-stage__hero,
@@ -13393,30 +13393,30 @@ body.is-apply .auth__btn--primary:hover{
 .apply-app,
 .apply-chat,
 .apply-queue__item{
-  background: linear-gradient(180deg, rgba(11, 18, 14, .96), rgba(6, 10, 8, .98)) !important;
+  background: linear-gradient(180deg, rgba(15, 11, 9, .96), rgba(6, 10, 8, .98)) !important;
 }
 
 .apply-sidecard__pill,
 .apply-app__status,
 .apply-queue__status{
-  border-color: rgba(104, 242, 155, .18) !important;
-  background: rgba(104, 242, 155, .10) !important;
+  border-color: rgba(216, 173, 141, .18) !important;
+  background: rgba(216, 173, 141, .10) !important;
   color: #ebfff2 !important;
 }
 
 .apply-stage__step{
-  background: rgba(104, 242, 155, .05) !important;
-  border-color: rgba(104, 242, 155, .10) !important;
+  background: rgba(216, 173, 141, .05) !important;
+  border-color: rgba(216, 173, 141, .10) !important;
 }
 
 .apply-stage__stepIndex{
-  border-color: rgba(104, 242, 155, .18) !important;
-  background: rgba(104, 242, 155, .10) !important;
-  color: #eafff2 !important;
+  border-color: rgba(216, 173, 141, .18) !important;
+  background: rgba(216, 173, 141, .10) !important;
+  color: #fff7ef !important;
 }
 
 .info-link{
-  color: #d6ffe6 !important;
+  color: #f7dfcc !important;
 }
 
 .info-link:hover{
@@ -13435,7 +13435,7 @@ body.is-apply .auth__btn--primary:hover{
   align-items: start;
   padding: 14px;
   border-radius: 18px;
-  border: 1px solid rgba(104, 242, 155, .10);
+  border: 1px solid rgba(216, 173, 141, .10);
   background: rgba(255, 255, 255, .02);
   color: rgba(214, 226, 220, .76);
 }
@@ -13450,14 +13450,14 @@ body.is-apply .auth__btn--primary:hover{
 .map-stat,
 .map-filter,
 .map-legend__item{
-  border-color: rgba(104, 242, 155, .14) !important;
+  border-color: rgba(216, 173, 141, .14) !important;
 }
 
 .map-panel,
 .service-map-shell,
 .map-stage-card,
 .map-detail{
-  background: linear-gradient(180deg, rgba(11, 18, 14, .96), rgba(6, 10, 8, .98)) !important;
+  background: linear-gradient(180deg, rgba(15, 11, 9, .96), rgba(6, 10, 8, .98)) !important;
 }
 
 .map-toolbar--overlay{
@@ -13512,7 +13512,7 @@ body.is-map .footer{
   gap: 10px !important;
   padding: 20px 22px !important;
   border-radius: 24px !important;
-  border: 1px solid rgba(104, 242, 155, .12) !important;
+  border: 1px solid rgba(216, 173, 141, .12) !important;
   background: linear-gradient(180deg, rgba(10, 18, 13, .92), rgba(6, 10, 8, .98)) !important;
 }
 
@@ -13582,15 +13582,15 @@ body.is-map .footer{
   }
 }
 
-/* 2026-04-23 final green theme lock */
+/* 2026-04-23 legacy theme block, neutralized */
 body.is-landing,
 body.is-standard,
 body.is-wiki,
 body.is-map,
 body.is-apply{
   background:
-    radial-gradient(circle at 18% 8%, rgba(104, 242, 155, .09), transparent 26%) !important,
-    radial-gradient(circle at 84% 12%, rgba(104, 242, 155, .06), transparent 24%) !important,
+    radial-gradient(circle at 18% 8%, rgba(216, 173, 141, .09), transparent 26%) !important,
+    radial-gradient(circle at 84% 12%, rgba(216, 173, 141, .06), transparent 24%) !important,
     linear-gradient(180deg, #050a07 0%, #07110c 52%, #040806 100%) !important;
 }
 
@@ -13600,8 +13600,8 @@ body.is-standard .auth__btn,
 body.is-wiki .auth__btn,
 body.is-map .auth__btn,
 body.is-apply .auth__btn{
-  border-color: rgba(104, 242, 155, .16) !important;
-  background: linear-gradient(180deg, rgba(12, 20, 16, .94), rgba(7, 12, 10, .98)) !important;
+  border-color: rgba(216, 173, 141, .16) !important;
+  background: linear-gradient(180deg, rgba(16, 12, 10, .94), rgba(10, 8, 7, .98)) !important;
   color: rgba(233, 245, 236, .92) !important;
 }
 
@@ -13611,7 +13611,7 @@ body.is-standard .auth__btn:hover,
 body.is-wiki .auth__btn:hover,
 body.is-map .auth__btn:hover,
 body.is-apply .auth__btn:hover{
-  border-color: rgba(104, 242, 155, .30) !important;
+  border-color: rgba(216, 173, 141, .30) !important;
   background: linear-gradient(180deg, rgba(16, 27, 21, .96), rgba(9, 15, 12, .98)) !important;
 }
 
@@ -13621,7 +13621,7 @@ body.is-standard .auth__btn--primary,
 body.is-wiki .auth__btn--primary,
 body.is-map .auth__btn--primary,
 body.is-apply .auth__btn--primary{
-  border-color: rgba(104, 242, 155, .34) !important;
+  border-color: rgba(216, 173, 141, .34) !important;
   background: linear-gradient(180deg, rgba(18, 60, 35, .98), rgba(9, 33, 20, .98)) !important;
   color: #ecfff3 !important;
   box-shadow: 0 14px 28px rgba(0, 0, 0, .28), inset 0 1px 0 rgba(217, 255, 235, .10) !important;
@@ -13633,17 +13633,17 @@ body.is-standard .auth__btn--primary:hover,
 body.is-wiki .auth__btn--primary:hover,
 body.is-map .auth__btn--primary:hover,
 body.is-apply .auth__btn--primary:hover{
-  border-color: rgba(104, 242, 155, .48) !important;
+  border-color: rgba(216, 173, 141, .48) !important;
   background: linear-gradient(180deg, rgba(22, 76, 43, .98), rgba(11, 40, 24, .98)) !important;
 }
 
 .page-hero,
 body.is-standard .page-hero{
-  border-color: rgba(104, 242, 155, .14) !important;
+  border-color: rgba(216, 173, 141, .14) !important;
   background:
-    radial-gradient(circle at 16% 18%, rgba(104, 242, 155, .10), transparent 24%) !important,
-    radial-gradient(circle at 86% 20%, rgba(104, 242, 155, .05), transparent 22%) !important,
-    linear-gradient(180deg, rgba(11, 18, 14, .95), rgba(7, 12, 10, .98)) !important;
+    radial-gradient(circle at 16% 18%, rgba(216, 173, 141, .10), transparent 24%) !important,
+    radial-gradient(circle at 86% 20%, rgba(216, 173, 141, .05), transparent 22%) !important,
+    linear-gradient(180deg, rgba(15, 11, 9, .95), rgba(10, 8, 7, .98)) !important;
   box-shadow:
     0 18px 42px rgba(0, 0, 0, .34),
     inset 0 1px 0 rgba(255, 255, 255, .03) !important;
@@ -13651,7 +13651,7 @@ body.is-standard .page-hero{
 
 .page-hero::before,
 body.is-standard .page-hero::before{
-  background: radial-gradient(circle, rgba(104, 242, 155, .14) 0%, rgba(104, 242, 155, 0) 72%) !important;
+  background: radial-gradient(circle, rgba(216, 173, 141, .14) 0%, rgba(216, 173, 141, 0) 72%) !important;
 }
 
 .section__eyebrow,
@@ -13660,33 +13660,33 @@ body.is-standard .section__eyebrow,
 .status-card__label,
 .status-live__label,
 .wiki-sidebar__statLabel{
-  border-color: rgba(104, 242, 155, .14) !important;
-  background: rgba(104, 242, 155, .06) !important;
+  border-color: rgba(216, 173, 141, .14) !important;
+  background: rgba(216, 173, 141, .06) !important;
   color: rgba(212, 246, 225, .74) !important;
 }
 
 .breadcrumb__sep{
-  color: rgba(104, 242, 155, .30) !important;
+  color: rgba(216, 173, 141, .30) !important;
 }
 
 .breadcrumb__link,
 .breadcrumb__current{
-  border-color: rgba(104, 242, 155, .16) !important;
-  background: rgba(104, 242, 155, .06) !important;
-  color: rgba(230, 255, 239, .88) !important;
+  border-color: rgba(216, 173, 141, .16) !important;
+  background: rgba(216, 173, 141, .06) !important;
+  color: rgba(246, 239, 231, .88) !important;
 }
 
 .breadcrumb__link:hover{
-  border-color: rgba(104, 242, 155, .28) !important;
-  background: rgba(104, 242, 155, .10) !important;
+  border-color: rgba(216, 173, 141, .28) !important;
+  background: rgba(216, 173, 141, .10) !important;
 }
 
 body.is-standard :is(.feature-card, .stack-list__item, .info-faq__item, .rule-card, .card, .rules-legal, .status-card, .status-note),
 body.is-wiki :is(.wiki-card, .wiki-sectionBlock, .wiki-pager__card, .wiki-fact),
 body.is-landing :is(.landing-hub__card, .neo-card, .neo-signal),
 body.is-map :is(.map-panel, .map-detail, .map-stage-card, .map-stat, .map-filter, .map-tool, .map-toolbar__badge, .map-legend__item, .service-map-shell){
-  border-color: rgba(104, 242, 155, .12) !important;
-  background: linear-gradient(180deg, rgba(11, 18, 14, .95), rgba(7, 12, 10, .98)) !important;
+  border-color: rgba(216, 173, 141, .12) !important;
+  background: linear-gradient(180deg, rgba(15, 11, 9, .95), rgba(10, 8, 7, .98)) !important;
   box-shadow:
     0 18px 42px rgba(0, 0, 0, .30),
     inset 0 1px 0 rgba(255, 255, 255, .03) !important;
@@ -13700,26 +13700,26 @@ body.is-map :is(.map-panel__headline, .map-detail__title, .map-stage-card__title
 }
 
 body.is-map .map-toolbar--overlay{
-  border-color: rgba(104, 242, 155, .16) !important;
+  border-color: rgba(216, 173, 141, .16) !important;
   background: rgba(8, 14, 11, .92) !important;
 }
 
 body.is-map .map-filter.is-active,
 body.is-map .map-tool.is-active,
 body.is-map .map-toolbar__badge.is-active{
-  border-color: rgba(104, 242, 155, .32) !important;
-  background: linear-gradient(180deg, rgba(104, 242, 155, .14), rgba(104, 242, 155, .08)) !important;
+  border-color: rgba(216, 173, 141, .32) !important;
+  background: linear-gradient(180deg, rgba(216, 173, 141, .14), rgba(216, 173, 141, .08)) !important;
   color: #ecfff3 !important;
 }
 
 .dock__item.is-active{
-  border-color: rgba(104, 242, 155, .28) !important;
-  background: linear-gradient(180deg, rgba(104, 242, 155, .16), rgba(104, 242, 155, .10)) !important;
+  border-color: rgba(216, 173, 141, .28) !important;
+  background: linear-gradient(180deg, rgba(216, 173, 141, .16), rgba(216, 173, 141, .10)) !important;
 }
 
 .dock__item.is-active .dock__label,
 .dock__item.is-active .dock__icon{
-  color: #eafff2 !important;
+  color: #fff7ef !important;
 }
 
 /* 2026-06-01 true-final logo/header polish lock */
@@ -13839,11 +13839,11 @@ body.is-map .topbar{
   object-fit: cover !important;
   object-position: center 46% !important;
   border-radius: 22px !important;
-  border: 1px solid rgba(216, 255, 230, .10) !important;
+  border: 1px solid rgba(216, 173, 141, .10) !important;
   filter: saturate(1.08) contrast(1.04) brightness(1.02) !important;
   box-shadow:
     0 28px 60px rgba(0, 0, 0, .42),
-    0 0 0 1px rgba(92, 255, 161, .07),
+    0 0 0 1px rgba(216, 173, 141, .07),
     inset 0 0 0 1px rgba(255, 255, 255, .07) !important;
 }
 
@@ -13967,7 +13967,7 @@ body.is-help-rules .page-hero{
   border-color: rgba(255, 255, 255, .08) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .08), transparent 34%),
-    linear-gradient(180deg, rgba(9, 24, 15, .98), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .98), rgba(9, 7, 6, .98)) !important;
 }
 
 body.is-standard .rules-clean :is(.section, .rules-picker__item),
@@ -13976,7 +13976,7 @@ body.is-help-rules .rules-document :is(.section, .rules-document__section, .rule
   border-color: rgba(255, 255, 255, .08) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .045), transparent 30%),
-    linear-gradient(180deg, rgba(9, 24, 15, .96), rgba(4, 13, 8, .98)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .96), rgba(9, 7, 6, .98)) !important;
 }
 
 body.is-standard .rules-clean :is(.breadcrumb__link, .breadcrumb__current, .rules-picker__index),
@@ -14015,7 +14015,7 @@ body.is-standard.is-membership :is(.neo-membership__hero, .neo-membership__benef
   border-color: rgba(255, 255, 255, .10) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .055), transparent 34%),
-    linear-gradient(180deg, rgba(8, 18, 12, .99), rgba(3, 9, 6, .995)) !important;
+    linear-gradient(180deg, rgba(14, 10, 8, .99), rgba(8, 6, 5, .995)) !important;
   box-shadow:
     0 24px 54px rgba(0, 0, 0, .46),
     inset 0 1px 0 rgba(255, 255, 255, .055) !important;
@@ -14031,7 +14031,7 @@ body.is-membership .neo-membership__hero{
 
 body.is-membership .neo-membership__hero h2{
   max-width: 900px !important;
-  color: #f6fff8 !important;
+  color: #fff7ef !important;
   font-size: clamp(2.45rem, 6.2vw, 5.2rem) !important;
   line-height: .94 !important;
   letter-spacing: -.07em !important;
@@ -14042,7 +14042,7 @@ body.is-membership :is(.neo-membership__hero p, .neo-membership__benefit p, .neo
 }
 
 body.is-membership :is(.neo-membership__benefit h3, .neo-membership__aside strong){
-  color: #f7fff9 !important;
+  color: #fff7ef !important;
 }
 
 body.is-membership :is(.neo-membership__benefitNumber, .neo-kicker, .neo-membership__inlineLink, .neo-help__link){
@@ -14053,15 +14053,15 @@ body.is-membership :is(.neo-membership__benefitNumber, .neo-kicker, .neo-members
 
 body.is-membership :is(.auth__btn--primary, .neo-help__link){
   border-color: rgba(255, 255, 255, .13) !important;
-  background: linear-gradient(180deg, rgba(24, 40, 30, .98), rgba(10, 21, 14, .98)) !important;
-  color: #f6fff8 !important;
+  background: linear-gradient(180deg, rgba(54, 34, 29, .98), rgba(26, 18, 15, .98)) !important;
+  color: #fff7ef !important;
 }
 
 body.is-membership :is(.neo-membership__benefit:hover, .neo-membership__inlineLink:hover, .neo-help__link:hover){
   border-color: rgba(255, 255, 255, .20) !important;
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .075), transparent 34%),
-    linear-gradient(180deg, rgba(10, 22, 15, .99), rgba(4, 12, 8, .995)) !important;
+    linear-gradient(180deg, rgba(15, 10, 8, .99), rgba(9, 7, 6, .995)) !important;
   color: #ffffff !important;
 }
 
@@ -14069,4 +14069,189 @@ body.is-membership :is(.neo-membership__benefit:hover, .neo-membership__inlineLi
   body.is-membership .neo-membership__hero{
     grid-template-columns: 1fr !important;
   }
+}
+
+/* 2026-06-16 warm neutral palette lock */
+:root{
+  --accent: #d8ad8d !important;
+  --accent2: #f1d3bd !important;
+  --site-gold: #d8ad8d !important;
+  --site-green: #d8ad8d !important;
+  --site-border-strong: rgba(218, 173, 141, .18) !important;
+  --sgcnr-ink: rgba(246, 239, 231, .94) !important;
+  --sgcnr-muted: rgba(224, 208, 196, .74) !important;
+  --sgcnr-line: rgba(218, 173, 141, .18) !important;
+  --sgcnr-panel: rgba(13, 10, 9, .86) !important;
+  --sgcnr-panel-strong: rgba(17, 12, 10, .94) !important;
+  --sgcnr-accent: #d8ad8d !important;
+  --sgcnr-accent-deep: #704334 !important;
+}
+
+html body:not(.is-map){
+  background: #090706 !important;
+  color: var(--sgcnr-ink) !important;
+}
+
+html body:not(.is-map) .site-brand-backdrop,
+html body:not(.is-map) .site-brand-backdrop::before{
+  background-color: #090706 !important;
+}
+
+html body:not(.is-map) .site-brand-backdrop::before{
+  filter: saturate(.86) contrast(1.04) brightness(.82) sepia(.08) !important;
+}
+
+html body:not(.is-map) .site-brand-backdrop::after{
+  background:
+    radial-gradient(circle at 50% 0%, rgba(216, 173, 141, .055), transparent 34%),
+    linear-gradient(180deg, rgba(8, 5, 4, .30), rgba(8, 5, 4, .48) 52%, rgba(8, 5, 4, .66)) !important;
+}
+
+html body :is(
+  .topbar,
+  .dock,
+  .section,
+  .page-hero,
+  .landing-hub__hero,
+  .landing-hub__card,
+  .rules-picker__item,
+  .rules-document__section,
+  .rules-document__article,
+  .rules-legal,
+  .status-note,
+  .live-minimal__hero,
+  .live-minimal__card,
+  .live-staff,
+  .map-panel,
+  .map-stage,
+  .service-map-shell,
+  .service-map,
+  .map-filter,
+  .map-tool,
+  .neo-help__panel,
+  .neo-help__card,
+  .neo-membership__hero,
+  .neo-membership__benefit,
+  .neo-membership__aside,
+  .help-clean__item,
+  .admin-page .section,
+  .admin-page .status-card,
+  .admin-page .admin-list__item,
+  .footer__inner,
+  .auth-modal
+){
+  border-color: var(--sgcnr-line) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, .045), transparent 32%),
+    linear-gradient(180deg, rgba(17, 12, 10, .90), rgba(8, 7, 7, .94)) !important;
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, .34),
+    inset 0 1px 0 rgba(255, 255, 255, .045) !important;
+}
+
+html body :is(
+  .auth__btn--primary,
+  .dock__item.is-active,
+  .map-filter.is-active,
+  .map-tool:hover,
+  .map-tool:focus-visible,
+  .rules-picker__item:hover,
+  .rule-card:hover,
+  .neo-help__link:hover,
+  .neo-membership__inlineLink:hover,
+  .store-nav__item.is-active
+){
+  border-color: rgba(238, 192, 160, .34) !important;
+  background: linear-gradient(180deg, rgba(112, 67, 52, .84), rgba(54, 34, 29, .94)) !important;
+  color: #fff7ef !important;
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, .30),
+    inset 0 1px 0 rgba(255, 255, 255, .06) !important;
+}
+
+html body :is(
+  a:hover,
+  .info-link,
+  .section__eyebrow,
+  .neo-kicker,
+  .breadcrumb__sep,
+  .breadcrumb__link,
+  .breadcrumb__current,
+  .rules-picker__index,
+  .rule__id,
+  .stack-list__index,
+  .map-filter__count,
+  .map-panel__sourceLabel,
+  .map-stage-card__eyebrow,
+  .live-minimal__label,
+  .status-card__label,
+  .admin-list__meta,
+  .neo-membership__benefitNumber,
+  .neo-membership__inlineLink,
+  .neo-help__link
+){
+  color: rgba(218, 173, 141, .86) !important;
+  border-color: rgba(218, 173, 141, .20) !important;
+  text-decoration-color: rgba(218, 173, 141, .42) !important;
+}
+
+html body :is(
+  .breadcrumb__link,
+  .breadcrumb__current,
+  .rules-picker__index,
+  .rule__id,
+  .neo-membership__benefitNumber,
+  .neo-membership__inlineLink,
+  .neo-help__link,
+  .live-staff__role,
+  .staff-chip
+){
+  background: rgba(218, 173, 141, .075) !important;
+}
+
+html body :is(
+  .dock__item,
+  .auth__btn,
+  .homefront__cardButton,
+  .startfront__actions .auth__btn
+){
+  border-color: rgba(218, 173, 141, .16) !important;
+  background: rgba(12, 9, 8, .72) !important;
+  color: rgba(246, 239, 231, .88) !important;
+}
+
+html body :is(.dock__item:hover, .auth__btn:hover, .homefront__cardButton:hover){
+  border-color: rgba(238, 192, 160, .28) !important;
+  background: rgba(41, 28, 23, .78) !important;
+  color: #fff7ef !important;
+}
+
+html body :is(h1, h2, h3, .page-title, .landing-hub__title, .live-minimal__value, .status-card__value, .neo-membership__hero h2){
+  color: #fff7ef !important;
+}
+
+html body :is(p, .section p, .landing-hub__support, .live-minimal__text, .live-minimal__meta, .status-card__text, .rules-document__section li, .neo-membership__benefit p, .neo-membership__aside p){
+  color: var(--sgcnr-muted) !important;
+}
+
+html body :is(.brandmark__light, .site-fx, .landing-hub__hero::before, .landing-hub__hero::after, .live-minimal__hero::before, .live-minimal__hero::after, .live-minimal__card::before, .live-minimal__card::after, .rule-card::after){
+  opacity: 0 !important;
+}
+
+html body :is(.homefront__visualImage, .brandmark__logo){
+  border-color: rgba(216, 173, 141, .12) !important;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, .42),
+    inset 0 0 0 1px rgba(255, 255, 255, .055) !important;
+}
+
+html body :is(input, select, textarea){
+  border-color: rgba(218, 173, 141, .16) !important;
+  background: rgba(10, 8, 7, .82) !important;
+  color: #fff7ef !important;
+}
+
+html body :is(input:focus, select:focus, textarea:focus){
+  border-color: rgba(238, 192, 160, .36) !important;
+  box-shadow: 0 0 0 3px rgba(218, 173, 141, .12) !important;
 }
