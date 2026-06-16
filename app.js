@@ -1890,16 +1890,28 @@ function renderStart() {
 }
 
 function renderHelp() {
-  const topics = ["Memberships", "Server Events", "Rules", "Jobs"];
+  const topics = [
+    { label: "Memberships", text: "Perks, payments, and account questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
+    { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
+    { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
+    { label: "Jobs", text: "Job info and requests.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true }
+  ];
   setView(`
     <div class="help-clean">
-      ${renderHeader("Help", [{ label: "Help" }])}
+      <header class="help-clean__head" aria-label="Help">
+        <div>
+          <div class="help-clean__eyebrow">Help</div>
+          <h1>Support</h1>
+        </div>
+        <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
+      </header>
       <section class="section help-clean__section" aria-label="Help categories">
         <div class="help-clean__grid">
           ${topics.map((topic) => `
-            <article class="help-clean__item">
-              <strong>${escapeHtml(topic)}</strong>
-            </article>
+            <a class="help-clean__item" href="${escapeHtml(topic.href)}"${topic.external ? ' target="_blank" rel="noopener noreferrer" data-no-route="true"' : ""}>
+              <strong>${escapeHtml(topic.label)}</strong>
+              <span>${escapeHtml(topic.text)}</span>
+            </a>
           `).join("")}
         </div>
       </section>
