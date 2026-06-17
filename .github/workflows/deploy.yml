@@ -12,15 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          git init .
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
-          git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" fetch --depth=1 origin "$GITHUB_SHA"
-          git -c advice.detachedHead=false checkout --force --detach FETCH_HEAD
+        uses: actions/checkout@v5
 
       - name: Deploy public site to ZAP Webspace (attempt 1)
         id: public_deploy_1
@@ -182,15 +174,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          git init .
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
-          git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" fetch --depth=1 origin "$GITHUB_SHA"
-          git -c advice.detachedHead=false checkout --force --detach FETCH_HEAD
+        uses: actions/checkout@v5
 
       - name: Check staff deploy config
         id: staff-config
