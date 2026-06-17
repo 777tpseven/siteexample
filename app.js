@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260617a";
+const SITE_ASSET_VERSION = "20260617b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -3299,6 +3299,7 @@ function updateMapViewport() {
   customMapState.offsetY = clamped.y;
 
   customMapState.stageEl.style.transform = `translate(${customMapState.offsetX}px, ${customMapState.offsetY}px) scale(${customMapState.scale})`;
+  customMapState.stageEl.style.setProperty("--map-marker-inverse-scale", (1 / customMapState.scale).toFixed(4));
 
   if (customMapState.zoomLabelEl) {
     customMapState.zoomLabelEl.textContent = `${Math.round(customMapState.scale * 100)}%`;

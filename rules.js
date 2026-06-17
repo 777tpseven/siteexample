@@ -58,7 +58,7 @@ window.RULES_DATA = {
         {
           id: "11",
           title: "Punishments",
-          body: "Staff may issue:\n\n- Verbal Warnings\n- Written Warnings\n- Temporary Mutes\n- Temporary Suspensions and Job Bans\n- Permanent Bans\n\nAppeals For Permanent Bans should be made by friends/crew members. __NO ALT ACCOUNTS ALLOWED FOR BAN APPEALS__\n\nPunishments are issued at staff discretion depending on severity and previous history."
+          body: "Staff may issue:\n\n- Verbal Warnings\n- Written Warnings\n- Temporary Mutes\n- Temporary Suspensions and Job Bans\n- Permanent Bans\n\nAppeals for permanent bans should be made by friends/crew members. __NO ALT ACCOUNTS ALLOWED FOR BAN APPEALS__\n\nPunishments are issued at staff discretion depending on severity and previous history."
         },
         {
           id: "12",
