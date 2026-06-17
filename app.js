@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260617b";
+const SITE_ASSET_VERSION = "20260618a";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -171,6 +171,19 @@ const MANUAL_STAFF_GROUPS = [
       { name: "Ollie", role: "Content Creator" }
     ]
   }
+];
+
+const STAFF_GROUP_ICONS = [
+  { match: "owner", icon: "👑" },
+  { match: "management", icon: "🛠️" },
+  { match: "lead-admin", icon: "⭐" },
+  { match: "admin", icon: "🔨" },
+  { match: "moderation", icon: "🛡️" },
+  { match: "development", icon: "💻" },
+  { match: "testing", icon: "🧪" },
+  { match: "translation", icon: "🌍" },
+  { match: "security", icon: "🔒" },
+  { match: "content-creator", icon: "📷" }
 ];
 const MAP_SOURCE_URL = "https://gta-5-map.com?embed=light";
 const MAP_IMAGE_URL = `${APP_ASSET_BASE_URL}map-assets/los-santos-satellite-z6-web.jpg?v=${SITE_ASSET_VERSION}`;
@@ -5508,11 +5521,17 @@ function renderStaffListShell(count, bodyMarkup) {
   return `
     <section class="section live-staff" data-reveal>
       <div class="live-staff__head">
-        <div>
-          <div class="section__eyebrow">Staff</div>
-          <h2>Staff List</h2>
+        <div class="live-staff__titleBlock">
+          <span class="live-staff__mainIcon" aria-hidden="true">👥</span>
+          <div>
+            <h2>Staff List</h2>
+            <p>Current team members and roles.</p>
+          </div>
         </div>
-        <span class="live-staff__count">${escapeHtml(String(count))}</span>
+        <div class="live-staff__total">
+          <span class="live-staff__count">${escapeHtml(String(count))}</span>
+          <span>Total staff members</span>
+        </div>
       </div>
       ${bodyMarkup}
     </section>
@@ -5528,13 +5547,32 @@ function renderStaffInitial(name) {
   return escapeHtml(String(name || "S").slice(0, 1).toUpperCase());
 }
 
+function getStaffGroupSlug(name) {
+  return String(name || "staff")
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "staff";
+}
+
+function getStaffGroupIcon(name) {
+  const slug = getStaffGroupSlug(name);
+  const match = STAFF_GROUP_ICONS.find((entry) => slug.includes(entry.match));
+  return match?.icon || "•";
+}
+
 function renderManualStaffList(discord) {
   const totalEntries = MANUAL_STAFF_GROUPS.reduce((sum, group) => sum + group.members.length, 0);
-  const groupMarkup = MANUAL_STAFF_GROUPS.map((group) => `
-    <article class="live-staff__group">
+  const groupMarkup = MANUAL_STAFF_GROUPS.map((group) => {
+    const groupSlug = getStaffGroupSlug(group.title);
+    return `
+    <article class="live-staff__group live-staff__group--${escapeHtml(groupSlug)}" data-staff-group="${escapeHtml(groupSlug)}">
       <div class="live-staff__groupHead">
-        <h3>${escapeHtml(group.title)}</h3>
-        <span>${escapeHtml(String(group.members.length))}</span>
+        <div class="live-staff__groupTitle">
+          <span class="live-staff__groupIcon" aria-hidden="true">${escapeHtml(getStaffGroupIcon(group.title))}</span>
+          <h3>${escapeHtml(group.title)}</h3>
+        </div>
+        <span class="live-staff__groupCount">${escapeHtml(String(group.members.length))}</span>
       </div>
       <div class="live-staff__rows">
         ${group.members.map((member) => `
@@ -5550,7 +5588,8 @@ function renderManualStaffList(discord) {
         `).join("")}
       </div>
     </article>
-  `).join("");
+  `;
+  }).join("");
 
   return renderStaffListShell(totalEntries, `<div class="live-staff__groups">${groupMarkup}</div>`);
 }
@@ -5608,11 +5647,16 @@ function renderDiscordStaffList(discord) {
   const uniqueStaff = new Set();
   roleGroups.forEach((role) => role.members.forEach((member) => uniqueStaff.add(member.id)));
   const count = uniqueStaff.size || roleGroups.reduce((sum, role) => sum + role.members.length, 0);
-  const groupMarkup = roleGroups.map((role) => `
-    <article class="live-staff__group">
+  const groupMarkup = roleGroups.map((role) => {
+    const groupSlug = getStaffGroupSlug(role.name);
+    return `
+    <article class="live-staff__group live-staff__group--${escapeHtml(groupSlug)}" data-staff-group="${escapeHtml(groupSlug)}">
       <div class="live-staff__groupHead">
-        <h3>${escapeHtml(role.name)}</h3>
-        <span>${escapeHtml(`${String(role.onlineCount)}/${String(role.count)}`)}</span>
+        <div class="live-staff__groupTitle">
+          <span class="live-staff__groupIcon" aria-hidden="true">${escapeHtml(getStaffGroupIcon(role.name))}</span>
+          <h3>${escapeHtml(role.name)}</h3>
+        </div>
+        <span class="live-staff__groupCount">${escapeHtml(`${String(role.onlineCount)}/${String(role.count)}`)}</span>
       </div>
       <div class="live-staff__rows">
         ${role.members.map((member) => {
@@ -5633,7 +5677,8 @@ function renderDiscordStaffList(discord) {
         }).join("")}
       </div>
     </article>
-  `).join("");
+  `;
+  }).join("");
 
   return renderStaffListShell(count, `<div class="live-staff__groups">${groupMarkup}</div>`);
 }
