@@ -3634,6 +3634,26 @@ html body :is(input:focus, select:focus, textarea:focus){
   box-shadow: 0 0 0 3px rgba(218, 173, 141, .12) !important;
 }
 
+/* Keep short rules/category cards compact instead of reserving a tall empty area. */
+html body.is-standard main.content #rules .rules-choice,
+html body.is-standard main.content #rules .cards{
+  align-items: start !important;
+  grid-auto-rows: auto !important;
+}
+
+html body.is-standard main.content #rules .rules-choice > .card,
+html body.is-standard main.content #rules .cards > .card{
+  align-self: start !important;
+  align-content: start !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 16px 18px !important;
+}
+
+html body.is-standard main.content #rules .cards > .card .card__title{
+  margin: 0 !important;
+}
+
 
 
 

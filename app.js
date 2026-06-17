@@ -103,6 +103,12 @@ const MANUAL_STAFF_GROUPS = [
     ]
   },
   {
+    title: "Lead Admin Team",
+    members: [
+      { name: "Ollie", role: "Lead Admin" }
+    ]
+  },
+  {
     title: "Admin Team",
     members: [
       { name: "Mono", role: "Admin" },
@@ -112,9 +118,9 @@ const MANUAL_STAFF_GROUPS = [
   {
     title: "Moderation Team",
     members: [
-      { name: "Ollie", role: "Lead Moderator" },
+      { name: "[SASD] Sheriff Jay", role: "Lead Moderator" },
       { name: "TheFrup!", role: "Moderator" },
-      { name: "Jay rod0004", role: "Moderator" }
+      { name: "Squ4ty", role: "Moderator" }
     ]
   },
   {
@@ -129,19 +135,21 @@ const MANUAL_STAFF_GROUPS = [
   {
     title: "Testing Team",
     members: [
-      { name: "Ollie", role: "Lead Tester" },
+      { name: "TheFrup!", role: "Lead Tester" },
       { name: "cue", role: "Tester" },
-      { name: "Jay rod0004", role: "Tester" },
+      { name: "[SASD] Sheriff Jay", role: "Tester" },
       { name: "\u2020 777 \u2020", role: "Tester" },
-      { name: "Jamstar", role: "Tester" },
-      { name: "Sanman", role: "Tester" },
+      { name: "Ollie", role: "Tester" },
       { name: "Bulki_TV", role: "Tester" },
-      { name: "TheFrup!", role: "Tester" },
-      { name: "ApexyesthatApex", role: "Tester" },
+      { name: "[SASD] Asst. Sheriff Apex", role: "Tester" },
       { name: "Squ4ty", role: "Tester" },
       { name: "Cyph", role: "Tester" },
       { name: "lucaf2850", role: "Tester" },
-      { name: "Scotty Ramirez", role: "Tester" }
+      { name: "Scotty Ramirez", role: "Tester" },
+      { name: "OBI", role: "Tester" },
+      { name: "[SASD] Tack The Killer", role: "Probationary Tester" },
+      { name: "Mak", role: "Probationary Tester" },
+      { name: "MrMaxta", role: "Probationary Tester" }
     ]
   },
   {
