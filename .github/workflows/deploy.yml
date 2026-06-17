@@ -8,13 +8,23 @@ on:
 jobs:
   deploy-public-site:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" fetch --depth=1 origin "$GITHUB_SHA"
+          git -c advice.detachedHead=false checkout --force --detach FETCH_HEAD
 
-      - name: Deploy public site to ZAP Webspace
+      - name: Deploy public site to ZAP Webspace (attempt 1)
+        id: public_deploy_1
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.ZAP_FTP_HOST }}
@@ -22,7 +32,133 @@ jobs:
           password: ${{ secrets.ZAP_FTP_PASS }}
           port: ${{ secrets.ZAP_FTP_PORT }}
           protocol: ftp
-          timeout: 120000
+          timeout: 180000
+          log-level: minimal
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            .codex-screenshots/**
+            staff-site/**
+            branding/cinematic-sunset-horizon.png
+            branding/sg-cops-and-robbers.png
+            branding/sgcnr-badge.png
+            map-assets/los-santos-satellite-z6.jpg
+            README.md
+            sgcnr-site.zip
+
+      - name: Wait before public deploy retry 2
+        if: ${{ steps.public_deploy_1.outcome == 'failure' }}
+        run: sleep 20
+
+      - name: Deploy public site to ZAP Webspace (attempt 2)
+        id: public_deploy_2
+        if: ${{ steps.public_deploy_1.outcome == 'failure' }}
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.ZAP_FTP_HOST }}
+          username: ${{ secrets.ZAP_FTP_USER }}
+          password: ${{ secrets.ZAP_FTP_PASS }}
+          port: ${{ secrets.ZAP_FTP_PORT }}
+          protocol: ftp
+          timeout: 180000
+          log-level: minimal
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            .codex-screenshots/**
+            staff-site/**
+            branding/cinematic-sunset-horizon.png
+            branding/sg-cops-and-robbers.png
+            branding/sgcnr-badge.png
+            map-assets/los-santos-satellite-z6.jpg
+            README.md
+            sgcnr-site.zip
+
+      - name: Wait before public deploy retry 3
+        if: ${{ steps.public_deploy_2.outcome == 'failure' }}
+        run: sleep 40
+
+      - name: Deploy public site to ZAP Webspace (attempt 3)
+        id: public_deploy_3
+        if: ${{ steps.public_deploy_2.outcome == 'failure' }}
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.ZAP_FTP_HOST }}
+          username: ${{ secrets.ZAP_FTP_USER }}
+          password: ${{ secrets.ZAP_FTP_PASS }}
+          port: ${{ secrets.ZAP_FTP_PORT }}
+          protocol: ftp
+          timeout: 180000
+          log-level: minimal
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            .codex-screenshots/**
+            staff-site/**
+            branding/cinematic-sunset-horizon.png
+            branding/sg-cops-and-robbers.png
+            branding/sgcnr-badge.png
+            map-assets/los-santos-satellite-z6.jpg
+            README.md
+            sgcnr-site.zip
+
+      - name: Wait before public deploy retry 4
+        if: ${{ steps.public_deploy_3.outcome == 'failure' }}
+        run: sleep 60
+
+      - name: Deploy public site to ZAP Webspace (attempt 4)
+        id: public_deploy_4
+        if: ${{ steps.public_deploy_3.outcome == 'failure' }}
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.ZAP_FTP_HOST }}
+          username: ${{ secrets.ZAP_FTP_USER }}
+          password: ${{ secrets.ZAP_FTP_PASS }}
+          port: ${{ secrets.ZAP_FTP_PORT }}
+          protocol: ftp
+          timeout: 180000
+          log-level: minimal
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            .codex-screenshots/**
+            staff-site/**
+            branding/cinematic-sunset-horizon.png
+            branding/sg-cops-and-robbers.png
+            branding/sgcnr-badge.png
+            map-assets/los-santos-satellite-z6.jpg
+            README.md
+            sgcnr-site.zip
+
+      - name: Wait before public deploy retry 5
+        if: ${{ steps.public_deploy_4.outcome == 'failure' }}
+        run: sleep 90
+
+      - name: Deploy public site to ZAP Webspace (attempt 5)
+        if: ${{ steps.public_deploy_4.outcome == 'failure' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.ZAP_FTP_HOST }}
+          username: ${{ secrets.ZAP_FTP_USER }}
+          password: ${{ secrets.ZAP_FTP_PASS }}
+          port: ${{ secrets.ZAP_FTP_PORT }}
+          protocol: ftp
+          timeout: 180000
           log-level: minimal
           server-dir: ./
           exclude: |
@@ -42,11 +178,19 @@ jobs:
   deploy-staff-site:
     runs-on: ubuntu-latest
     needs: deploy-public-site
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" fetch --depth=1 origin "$GITHUB_SHA"
+          git -c advice.detachedHead=false checkout --force --detach FETCH_HEAD
 
       - name: Check staff deploy config
         id: staff-config
@@ -62,8 +206,10 @@ jobs:
         if: ${{ steps.staff-config.outputs.enabled != 'true' }}
         run: echo "ZAP_STAFF_FTP_USER / ZAP_STAFF_FTP_PASS are not set. Skipping staff portal deploy."
 
-      - name: Deploy staff portal to staff.sgcnr.net
+      - name: Deploy staff portal to staff.sgcnr.net (attempt 1)
+        id: staff_deploy_1
         if: ${{ steps.staff-config.outputs.enabled == 'true' }}
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.ZAP_FTP_HOST }}
@@ -71,7 +217,53 @@ jobs:
           password: ${{ secrets.ZAP_STAFF_FTP_PASS }}
           port: ${{ secrets.ZAP_FTP_PORT }}
           protocol: ftp
-          timeout: 120000
+          timeout: 180000
+          log-level: minimal
+          local-dir: ./staff-site/
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            README.md
+
+      - name: Wait before staff deploy retry 2
+        if: ${{ steps.staff-config.outputs.enabled == 'true' && steps.staff_deploy_1.outcome == 'failure' }}
+        run: sleep 20
+
+      - name: Deploy staff portal to staff.sgcnr.net (attempt 2)
+        id: staff_deploy_2
+        if: ${{ steps.staff-config.outputs.enabled == 'true' && steps.staff_deploy_1.outcome == 'failure' }}
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.ZAP_FTP_HOST }}
+          username: ${{ secrets.ZAP_STAFF_FTP_USER }}
+          password: ${{ secrets.ZAP_STAFF_FTP_PASS }}
+          port: ${{ secrets.ZAP_FTP_PORT }}
+          protocol: ftp
+          timeout: 180000
+          log-level: minimal
+          local-dir: ./staff-site/
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            README.md
+
+      - name: Wait before staff deploy retry 3
+        if: ${{ steps.staff-config.outputs.enabled == 'true' && steps.staff_deploy_2.outcome == 'failure' }}
+        run: sleep 40
+
+      - name: Deploy staff portal to staff.sgcnr.net (attempt 3)
+        if: ${{ steps.staff-config.outputs.enabled == 'true' && steps.staff_deploy_2.outcome == 'failure' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.ZAP_FTP_HOST }}
+          username: ${{ secrets.ZAP_STAFF_FTP_USER }}
+          password: ${{ secrets.ZAP_STAFF_FTP_PASS }}
+          port: ${{ secrets.ZAP_FTP_PORT }}
+          protocol: ftp
+          timeout: 180000
           log-level: minimal
           local-dir: ./staff-site/
           server-dir: ./
