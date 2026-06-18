@@ -1,6 +1,7 @@
-Add the two logo files here with these exact names:
+Active public branding assets:
 
-- `sg-cops-and-robbers.png`
-- `sgcnr-badge.png`
+- `cinematic-sunset-horizon-web.jpg`
+- `sg-cops-and-robbers-web.png`
+- `sgcnr-badge-header.png`
 
-The website already points at these files for the homepage brand block and the top bar logo.
+The larger source images were removed from the public repo because the site uses the optimized files above.

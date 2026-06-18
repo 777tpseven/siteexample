@@ -34,10 +34,6 @@ jobs:
             **/node_modules/**
             .codex-screenshots/**
             staff-site/**
-            branding/cinematic-sunset-horizon.png
-            branding/sg-cops-and-robbers.png
-            branding/sgcnr-badge.png
-            map-assets/los-santos-satellite-z6.jpg
             README.md
             sgcnr-site.zip
 
@@ -66,10 +62,6 @@ jobs:
             **/node_modules/**
             .codex-screenshots/**
             staff-site/**
-            branding/cinematic-sunset-horizon.png
-            branding/sg-cops-and-robbers.png
-            branding/sgcnr-badge.png
-            map-assets/los-santos-satellite-z6.jpg
             README.md
             sgcnr-site.zip
 
@@ -98,10 +90,6 @@ jobs:
             **/node_modules/**
             .codex-screenshots/**
             staff-site/**
-            branding/cinematic-sunset-horizon.png
-            branding/sg-cops-and-robbers.png
-            branding/sgcnr-badge.png
-            map-assets/los-santos-satellite-z6.jpg
             README.md
             sgcnr-site.zip
 
@@ -130,10 +118,6 @@ jobs:
             **/node_modules/**
             .codex-screenshots/**
             staff-site/**
-            branding/cinematic-sunset-horizon.png
-            branding/sg-cops-and-robbers.png
-            branding/sgcnr-badge.png
-            map-assets/los-santos-satellite-z6.jpg
             README.md
             sgcnr-site.zip
 
@@ -160,10 +144,6 @@ jobs:
             **/node_modules/**
             .codex-screenshots/**
             staff-site/**
-            branding/cinematic-sunset-horizon.png
-            branding/sg-cops-and-robbers.png
-            branding/sgcnr-badge.png
-            map-assets/los-santos-satellite-z6.jpg
             README.md
             sgcnr-site.zip
 
