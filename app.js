@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260618a";
+const SITE_ASSET_VERSION = "20260618b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -590,7 +590,8 @@ let siteFxState = null;
 let serverStatusPageState = {
   timer: null,
   controller: null,
-  lastSnapshot: null
+  lastSnapshot: null,
+  staffProfiles: new Map()
 };
 let leaderboardPageState = {
   requestId: 0
@@ -5561,7 +5562,72 @@ function getStaffGroupIcon(name) {
   return match?.icon || "•";
 }
 
+function getUniqueStaffRoles(roles) {
+  return Array.from(new Set(
+    (Array.isArray(roles) ? roles : [])
+      .map((role) => String(role || "").trim())
+      .filter(Boolean)
+  ));
+}
+
+function getStaffProfileId(groupName, memberName, roleName, index) {
+  return `staff-${getStaffGroupSlug(`${groupName}-${memberName}-${roleName}-${index}`)}`;
+}
+
+function getManualStaffRoles(name) {
+  const staffName = normalize(name);
+  const roles = [];
+  MANUAL_STAFF_GROUPS.forEach((group) => {
+    group.members.forEach((member) => {
+      if (normalize(member.name) === staffName) roles.push(member.role);
+    });
+  });
+  return getUniqueStaffRoles(roles);
+}
+
+function getStaffJoinedAt(member) {
+  return parseSnapshotDate(pickFirstDefined(member || {}, [
+    "joinedAt",
+    "joined_at",
+    "joinedDate",
+    "guildJoinedAt",
+    "guild_joined_at",
+    "memberSince",
+    "member_since",
+    "joinedTimestamp"
+  ]));
+}
+
+function formatStaffJoinedDate(value) {
+  const date = parseSnapshotDate(value);
+  if (!date) return "Not synced yet";
+  return new Intl.DateTimeFormat(undefined, {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  }).format(date);
+}
+
+function registerStaffProfile(profile) {
+  const id = profile.id || getStaffProfileId(profile.groupName, profile.displayName || profile.username, profile.primaryRole, 0);
+  serverStatusPageState.staffProfiles.set(id, {
+    id,
+    displayName: profile.displayName || profile.username || "Unknown staff",
+    username: profile.username || profile.displayName || "Discord user",
+    avatarUrl: profile.avatarUrl || "",
+    initial: String(profile.displayName || profile.username || "S").slice(0, 1).toUpperCase(),
+    groupName: profile.groupName || "Staff",
+    primaryRole: profile.primaryRole || "Staff",
+    roles: getUniqueStaffRoles(profile.roles?.length ? profile.roles : [profile.primaryRole]),
+    joinedAt: profile.joinedAt || null,
+    statusLabel: profile.statusLabel || "",
+    source: profile.source || "Staff list"
+  });
+  return id;
+}
+
 function renderManualStaffList(discord) {
+  serverStatusPageState.staffProfiles = new Map();
   const totalEntries = MANUAL_STAFF_GROUPS.reduce((sum, group) => sum + group.members.length, 0);
   const groupMarkup = MANUAL_STAFF_GROUPS.map((group) => {
     const groupSlug = getStaffGroupSlug(group.title);
@@ -5575,8 +5641,18 @@ function renderManualStaffList(discord) {
         <span class="live-staff__groupCount">${escapeHtml(String(group.members.length))}</span>
       </div>
       <div class="live-staff__rows">
-        ${group.members.map((member) => `
-          <div class="live-staff__row">
+        ${group.members.map((member, index) => {
+          const profileId = registerStaffProfile({
+            id: getStaffProfileId(group.title, member.name, member.role, index),
+            displayName: member.name,
+            username: `@${member.name}`,
+            groupName: group.title,
+            primaryRole: member.role,
+            roles: getManualStaffRoles(member.name),
+            source: "Manual staff list"
+          });
+          return `
+          <button class="live-staff__row" type="button" data-staff-profile-id="${escapeHtml(profileId)}" aria-label="Open profile for ${escapeHtml(member.name)}">
             <div class="live-staff__rowIdentity">
               <span class="live-staff__avatar">${renderStaffInitial(member.name)}</span>
               <div class="live-staff__rowName">
@@ -5584,8 +5660,9 @@ function renderManualStaffList(discord) {
                 <span>${escapeHtml(member.role)}</span>
               </div>
             </div>
-          </div>
-        `).join("")}
+          </button>
+        `;
+        }).join("")}
       </div>
     </article>
   `;
@@ -5610,6 +5687,7 @@ function renderDiscordStaffList(discord) {
     avatarUrl: member?.avatarUrl || "",
     roles: Array.isArray(member?.roles) ? member.roles.map((roleName) => String(roleName || "")).filter(Boolean) : [],
     roleIds: Array.isArray(member?.roleIds) ? member.roleIds.map((roleId) => String(roleId || "")).filter(Boolean) : [],
+    joinedAt: getStaffJoinedAt(member),
     status: String(member?.status || "offline").toLowerCase(),
     isOnline: Boolean(member?.isOnline)
   });
@@ -5644,6 +5722,7 @@ function renderDiscordStaffList(discord) {
 
   if (!roleGroups.length) return renderManualStaffList(discord);
 
+  serverStatusPageState.staffProfiles = new Map();
   const uniqueStaff = new Set();
   roleGroups.forEach((role) => role.members.forEach((member) => uniqueStaff.add(member.id)));
   const count = uniqueStaff.size || roleGroups.reduce((sum, role) => sum + role.members.length, 0);
@@ -5659,11 +5738,23 @@ function renderDiscordStaffList(discord) {
         <span class="live-staff__groupCount">${escapeHtml(`${String(role.onlineCount)}/${String(role.count)}`)}</span>
       </div>
       <div class="live-staff__rows">
-        ${role.members.map((member) => {
+        ${role.members.map((member, index) => {
           const displayName = member.displayName || member.username || "Unknown staff";
           const username = member.username ? `@${member.username}` : (member.id ? `ID ${member.id}` : "Discord user");
+          const profileId = registerStaffProfile({
+            id: getStaffProfileId(role.name, member.id || displayName, username, index),
+            displayName,
+            username,
+            avatarUrl: member.avatarUrl,
+            groupName: role.name,
+            primaryRole: role.name,
+            roles: getUniqueStaffRoles([...member.roles, role.name]),
+            joinedAt: member.joinedAt,
+            statusLabel: getStaffStatusLabel(member),
+            source: "Discord live sync"
+          });
           return `
-            <div class="live-staff__row">
+            <button class="live-staff__row" type="button" data-staff-profile-id="${escapeHtml(profileId)}" aria-label="Open profile for ${escapeHtml(displayName)}">
               <div class="live-staff__rowIdentity">
                 ${member.avatarUrl ? `<img src="${escapeHtml(member.avatarUrl)}" alt="" loading="lazy" />` : `<span class="live-staff__avatar">${renderStaffInitial(displayName)}</span>`}
                 <div class="live-staff__rowName">
@@ -5672,7 +5763,7 @@ function renderDiscordStaffList(discord) {
                 </div>
               </div>
               ${renderStaffStatusBadge(member)}
-            </div>
+            </button>
           `;
         }).join("")}
       </div>
@@ -5682,6 +5773,75 @@ function renderDiscordStaffList(discord) {
 
   return renderStaffListShell(count, `<div class="live-staff__groups">${groupMarkup}</div>`);
 }
+
+function renderStaffProfileModal(profile) {
+  const joinedLabel = profile.joinedAt
+    ? `Joined on ${formatStaffJoinedDate(profile.joinedAt)}`
+    : "Joined date not synced yet";
+  const roles = profile.roles?.length ? profile.roles : [profile.primaryRole || "Staff"];
+  const statusMarkup = profile.statusLabel
+    ? `<span class="staff-profile__status">${escapeHtml(profile.statusLabel)}</span>`
+    : "";
+
+  return `
+    <div class="auth-modal staff-profile-modal" role="dialog" aria-modal="true" aria-label="Staff profile">
+      <button class="auth-modal__backdrop" type="button" data-staff-profile-close aria-label="Close"></button>
+      <div class="auth-modal__panel staff-profile">
+        <button class="auth-modal__close" type="button" data-staff-profile-close aria-label="Close">×</button>
+        <div class="staff-profile__banner"></div>
+        <div class="staff-profile__identity">
+          ${profile.avatarUrl
+            ? `<img class="staff-profile__avatar" src="${escapeHtml(profile.avatarUrl)}" alt="" loading="lazy" />`
+            : `<span class="staff-profile__avatar staff-profile__avatar--fallback">${escapeHtml(profile.initial || "S")}</span>`}
+          <div class="staff-profile__nameBlock">
+            <h2>${escapeHtml(profile.displayName)}</h2>
+            <p>${escapeHtml(profile.username)}</p>
+          </div>
+          ${statusMarkup}
+        </div>
+        <div class="staff-profile__metaGrid">
+          <div class="staff-profile__metaCard">
+            <span>Joined</span>
+            <strong>${escapeHtml(joinedLabel)}</strong>
+          </div>
+          <div class="staff-profile__metaCard">
+            <span>Department</span>
+            <strong>${escapeHtml(profile.groupName)}</strong>
+          </div>
+        </div>
+        <div class="staff-profile__section">
+          <span>Current roles</span>
+          <div class="staff-profile__roles">
+            ${roles.map((role) => `<span>${escapeHtml(role)}</span>`).join("")}
+          </div>
+        </div>
+        <div class="staff-profile__source">${escapeHtml(profile.source)}</div>
+      </div>
+    </div>
+  `;
+}
+
+function closeStaffProfileModal() {
+  const modal = authModalRoot?.querySelector(".staff-profile-modal");
+  if (modal) authModalRoot.innerHTML = "";
+}
+
+function openStaffProfileModal(profileId) {
+  if (!authModalRoot) return;
+  const profile = serverStatusPageState.staffProfiles.get(profileId);
+  if (!profile) return;
+  authModalRoot.innerHTML = renderStaffProfileModal(profile);
+  bindStaffProfileModalControls();
+}
+
+function bindStaffProfileModalControls() {
+  const modal = authModalRoot?.querySelector(".staff-profile-modal");
+  if (!modal) return;
+  modal.querySelectorAll("[data-staff-profile-close]").forEach((button) => {
+    button.addEventListener("click", () => closeStaffProfileModal());
+  });
+}
+
 function renderServerStatusContent(snapshot) {
   const liveOps = snapshot.liveOps || {};
   const discordOps = liveOps.discord || normaliseDiscordOpsPayload(null);
@@ -5763,6 +5923,12 @@ function bindStatusPageControls() {
       filterStatusPlayers(event.target.value);
     };
   }
+
+  document.querySelectorAll("[data-staff-profile-id]").forEach((button) => {
+    button.addEventListener("click", () => {
+      openStaffProfileModal(button.getAttribute("data-staff-profile-id") || "");
+    });
+  });
 }
 
 function scheduleServerStatusRefresh() {
