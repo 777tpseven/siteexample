@@ -1793,7 +1793,7 @@ function renderLanding() {
           <div class="landing-panel">
             <div class="landing-panel__eyebrow">Quick access</div>
             <div class="landing-panel__grid">
-              <a class="quickstart__btn" href="#/rules">
+              <a class="quickstart__btn" href="/rules">
                 <span class="quickstart__icon" aria-hidden="true"></span>
                 <span class="quickstart__label">Rules</span>
               </a>
@@ -6013,7 +6013,8 @@ function renderStatus() {
 function findSectionById(sectionId) {
   const data = getData();
   const sections = Array.isArray(data?.sections) ? data.sections : [];
-  return sections.find(s => s?.id === sectionId) || null;
+  const id = normalizeRuleSectionId(sectionId);
+  return sections.find(s => normalizeRuleSectionId(s?.id) === id) || null;
 }
 
 function findRule(sectionId, ruleId) {
@@ -6049,6 +6050,17 @@ function renderContentBlocks(section) {
   return `<div class="section__content">${html}</div>`;
 }
 
+function normalizeRuleSectionId(sectionId) {
+  const id = String(sectionId || "").trim().toLowerCase();
+  if (id === "in-game-rules") return "ingame-rules";
+  return id;
+}
+
+function ruleSectionPath(sectionId) {
+  const id = normalizeRuleSectionId(sectionId);
+  return `/rules/${id === "ingame-rules" ? "in-game-rules" : id}`;
+}
+
 function renderRulesHub(sections) {
   const title = renderHeader("Rules", [{ label: "Rules" }]);
   if (!sections.length) {
@@ -6067,7 +6079,7 @@ function renderRulesHub(sections) {
   const cards = sections
     .map(s => {
       return `
-        <a class="card" href="#/section/${escapeHtml(s.id)}">
+        <a class="card" href="${escapeHtml(ruleSectionPath(s.id))}">
           <div class="card__title">${escapeHtml(s.title)}</div>
         </a>
       `;
@@ -6105,14 +6117,14 @@ function renderSection(sectionId) {
   });
 
   const title = renderHeader(section.title, [
-    { label: "Rules", href: "#/rules" },
+    { label: "Rules", href: "/rules" },
     { label: section.title }
   ]);
 
   const list = filtered
     .map(r => {
       return `
-        <a class="rule-card" href="#/rule/${escapeHtml(section.id)}/${escapeHtml(r.id)}">
+        <a class="rule-card" href="${escapeHtml(ruleSectionPath(section.id))}/${escapeHtml(r.id)}">
           <div class="rule-card__top">
             <span class="rule__id">${escapeHtml(r.id)}</span>
             <span class="rule-card__title">${escapeHtml(r.title)}</span>
@@ -6153,8 +6165,8 @@ function renderRule(sectionId, ruleId) {
   }
 
   const title = renderHeader(rule.title, [
-    { label: "Rules", href: "#/rules" },
-    { label: section.title, href: `#/section/${escapeHtml(section.id)}` },
+    { label: "Rules", href: "/rules" },
+    { label: section.title, href: ruleSectionPath(section.id) },
     { label: `${rule.id}` }
   ]);
 
@@ -6191,14 +6203,14 @@ function renderSearch(sections) {
   }
 
   const title = renderHeader("Search", [
-    { label: "Rules", href: "#/rules" },
+    { label: "Rules", href: "/rules" },
     { label: "Search" }
   ]);
 
   const list = results
     .map(({ section, rule }) => {
       return `
-        <a class="rule-card" href="#/rule/${escapeHtml(section.id)}/${escapeHtml(rule.id)}">
+        <a class="rule-card" href="${escapeHtml(ruleSectionPath(section.id))}/${escapeHtml(rule.id)}">
           <div class="rule-card__top">
             <span class="rule__id">${escapeHtml(rule.id)}</span>
             <span class="rule-card__title">${escapeHtml(rule.title)}</span>
@@ -6227,7 +6239,11 @@ function parseRoute() {
   const clean = getCurrentRoutePath();
   const parts = clean.split("/").filter(Boolean);
   if (!parts.length) return { name: "home" };
-  if (parts[0] === "rules") return { name: "rules" };
+  if (parts[0] === "rules") {
+    if (parts[1] && parts[2]) return { name: "rule", sectionId: normalizeRuleSectionId(parts[1]), ruleId: parts[2] };
+    if (parts[1]) return { name: "section", sectionId: normalizeRuleSectionId(parts[1]) };
+    return { name: "rules" };
+  }
   if (parts[0] === "account") return { name: "account" };
   if (parts[0] === "staff" || parts[0] === "admin") return { name: "staff" };
   if (parts[0] === "leaderboard") return { name: "live", metric: parts[1] || "kd" };
@@ -6237,8 +6253,8 @@ function parseRoute() {
   if (parts[0] === "help") return { name: "help" };
   if (parts[0] === "info") return { name: "info" };
   if (parts[0] === "definitions") return { name: "definitions" };
-  if (parts[0] === "section" && parts[1]) return { name: "section", sectionId: parts[1] };
-  if (parts[0] === "rule" && parts[1] && parts[2]) return { name: "rule", sectionId: parts[1], ruleId: parts[2] };
+  if (parts[0] === "section" && parts[1]) return { name: "section", sectionId: normalizeRuleSectionId(parts[1]) };
+  if (parts[0] === "rule" && parts[1] && parts[2]) return { name: "rule", sectionId: normalizeRuleSectionId(parts[1]), ruleId: parts[2] };
 
   return { name: "home" };
 }
