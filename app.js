@@ -1842,16 +1842,16 @@ function renderLandingHome() {
 
       <section class="landing-hub__grid" aria-label="Portal shortcuts">
         <a class="landing-hub__card" href="/rules" data-reveal>
-          <strong class="landing-hub__cardTitle">Read before joining</strong>
-          <span class="landing-hub__cardText">Discord rules are posted. Ingame rules will be added when ready.</span>
-        </a>
-        <a class="landing-hub__card" href="/map" data-reveal>
-          <strong class="landing-hub__cardTitle">City services</strong>
-          <span class="landing-hub__cardText">Police, hospital, fire, car wash, and other map spots.</span>
+          <strong class="landing-hub__cardTitle">Rules</strong>
+          <span class="landing-hub__cardText">Discord rules and in-game rule categories.</span>
         </a>
         <a class="landing-hub__card" href="/live" data-reveal>
-            <strong class="landing-hub__cardTitle">Server status</strong>
-            <span class="landing-hub__cardText">Game server and Discord bot checks live here.</span>
+          <strong class="landing-hub__cardTitle">Server status</strong>
+          <span class="landing-hub__cardText">Game server and Discord bot checks.</span>
+        </a>
+        <a class="landing-hub__card" href="/live#staff-list" data-reveal>
+          <strong class="landing-hub__cardTitle">Meet the team</strong>
+          <span class="landing-hub__cardText">Current staff list and roles.</span>
         </a>
       </section>
     </div>
@@ -1941,7 +1941,7 @@ function renderHelp() {
     { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
     {
       label: "Jobs",
-      text: "Job categories for the server.",
+      text: "Civilian jobs, public safety jobs, and illegal jobs.",
       jobs: [
         { name: "Civilian Jobs", items: [] },
         { name: "Public Safety Jobs", items: ["Police", "EMS"] },
@@ -5545,7 +5545,7 @@ function getStaffStatusLabel(member) {
 
 function renderStaffListShell(count, bodyMarkup) {
   return `
-    <section class="section live-staff" data-reveal>
+    <section class="section live-staff" id="staff-list" data-reveal>
       <div class="live-staff__head">
         <div class="live-staff__titleBlock">
           <span class="live-staff__mainIcon" aria-hidden="true">👥</span>
@@ -5965,6 +5965,12 @@ function bindStatusPageControls() {
       openStaffProfileModal(button.getAttribute("data-staff-profile-id") || "");
     });
   });
+
+  if (window.location.hash === "#staff-list") {
+    window.requestAnimationFrame(() => {
+      document.getElementById("staff-list")?.scrollIntoView({ block: "start", behavior: "smooth" });
+    });
+  }
 }
 
 function scheduleServerStatusRefresh() {

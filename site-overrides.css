@@ -15165,6 +15165,10 @@ html body .help-clean__jobItems span{
   line-height: 1 !important;
 }
 
+html body .live-staff{
+  scroll-margin-top: 96px !important;
+}
+
 @media (max-width: 560px){
   html body .help-clean__item--jobs{
     grid-column: auto !important;
