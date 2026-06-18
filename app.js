@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260618b";
+const SITE_ASSET_VERSION = "20260618c";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -105,7 +105,7 @@ const MANUAL_STAFF_GROUPS = [
   {
     title: "Lead Admin Team",
     members: [
-      { name: "Ollie", role: "Lead Admin" }
+      { name: "Ollie", discordUsername: "darwizzy_the_goat", role: "Lead Admin" }
     ]
   },
   {
@@ -139,7 +139,7 @@ const MANUAL_STAFF_GROUPS = [
       { name: "cue", role: "Tester" },
       { name: "[SASD] Sheriff Jay", role: "Tester" },
       { name: "\u2020 777 \u2020", role: "Tester" },
-      { name: "Ollie", role: "Tester" },
+      { name: "Ollie", discordUsername: "darwizzy_the_goat", role: "Tester" },
       { name: "Bulki_TV", role: "Tester" },
       { name: "[SASD] Asst. Sheriff Apex", role: "Tester" },
       { name: "Squ4ty", role: "Tester" },
@@ -168,7 +168,7 @@ const MANUAL_STAFF_GROUPS = [
   {
     title: "Content Creator Team",
     members: [
-      { name: "Ollie", role: "Content Creator" }
+      { name: "Ollie", discordUsername: "darwizzy_the_goat", role: "Content Creator" }
     ]
   }
 ];
@@ -1939,7 +1939,15 @@ function renderHelp() {
     },
     { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
     { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
-    { label: "Jobs", text: "Job info and requests.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true }
+    {
+      label: "Jobs",
+      text: "Job categories for the server.",
+      jobs: [
+        { name: "Civilian Jobs", items: [] },
+        { name: "Public Safety Jobs", items: ["Police", "EMS"] },
+        { name: "Illegal jobs", items: [] }
+      ]
+    }
   ];
   setView(`
     <div class="help-clean">
@@ -1966,6 +1974,23 @@ function renderHelp() {
                       </span>
                       <small>${escapeHtml(item.detail)}</small>
                     </a>
+                  `).join("")}
+                </div>
+              </article>
+            ` : topic.jobs ? `
+              <article class="help-clean__item help-clean__item--jobs">
+                <strong>${escapeHtml(topic.label)}</strong>
+                <span>${escapeHtml(topic.text)}</span>
+                <div class="help-clean__jobList">
+                  ${topic.jobs.map((group) => `
+                    <div class="help-clean__jobGroup">
+                      <b>${escapeHtml(group.name)}</b>
+                      ${group.items.length ? `
+                        <div class="help-clean__jobItems">
+                          ${group.items.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}
+                        </div>
+                      ` : ""}
+                    </div>
                   `).join("")}
                 </div>
               </article>
@@ -5574,6 +5599,15 @@ function getStaffProfileId(groupName, memberName, roleName, index) {
   return `staff-${getStaffGroupSlug(`${groupName}-${memberName}-${roleName}-${index}`)}`;
 }
 
+function getManualStaffDiscordUsername(name) {
+  const staffName = normalize(name);
+  for (const group of MANUAL_STAFF_GROUPS) {
+    const match = group.members.find((member) => normalize(member.name) === staffName && member.discordUsername);
+    if (match) return String(match.discordUsername || "").replace(/^@/, "").trim();
+  }
+  return "";
+}
+
 function getManualStaffRoles(name) {
   const staffName = normalize(name);
   const roles = [];
@@ -5645,7 +5679,7 @@ function renderManualStaffList(discord) {
           const profileId = registerStaffProfile({
             id: getStaffProfileId(group.title, member.name, member.role, index),
             displayName: member.name,
-            username: `@${member.name}`,
+            username: getManualStaffDiscordUsername(member.name) ? `@${getManualStaffDiscordUsername(member.name)}` : `@${member.name}`,
             groupName: group.title,
             primaryRole: member.role,
             roles: getManualStaffRoles(member.name),
@@ -5656,7 +5690,8 @@ function renderManualStaffList(discord) {
             <div class="live-staff__rowIdentity">
               <span class="live-staff__avatar">${renderStaffInitial(member.name)}</span>
               <div class="live-staff__rowName">
-                <strong>@${escapeHtml(member.name)}</strong>
+                <strong>${escapeHtml(member.name)}</strong>
+                <span class="live-staff__discordName">${escapeHtml(getManualStaffDiscordUsername(member.name) ? `@${getManualStaffDiscordUsername(member.name)}` : `@${member.name}`)}</span>
                 <span>${escapeHtml(member.role)}</span>
               </div>
             </div>
@@ -5759,7 +5794,8 @@ function renderDiscordStaffList(discord) {
                 ${member.avatarUrl ? `<img src="${escapeHtml(member.avatarUrl)}" alt="" loading="lazy" />` : `<span class="live-staff__avatar">${renderStaffInitial(displayName)}</span>`}
                 <div class="live-staff__rowName">
                   <strong>${escapeHtml(displayName)}</strong>
-                  <span>${escapeHtml(username)}</span>
+                  <span class="live-staff__discordName">${escapeHtml(username)}</span>
+                  ${member.roles?.length ? `<span>${escapeHtml(member.roles.join(", "))}</span>` : `<span>${escapeHtml(role.name)}</span>`}
                 </div>
               </div>
               ${renderStaffStatusBadge(member)}
@@ -6087,10 +6123,21 @@ function renderSection(sectionId) {
     })
     .join("");
 
+  const ingameRuleButtons = section.id === "ingame-rules"
+    ? `
+      <div class="ingame-rule-buttons" aria-label="Ingame rule categories">
+        ${["Civ", "Police", "EMS", "All Players"].map((label) => `
+          <button class="ingame-rule-buttons__item" type="button">${escapeHtml(label)}</button>
+        `).join("")}
+      </div>
+    `
+    : "";
+
   setView(`
     <div>
       ${title}
       <section class="section">
+        ${ingameRuleButtons}
         <div class="rule-list">${list}</div>
       </section>
       ${renderRulesDisclaimer()}

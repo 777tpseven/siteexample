@@ -14878,6 +14878,11 @@ html body .live-staff__rowName span{
   overflow-wrap: anywhere !important;
 }
 
+html body .live-staff__rowName .live-staff__discordName{
+  color: rgba(246, 205, 169, .78) !important;
+  font-weight: 800 !important;
+}
+
 html body .live-staff__status{
   flex: 0 0 auto !important;
   padding: 4px 7px !important;
@@ -15083,5 +15088,85 @@ html body .staff-profile__source{
 
   html body .staff-profile__status{
     justify-self: start !important;
+  }
+}
+
+/* 2026-06-18 compact rule/job additions */
+html body .ingame-rule-buttons{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin: 0 0 12px !important;
+}
+
+html body .ingame-rule-buttons__item{
+  min-height: 36px !important;
+  padding: 0 14px !important;
+  border: 1px solid rgba(218, 173, 141, .18) !important;
+  border-radius: 8px !important;
+  background: rgba(18, 12, 10, .88) !important;
+  color: rgba(255, 247, 239, .92) !important;
+  font: inherit !important;
+  font-size: .86rem !important;
+  font-weight: 850 !important;
+  letter-spacing: 0 !important;
+  cursor: default !important;
+}
+
+html body .ingame-rule-buttons__item:hover,
+html body .ingame-rule-buttons__item:focus-visible{
+  border-color: rgba(238, 192, 160, .32) !important;
+  background: rgba(48, 32, 26, .82) !important;
+  outline: 0 !important;
+}
+
+html body .help-clean__item--jobs{
+  grid-column: span 2 !important;
+}
+
+html body .help-clean__jobList{
+  display: grid !important;
+  gap: 7px !important;
+  margin-top: 4px !important;
+}
+
+html body .help-clean__jobGroup{
+  display: grid !important;
+  gap: 7px !important;
+  padding: 10px !important;
+  border: 1px solid rgba(218, 173, 141, .14) !important;
+  border-radius: 7px !important;
+  background: rgba(255, 255, 255, .032) !important;
+}
+
+html body .help-clean__jobGroup b{
+  color: #fff7ef !important;
+  font-size: .92rem !important;
+  line-height: 1.15 !important;
+}
+
+html body .help-clean__jobItems{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+html body .help-clean__jobItems span{
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 27px !important;
+  padding: 5px 8px !important;
+  border: 1px solid rgba(218, 173, 141, .14) !important;
+  border-radius: 999px !important;
+  background: rgba(218, 173, 141, .075) !important;
+  color: rgba(255, 247, 239, .90) !important;
+  font-size: .78rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+}
+
+@media (max-width: 560px){
+  html body .help-clean__item--jobs{
+    grid-column: auto !important;
   }
 }
