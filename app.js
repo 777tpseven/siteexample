@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260619d";
+const SITE_ASSET_VERSION = "20260619e";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -2002,6 +2002,10 @@ function renderLandingHome() {
           <strong class="landing-hub__cardTitle">Meet the team</strong>
           <span class="landing-hub__cardText">Current staff list and roles.</span>
         </a>
+        <a class="landing-hub__card" href="/changelog" data-reveal>
+          <strong class="landing-hub__cardTitle">Website updates</strong>
+          <span class="landing-hub__cardText">Recent changes added to the site.</span>
+        </a>
       </section>
     </div>
   `);
@@ -2089,6 +2093,7 @@ function renderHelp() {
     { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
     { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
     { label: "Vehicles", text: "Vehicle showcase with membership filters.", href: "/vehicles" },
+    { label: "Website updates", text: "Recent changes added to the website.", href: "/changelog" },
     {
       label: "Jobs",
       text: "Civilian jobs, public safety jobs, and illegal jobs.",
@@ -2152,6 +2157,79 @@ function renderHelp() {
             `}
           `).join("")}
         </div>
+      </section>
+    </div>
+  `);
+}
+
+function renderChangelog() {
+  const updates = [
+    {
+      title: "Home and Help",
+      date: "June 2026",
+      changed: [
+        "Changed the Home shortcut from Read before joining to Rules.",
+        "Removed the City services shortcut from the Home page.",
+        "Added Meet the team on the Home page.",
+        "Linked Meet the team to the Staff List section.",
+        "Updated the Help Jobs section so it shows job categories instead of a Discord-only shortcut.",
+        "Added Police and EMS under Public Safety Jobs."
+      ],
+      fixed: [
+        "Staff List can now be opened directly from the Home page.",
+        "Removed old Home shortcut text that was no longer needed."
+      ]
+    },
+    {
+      title: "Vehicle Showcase",
+      date: "June 2026",
+      changed: [
+        "Added the Vehicles section.",
+        "Added car photos for the showcase.",
+        "Added Free, Silver, and Gold membership filters.",
+        "Added vehicle type filters for Civilian cars, Police, EMS, and Work / Utility."
+      ],
+      fixed: []
+    }
+  ];
+
+  setView(`
+    <div class="changelog-clean">
+      <header class="changelog-clean__head" aria-label="Website updates">
+        <div>
+          <span class="changelog-clean__eyebrow">Changelog</span>
+          <h1>Website Updates</h1>
+        </div>
+        <a class="auth__btn" href="/vehicles">Vehicles</a>
+      </header>
+
+      <section class="changelog-clean__grid" aria-label="Recent website changes">
+        ${updates.map((update) => `
+          <article class="changelog-clean__card">
+            <div class="changelog-clean__cardHead">
+              <div>
+                <span>${escapeHtml(update.date)}</span>
+                <h2>${escapeHtml(update.title)}</h2>
+              </div>
+            </div>
+            ${update.changed.length ? `
+              <div class="changelog-clean__group">
+                <strong>Changed</strong>
+                <ul>
+                  ${update.changed.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+                </ul>
+              </div>
+            ` : ""}
+            ${update.fixed.length ? `
+              <div class="changelog-clean__group">
+                <strong>Fixed</strong>
+                <ul>
+                  ${update.fixed.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+                </ul>
+              </div>
+            ` : ""}
+          </article>
+        `).join("")}
       </section>
     </div>
   `);
@@ -6559,6 +6637,7 @@ function parseRoute() {
   if (parts[0] === "status") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "live") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "help") return { name: "help" };
+  if (parts[0] === "changelog" || parts[0] === "updates") return { name: "changelog" };
   if (parts[0] === "info") return { name: "info" };
   if (parts[0] === "definitions") return { name: "definitions" };
   if (parts[0] === "section" && parts[1]) return { name: "section", sectionId: normalizeRuleSectionId(parts[1]) };
@@ -6637,6 +6716,10 @@ function route() {
   }
   if (r.name === "help") {
     renderHelp();
+    return;
+  }
+  if (r.name === "changelog") {
+    renderChangelog();
     return;
   }
   if (r.name === "definitions") {

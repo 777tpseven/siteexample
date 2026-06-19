@@ -15561,3 +15561,123 @@ html body .vehicle-showcase__cardTier{
     grid-template-columns: 1fr !important;
   }
 }
+
+html body .changelog-clean{
+  width: min(100%, 1220px) !important;
+  margin: 0 auto !important;
+  display: grid !important;
+  gap: 12px !important;
+}
+
+html body .changelog-clean__head{
+  display: flex !important;
+  align-items: end !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  padding: 14px !important;
+  border: 1px solid rgba(218, 173, 141, .16) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg, rgba(20, 16, 15, .90), rgba(7, 7, 7, .94)) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, .22) !important;
+}
+
+html body .changelog-clean__eyebrow{
+  display: block !important;
+  margin-bottom: 4px !important;
+  color: rgba(238, 192, 160, .72) !important;
+  font-size: .72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  text-transform: uppercase !important;
+}
+
+html body .changelog-clean__head h1{
+  margin: 0 !important;
+  color: #fff8ef !important;
+  font-size: clamp(1.75rem, 3vw, 2.6rem) !important;
+  line-height: .95 !important;
+  letter-spacing: 0 !important;
+}
+
+html body .changelog-clean__grid{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+html body .changelog-clean__card{
+  min-width: 0 !important;
+  padding: 14px !important;
+  border: 1px solid rgba(218, 173, 141, .14) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg, rgba(17, 13, 12, .91), rgba(7, 7, 7, .96)) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, .20) !important;
+}
+
+html body .changelog-clean__cardHead{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid rgba(218, 173, 141, .12) !important;
+}
+
+html body .changelog-clean__cardHead span{
+  display: block !important;
+  margin-bottom: 3px !important;
+  color: rgba(224, 208, 196, .62) !important;
+  font-size: .72rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+}
+
+html body .changelog-clean__card h2{
+  margin: 0 !important;
+  color: #fff8ef !important;
+  font-size: 1.15rem !important;
+  line-height: 1.1 !important;
+}
+
+html body .changelog-clean__group{
+  display: grid !important;
+  gap: 8px !important;
+}
+
+html body .changelog-clean__group + .changelog-clean__group{
+  margin-top: 12px !important;
+}
+
+html body .changelog-clean__group strong{
+  color: rgba(238, 192, 160, .82) !important;
+  font-size: .78rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+
+html body .changelog-clean__group ul{
+  margin: 0 !important;
+  padding-left: 18px !important;
+  color: rgba(244, 236, 228, .82) !important;
+}
+
+html body .changelog-clean__group li{
+  margin: 0 0 7px !important;
+  line-height: 1.45 !important;
+}
+
+html body .changelog-clean__group li:last-child{
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 780px){
+  html body .changelog-clean__head{
+    align-items: start !important;
+    flex-direction: column !important;
+  }
+
+  html body .changelog-clean__grid{
+    grid-template-columns: 1fr !important;
+  }
+}
