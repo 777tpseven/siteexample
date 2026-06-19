@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260619e";
+const SITE_ASSET_VERSION = "20260619f";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -1999,7 +1999,7 @@ function renderLandingHome() {
           <span class="landing-hub__cardText">Game server and Discord bot checks.</span>
         </a>
         <a class="landing-hub__card" href="/live#staff-list" data-reveal>
-          <strong class="landing-hub__cardTitle">Meet the team</strong>
+          <strong class="landing-hub__cardTitle">Meet the staff</strong>
           <span class="landing-hub__cardText">Current staff list and roles.</span>
         </a>
         <a class="landing-hub__card" href="/changelog" data-reveal>
@@ -2170,8 +2170,8 @@ function renderChangelog() {
       changed: [
         "Changed the Home shortcut from Read before joining to Rules.",
         "Removed the City services shortcut from the Home page.",
-        "Added Meet the team on the Home page.",
-        "Linked Meet the team to the Staff List section.",
+        "Added Meet the staff on the Home page.",
+        "Linked Meet the staff to the Staff List section.",
         "Updated the Help Jobs section so it shows job categories instead of a Discord-only shortcut.",
         "Added Police and EMS under Public Safety Jobs."
       ],
