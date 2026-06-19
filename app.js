@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260619c";
+const SITE_ASSET_VERSION = "20260619d";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -78,6 +78,13 @@ const VEHICLE_SHOWCASE_FILTERS = [
   { id: "free", label: "Free" },
   { id: "silver", label: "Silver" },
   { id: "gold", label: "Gold" }
+];
+const VEHICLE_CATEGORY_FILTERS = [
+  { id: "all", label: "All types", types: [] },
+  { id: "civilian", label: "Civilian cars", types: ["Civilian Vehicle", "Free Vehicle"] },
+  { id: "police", label: "Police", types: ["Police Vehicle"] },
+  { id: "ems", label: "EMS", types: ["EMS Vehicle"] },
+  { id: "utility", label: "Work / Utility", types: ["Work Vehicle", "Fire Vehicle", "Armored Truck"] }
 ];
 const VEHICLE_SHOWCASE = [
   { id: "gb811s2", name: "811 S2", membership: "gold", type: "Civilian Vehicle", image: "gb811s2.webp" },
@@ -207,6 +214,7 @@ const VEHICLE_SHOWCASE = [
 ];
 const vehicleShowcaseState = {
   membership: "all",
+  category: "all",
   selectedId: VEHICLE_SHOWCASE[0]?.id || ""
 };
 const CLIENT_LOW_POWER_MODE = (() => {
@@ -2158,9 +2166,21 @@ function getVehicleTierLabel(tier) {
   return found?.label || "Free";
 }
 
+function vehicleMatchesMembership(vehicle, membership) {
+  return membership === "all" || vehicle.membership === membership;
+}
+
+function vehicleMatchesCategory(vehicle, category) {
+  if (category === "all") return true;
+  const found = VEHICLE_CATEGORY_FILTERS.find((item) => item.id === category);
+  return Array.isArray(found?.types) && found.types.includes(vehicle.type);
+}
+
 function getFilteredVehicles() {
-  if (vehicleShowcaseState.membership === "all") return VEHICLE_SHOWCASE;
-  return VEHICLE_SHOWCASE.filter((vehicle) => vehicle.membership === vehicleShowcaseState.membership);
+  return VEHICLE_SHOWCASE.filter((vehicle) => (
+    vehicleMatchesMembership(vehicle, vehicleShowcaseState.membership)
+    && vehicleMatchesCategory(vehicle, vehicleShowcaseState.category)
+  ));
 }
 
 function getSelectedVehicle() {
@@ -2176,9 +2196,17 @@ function renderVehicleShowcase() {
   const selected = getSelectedVehicle();
   const filteredVehicles = getFilteredVehicles();
   const countsByTier = VEHICLE_SHOWCASE_FILTERS.reduce((acc, tier) => {
-    acc[tier.id] = tier.id === "all"
-      ? VEHICLE_SHOWCASE.length
-      : VEHICLE_SHOWCASE.filter((vehicle) => vehicle.membership === tier.id).length;
+    acc[tier.id] = VEHICLE_SHOWCASE.filter((vehicle) => (
+      vehicleMatchesMembership(vehicle, tier.id)
+      && vehicleMatchesCategory(vehicle, vehicleShowcaseState.category)
+    )).length;
+    return acc;
+  }, {});
+  const countsByCategory = VEHICLE_CATEGORY_FILTERS.reduce((acc, category) => {
+    acc[category.id] = VEHICLE_SHOWCASE.filter((vehicle) => (
+      vehicleMatchesMembership(vehicle, vehicleShowcaseState.membership)
+      && vehicleMatchesCategory(vehicle, category.id)
+    )).length;
     return acc;
   }, {});
 
@@ -2188,7 +2216,7 @@ function renderVehicleShowcase() {
         <div>
           <div class="vehicle-showcase__eyebrow">Vehicles</div>
           <h1>Vehicle Showcase</h1>
-          <p>Browse display vehicles and filter them by membership tier.</p>
+          <p>Browse display vehicles and filter them by membership tier or vehicle type.</p>
         </div>
         <a class="auth__btn" href="/help">Memberships</a>
       </header>
@@ -2228,6 +2256,15 @@ function renderVehicleShowcase() {
         `).join("")}
       </section>
 
+      <section class="vehicle-showcase__filters vehicle-showcase__filters--category" aria-label="Vehicle type filter">
+        ${VEHICLE_CATEGORY_FILTERS.map((filter) => `
+          <button class="vehicle-showcase__filter${vehicleShowcaseState.category === filter.id ? " is-active" : ""}" type="button" data-vehicle-category="${escapeHtml(filter.id)}">
+            <span>${escapeHtml(filter.label)}</span>
+            <em>${countsByCategory[filter.id]}</em>
+          </button>
+        `).join("")}
+      </section>
+
       <section class="vehicle-showcase__grid" aria-label="Vehicle list">
         ${filteredVehicles.map((vehicle) => `
           <button class="vehicle-showcase__card${selected.id === vehicle.id ? " is-active" : ""}" type="button" data-vehicle-id="${escapeHtml(vehicle.id)}">
@@ -2252,6 +2289,13 @@ function bindVehicleShowcaseControls() {
   document.querySelectorAll("[data-vehicle-tier]").forEach((button) => {
     button.addEventListener("click", () => {
       vehicleShowcaseState.membership = button.getAttribute("data-vehicle-tier") || "all";
+      renderVehicleShowcase();
+    });
+  });
+
+  document.querySelectorAll("[data-vehicle-category]").forEach((button) => {
+    button.addEventListener("click", () => {
+      vehicleShowcaseState.category = button.getAttribute("data-vehicle-category") || "all";
       renderVehicleShowcase();
     });
   });
