@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260619b";
+const SITE_ASSET_VERSION = "20260619c";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -80,18 +80,130 @@ const VEHICLE_SHOWCASE_FILTERS = [
   { id: "gold", label: "Gold" }
 ];
 const VEHICLE_SHOWCASE = [
-  { id: "admiral", name: "Admiral", model: "gbadmiral", membership: "free", type: "Sedan", image: "gbadmiral.webp" },
-  { id: "bison-stx", name: "Bison STX", model: "gbbisonstx", membership: "free", type: "SUV", image: "gbbisonstx.webp" },
-  { id: "box-boy", name: "Box Boy", model: "gbboxboy", membership: "free", type: "Utility", image: "gbboxboy.webp" },
-  { id: "brioso-f", name: "Brioso F", model: "gbbriosof", membership: "free", type: "Compact", image: "gbbriosof.webp" },
-  { id: "banshee-s", name: "Banshee S", model: "gbbanshees", membership: "silver", type: "Sports", image: "gbbanshees.webp" },
-  { id: "comet-classic", name: "Comet Classic", model: "gbcometcl", membership: "silver", type: "Sports", image: "gbcometcl.webp" },
-  { id: "cypher-gts", name: "Cypher GTS", model: "gbcyphergts", membership: "silver", type: "Coupe", image: "gbcyphergts.webp" },
-  { id: "dominator-gsx", name: "Dominator GSX", model: "gbdominatorgsx", membership: "silver", type: "Muscle", image: "gbdominatorgsx.webp" },
-  { id: "811-s2", name: "811 S2", model: "gb811s2", membership: "gold", type: "Super", image: "gb811s2.webp" },
-  { id: "cheetah-s", name: "Cheetah S", model: "gbcheetahs", membership: "gold", type: "Super", image: "gbcheetahs.webp" },
-  { id: "prospero", name: "Prospero", model: "gbprospero", membership: "gold", type: "Super", image: "gbprospero.webp" },
-  { id: "turismo-gt", name: "Turismo GT", model: "gbturismogt", membership: "gold", type: "Super", image: "gbturismogt.webp" }
+  { id: "gb811s2", name: "811 S2", membership: "gold", type: "Civilian Vehicle", image: "gb811s2.webp" },
+  { id: "gbadmiral", name: "Admiral", membership: "silver", type: "Civilian Vehicle", image: "gbadmiral.webp" },
+  { id: "gbarcherpro2", name: "Archer Pro 2", membership: "gold", type: "Civilian Vehicle", image: "gbarcherpro2.webp" },
+  { id: "gbargento2f", name: "Argento 2F", membership: "silver", type: "Civilian Vehicle", image: "gbargento2f.webp" },
+  { id: "gbargento7f", name: "Argento 7F", membership: "gold", type: "Civilian Vehicle", image: "gbargento7f.webp" },
+  { id: "gbargento7fs", name: "Argento 7FS", membership: "gold", type: "Civilian Vehicle", image: "gbargento7fs.webp" },
+  { id: "gbbanshees", name: "Banshee S", membership: "gold", type: "Civilian Vehicle", image: "gbbanshees.webp" },
+  { id: "gbbisonhf", name: "Bison HF", membership: "silver", type: "Civilian Vehicle", image: "gbbisonhf.webp" },
+  { id: "gbbisonstx", name: "Bison STX", membership: "free", type: "Free Vehicle", image: "gbbisonstx.webp" },
+  { id: "gbboxboy", name: "Box Boy", membership: "free", type: "Work Vehicle", image: "gbboxboy.webp" },
+  { id: "gbboxboyft", name: "Box Boy FT", membership: "free", type: "Work Vehicle", image: "gbboxboyft.webp" },
+  { id: "gbbriosof", name: "Brioso F", membership: "silver", type: "Civilian Vehicle", image: "gbbriosof.webp" },
+  { id: "gbcheetahs", name: "Cheetah S", membership: "gold", type: "Civilian Vehicle", image: "gbcheetahs.webp" },
+  { id: "gbclubxr", name: "Club XR", membership: "silver", type: "Civilian Vehicle", image: "gbclubxr.webp" },
+  { id: "gbcometcl", name: "Comet Classic", membership: "silver", type: "Civilian Vehicle", image: "gbcometcl.webp" },
+  { id: "gbcometclf", name: "Comet CLF", membership: "silver", type: "Civilian Vehicle", image: "gbcometclf.webp" },
+  { id: "gbcomets1t", name: "Comet S1T", membership: "gold", type: "Civilian Vehicle", image: "gbcomets1t.webp" },
+  { id: "gbcomets1tf", name: "Comet S1TF", membership: "gold", type: "Civilian Vehicle", image: "gbcomets1tf.webp" },
+  { id: "gbcomets2r", name: "Comet S2R", membership: "gold", type: "Civilian Vehicle", image: "gbcomets2r.webp" },
+  { id: "gbcomets2rc", name: "Comet S2RC", membership: "gold", type: "Civilian Vehicle", image: "gbcomets2rc.webp" },
+  { id: "gbcyphergts", name: "Cypher GTS", membership: "silver", type: "Civilian Vehicle", image: "gbcyphergts.webp" },
+  { id: "gbdelivere", name: "Delivere", membership: "free", type: "Work Vehicle", image: "gbdelivere.webp" },
+  { id: "gbdominatorgsx", name: "Dominator GSX", membership: "gold", type: "Civilian Vehicle", image: "gbdominatorgsx.webp" },
+  { id: "gbechelon", name: "Echelon", membership: "silver", type: "Civilian Vehicle", image: "gbechelon.webp" },
+  { id: "gbechelons", name: "Echelon S", membership: "silver", type: "Civilian Vehicle", image: "gbechelons.webp" },
+  { id: "gbelegyrh2", name: "Elegy RH2", membership: "silver", type: "Civilian Vehicle", image: "gbelegyrh2.webp" },
+  { id: "gbemerussb1", name: "Emerus SB1", membership: "gold", type: "Civilian Vehicle", image: "gbemerussb1.webp" },
+  { id: "gbemsbisonstx", name: "EMS Bison STX", membership: "free", type: "EMS Vehicle", image: "gbemsbisonstx.webp" },
+  { id: "gbemsesperta", name: "EMS Esperta", membership: "free", type: "EMS Vehicle", image: "gbemsesperta.webp" },
+  { id: "gbemssteed", name: "EMS Steed", membership: "free", type: "EMS Vehicle", image: "gbemssteed.webp" },
+  { id: "gbeon", name: "Eon", membership: "gold", type: "Civilian Vehicle", image: "gbeon.webp" },
+  { id: "gberotiq", name: "Erotiq", membership: "silver", type: "Civilian Vehicle", image: "gberotiq.webp" },
+  { id: "gbesperta", name: "Esperta", membership: "free", type: "Free Vehicle", image: "gbesperta.webp" },
+  { id: "gbesurfer", name: "eSurfer", membership: "silver", type: "Civilian Vehicle", image: "gbesurfer.webp" },
+  { id: "gbfirevoyager", name: "Fire Voyager", membership: "free", type: "Fire Vehicle", image: "gbfirevoyager.webp" },
+  { id: "gbgresleystx", name: "Gresley STX", membership: "gold", type: "Civilian Vehicle", image: "gbgresleystx.webp" },
+  { id: "gbhades", name: "Hades", membership: "silver", type: "Civilian Vehicle", image: "gbhades.webp" },
+  { id: "gbharmann", name: "Harmann", membership: "gold", type: "Civilian Vehicle", image: "gbharmann.webp" },
+  { id: "gbhedra", name: "Hedra", membership: "silver", type: "Civilian Vehicle", image: "gbhedra.webp" },
+  { id: "gbhedrakombi", name: "Hedra Kombi", membership: "silver", type: "Civilian Vehicle", image: "gbhedrakombi.webp" },
+  { id: "gbhurricane", name: "Hurricane", membership: "silver", type: "Civilian Vehicle", image: "gbhurricane.webp" },
+  { id: "gbimpaler", name: "Impaler", membership: "silver", type: "Civilian Vehicle", image: "gbimpaler.webp" },
+  { id: "gbimpalerdlx", name: "Impaler DLX", membership: "gold", type: "Civilian Vehicle", image: "gbimpalerdlx.webp" },
+  { id: "gbirisz", name: "Iris Z", membership: "gold", type: "Civilian Vehicle", image: "gbirisz.webp" },
+  { id: "gbissimetro", name: "Issi Metro", membership: "gold", type: "Civilian Vehicle", image: "gbissimetro.webp" },
+  { id: "gbkomodagt", name: "Komoda GT", membership: "silver", type: "Civilian Vehicle", image: "gbkomodagt.webp" },
+  { id: "gblod4", name: "LOD4", membership: "gold", type: "Civilian Vehicle", image: "gblod4.webp" },
+  { id: "gbmilano", name: "Milano", membership: "gold", type: "Civilian Vehicle", image: "gbmilano.webp" },
+  { id: "gbmochi", name: "Mochi", membership: "silver", type: "Civilian Vehicle", image: "gbmochi.webp" },
+  { id: "gbmogulrs", name: "Mogul RS", membership: "silver", type: "Civilian Vehicle", image: "gbmogulrs.webp" },
+  { id: "gbmojave", name: "Mojave", membership: "gold", type: "Civilian Vehicle", image: "gbmojave.webp" },
+  { id: "gbmugello", name: "Mugello", membership: "silver", type: "Civilian Vehicle", image: "gbmugello.webp" },
+  { id: "gbneonct", name: "Neon CT", membership: "gold", type: "Civilian Vehicle", image: "gbneonct.webp" },
+  { id: "gbnexusrr", name: "Nexus RR", membership: "gold", type: "Civilian Vehicle", image: "gbnexusrr.webp" },
+  { id: "gbpoladmiral", name: "Police Admiral", membership: "silver", type: "Police Vehicle", image: "gbpoladmiral.webp" },
+  { id: "gbpolargento7f", name: "Police Argento 7F", membership: "gold", type: "Police Vehicle", image: "gbpolargento7f.webp" },
+  { id: "gbpolbanshees", name: "Police Banshee S", membership: "gold", type: "Police Vehicle", image: "gbpolbanshees.webp" },
+  { id: "gbpolbisonhf", name: "Police Bison HF", membership: "silver", type: "Police Vehicle", image: "gbpolbisonhf.webp" },
+  { id: "gbpolbisonstx", name: "Police Bison STX", membership: "free", type: "Police Vehicle", image: "gbpolbisonstx.webp" },
+  { id: "gbpolclubxr", name: "Police Club XR", membership: "silver", type: "Police Vehicle", image: "gbpolclubxr.webp" },
+  { id: "gbpolcometcl", name: "Police Comet Classic", membership: "silver", type: "Police Vehicle", image: "gbpolcometcl.webp" },
+  { id: "gbpolcomets2r", name: "Police Comet S2R", membership: "gold", type: "Police Vehicle", image: "gbpolcomets2r.webp" },
+  { id: "gbpoldomgsx", name: "Police Dominator GSX", membership: "gold", type: "Police Vehicle", image: "gbpoldomgsx.webp" },
+  { id: "gbpolechelon", name: "Police Echelon", membership: "silver", type: "Police Vehicle", image: "gbpolechelon.webp" },
+  { id: "gbpoleon", name: "Police Eon", membership: "gold", type: "Police Vehicle", image: "gbpoleon.webp" },
+  { id: "gbpolesperta", name: "Police Esperta", membership: "free", type: "Police Vehicle", image: "gbpolesperta.webp" },
+  { id: "gbpolgresley", name: "Police Gresley", membership: "gold", type: "Police Vehicle", image: "gbpolgresley.webp" },
+  { id: "gbpolhedra", name: "Police Hedra", membership: "silver", type: "Police Vehicle", image: "gbpolhedra.webp" },
+  { id: "gbpolimpaler", name: "Police Impaler", membership: "silver", type: "Police Vehicle", image: "gbpolimpaler.webp" },
+  { id: "gbpolmojave", name: "Police Mojave", membership: "gold", type: "Police Vehicle", image: "gbpolmojave.webp" },
+  { id: "gbpolprospero", name: "Police Prospero", membership: "gold", type: "Police Vehicle", image: "gbpolprospero.webp" },
+  { id: "gbpolscoutgsx", name: "Police Scout GSX", membership: "silver", type: "Police Vehicle", image: "gbpolscoutgsx.webp" },
+  { id: "gbpolsentinelgts", name: "Police Sentinel GTS", membership: "gold", type: "Police Vehicle", image: "gbpolsentinelgts.webp" },
+  { id: "gbpolsolace", name: "Police Solace", membership: "silver", type: "Police Vehicle", image: "gbpolsolace.webp" },
+  { id: "gbpolstanier", name: "Police Stanier", membership: "silver", type: "Police Vehicle", image: "gbpolstanier.webp" },
+  { id: "gbpolstarlight", name: "Police Starlight", membership: "silver", type: "Police Vehicle", image: "gbpolstarlight.webp" },
+  { id: "gbpolsteedvan", name: "Police Steed Van", membership: "silver", type: "Police Vehicle", image: "gbpolsteedvan.webp" },
+  { id: "gbpolsultanrsx", name: "Police Sultan RSX", membership: "gold", type: "Police Vehicle", image: "gbpolsultanrsx.webp" },
+  { id: "gbpoltahomagt", name: "Police Tahoma GT", membership: "silver", type: "Police Vehicle", image: "gbpoltahomagt.webp" },
+  { id: "gbpolterrorizer", name: "Police Terrorizer", membership: "gold", type: "Police Vehicle", image: "gbpolterrorizer.webp" },
+  { id: "gbpoltr3s", name: "Police TR3S", membership: "gold", type: "Police Vehicle", image: "gbpoltr3s.webp" },
+  { id: "gbpolturismogt", name: "Police Turismo GT", membership: "gold", type: "Police Vehicle", image: "gbpolturismogt.webp" },
+  { id: "gbprospero", name: "Prospero", membership: "gold", type: "Civilian Vehicle", image: "gbprospero.webp" },
+  { id: "gbraidillon", name: "Raidillon", membership: "gold", type: "Civilian Vehicle", image: "gbraidillon.webp" },
+  { id: "gbretinueloz", name: "Retinue LOZ", membership: "silver", type: "Civilian Vehicle", image: "gbretinueloz.webp" },
+  { id: "gbromulus", name: "Romulus", membership: "gold", type: "Civilian Vehicle", image: "gbromulus.webp" },
+  { id: "gbronin", name: "Ronin", membership: "gold", type: "Civilian Vehicle", image: "gbronin.webp" },
+  { id: "gbrumina", name: "Rumina", membership: "silver", type: "Civilian Vehicle", image: "gbrumina.webp" },
+  { id: "gbsapphire", name: "Sapphire", membership: "gold", type: "Civilian Vehicle", image: "gbsapphire.webp" },
+  { id: "gbschlagenr", name: "Schlagen R", membership: "gold", type: "Civilian Vehicle", image: "gbschlagenr.webp" },
+  { id: "gbschlagensp", name: "Schlagen SP", membership: "gold", type: "Civilian Vehicle", image: "gbschlagensp.webp" },
+  { id: "gbschrauber", name: "Schrauber", membership: "silver", type: "Civilian Vehicle", image: "gbschrauber.webp" },
+  { id: "gbschwartzers", name: "Schwartzer S", membership: "silver", type: "Civilian Vehicle", image: "gbschwartzers.webp" },
+  { id: "gbscoutgsx", name: "Scout GSX", membership: "silver", type: "Civilian Vehicle", image: "gbscoutgsx.webp" },
+  { id: "gbsentinelgts", name: "Sentinel GTS", membership: "gold", type: "Civilian Vehicle", image: "gbsentinelgts.webp" },
+  { id: "gbsidewinder", name: "Sidewinder", membership: "gold", type: "Civilian Vehicle", image: "gbsidewinder.webp" },
+  { id: "gbsolace", name: "Solace", membership: "silver", type: "Civilian Vehicle", image: "gbsolace.webp" },
+  { id: "gbsolacev", name: "Solace V", membership: "silver", type: "Civilian Vehicle", image: "gbsolacev.webp" },
+  { id: "gbstanierle", name: "Stanier LE", membership: "silver", type: "Civilian Vehicle", image: "gbstanierle.webp" },
+  { id: "gbstarlight", name: "Starlight", membership: "silver", type: "Civilian Vehicle", image: "gbstarlight.webp" },
+  { id: "gbsteedcrew", name: "Steed Crew", membership: "silver", type: "Work Vehicle", image: "gbsteedcrew.webp" },
+  { id: "gbsteedvan", name: "Steed Van", membership: "silver", type: "Work Vehicle", image: "gbsteedvan.webp" },
+  { id: "gbsultanrsx", name: "Sultan RSX", membership: "gold", type: "Civilian Vehicle", image: "gbsultanrsx.webp" },
+  { id: "gbtahomagt", name: "Tahoma GT", membership: "silver", type: "Civilian Vehicle", image: "gbtahomagt.webp" },
+  { id: "gbtaxiargento7f", name: "Taxi Argento 7F", membership: "gold", type: "Work Vehicle", image: "gbtaxiargento7f.webp" },
+  { id: "gbtaxieon", name: "Taxi Eon", membership: "gold", type: "Work Vehicle", image: "gbtaxieon.webp" },
+  { id: "gbtaxistanierle", name: "Taxi Stanier LE", membership: "silver", type: "Work Vehicle", image: "gbtaxistanierle.webp" },
+  { id: "gbtaxistarlight", name: "Taxi Starlight", membership: "silver", type: "Work Vehicle", image: "gbtaxistarlight.webp" },
+  { id: "gbtempestafs", name: "Tempesta FS", membership: "gold", type: "Civilian Vehicle", image: "gbtempestafs.webp" },
+  { id: "gbtenfr", name: "TenF R", membership: "silver", type: "Civilian Vehicle", image: "gbtenfr.webp" },
+  { id: "gbterrorizer", name: "Terrorizer", membership: "gold", type: "Armored Truck", image: "gbterrorizer.webp" },
+  { id: "gbtr3s", name: "TR3S", membership: "gold", type: "Civilian Vehicle", image: "gbtr3s.webp" },
+  { id: "gbturismogt", name: "Turismo GT", membership: "gold", type: "Civilian Vehicle", image: "gbturismogt.webp" },
+  { id: "gbturismogts", name: "Turismo GTS", membership: "gold", type: "Civilian Vehicle", image: "gbturismogts.webp" },
+  { id: "gbvigerorat", name: "Vigero RAT", membership: "gold", type: "Civilian Vehicle", image: "gbvigerorat.webp" },
+  { id: "gbvivant", name: "Vivant", membership: "silver", type: "Civilian Vehicle", image: "gbvivant.webp" },
+  { id: "gbvivantgrb", name: "Vivant GRB", membership: "silver", type: "Civilian Vehicle", image: "gbvivantgrb.webp" },
+  { id: "gbvoyager", name: "Voyager", membership: "silver", type: "Work Vehicle", image: "gbvoyager.webp" },
+  { id: "gbvoyager2", name: "Voyager 2", membership: "silver", type: "Work Vehicle", image: "gbvoyager2.webp" },
+  { id: "gbvoyagerb", name: "Voyager B", membership: "silver", type: "Work Vehicle", image: "gbvoyagerb.webp" },
+  { id: "gbvoyagerb2", name: "Voyager B2", membership: "silver", type: "Work Vehicle", image: "gbvoyagerb2.webp" },
+  { id: "gbvoyagerg", name: "Voyager G", membership: "silver", type: "Work Vehicle", image: "gbvoyagerg.webp" },
+  { id: "gbvoyagerh", name: "Voyager H", membership: "silver", type: "Work Vehicle", image: "gbvoyagerh.webp" },
+  { id: "gbzeitgeist", name: "Zeitgeist", membership: "gold", type: "Civilian Vehicle", image: "gbzeitgeist.webp" }
 ];
 const vehicleShowcaseState = {
   membership: "all",
@@ -2092,16 +2204,16 @@ function renderVehicleShowcase() {
           <h2>${escapeHtml(selected.name)}</h2>
           <div class="vehicle-showcase__specGrid">
             <div>
-              <span>Model</span>
-              <strong>${escapeHtml(selected.model)}</strong>
-            </div>
-            <div>
-              <span>Type</span>
+              <span>Category</span>
               <strong>${escapeHtml(selected.type)}</strong>
             </div>
             <div>
               <span>Access</span>
               <strong>${escapeHtml(getVehicleTierLabel(selected.membership))}</strong>
+            </div>
+            <div>
+              <span>Photo</span>
+              <strong>Showcase</strong>
             </div>
           </div>
         </aside>
@@ -2124,7 +2236,7 @@ function renderVehicleShowcase() {
             </span>
             <span class="vehicle-showcase__cardCopy">
               <strong>${escapeHtml(vehicle.name)}</strong>
-              <small>${escapeHtml(vehicle.model)}</small>
+              <small>${escapeHtml(vehicle.type)}</small>
             </span>
             <span class="vehicle-showcase__cardTier">${escapeHtml(getVehicleTierLabel(vehicle.membership))}</span>
           </button>
