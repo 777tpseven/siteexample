@@ -15498,11 +15498,12 @@ html body .vehicle-showcase__cardTier{
   }
 
   html body .vehicle-showcase__spec{
-    order: 3 !important;
+    order: 4 !important;
+    margin-top: 96px !important;
   }
 
   html body .vehicle-showcase__media{
-    order: 4 !important;
+    order: 3 !important;
   }
 
   html body .vehicle-showcase__head h1{
