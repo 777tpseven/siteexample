@@ -15174,3 +15174,389 @@ html body .live-staff{
     grid-column: auto !important;
   }
 }
+
+/* 2026-06-19 vehicle showcase */
+html body .vehicle-showcase{
+  display: grid !important;
+  gap: 14px !important;
+  width: min(100%, 1340px) !important;
+  margin: 0 auto !important;
+}
+
+html body .vehicle-showcase__head{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: end !important;
+  gap: 14px !important;
+  min-height: 0 !important;
+  padding: 18px !important;
+  border: 1px solid rgba(218, 173, 141, .14) !important;
+  border-radius: 10px !important;
+  background:
+    linear-gradient(180deg, rgba(18, 15, 14, .93), rgba(8, 7, 7, .96)),
+    rgba(10, 9, 9, .95) !important;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .34) !important;
+}
+
+html body .vehicle-showcase__eyebrow{
+  margin-bottom: 7px !important;
+  color: rgba(218, 173, 141, .82) !important;
+  font-size: .72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .1em !important;
+  text-transform: uppercase !important;
+}
+
+html body .vehicle-showcase__head h1{
+  margin: 0 !important;
+  color: #fff7ef !important;
+  font-size: clamp(1.9rem, 4.2vw, 3.25rem) !important;
+  line-height: .95 !important;
+  letter-spacing: 0 !important;
+}
+
+html body .vehicle-showcase__head p{
+  max-width: 640px !important;
+  margin: 8px 0 0 !important;
+  color: rgba(224, 208, 196, .72) !important;
+  font-size: .98rem !important;
+  line-height: 1.55 !important;
+}
+
+html body .vehicle-showcase__stage{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 350px) !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+}
+
+html body .vehicle-showcase__media,
+html body .vehicle-showcase__spec,
+html body .vehicle-showcase__filters,
+html body .vehicle-showcase__card{
+  border: 1px solid rgba(218, 173, 141, .13) !important;
+  border-radius: 10px !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 247, 239, .045), transparent 32%),
+    linear-gradient(180deg, rgba(16, 13, 12, .92), rgba(7, 7, 7, .97)) !important;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .28) !important;
+}
+
+html body .vehicle-showcase__media{
+  min-width: 0 !important;
+  padding: clamp(12px, 2vw, 20px) !important;
+}
+
+html body .vehicle-showcase__imagePlate{
+  display: grid !important;
+  place-items: center !important;
+  height: clamp(220px, 24vw, 320px) !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .01)),
+    rgba(0, 0, 0, .18) !important;
+  overflow: hidden !important;
+}
+
+html body .vehicle-showcase__imagePlate img{
+  width: min(84%, 720px) !important;
+  max-height: min(88%, 270px) !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 28px 28px rgba(0, 0, 0, .46)) !important;
+}
+
+html body .vehicle-showcase__spec{
+  display: grid !important;
+  align-content: end !important;
+  gap: 12px !important;
+  min-width: 0 !important;
+  padding: 18px !important;
+}
+
+html body .vehicle-showcase__tier,
+html body .vehicle-showcase__cardTier{
+  display: inline-flex !important;
+  align-items: center !important;
+  width: max-content !important;
+  min-height: 26px !important;
+  padding: 5px 9px !important;
+  border: 1px solid rgba(218, 173, 141, .18) !important;
+  border-radius: 999px !important;
+  background: rgba(218, 173, 141, .08) !important;
+  color: rgba(255, 247, 239, .90) !important;
+  font-size: .72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
+
+html body .vehicle-showcase__tier--gold{
+  border-color: rgba(226, 180, 92, .32) !important;
+  background: rgba(226, 180, 92, .10) !important;
+  color: rgba(255, 226, 166, .96) !important;
+}
+
+html body .vehicle-showcase__tier--silver{
+  border-color: rgba(190, 200, 210, .28) !important;
+  background: rgba(190, 200, 210, .08) !important;
+  color: rgba(232, 238, 244, .94) !important;
+}
+
+html body .vehicle-showcase__spec h2{
+  margin: 0 !important;
+  color: #fff7ef !important;
+  font-size: clamp(1.8rem, 3.6vw, 3rem) !important;
+  line-height: .98 !important;
+  letter-spacing: 0 !important;
+}
+
+html body .vehicle-showcase__specGrid{
+  display: grid !important;
+  gap: 8px !important;
+}
+
+html body .vehicle-showcase__specGrid div{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  min-width: 0 !important;
+  padding: 10px 0 !important;
+  border-top: 1px solid rgba(218, 173, 141, .11) !important;
+}
+
+html body .vehicle-showcase__specGrid span{
+  color: rgba(218, 173, 141, .72) !important;
+  font-size: .72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+html body .vehicle-showcase__specGrid strong{
+  min-width: 0 !important;
+  color: rgba(255, 247, 239, .92) !important;
+  font-size: .9rem !important;
+  overflow-wrap: anywhere !important;
+  text-align: right !important;
+}
+
+html body .vehicle-showcase__filters{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding: 10px !important;
+}
+
+html body .vehicle-showcase__filter{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  min-height: 38px !important;
+  padding: 0 12px !important;
+  border: 1px solid rgba(218, 173, 141, .15) !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, .035) !important;
+  color: rgba(255, 247, 239, .84) !important;
+  font: inherit !important;
+  font-size: .82rem !important;
+  font-weight: 900 !important;
+  cursor: pointer !important;
+}
+
+html body .vehicle-showcase__filter em{
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  border-radius: 999px !important;
+  background: rgba(0, 0, 0, .28) !important;
+  color: rgba(224, 208, 196, .76) !important;
+  font-style: normal !important;
+  font-size: .72rem !important;
+}
+
+html body .vehicle-showcase__filter:hover,
+html body .vehicle-showcase__filter.is-active{
+  border-color: rgba(238, 192, 160, .30) !important;
+  background: rgba(92, 57, 45, .32) !important;
+  color: #fff7ef !important;
+}
+
+html body .vehicle-showcase__grid{
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+html body .vehicle-showcase__card{
+  display: grid !important;
+  grid-template-rows: 64px auto !important;
+  gap: 6px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 9px !important;
+  color: inherit !important;
+  font: inherit !important;
+  text-align: left !important;
+  cursor: pointer !important;
+}
+
+html body .vehicle-showcase__card:hover,
+html body .vehicle-showcase__card.is-active{
+  border-color: rgba(238, 192, 160, .30) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(238, 192, 160, .08), transparent 36%),
+    linear-gradient(180deg, rgba(32, 22, 19, .94), rgba(9, 8, 8, .98)) !important;
+}
+
+html body .vehicle-showcase__thumb{
+  display: grid !important;
+  place-items: center !important;
+  min-width: 0 !important;
+  height: 64px !important;
+  border-radius: 8px !important;
+  background: rgba(0, 0, 0, .16) !important;
+  overflow: hidden !important;
+}
+
+html body .vehicle-showcase__thumb img{
+  width: 92% !important;
+  max-height: 58px !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 16px 16px rgba(0, 0, 0, .40)) !important;
+}
+
+html body .vehicle-showcase__cardCopy{
+  display: grid !important;
+  gap: 3px !important;
+  min-width: 0 !important;
+}
+
+html body .vehicle-showcase__cardCopy strong{
+  color: #fff7ef !important;
+  font-size: .9rem !important;
+  line-height: 1.15 !important;
+  overflow-wrap: anywhere !important;
+}
+
+html body .vehicle-showcase__cardCopy small{
+  color: rgba(224, 208, 196, .64) !important;
+  font-size: .72rem !important;
+  line-height: 1.2 !important;
+  overflow-wrap: anywhere !important;
+}
+
+html body .vehicle-showcase__cardTier{
+  margin-top: 2px !important;
+  min-height: 24px !important;
+  padding: 4px 8px !important;
+  font-size: .68rem !important;
+}
+
+@media (max-width: 1080px){
+  html body .vehicle-showcase__grid{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 860px){
+  html body .vehicle-showcase__head,
+  html body .vehicle-showcase__stage{
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .vehicle-showcase__head .auth__btn{
+    justify-self: start !important;
+  }
+
+  html body .vehicle-showcase__grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 560px){
+  html body .vehicle-showcase__head{
+    order: 1 !important;
+    padding: 12px !important;
+  }
+
+  html body .vehicle-showcase__filters{
+    order: 2 !important;
+  }
+
+  html body .vehicle-showcase__stage{
+    order: 3 !important;
+    display: contents !important;
+  }
+
+  html body .vehicle-showcase__grid{
+    order: 5 !important;
+  }
+
+  html body .vehicle-showcase__spec{
+    order: 3 !important;
+  }
+
+  html body .vehicle-showcase__media{
+    order: 4 !important;
+  }
+
+  html body .vehicle-showcase__head h1{
+    font-size: clamp(1.65rem, 10vw, 2.35rem) !important;
+  }
+
+  html body .vehicle-showcase__head p{
+    font-size: .9rem !important;
+    line-height: 1.4 !important;
+  }
+
+  html body .vehicle-showcase__imagePlate{
+    height: 150px !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+  }
+
+  html body .vehicle-showcase__imagePlate img{
+    width: 88% !important;
+    max-height: 130px !important;
+  }
+
+  html body .vehicle-showcase__spec{
+    gap: 8px !important;
+    padding: 13px !important;
+  }
+
+  html body .vehicle-showcase__spec h2{
+    font-size: 1.7rem !important;
+  }
+
+  html body .vehicle-showcase__specGrid{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+
+  html body .vehicle-showcase__specGrid div{
+    display: grid !important;
+    gap: 3px !important;
+    align-content: start !important;
+    justify-content: start !important;
+    padding: 7px 0 !important;
+  }
+
+  html body .vehicle-showcase__specGrid span{
+    font-size: .62rem !important;
+  }
+
+  html body .vehicle-showcase__specGrid strong{
+    font-size: .75rem !important;
+    text-align: left !important;
+  }
+
+  html body .vehicle-showcase__grid{
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -66,12 +66,37 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260618c";
+const SITE_ASSET_VERSION = "20260619b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
+const VEHICLE_ASSET_BASE_URL = `${APP_ASSET_BASE_URL}vehicle-assets/`;
 const BRAND_LOGO_BANNER_URL = `${APP_ASSET_BASE_URL}branding/sg-cops-and-robbers-web.png?v=${SITE_ASSET_VERSION}`;
 const BRAND_LOGO_BADGE_URL = `${APP_ASSET_BASE_URL}branding/sgcnr-badge-header.png?v=${SITE_ASSET_VERSION}`;
+const VEHICLE_SHOWCASE_FILTERS = [
+  { id: "all", label: "All" },
+  { id: "free", label: "Free" },
+  { id: "silver", label: "Silver" },
+  { id: "gold", label: "Gold" }
+];
+const VEHICLE_SHOWCASE = [
+  { id: "admiral", name: "Admiral", model: "gbadmiral", membership: "free", type: "Sedan", image: "gbadmiral.webp" },
+  { id: "bison-stx", name: "Bison STX", model: "gbbisonstx", membership: "free", type: "SUV", image: "gbbisonstx.webp" },
+  { id: "box-boy", name: "Box Boy", model: "gbboxboy", membership: "free", type: "Utility", image: "gbboxboy.webp" },
+  { id: "brioso-f", name: "Brioso F", model: "gbbriosof", membership: "free", type: "Compact", image: "gbbriosof.webp" },
+  { id: "banshee-s", name: "Banshee S", model: "gbbanshees", membership: "silver", type: "Sports", image: "gbbanshees.webp" },
+  { id: "comet-classic", name: "Comet Classic", model: "gbcometcl", membership: "silver", type: "Sports", image: "gbcometcl.webp" },
+  { id: "cypher-gts", name: "Cypher GTS", model: "gbcyphergts", membership: "silver", type: "Coupe", image: "gbcyphergts.webp" },
+  { id: "dominator-gsx", name: "Dominator GSX", model: "gbdominatorgsx", membership: "silver", type: "Muscle", image: "gbdominatorgsx.webp" },
+  { id: "811-s2", name: "811 S2", model: "gb811s2", membership: "gold", type: "Super", image: "gb811s2.webp" },
+  { id: "cheetah-s", name: "Cheetah S", model: "gbcheetahs", membership: "gold", type: "Super", image: "gbcheetahs.webp" },
+  { id: "prospero", name: "Prospero", model: "gbprospero", membership: "gold", type: "Super", image: "gbprospero.webp" },
+  { id: "turismo-gt", name: "Turismo GT", model: "gbturismogt", membership: "gold", type: "Super", image: "gbturismogt.webp" }
+];
+const vehicleShowcaseState = {
+  membership: "all",
+  selectedId: VEHICLE_SHOWCASE[0]?.id || ""
+};
 const CLIENT_LOW_POWER_MODE = (() => {
   try {
     const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -1845,6 +1870,10 @@ function renderLandingHome() {
           <strong class="landing-hub__cardTitle">Rules</strong>
           <span class="landing-hub__cardText">Discord rules and in-game rule categories.</span>
         </a>
+        <a class="landing-hub__card" href="/vehicles" data-reveal>
+          <strong class="landing-hub__cardTitle">Vehicles</strong>
+          <span class="landing-hub__cardText">Vehicle showcase and membership filters.</span>
+        </a>
         <a class="landing-hub__card" href="/live" data-reveal>
           <strong class="landing-hub__cardTitle">Server status</strong>
           <span class="landing-hub__cardText">Game server and Discord bot checks.</span>
@@ -1939,6 +1968,7 @@ function renderHelp() {
     },
     { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
     { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
+    { label: "Vehicles", text: "Vehicle showcase with membership filters.", href: "/vehicles" },
     {
       label: "Jobs",
       text: "Civilian jobs, public safety jobs, and illegal jobs.",
@@ -2005,6 +2035,121 @@ function renderHelp() {
       </section>
     </div>
   `);
+}
+
+function getVehicleImageUrl(vehicle) {
+  return `${VEHICLE_ASSET_BASE_URL}${encodeURIComponent(vehicle.image)}?v=${SITE_ASSET_VERSION}`;
+}
+
+function getVehicleTierLabel(tier) {
+  const found = VEHICLE_SHOWCASE_FILTERS.find((item) => item.id === tier);
+  return found?.label || "Free";
+}
+
+function getFilteredVehicles() {
+  if (vehicleShowcaseState.membership === "all") return VEHICLE_SHOWCASE;
+  return VEHICLE_SHOWCASE.filter((vehicle) => vehicle.membership === vehicleShowcaseState.membership);
+}
+
+function getSelectedVehicle() {
+  const list = getFilteredVehicles();
+  const selected = list.find((vehicle) => vehicle.id === vehicleShowcaseState.selectedId);
+  if (selected) return selected;
+  const fallback = list[0] || VEHICLE_SHOWCASE[0];
+  vehicleShowcaseState.selectedId = fallback?.id || "";
+  return fallback;
+}
+
+function renderVehicleShowcase() {
+  const selected = getSelectedVehicle();
+  const filteredVehicles = getFilteredVehicles();
+  const countsByTier = VEHICLE_SHOWCASE_FILTERS.reduce((acc, tier) => {
+    acc[tier.id] = tier.id === "all"
+      ? VEHICLE_SHOWCASE.length
+      : VEHICLE_SHOWCASE.filter((vehicle) => vehicle.membership === tier.id).length;
+    return acc;
+  }, {});
+
+  setView(`
+    <div class="vehicle-showcase">
+      <header class="vehicle-showcase__head" aria-label="Vehicles">
+        <div>
+          <div class="vehicle-showcase__eyebrow">Vehicles</div>
+          <h1>Vehicle Showcase</h1>
+          <p>Browse display vehicles and filter them by membership tier.</p>
+        </div>
+        <a class="auth__btn" href="/help">Memberships</a>
+      </header>
+
+      <section class="vehicle-showcase__stage" aria-label="Selected vehicle">
+        <div class="vehicle-showcase__media">
+          <div class="vehicle-showcase__imagePlate">
+            <img src="${escapeHtml(getVehicleImageUrl(selected))}" alt="${escapeHtml(selected.name)}" loading="eager" decoding="async" />
+          </div>
+        </div>
+        <aside class="vehicle-showcase__spec">
+          <span class="vehicle-showcase__tier vehicle-showcase__tier--${escapeHtml(selected.membership)}">${escapeHtml(getVehicleTierLabel(selected.membership))}</span>
+          <h2>${escapeHtml(selected.name)}</h2>
+          <div class="vehicle-showcase__specGrid">
+            <div>
+              <span>Model</span>
+              <strong>${escapeHtml(selected.model)}</strong>
+            </div>
+            <div>
+              <span>Type</span>
+              <strong>${escapeHtml(selected.type)}</strong>
+            </div>
+            <div>
+              <span>Access</span>
+              <strong>${escapeHtml(getVehicleTierLabel(selected.membership))}</strong>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="vehicle-showcase__filters" aria-label="Membership filter">
+        ${VEHICLE_SHOWCASE_FILTERS.map((filter) => `
+          <button class="vehicle-showcase__filter${vehicleShowcaseState.membership === filter.id ? " is-active" : ""}" type="button" data-vehicle-tier="${escapeHtml(filter.id)}">
+            <span>${escapeHtml(filter.label)}</span>
+            <em>${countsByTier[filter.id]}</em>
+          </button>
+        `).join("")}
+      </section>
+
+      <section class="vehicle-showcase__grid" aria-label="Vehicle list">
+        ${filteredVehicles.map((vehicle) => `
+          <button class="vehicle-showcase__card${selected.id === vehicle.id ? " is-active" : ""}" type="button" data-vehicle-id="${escapeHtml(vehicle.id)}">
+            <span class="vehicle-showcase__thumb">
+              <img src="${escapeHtml(getVehicleImageUrl(vehicle))}" alt="" loading="lazy" decoding="async" />
+            </span>
+            <span class="vehicle-showcase__cardCopy">
+              <strong>${escapeHtml(vehicle.name)}</strong>
+              <small>${escapeHtml(vehicle.model)}</small>
+            </span>
+            <span class="vehicle-showcase__cardTier">${escapeHtml(getVehicleTierLabel(vehicle.membership))}</span>
+          </button>
+        `).join("")}
+      </section>
+    </div>
+  `);
+
+  bindVehicleShowcaseControls();
+}
+
+function bindVehicleShowcaseControls() {
+  document.querySelectorAll("[data-vehicle-tier]").forEach((button) => {
+    button.addEventListener("click", () => {
+      vehicleShowcaseState.membership = button.getAttribute("data-vehicle-tier") || "all";
+      renderVehicleShowcase();
+    });
+  });
+
+  document.querySelectorAll("[data-vehicle-id]").forEach((button) => {
+    button.addEventListener("click", () => {
+      vehicleShowcaseState.selectedId = button.getAttribute("data-vehicle-id") || vehicleShowcaseState.selectedId;
+      renderVehicleShowcase();
+    });
+  });
 }
 
 function setAccountFeedback(element, tone, text) {
@@ -6254,6 +6399,7 @@ function parseRoute() {
   if (parts[0] === "staff" || parts[0] === "admin") return { name: "staff" };
   if (parts[0] === "leaderboard") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "map") return { name: "map" };
+  if (parts[0] === "vehicles") return { name: "vehicles", page: parts[1] || "showcase" };
   if (parts[0] === "status") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "live") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "help") return { name: "help" };
@@ -6297,6 +6443,7 @@ function route() {
   const isStandardPage = !["home", "map"].includes(r.name);
   document.body.classList.toggle("is-landing", r.name === "home");
   document.body.classList.toggle("is-map", r.name === "map");
+  document.body.classList.toggle("is-vehicles", r.name === "vehicles");
   document.body.classList.remove("is-wiki");
   document.body.classList.toggle("is-standard", isStandardPage);
   clearTopMeta();
@@ -6322,6 +6469,10 @@ function route() {
   }
   if (r.name === "map") {
     renderMap();
+    return;
+  }
+  if (r.name === "vehicles") {
+    renderVehicleShowcase();
     return;
   }
   if (r.name === "live") {
