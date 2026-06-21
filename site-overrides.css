@@ -16179,3 +16179,70 @@ html body .membership-cars__card small{
     flex-direction: column !important;
   }
 }
+
+/* 2026-06-21 home neutral pass */
+html body .home-main{
+  gap: 12px !important;
+}
+
+html body :is(.home-main__hero, .home-main__route, .home-main__panel, .home-main__status .homefront__statusCard){
+  border-color: color-mix(in srgb, currentColor 16%, transparent) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  color: inherit !important;
+}
+
+html body .home-main__hero{
+  padding: 22px !important;
+}
+
+html body .home-main__copy{
+  gap: 12px !important;
+}
+
+html body .home-main__copy h1{
+  color: inherit !important;
+  font-size: clamp(2.8rem, 7vw, 5rem) !important;
+  line-height: 1 !important;
+}
+
+html body .home-main__copy p,
+html body .home-main__panel p,
+html body .home-main :is(.homefront__statusLabel, .homefront__statusMeta){
+  color: inherit !important;
+  opacity: .78 !important;
+}
+
+html body .home-main .homefront__statusValue,
+html body .home-main__route strong,
+html body .home-main__panel h2,
+html body .home-main__tierList strong{
+  color: inherit !important;
+}
+
+html body .home-main__route span,
+html body .home-main__eyebrow{
+  color: inherit !important;
+  opacity: .72 !important;
+  font-size: .78rem !important;
+}
+
+html body .home-main__route,
+html body .home-main__panel{
+  min-height: 0 !important;
+  padding: 13px !important;
+}
+
+html body .home-main__tierList a{
+  border-color: color-mix(in srgb, currentColor 16%, transparent) !important;
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+html body .home-main :is(.auth__btn, .auth__btn--primary){
+  background: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
