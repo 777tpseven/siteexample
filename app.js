@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260621b";
+const SITE_ASSET_VERSION = "20260621d";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -1426,7 +1426,7 @@ function renderAccountPanelContent(account, panel) {
     return `
       <div class="account-sheet__eyebrow">Edit profile</div>
       <h2 class="account-sheet__title">Profile</h2>
-      <p class="account-sheet__copy">Keep the website-side basics tidy. Your Discord identity still stays the main source of truth.</p>
+      <p class="account-sheet__copy">Update your website profile. Discord stays the main identity.</p>
       ${accountFeedbackMarkup("profile")}
       <form class="account-form account-sheet__form" data-account-sheet-form="profile" autocomplete="off">
         <div class="account-form__grid">
@@ -1876,7 +1876,7 @@ function brandAccentIconSvg(kind) {
 
 function renderLandingBranding() {
   return `
-    <div class="landing-brand" aria-label="SGCNR brand showcase">
+    <div class="landing-brand" aria-label="SGCNR brand">
       <div class="landing-brand__main">
         <div class="landing-brand__banner">
           <img
@@ -1900,8 +1900,8 @@ function renderLandingBranding() {
               <span>Robbers</span>
             </div>
           </div>
-          <div class="landing-brand__title landing-brand__title--wide">Los Santos Cops &amp; Robbers</div>
-          <div class="landing-brand__tag">One place for rules, live status, service locations, and quick access to the server.</div>
+          <div class="landing-brand__title landing-brand__title--wide">SGCNR</div>
+          <div class="landing-brand__tag">Rules, live status, map, and Discord links.</div>
         </div>
       </div>
       <div class="landing-brand__badge" aria-label="SGCNR logo">
@@ -1925,10 +1925,10 @@ function renderLanding() {
       <div class="landing-shell">
         <section class="landing-hero" aria-label="Welcome">
           <div class="landing-hero__copy">
-            <div class="landing__coming">Los Santos hub</div>
+            <div class="landing__coming">SGCNR</div>
             ${renderLandingBranding()}
-            <div class="landing-hero__title">Rules, support, and map tools in one place.</div>
-            <div class="landing-hero__text">A cleaner way for players to navigate the server, find answers fast, and jump straight into the essentials.</div>
+            <div class="landing-hero__title">Rules, support, and map.</div>
+            <div class="landing-hero__text">Use the links below before joining.</div>
             <div class="landing-hero__actions">
               <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Open Discord</a>
             </div>
@@ -1952,7 +1952,7 @@ function renderLanding() {
             <div class="landing-stats">
               <div class="landing-stat">
                 <div class="landing-stat__label">Access</div>
-                <div class="landing-stat__value">Fast</div>
+                <div class="landing-stat__value">Website</div>
               </div>
               <div class="landing-stat">
                 <div class="landing-stat__label">Support</div>
@@ -1960,7 +1960,7 @@ function renderLanding() {
               </div>
               <div class="landing-stat">
                 <div class="landing-stat__label">Server</div>
-                <div class="landing-stat__value">Live Ready</div>
+                <div class="landing-stat__value">Live</div>
               </div>
             </div>
           </div>
@@ -1975,7 +1975,7 @@ function renderLandingHome() {
     <div class="landing-hub">
       <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
         <h1 class="landing-hub__title">SGCNR</h1>
-        <p class="landing-hub__text">FiveM server links, rules, map, live status, and Discord.</p>
+        <p class="landing-hub__text">Rules, vehicles, map, live status, and Discord.</p>
         <div class="landing-hub__actions">
           <a class="auth__btn auth__btn--primary" href="/rules">Start</a>
           <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
@@ -1986,23 +1986,23 @@ function renderLandingHome() {
       <section class="landing-hub__grid" aria-label="Portal shortcuts">
         <a class="landing-hub__card" href="/rules" data-reveal>
           <strong class="landing-hub__cardTitle">Rules</strong>
-          <span class="landing-hub__cardText">Discord rules and in-game rule categories.</span>
+          <span class="landing-hub__cardText">Server and Discord rules.</span>
         </a>
         <a class="landing-hub__card" href="/vehicles" data-reveal>
           <strong class="landing-hub__cardTitle">Vehicles</strong>
-          <span class="landing-hub__cardText">Vehicle showcase and membership filters.</span>
+          <span class="landing-hub__cardText">Browse vehicles by access and type.</span>
         </a>
         <a class="landing-hub__card" href="/live" data-reveal>
           <strong class="landing-hub__cardTitle">Server status</strong>
-          <span class="landing-hub__cardText">Game server and Discord bot checks.</span>
+          <span class="landing-hub__cardText">Game server and bot status.</span>
         </a>
         <a class="landing-hub__card" href="/live#staff-list" data-reveal>
           <strong class="landing-hub__cardTitle">Meet the staff</strong>
-          <span class="landing-hub__cardText">Current staff list and roles.</span>
+          <span class="landing-hub__cardText">Staff list and roles.</span>
         </a>
         <a class="landing-hub__card" href="/changelog" data-reveal>
           <strong class="landing-hub__cardTitle">Website updates</strong>
-          <span class="landing-hub__cardText">Recent changes added to the site.</span>
+          <span class="landing-hub__cardText">Recent website changes.</span>
         </a>
       </section>
     </div>
@@ -2013,38 +2013,38 @@ function renderLandingHome() {
 
 function renderStart() {
   const quickLinks = [
-    { label: "Rules", detail: "Learn the basics before you join.", href: "/rules" },
-    { label: "Map", detail: "Keep the city layout nearby.", href: "/map" },
-    { label: "Live", detail: "Check the server and bot state fast.", href: "/live" }
+    { label: "Rules", detail: "Read the rules.", href: "/rules" },
+    { label: "Map", detail: "Open the city map.", href: "/map" },
+    { label: "Live", detail: "Check server status.", href: "/live" }
   ];
 
   setView(`
     <div>
       ${renderHeader("Start Here", [{ label: "Start" }], { showBadge: false })}
       <section class="section section--hero start-clean">
-        <div class="section__eyebrow">New player entry</div>
-        <h2>Get into the city without missing the basics.</h2>
-        <p class="doc-p">This page is your fast lane: find the server, lock in the rules, and keep the right links ready before you start moving.</p>
+        <div class="section__eyebrow">Start</div>
+        <h2>Before you join</h2>
+        <p class="doc-p">Find the server, read the rules, and keep Discord open for support.</p>
         <div class="start-clean__flow">
           <article class="start-clean__step">
             <span class="start-clean__stepIndex">01</span>
             <div class="start-clean__stepCopy">
-              <strong>Find SGCNR in FiveM</strong>
-              <span>Search for the server in FiveM and join from there.</span>
+              <strong>Find SGCNR</strong>
+              <span>Search for SGCNR in FiveM.</span>
             </div>
           </article>
           <article class="start-clean__step">
             <span class="start-clean__stepIndex">02</span>
             <div class="start-clean__stepCopy">
-              <strong>Read the rules first</strong>
-              <span>Use the Rules page before you jump into active situations in the city.</span>
+              <strong>Read the rules</strong>
+              <span>Check the Rules page before playing.</span>
             </div>
           </article>
           <article class="start-clean__step">
             <span class="start-clean__stepIndex">03</span>
             <div class="start-clean__stepCopy">
-              <strong>Use Discord for support</strong>
-              <span>Tickets, ban history, and staff help stay in Discord so everything is tracked properly.</span>
+              <strong>Use Discord</strong>
+              <span>Tickets and staff support are handled in Discord.</span>
             </div>
           </article>
         </div>
@@ -2066,32 +2066,32 @@ function renderHelp() {
   const topics = [
     {
       label: "Memberships",
-      text: "Compare the current SGCNR access tiers before buying or asking staff. Paid tiers are handled through the official store/support flow, while Free is the normal player baseline.",
+      text: "Current access tiers for SGCNR.",
       memberships: [
         {
           name: "Gold",
           meta: "Highest supporter tier",
-          detail: "Includes the strongest supporter package, Gold Discord role recognition, and the available Silver benefits where supported.",
-          href: "/help/memberships/gold"
+          detail: "Gold supporter tier with the listed Gold benefits and Discord role.",
+          href: "/help/memberships/gold/cars"
         },
         {
           name: "Silver",
           meta: "Standard supporter tier",
-          detail: "A lighter supporter package with Silver Discord role recognition and the listed Silver membership benefits.",
-          href: "/help/memberships/silver"
+          detail: "Silver supporter tier with the listed Silver benefits and Discord role.",
+          href: "/help/memberships/silver/cars"
         },
         {
           name: "Free",
           meta: "Default player access",
-          detail: "No paid membership required. Join the server, follow the rules, use Discord support, and play normally.",
-          href: "/help/memberships/free"
+          detail: "Default access. Join, read the rules, and use Discord for support.",
+          href: "/help/memberships/free/cars"
         }
       ]
     },
     { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
     { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
-    { label: "Vehicles", text: "Vehicle showcase with membership filters.", href: "/vehicles" },
-    { label: "Website updates", text: "Recent changes added to the website.", href: "/changelog" },
+    { label: "Vehicles", text: "Browse vehicles by membership tier and type.", href: "/vehicles" },
+    { label: "Website updates", text: "Recent website changes.", href: "/changelog" },
     {
       label: "Jobs",
       text: "Civilian jobs, public safety jobs, and illegal jobs.",
@@ -2179,11 +2179,11 @@ function renderChangelog() {
       ]
     },
     {
-      title: "Vehicle Showcase",
+      title: "Vehicles",
       date: "June 2026",
       changed: [
         "Added the Vehicles section.",
-        "Added car photos for the showcase.",
+        "Added vehicle photos.",
         "Added Free, Silver, and Gold membership filters.",
         "Added vehicle type filters for Civilian cars, Police, EMS, and Work / Utility."
       ],
@@ -2196,7 +2196,7 @@ function renderChangelog() {
       <header class="changelog-clean__head" aria-label="Website updates">
         <div>
           <span class="changelog-clean__eyebrow">Changelog</span>
-          <h1>Website Updates</h1>
+          <h1>Updates</h1>
         </div>
         <a class="auth__btn" href="/vehicles">Vehicles</a>
       </header>
@@ -2291,8 +2291,8 @@ function renderVehicleShowcase() {
       <header class="vehicle-showcase__head" aria-label="Vehicles">
         <div>
           <div class="vehicle-showcase__eyebrow">Vehicles</div>
-          <h1>Vehicle Showcase</h1>
-          <p>Browse display vehicles and filter them by membership tier or vehicle type.</p>
+          <h1>Vehicles</h1>
+          <p>Browse vehicles by membership tier and type.</p>
         </div>
         <a class="auth__btn" href="/help">Memberships</a>
       </header>
@@ -2316,8 +2316,8 @@ function renderVehicleShowcase() {
               <strong>${escapeHtml(getVehicleTierLabel(selected.membership))}</strong>
             </div>
             <div>
-              <span>Photo</span>
-              <strong>Showcase</strong>
+              <span>Image</span>
+              <strong>Current</strong>
             </div>
           </div>
         </aside>
@@ -5654,9 +5654,9 @@ function renderServerStatusShell() {
     <div class="status-page status-page--minimal">
       ${renderHeader("Live", [{ label: "Live" }])}
       <section class="section section--hero live-minimal__hero" data-reveal>
-        <div class="section__eyebrow">Live checks</div>
+        <div class="section__eyebrow">Status</div>
         <h2>${escapeHtml(SERVER_CONFIG.name)} status</h2>
-        <p class="doc-p">A compact live check for the two signals that matter most: the game server and the Discord bot bridge.</p>
+        <p class="doc-p">Game server and Discord bot status.</p>
         <div class="status-live__actions">
           <button class="auth__btn" id="statusRefreshBtn" type="button">Refresh</button>
         </div>
@@ -5670,8 +5670,8 @@ function renderServerStatusLoading() {
   return `
     <section class="section live-minimal__loading">
       <div class="status-empty">
-        <div class="status-empty__title">Loading live checks</div>
-        <div class="status-empty__text">Checking the server and Discord bot status feeds.</div>
+        <div class="status-empty__title">Loading status</div>
+        <div class="status-empty__text">Checking the server and Discord bot.</div>
       </div>
     </section>
   `;
@@ -6634,6 +6634,9 @@ function parseRoute() {
   if (parts[0] === "vehicles") return { name: "vehicles", page: parts[1] || "showcase" };
   if (parts[0] === "status") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "live") return { name: "live", metric: parts[1] || "kd" };
+  if (parts[0] === "help" && parts[1] === "memberships" && ["free", "silver", "gold"].includes(parts[2]) && parts[3] === "cars") {
+    return { name: "vehicles", page: "membership-cars", membership: parts[2] };
+  }
   if (parts[0] === "help") return { name: "help" };
   if (parts[0] === "changelog" || parts[0] === "updates") return { name: "changelog" };
   if (parts[0] === "info") return { name: "info" };
@@ -6705,6 +6708,9 @@ function route() {
     return;
   }
   if (r.name === "vehicles") {
+    vehicleShowcaseState.membership = r.membership || "all";
+    vehicleShowcaseState.category = "all";
+    vehicleShowcaseState.selectedId = "";
     renderVehicleShowcase();
     return;
   }
