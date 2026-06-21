@@ -16306,3 +16306,26 @@ html body .home-main .auth__btn--primary{
   color: var(--sgcnr-ink) !important;
   box-shadow: none !important;
 }
+
+/* 2026-06-21 home shell color fix */
+html body.is-landing .content,
+html body.is-landing #rules{
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body.is-landing .home-main{
+  border-color: var(--sgcnr-line) !important;
+  background: var(--sgcnr-panel-strong) !important;
+  color: var(--sgcnr-ink) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+html body.is-landing #rules::before,
+html body.is-landing #rules::after,
+html body.is-landing .home-main::before,
+html body.is-landing .home-main::after{
+  display: none !important;
+  content: none !important;
+}
