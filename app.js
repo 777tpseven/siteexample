@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260621d";
+const SITE_ASSET_VERSION = "20260621e";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -3070,7 +3070,7 @@ function renderLeaderboardEmpty(metric, snapshot) {
 
   return `
     <div class="leaderboard-empty">
-      <div class="leaderboard-empty__eyebrow">No placeholder players</div>
+      <div class="leaderboard-empty__eyebrow">Rankings offline</div>
       <h3>${escapeHtml(metric.label)} rankings are not live yet</h3>
       <p>${escapeHtml(sourceText)} Until then, this page only keeps the real online roster visible on the side.</p>
     </div>
@@ -4720,7 +4720,7 @@ function renderStoreServerStore(category) {
 }
 
 function renderStoreMerchStore() {
-  return `<div class="empty">Merch store coming soon.</div>`;
+  return `<div class="empty">Merch is not available on the website right now.</div>`;
 }
 
 function renderStoreOrderStatus() {

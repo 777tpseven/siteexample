@@ -62,8 +62,8 @@
         {
           title: "Exclusive Add-On Car Collection",
           text: "Access a curated selection of custom-modeled vehicles. These are unique, non-branded assets designed specifically for our server to ensure a high-quality, immersive experience. Access is granted via the in-game Car Dealerships places.",
-          linkLabel: "Request the current car list",
-          href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL
+          linkLabel: "View Silver car list",
+          href: "/help/memberships/silver/cars"
         },
         {
           title: "Priority Queue (Level 1)",
@@ -100,6 +100,12 @@
         {
           title: "Public Website Access",
           text: "Use the public website for rules, map information, live status, and Help pages."
+        },
+        {
+          title: "Free Vehicle List",
+          text: "View the vehicles currently listed as Free access.",
+          linkLabel: "View Free car list",
+          href: "/help/memberships/free/cars"
         }
       ]
     }
@@ -125,10 +131,11 @@
     return helpMembershipPages[parts[1]] ? parts[1] : null;
   }
 
-  function isGoldMembershipCarsPath() {
+  function getMembershipCarsIdFromPath() {
     const clean = getEnhancedRoutePath();
     const parts = clean.split("/").filter(Boolean);
-    return parts[0] === "help" && parts[1] === "memberships" && parts[2] === "gold" && parts[3] === "cars";
+    if (parts[0] !== "help" || parts[1] !== "memberships" || parts[3] !== "cars") return null;
+    return helpMembershipPages[parts[2]] ? parts[2] : null;
   }
 
   function getHelpRuleSectionIdFromPath() {
@@ -148,16 +155,17 @@
   route = function enhancedRoute() {
     document.body.classList.remove("is-help-rules", "is-membership");
 
-    if (isGoldMembershipCarsPath()) {
+    const membershipCarsId = getMembershipCarsIdFromPath();
+    if (membershipCarsId) {
       if (typeof clearServerStatusPageState === "function") clearServerStatusPageState();
       if (typeof destroyCustomMap === "function") destroyCustomMap();
       if (typeof updateDockActive === "function") updateDockActive("help");
       if (typeof setSearchVisible === "function") setSearchVisible(false);
       if (typeof clearTopMeta === "function") clearTopMeta();
 
-      document.body.classList.remove("is-landing", "is-map", "is-wiki");
-      document.body.classList.add("is-standard", "is-membership");
-      renderGoldMembershipCarsPage();
+      document.body.classList.remove("is-landing", "is-map", "is-wiki", "is-vehicles");
+      document.body.classList.add("is-standard", "is-membership", "is-membership-cars");
+      renderMembershipCarsPage(membershipCarsId);
       window.requestAnimationFrame(initEditorialMotion);
       return;
     }
@@ -198,31 +206,73 @@
   };
 
   function renderLandingHubHomeMarkup() {
+    const vehicleCounts = typeof VEHICLE_SHOWCASE !== "undefined"
+      ? ["free", "silver", "gold"].reduce((acc, tier) => {
+          acc[tier] = VEHICLE_SHOWCASE.filter((vehicle) => vehicle.membership === tier).length;
+          return acc;
+        }, {})
+      : { free: 0, silver: 0, gold: 0 };
+
     return `
-      <div class="landing-hub">
-        <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
-          <h1 class="landing-hub__title">SGCNR</h1>
-          <p class="landing-hub__text">FiveM server links, rules, map, live status, and Discord.</p>
-          <div class="landing-hub__actions">
-            <a class="auth__btn auth__btn--primary" href="/rules">Start</a>
-            <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+      <div class="home-main">
+        <section class="home-main__hero" aria-label="Welcome" data-reveal>
+          <div class="home-main__copy">
+            <h1>SGCNR</h1>
+            <p>Join from FiveM, read the rules, check the live status, and use Discord for support.</p>
+            <div class="home-main__actions">
+              <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
+              <a class="auth__btn" href="/vehicles">Vehicles</a>
+              <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+            </div>
           </div>
-          <p class="landing-hub__support">Help can be found in the <a href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+          <div class="home-main__status" id="homefrontStatusGrid">
+            ${renderHomefrontStatusCards(null)}
+          </div>
         </section>
 
-        <section class="landing-hub__grid" aria-label="Portal shortcuts">
-          <a class="landing-hub__card" href="/rules" data-reveal>
-            <strong class="landing-hub__cardTitle">Read before joining</strong>
-            <span class="landing-hub__cardText">Discord rules are posted. Ingame rules will be added when ready.</span>
+        <section class="home-main__routes" aria-label="Main links">
+          <a class="home-main__route" href="/rules" data-reveal>
+            <span>Rules</span>
+            <strong>Discord and in-game rule sections.</strong>
           </a>
-          <a class="landing-hub__card" href="/map" data-reveal>
-            <strong class="landing-hub__cardTitle">City services</strong>
-            <span class="landing-hub__cardText">Police, hospital, fire, car wash, and other map spots.</span>
+          <a class="home-main__route" href="/map" data-reveal>
+            <span>Map</span>
+            <strong>Police, EMS, fire, car wash, and contact points.</strong>
           </a>
-          <a class="landing-hub__card" href="/live" data-reveal>
-            <strong class="landing-hub__cardTitle">Server status</strong>
-            <span class="landing-hub__cardText">Game server and Discord bot checks live here.</span>
+          <a class="home-main__route" href="/live" data-reveal>
+            <span>Live</span>
+            <strong>Server status, bot status, and staff list.</strong>
           </a>
+          <a class="home-main__route" href="/help" data-reveal>
+            <span>Help</span>
+            <strong>Memberships, events, rules, and jobs.</strong>
+          </a>
+        </section>
+
+        <section class="home-main__split" aria-label="Useful links">
+          <article class="home-main__panel home-main__panel--vehicles" data-reveal>
+            <div>
+              <span class="home-main__eyebrow">Vehicles</span>
+              <h2>Cars by membership</h2>
+            </div>
+            <div class="home-main__tierList">
+              <a href="/help/memberships/free/cars"><span>Free</span><strong>${escapeHtml(String(vehicleCounts.free || 0))}</strong></a>
+              <a href="/help/memberships/silver/cars"><span>Silver</span><strong>${escapeHtml(String(vehicleCounts.silver || 0))}</strong></a>
+              <a href="/help/memberships/gold/cars"><span>Gold</span><strong>${escapeHtml(String(vehicleCounts.gold || 0))}</strong></a>
+            </div>
+          </article>
+
+          <article class="home-main__panel" data-reveal>
+            <div>
+              <span class="home-main__eyebrow">Support</span>
+              <h2>Need help?</h2>
+              <p>Open Discord for tickets, membership questions, reports, and support.</p>
+            </div>
+            <div class="home-main__actions home-main__actions--panel">
+              <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
+              <a class="auth__btn" href="/live#staff-list">Staff list</a>
+            </div>
+          </article>
         </section>
       </div>
     `;
@@ -302,35 +352,37 @@
 
   renderLandingHome = function renderLandingHomeRebuilt() {
     setView(renderLandingHubHomeMarkup());
+    hydrateHomefrontStatus();
   };
 
   renderLandingHome = function renderLandingHomeFinalPass() {
     setView(renderLandingHubHomeMarkup());
+    hydrateHomefrontStatus();
   };
 
   renderHelp = function renderHelpCleanSlate() {
     const topics = [
       {
         label: "Memberships",
-        text: "Compare the current SGCNR access tiers before buying or asking staff. Paid tiers are handled through the official store/support flow, while Free is the normal player baseline.",
+        text: "Vehicle access lists for Free, Silver, and Gold.",
         memberships: [
           {
             name: "Gold",
             meta: "Highest supporter tier",
-            detail: "Includes the strongest supporter package, Gold Discord role recognition, and the available Silver benefits where supported.",
-            href: "/help/memberships/gold"
+            detail: "Gold vehicle list.",
+            href: "/help/memberships/gold/cars"
           },
           {
             name: "Silver",
             meta: "Standard supporter tier",
-            detail: "A lighter supporter package with Silver Discord role recognition and the listed Silver membership benefits.",
-            href: "/help/memberships/silver"
+            detail: "Silver vehicle list.",
+            href: "/help/memberships/silver/cars"
           },
           {
             name: "Free",
             meta: "Default player access",
-            detail: "No paid membership required. Join the server, follow the rules, use Discord support, and play normally.",
-            href: "/help/memberships/free"
+            detail: "Free vehicle list.",
+            href: "/help/memberships/free/cars"
           }
         ]
       },
@@ -428,39 +480,78 @@
     `);
   }
 
-  function renderGoldMembershipCarsPage() {
+  function getMembershipVehicleGroups(packageId) {
+    if (typeof VEHICLE_SHOWCASE === "undefined") return [];
+    const labels = ["Civilian Vehicle", "Free Vehicle", "Police Vehicle", "EMS Vehicle", "Work Vehicle", "Fire Vehicle", "Armored Truck"];
+    const vehicles = VEHICLE_SHOWCASE.filter((vehicle) => vehicle.membership === packageId);
+    return labels
+      .map((label) => ({
+        label,
+        vehicles: vehicles.filter((vehicle) => vehicle.type === label)
+      }))
+      .filter((group) => group.vehicles.length);
+  }
+
+  function getMembershipCarTitle(packageId) {
+    if (packageId === "gold") return "Gold cars";
+    if (packageId === "silver") return "Silver cars";
+    return "Free cars";
+  }
+
+  function renderMembershipCarsPage(packageId) {
+    const membership = helpMembershipPages[packageId];
+    const groups = getMembershipVehicleGroups(packageId);
+    const total = groups.reduce((sum, group) => sum + group.vehicles.length, 0);
+    const title = getMembershipCarTitle(packageId);
+
     setView(`
-      <div class="neo-help neo-membership">
-        ${renderHeader("Gold Membership Cars", [
+      <div class="neo-help neo-membership membership-cars">
+        ${renderHeader(title, [
           { label: "Help", href: "/help" },
-          { label: "Gold Executive", href: "/help/memberships/gold" },
+          { label: membership?.title || title, href: `/help/memberships/${escapeHtml(packageId)}` },
           { label: "Cars" }
         ], { showBadge: false })}
 
-        <section class="section neo-membership__hero" data-reveal>
+        <section class="section neo-membership__hero membership-cars__hero" data-reveal>
           <div>
-            <span class="neo-kicker">Gold Executive collection</span>
-            <h2>Gold car list</h2>
-            <p>The Gold Executive membership car catalogue is prepared here. Add the finalized vehicle list when staff confirms the public names and availability.</p>
+            <span class="neo-kicker">${escapeHtml(membership?.eyebrow || "Membership vehicles")}</span>
+            <h2>${escapeHtml(title)}</h2>
+            <p>${escapeHtml(total ? `${total} vehicles are listed for this membership tier.` : "No vehicles are listed for this membership tier right now.")}</p>
           </div>
-          <a class="auth__btn auth__btn--primary" href="/help/memberships/gold">Back to Gold</a>
+          <a class="auth__btn auth__btn--primary" href="/vehicles">Open full vehicle list</a>
         </section>
 
-        <section class="neo-membership__layout" aria-label="Gold membership car list">
-          <div class="neo-membership__benefits">
-            <article class="neo-membership__benefit" data-reveal>
-              <span class="neo-membership__benefitNumber">01</span>
-              <div>
-                <h3>Vehicle list coming soon</h3>
-                <p>This page is ready for the complete Gold Executive add-on car collection. Once the final list is approved, each vehicle can be added here as a clean catalogue.</p>
+        <section class="membership-cars__tabs" aria-label="Membership car links" data-reveal>
+          <a class="${packageId === "free" ? "is-active" : ""}" href="/help/memberships/free/cars">Free</a>
+          <a class="${packageId === "silver" ? "is-active" : ""}" href="/help/memberships/silver/cars">Silver</a>
+          <a class="${packageId === "gold" ? "is-active" : ""}" href="/help/memberships/gold/cars">Gold</a>
+        </section>
+
+        <section class="membership-cars__groups" aria-label="${escapeHtml(title)} list">
+          ${groups.map((group) => `
+            <article class="membership-cars__group" data-reveal>
+              <div class="membership-cars__groupHead">
+                <h3>${escapeHtml(group.label.replace(" Vehicle", "").replace("Free", "Free cars"))}</h3>
+                <span>${escapeHtml(String(group.vehicles.length))}</span>
+              </div>
+              <div class="membership-cars__grid">
+                ${group.vehicles.map((vehicle) => `
+                  <a class="membership-cars__card" href="/vehicles" data-vehicle-link="${escapeHtml(vehicle.id)}">
+                    <span class="membership-cars__image">
+                      <img src="${escapeHtml(getVehicleImageUrl(vehicle))}" alt="${escapeHtml(vehicle.name)}" loading="lazy" decoding="async" />
+                    </span>
+                    <strong>${escapeHtml(vehicle.name)}</strong>
+                    <small>${escapeHtml(vehicle.type)}</small>
+                  </a>
+                `).join("")}
               </div>
             </article>
-          </div>
-          <aside class="neo-membership__aside" data-reveal>
-            <span class="neo-kicker">Current route</span>
-            <p>Public URL: sgcnr.net/help/memberships/gold/cars</p>
-            <a class="neo-help__link" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Ask in Discord</a>
-          </aside>
+          `).join("") || `
+            <article class="membership-cars__empty" data-reveal>
+              <h3>No cars listed</h3>
+              <p>This tier has no public vehicle entries on the website right now.</p>
+            </article>
+          `}
         </section>
       </div>
     `);
@@ -483,7 +574,7 @@
 
     const descriptions = {
       "discord-rules": "Community conduct, Discord channels, tickets, appeals, and punishments.",
-      "ingame-rules": "Server rules will be published here when they are ready."
+      "ingame-rules": "Use Discord for current in-game rule questions."
     };
 
     const cards = sections.map((section, index) => `
@@ -583,7 +674,7 @@
       <div class="rules-document">
         ${title}
         <section class="section rules-document__section">
-          ${body || `<div class="empty">Comming soon</div>`}
+          ${body || `<div class="empty">No rule text is published for this item.</div>`}
         </section>
         ${renderRulesDisclaimer()}
       </div>

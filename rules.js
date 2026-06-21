@@ -73,8 +73,8 @@ window.RULES_DATA = {
       rules: [
         {
           id: "1",
-          title: "Comming soon",
-          body: "Comming soon"
+          title: "In-game rules",
+          body: "Use Discord for current in-game rule questions until this section is published on the website."
         }
       ]
     }
