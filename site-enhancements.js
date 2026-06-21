@@ -221,7 +221,8 @@
             <p>Join from FiveM, read the rules, check the live status, and use Discord for support.</p>
             <div class="home-main__actions">
               <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
-              <a class="auth__btn" href="/vehicles">Vehicles</a>
+              <a class="auth__btn" href="/live">Live</a>
+              <a class="auth__btn" href="/help">Help</a>
               <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
             </div>
           </div>
@@ -235,17 +236,13 @@
             <span>Rules</span>
             <strong>Discord and in-game rule sections.</strong>
           </a>
-          <a class="home-main__route" href="/map" data-reveal>
-            <span>Map</span>
-            <strong>Police, EMS, fire, car wash, and contact points.</strong>
-          </a>
           <a class="home-main__route" href="/live" data-reveal>
             <span>Live</span>
             <strong>Server status, bot status, and staff list.</strong>
           </a>
           <a class="home-main__route" href="/help" data-reveal>
-            <span>Help</span>
-            <strong>Memberships, events, rules, and jobs.</strong>
+            <span>General Help</span>
+            <strong>Memberships, events, jobs, and support links.</strong>
           </a>
         </section>
 
@@ -256,20 +253,21 @@
               <h2>Cars by membership</h2>
             </div>
             <div class="home-main__tierList">
-              <a href="/help/memberships/free/cars"><span>Free</span><strong>${escapeHtml(String(vehicleCounts.free || 0))}</strong></a>
-              <a href="/help/memberships/silver/cars"><span>Silver</span><strong>${escapeHtml(String(vehicleCounts.silver || 0))}</strong></a>
-              <a href="/help/memberships/gold/cars"><span>Gold</span><strong>${escapeHtml(String(vehicleCounts.gold || 0))}</strong></a>
+              <a href="/help/memberships/gold/cars"><span>Gold Vehicles</span><strong>${escapeHtml(String(vehicleCounts.gold || 0))}</strong></a>
+              <a href="/help/memberships/silver/cars"><span>Silver Vehicles</span><strong>${escapeHtml(String(vehicleCounts.silver || 0))}</strong></a>
+              <a href="/help/memberships/free/cars"><span>Free Vehicles</span><strong>${escapeHtml(String(vehicleCounts.free || 0))}</strong></a>
             </div>
           </article>
 
           <article class="home-main__panel" data-reveal>
             <div>
-              <span class="home-main__eyebrow">Support</span>
-              <h2>Need help?</h2>
-              <p>Open Discord for tickets, membership questions, reports, and support.</p>
+              <span class="home-main__eyebrow">General Help</span>
+              <h2>Support and info</h2>
+              <p>Use Help for memberships, server events, jobs, rules, and Discord support.</p>
             </div>
             <div class="home-main__actions home-main__actions--panel">
-              <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
+              <a class="auth__btn auth__btn--primary" href="/help">Open Help</a>
+              <a class="auth__btn" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
               <a class="auth__btn" href="/live#staff-list">Staff list</a>
             </div>
           </article>

@@ -15959,9 +15959,24 @@ html body .home-main__status .homefront__statusCard{
   background: rgba(8, 7, 6, .62) !important;
 }
 
+html body .home-main :is(.homefront__statusCard, .homefront__statusCard--online, .homefront__statusCard--offline, .homefront__statusCard--pending, .homefront__statusCard--discord){
+  border-color: rgba(218, 173, 141, .14) !important;
+  background: rgba(8, 7, 6, .62) !important;
+  color: #fff8ef !important;
+  box-shadow: none !important;
+}
+
+html body .home-main :is(.homefront__statusLabel, .homefront__statusMeta){
+  color: rgba(224, 208, 196, .70) !important;
+}
+
+html body .home-main .homefront__statusValue{
+  color: #fff8ef !important;
+}
+
 html body .home-main__routes{
   display: grid !important;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 10px !important;
 }
 
