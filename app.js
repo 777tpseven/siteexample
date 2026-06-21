@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260621a";
+const SITE_ASSET_VERSION = "20260621b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -95,7 +95,6 @@ const VEHICLE_SHOWCASE = [
   { id: "gbargento7fs", name: "Argento 7FS", membership: "gold", type: "Civilian Vehicle", image: "gbargento7fs.webp" },
   { id: "gbbanshees", name: "Banshee S", membership: "gold", type: "Civilian Vehicle", image: "gbbanshees.webp" },
   { id: "gbbisonhf", name: "Bison HF", membership: "silver", type: "Civilian Vehicle", image: "gbbisonhf.webp" },
-  { id: "gbbisonstx", name: "Bison STX", membership: "free", type: "Free Vehicle", image: "gbbisonstx.webp" },
   { id: "gbboxboy", name: "Box Boy", membership: "free", type: "Work Vehicle", image: "gbboxboy.webp" },
   { id: "gbboxboyft", name: "Box Boy FT", membership: "free", type: "Work Vehicle", image: "gbboxboyft.webp" },
   { id: "gbbriosof", name: "Brioso F", membership: "silver", type: "Civilian Vehicle", image: "gbbriosof.webp" },
@@ -197,7 +196,6 @@ const VEHICLE_SHOWCASE = [
   { id: "gbtaxistarlight", name: "Taxi Starlight", membership: "silver", type: "Work Vehicle", image: "gbtaxistarlight.webp" },
   { id: "gbtempestafs", name: "Tempesta FS", membership: "gold", type: "Civilian Vehicle", image: "gbtempestafs.webp" },
   { id: "gbtenfr", name: "TenF R", membership: "silver", type: "Civilian Vehicle", image: "gbtenfr.webp" },
-  { id: "gbterrorizer", name: "Terrorizer", membership: "gold", type: "Armored Truck", image: "gbterrorizer.webp" },
   { id: "gbtr3s", name: "TR3S", membership: "gold", type: "Civilian Vehicle", image: "gbtr3s.webp" },
   { id: "gbturismogt", name: "Turismo GT", membership: "gold", type: "Civilian Vehicle", image: "gbturismogt.webp" },
   { id: "gbturismogts", name: "Turismo GTS", membership: "gold", type: "Civilian Vehicle", image: "gbturismogts.webp" },
