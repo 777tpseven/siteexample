@@ -17,9 +17,9 @@
   const helpMembershipPages = {
     gold: {
       title: "Gold Executive Membership",
-      eyebrow: "Most prestigious tier",
-      summary: "Elevate your experience with the most prestigious SGCNR supporter tier. Gold Executive includes every Silver benefit plus exclusive priority, identity, support, testing, vehicle, and wardrobe perks.",
-      note: "Gold Executive includes all Silver Membership perks automatically. Standard in-game fees, taxes, and normal gameplay requirements still apply where relevant.",
+      eyebrow: "Gold Executive Membership Details",
+      summary: "Gold Executive is the top supporter tier. It includes every Silver benefit, plus higher priority, extra vehicle access, faster admin support, testing access, and the expanded Gold wardrobe.",
+      note: "Gold Executive includes all Silver Membership perks automatically. Standard in-game fees, taxes, and normal gameplay requirements still apply.",
       benefits: [
         {
           title: "VIP Priority (Level 2)",
@@ -27,21 +27,21 @@
         },
         {
           title: "Gold Executive Badge & Custom Identity",
-          text: "Command respect with the exclusive Gold Crown icon displayed next to your name. Additionally, stand out with custom name colors in the TAB scoreboard and global chat, marking you as a top-tier supporter."
+          text: "Stand out with the exclusive Gold Crown icon next to your name. Gold also includes custom name colors in the TAB scoreboard and global chat, marking you as a top-tier supporter."
         },
         {
           title: "The Complete Add-On Car Collection",
-          text: "Unlock full access to the entire fleet of custom-modeled, non-branded vehicles. This includes everything in the Silver collection plus an additional set of high-performance luxury vehicles available only to Gold Executives.",
-          linkLabel: "View Gold car list",
+          text: "Unlock full access to the complete fleet of custom-modeled, non-branded vehicles. This includes everything in the Silver collection, plus an additional set of high-performance luxury vehicles available only to Gold Executives. For the full list of membership cars, please use the link below.",
+          linkLabel: "Click Here",
           href: "/help/memberships/gold/cars"
         },
         {
           title: "Priority Administrative Support",
-          text: "Receive faster processing for property and city service requests. Gold members move to the front of the administrative ticket queue on Discord for property management and city service inquiries. This perk provides faster processing times only and does not bypass in-game financial requirements."
+          text: "Receive faster processing for property and city service requests. Gold members move to the front of the administrative ticket queue on Discord for property management and city service inquiries. All standard in-game fees and taxes still apply. This perk only provides faster processing times and does not bypass in-game financial requirements."
         },
         {
           title: "Early Access & Development Testing",
-          text: "Be the first to see the future of the city. Gold members receive exclusive invites to the development server to test-drive new maps, scripts, and features before release. Your feedback helps shape the server, and early testing may include bugs before public release."
+          text: "Be the first to see what is coming next. Gold members receive exclusive invites to the development server to test new maps, scripts, and features before public release. There may be bugs on the early access server, but your feedback helps us fix them before release."
         },
         {
           title: "Expanded Gold Wardrobe",
@@ -55,14 +55,14 @@
     },
     silver: {
       title: "Silver Membership",
-      eyebrow: "Standard supporter tier",
-      summary: "Silver is the standard supporter package with in-game visual recognition, priority access, selected custom content, and Discord lounge access.",
-      note: "Membership perks are applied through the official support/store flow. Make sure the Discord account used for supporter access is linked correctly.",
+      eyebrow: "Silver Membership Details",
+      summary: "Silver gives you supporter vehicle access, Level 1 priority queue, visual rank flair, the Silver wardrobe, and access to the Silver Discord lounge.",
+      note: "Membership perks are applied through the official support/store flow. Make sure your Discord account is linked to your Tebex profile for automatic role assignment.",
       benefits: [
         {
           title: "Exclusive Add-On Car Collection",
-          text: "Access a curated selection of custom-modeled vehicles. These are unique, non-branded assets designed specifically for our server to ensure a high-quality, immersive experience. Access is granted via the in-game Car Dealerships places.",
-          linkLabel: "View Silver car list",
+          text: "Access a curated selection of custom-modeled vehicles. These are unique, non-branded assets designed specifically for the server to keep the experience high quality and immersive. Access is granted through the in-game Car Dealerships locations. For the full list of membership cars, please use the link below.",
+          linkLabel: "Click Here",
           href: "/help/memberships/silver/cars"
         },
         {
@@ -124,7 +124,7 @@
   function getHelpMembershipIdFromPath() {
     const clean = getEnhancedRoutePath();
     const parts = clean.split("/").filter(Boolean);
-    if (parts[0] === "help" && parts[1] === "memberships" && parts[2]) {
+    if (parts[0] === "help" && (parts[1] === "memberships" || parts[1] === "membership") && parts[2]) {
       return helpMembershipPages[parts[2]] ? parts[2] : null;
     }
     if (parts[0] !== "help" || !parts[1]) return null;
@@ -134,7 +134,7 @@
   function getMembershipCarsIdFromPath() {
     const clean = getEnhancedRoutePath();
     const parts = clean.split("/").filter(Boolean);
-    if (parts[0] !== "help" || parts[1] !== "memberships" || parts[3] !== "cars") return null;
+    if (parts[0] !== "help" || (parts[1] !== "memberships" && parts[1] !== "membership") || parts[3] !== "cars") return null;
     return helpMembershipPages[parts[2]] ? parts[2] : null;
   }
 
@@ -367,20 +367,20 @@
           {
             name: "Gold",
             meta: "Highest supporter tier",
-            detail: "Gold vehicle list.",
-            href: "/help/memberships/gold/cars"
+            detail: "Gold perks and vehicle list.",
+            href: "/help/memberships/gold"
           },
           {
             name: "Silver",
             meta: "Standard supporter tier",
-            detail: "Silver vehicle list.",
-            href: "/help/memberships/silver/cars"
+            detail: "Silver perks and vehicle list.",
+            href: "/help/memberships/silver"
           },
           {
             name: "Free",
             meta: "Default player access",
-            detail: "Free vehicle list.",
-            href: "/help/memberships/free/cars"
+            detail: "Free access and vehicle list.",
+            href: "/help/memberships/free"
           }
         ]
       },
