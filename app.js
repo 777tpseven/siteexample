@@ -2292,9 +2292,9 @@ function renderVehicleShowcase() {
         <div>
           <div class="vehicle-showcase__eyebrow">Vehicles</div>
           <h1>Vehicles</h1>
-          <p>Browse vehicles by membership tier and type.</p>
+          <p>Filter vehicles by access tier and type.</p>
         </div>
-        <a class="auth__btn" href="/help">Memberships</a>
+        <a class="auth__btn" href="/help">Membership info</a>
       </header>
 
       <section class="vehicle-showcase__stage" aria-label="Selected vehicle">
@@ -2314,10 +2314,6 @@ function renderVehicleShowcase() {
             <div>
               <span>Access</span>
               <strong>${escapeHtml(getVehicleTierLabel(selected.membership))}</strong>
-            </div>
-            <div>
-              <span>Image</span>
-              <strong>Current</strong>
             </div>
           </div>
         </aside>
@@ -2904,7 +2900,7 @@ function renderLeaderboard(metricKey) {
   const metric = getLeaderboardMetricConfig(metricKey);
   const loadingText = SERVER_CONFIG.leaderboardUrl
     ? "Loading live leaderboard data..."
-    : "Leaderboard endpoint not connected yet. Showing a live-ready layout with real online roster only.";
+    : "Leaderboard data is not available yet.";
 
   setView(`
     <div>
@@ -3485,7 +3481,7 @@ function renderMap() {
               <div class="map-panel__top">
                 <div class="section__eyebrow">Los Santos services</div>
                 <div class="map-panel__headline">Service map</div>
-                <div class="map-panel__intro">Satellite-only access to police departments, hospitals, fire stations, car washes, and Lester's House.</div>
+                <div class="map-panel__intro">Police departments, hospitals, fire stations, car washes, and Lester's House.</div>
               </div>
               <div class="map-panel__stats">
                 ${stats}
@@ -3542,9 +3538,9 @@ function renderMapDetail(location) {
 
     return `
       <div class="map-detail__eyebrow">Overview</div>
-      <div class="map-detail__title">Los Santos Service Map</div>
+      <div class="map-detail__title">Service map</div>
       <div class="map-detail__meta">Satellite only / ${policeCount} police / ${hospitalCount} hospitals / ${fireCount} fire stations / ${carWashCount} car washes / ${escapeHtml(trackingMode)}</div>
-      <div class="map-detail__body">Markers on this page are pulled from the Services layer on gta-5-map.com, with Lester's House kept as a separate custom point. Live player overlays are ${liveFeedReady ? "ready to read your server feed." : "ready once you connect a live player endpoint."} Only players who enable website tracking in-game should appear on the live map.</div>
+      <div class="map-detail__body">Static service locations are shown here. Live player markers ${liveFeedReady ? "use the connected server feed." : "will appear when live tracking is enabled."} Only players who enable website tracking in-game should appear on the live map.</div>
     `;
   }
 
@@ -3563,7 +3559,7 @@ function renderMapStageAside(location) {
   const liveConfigured = Boolean(SERVER_CONFIG.liveOpsUrl || SERVER_CONFIG.livePlayerMapUrl);
   const livePlayerCount = customMapState?.liveData?.visiblePlayers ?? customMapState?.liveData?.players?.length ?? 0;
   const hiddenPlayerCount = customMapState?.liveData?.hiddenPlayers ?? 0;
-  const liveUpdatedAt = customMapState?.liveData?.updatedAt ? formatServerTimestamp(customMapState.liveData.updatedAt) : "Pending";
+  const liveUpdatedAt = customMapState?.liveData?.updatedAt ? formatServerTimestamp(customMapState.liveData.updatedAt) : "no update yet";
   const hotZones = customMapState?.liveOps?.hotZones?.items?.slice(0, 3) || [];
   const activeEvents = customMapState?.liveOps?.events?.items?.slice(0, 2) || [];
   const trackingLabel = customMapState?.liveData?.settingLabel || "Website Live Tracking";
@@ -3573,8 +3569,8 @@ function renderMapStageAside(location) {
   const liveCard = `
     <div class="map-stage-card">
       <div class="map-stage-card__eyebrow">Live tracking</div>
-      <div class="map-stage-card__title">${liveConfigured ? `${livePlayerCount} tracked players` : "Endpoint ready"}</div>
-      <div class="map-stage-card__body">${liveConfigured ? `Map overlay feed checked ${liveUpdatedAt}. ${optInText}` : "Add a live map feed to show player positions directly on the Los Santos map."}</div>
+      <div class="map-stage-card__title">${liveConfigured ? `${livePlayerCount} tracked players` : "Not live"}</div>
+      <div class="map-stage-card__body">${liveConfigured ? `Map overlay checked ${liveUpdatedAt}. ${optInText}` : "Live player positions are not connected on the public map."}</div>
     </div>
   `;
   const hotZonesCard = `
@@ -3586,7 +3582,7 @@ function renderMapStageAside(location) {
             <span>${escapeHtml(zone.name)}</span>
             <strong>${escapeHtml(String(zone.heat))}</strong>
           </div>
-        `).join("") : `<div class="map-stage-card__body">Connect a hot-zones feed to surface the busiest areas here.</div>`}
+        `).join("") : `<div class="map-stage-card__body">No hot zones are active.</div>`}
       </div>
     </div>
   `;
@@ -3599,7 +3595,7 @@ function renderMapStageAside(location) {
             <span>${escapeHtml(event.title)}</span>
             <strong>${escapeHtml(event.location)}</strong>
           </div>
-        `).join("") : `<div class="map-stage-card__body">Active city events will show here once the endpoint is connected.</div>`}
+        `).join("") : `<div class="map-stage-card__body">No active events are listed.</div>`}
       </div>
     </div>
   `;
@@ -3607,9 +3603,9 @@ function renderMapStageAside(location) {
   if (!location) {
     return `
       <div class="map-stage-card">
-        <div class="map-stage-card__eyebrow">Map Focus</div>
-        <div class="map-stage-card__title">Los Santos Services</div>
-        <div class="map-stage-card__body">Use the location list, click a marker, or zoom in to inspect police departments, hospitals, fire stations, car washes, and Lester's House.</div>
+        <div class="map-stage-card__eyebrow">Map</div>
+        <div class="map-stage-card__title">Services</div>
+        <div class="map-stage-card__body">Use the list, filters, or markers to find service locations.</div>
       </div>
       <div class="map-stage-card map-stage-card--legend">
         <div class="map-stage-card__eyebrow">Legend</div>
@@ -4643,17 +4639,17 @@ function renderStoreAbout() {
       <div class="store-doc__title">About</div>
       <div class="store-doc__title">About SGCNR</div>
       <p class="doc-p">
-        SGCNR is more than just a server; it's a dedicated community built by players, for players. Our mission is to provide a high-quality, immersive environment where your story takes center stage. We believe in balancing competitive gameplay with a fair, engaging atmosphere that rewards creativity and commitment.
+        SGCNR is a FiveM cops and robbers server built around clear rules, stable systems, and active community support.
       </p>
       <p class="doc-p">
-        From the very beginning, we've focused on stability, innovation, and listening to our community. Every update we push and every feature we add is designed to enhance your experience and ensure that SGCNR remains the premier destination for your digital adventures.
+        Updates are focused on gameplay, server performance, moderation tools, and useful community features.
       </p>
       <div class="store-doc__title">Why Support Us?</div>
       <p class="doc-p">
-        Running a high-performance server requires significant resources—from hardware and DDoS protection to custom development and asset creation.
+        Running the server requires hosting, DDoS protection, development time, and custom assets.
       </p>
       <p class="doc-p">
-        By purchasing from our store, you aren't just getting perks; you are directly fueling the engine that keeps this world alive. Every contribution goes toward:
+        Store purchases help cover:
       </p>
       <ul class="doc-list">
         <li><strong>Infrastructure:</strong> Maintaining 24/7 uptime and low-latency performance.</li>
@@ -4661,13 +4657,12 @@ function renderStoreAbout() {
         <li><strong>Staffing & Support:</strong> Ensuring we have the tools to provide fair moderation and fast support.</li>
       </ul>
       <p class="doc-p">
-        We are incredibly grateful to those who choose to support us. You are the reason we can continue to push the boundaries of what this server can be.
+        Supporter perks are listed clearly so players know what each package includes.
       </p>
       <div class="store-doc__title">Our Promise</div>
       <p class="doc-p">
-        We are committed to transparency and community growth. We strive to maintain a "community-first" approach, ensuring that our supporters are rewarded while keeping the core experience fun and accessible for everyone.
+        The core server remains playable without a paid membership. Supporter purchases add perks without replacing normal gameplay rules.
       </p>
-      <p class="doc-p"><strong>Thank you for being part of the SGCNR legacy!</strong></p>
     </div>
   `;
 }
@@ -5071,7 +5066,7 @@ function normaliseHealthPayload(payload, fallbackLabel) {
       configured: false,
       status: "pending",
       label: fallbackLabel,
-      message: "Endpoint not connected yet.",
+      message: "No live update received.",
       latencyMs: null,
       checkedAt: null
     };
@@ -5683,9 +5678,6 @@ function renderServerStatusError(message) {
         <div class="status-empty status-empty--warning">
         <div class="status-empty__title">Live status is not available right now</div>
         <div class="status-empty__text">${escapeHtml(message || "The live status feed could not be reached from the website at the moment.")}</div>
-          <div class="status-note">
-            <strong>Ready for live setup:</strong> check the live status configuration if your server uses different Discord, runtime, or sync connections.
-          </div>
         </div>
       </section>
   `;
@@ -5693,7 +5685,7 @@ function renderServerStatusError(message) {
 
 function renderStatusPlayers(players) {
   if (!players.length) {
-    return `<div class="status-empty__text">No public player list is available right now.</div>`;
+    return `<div class="status-empty__text">Player list unavailable.</div>`;
   }
 
   const featured = players.slice(0, Math.max(1, SERVER_CONFIG.maxPlayerPreview || 12));
@@ -5708,7 +5700,7 @@ function renderStatusPlayers(players) {
             <div class="player-card__name">${escapeHtml(player.name)}</div>
             <div class="player-card__badge">#${escapeHtml(String(player.id))}</div>
           </div>
-          <div class="player-card__meta">${player.ping != null ? `${escapeHtml(String(player.ping))} ms ping` : "Ping unavailable"}</div>
+          <div class="player-card__meta">${player.ping != null ? `${escapeHtml(String(player.ping))} ms ping` : "No ping data"}</div>
         </div>
       `).join("")}
     </div>
@@ -5739,7 +5731,7 @@ function renderHealthSummaryCard(label, health) {
     <div class="status-card">
       <div class="status-card__label">${escapeHtml(label)}</div>
       <div class="status-card__value">${escapeHtml(stateLabel)}</div>
-      <div class="status-card__meta">${escapeHtml(meta || "No data yet")}</div>
+      <div class="status-card__meta">${escapeHtml(meta || "No data")}</div>
     </div>
   `;
 }
@@ -5768,7 +5760,7 @@ function renderOpsCounts(counts) {
 function renderEventsList(events) {
   const items = Array.isArray(events?.items) ? events.items : [];
   if (!items.length) {
-    return `<div class="status-empty__text">No active events are connected right now.</div>`;
+    return `<div class="status-empty__text">No active events listed.</div>`;
   }
 
   return `
@@ -5800,7 +5792,7 @@ function renderHistoryList(history) {
             <span>${escapeHtml(entry.label)}</span>
             <strong>${escapeHtml(entry.uptimeSeconds != null ? formatDurationCompact(entry.uptimeSeconds) : "Pending")}</strong>
           </div>
-        `).join("") : `<div class="status-empty__text">No uptime history connected yet.</div>`}
+        `).join("") : `<div class="status-empty__text">No uptime history.</div>`}
       </div>
       <div class="status-history__group">
         <div class="status-history__title">Outage history</div>
@@ -5809,7 +5801,7 @@ function renderHistoryList(history) {
             <span>${escapeHtml(entry.label)}</span>
             <strong>${escapeHtml(entry.durationMinutes != null ? `${entry.durationMinutes}m` : "Pending")}</strong>
           </div>
-        `).join("") : `<div class="status-empty__text">No outage history connected yet.</div>`}
+        `).join("") : `<div class="status-empty__text">No outage history.</div>`}
       </div>
     </div>
   `;
@@ -5818,7 +5810,7 @@ function renderHistoryList(history) {
 function renderHotZonesList(hotZones) {
   const items = Array.isArray(hotZones?.items) ? hotZones.items.slice(0, 4) : [];
   if (!items.length) {
-    return `<div class="status-empty__text">No hot zones are connected right now.</div>`;
+    return `<div class="status-empty__text">No hot zones active.</div>`;
   }
 
   return `
@@ -5864,7 +5856,7 @@ function renderDiscordOpsGrid(discord) {
 function renderDiscordAnnouncements(discord) {
   const items = Array.isArray(discord?.announcements) ? discord.announcements.slice(0, 4) : [];
   if (!items.length) {
-    return `<div class="status-empty__text">No Discord announcement feed is connected right now.</div>`;
+    return `<div class="status-empty__text">No Discord announcements listed.</div>`;
   }
 
   return `
@@ -5889,21 +5881,18 @@ function renderDiscordLinking(discord) {
   const inviteUrl = discord?.botInviteUrl || "";
   const syncNote = discord?.lastPushAt
     ? `Last bot sync ${formatServerTimestamp(discord.lastPushAt)}${discord?.lastSource ? ` via ${discord.lastSource}` : ""}.`
-    : "The website is still waiting for the first Discord bot sync. If this stays pending, check the live sync bridge on the host.";
+    : "No Discord bot sync has been received yet.";
 
   return `
     <div class="stack-list stack-list--compact">
       <div class="stack-list__item"><span class="stack-list__index">01</span><span>Discord guild: ${escapeHtml(discord?.guildName || `${SERVER_CONFIG.name} Discord`)}</span></div>
-      <div class="stack-list__item"><span class="stack-list__index">02</span><span>Account linking is ${discord?.linkingEnabled ? "enabled" : "prepared but not connected yet"}.</span></div>
-      <div class="stack-list__item"><span class="stack-list__index">03</span><span>Role sync is ${discord?.syncRoles ? "enabled" : "ready for backend control"}.</span></div>
-      <div class="stack-list__item"><span class="stack-list__index">04</span><span>Support queue: ${discord?.pendingReports != null ? `${discord.pendingReports} pending reports` : "waiting for report data"}.</span></div>
-      <div class="stack-list__item"><span class="stack-list__index">05</span><span>Verified members: ${discord?.verifiedMembers != null ? String(discord.verifiedMembers) : "pending data feed"}.</span></div>
+      <div class="stack-list__item"><span class="stack-list__index">02</span><span>Account linking is ${discord?.linkingEnabled ? "enabled" : "not connected"}.</span></div>
+      <div class="stack-list__item"><span class="stack-list__index">03</span><span>Role sync is ${discord?.syncRoles ? "enabled" : "not connected"}.</span></div>
+      <div class="stack-list__item"><span class="stack-list__index">04</span><span>Support queue: ${discord?.pendingReports != null ? `${discord.pendingReports} pending reports` : "no data"}.</span></div>
+      <div class="stack-list__item"><span class="stack-list__index">05</span><span>Verified members: ${discord?.verifiedMembers != null ? String(discord.verifiedMembers) : "no data"}.</span></div>
     </div>
     <div class="status-note">
       <strong>Live sync:</strong> ${escapeHtml(syncNote)}
-    </div>
-    <div class="status-note">
-      <strong>Backend requirement:</strong> Discord account linking, role rewards, ticket sync, punishments, verification, and bot automation need backend services and a database behind this website.
     </div>
     <div class="status-actions">
       <a class="info-link" href="${escapeHtml(supportUrl)}" target="_blank" rel="noopener noreferrer">Open Discord</a>
@@ -6292,15 +6281,15 @@ function renderServerStatusContent(snapshot) {
         <article class="section live-minimal__card live-minimal__card--${escapeHtml(serverStatus.status || "pending")}" data-reveal>
           <div class="live-minimal__label">Server status</div>
           <div class="live-minimal__value">${escapeHtml(serverValue)}</div>
-          <div class="live-minimal__text">${escapeHtml(serverStatus.message || "Waiting for the live server feed.")}</div>
-          <div class="live-minimal__meta">${escapeHtml(snapshot.refreshedAt ? `Last refresh ${formatServerTimestamp(snapshot.refreshedAt)}` : "No refresh time recorded yet.")}</div>
+          <div class="live-minimal__text">${escapeHtml(serverStatus.message || "No server update received.")}</div>
+          <div class="live-minimal__meta">${escapeHtml(snapshot.refreshedAt ? `Last refresh ${formatServerTimestamp(snapshot.refreshedAt)}` : "No refresh time recorded.")}</div>
         </article>
 
         <article class="section live-minimal__card live-minimal__card--${escapeHtml(botStatus.status || "pending")}" data-reveal>
           <div class="live-minimal__label">Discord bot status</div>
           <div class="live-minimal__value">${escapeHtml(botValue)}</div>
-          <div class="live-minimal__text">${escapeHtml(botStatus.message || "Waiting for the Discord bot live push.")}</div>
-          <div class="live-minimal__meta">${escapeHtml(botStatus.latencyMs != null ? `${botStatus.latencyMs} ms latency` : (discordOps.lastPushAt ? `Last push ${formatServerTimestamp(discordOps.lastPushAt)}` : "Connect the Discord live endpoint with the server-side bot token."))}</div>
+          <div class="live-minimal__text">${escapeHtml(botStatus.message || "No bot update received.")}</div>
+          <div class="live-minimal__meta">${escapeHtml(botStatus.latencyMs != null ? `${botStatus.latencyMs} ms latency` : (discordOps.lastPushAt ? `Last push ${formatServerTimestamp(discordOps.lastPushAt)}` : "No bot sync received."))}</div>
         </article>
       </div>
       ${liveNote ? `<div class="status-note"><strong>Live note:</strong> ${escapeHtml(liveNote)}</div>` : ""}

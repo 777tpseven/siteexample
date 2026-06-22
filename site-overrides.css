@@ -16316,6 +16316,7 @@ html body.is-landing #rules{
 
 html body.is-landing .home-main{
   border-color: var(--sgcnr-line) !important;
+  border-radius: var(--sgcnr-card-radius) !important;
   background: var(--sgcnr-panel-strong) !important;
   color: var(--sgcnr-ink) !important;
   box-shadow: none !important;
@@ -16328,4 +16329,235 @@ html body.is-landing .home-main::before,
 html body.is-landing .home-main::after{
   display: none !important;
   content: none !important;
+}
+
+/* 2026-06-22 serious public-site pass */
+html body{
+  --sgcnr-card-radius: 8px;
+  --sgcnr-page-gap: 12px;
+}
+
+html body [data-reveal],
+html body [data-reveal].is-visible{
+  opacity: 1 !important;
+  transform: none !important;
+  transition: border-color .14s ease, background-color .14s ease, color .14s ease !important;
+}
+
+html body :is(
+  .section,
+  .page-hero,
+  .help-clean__head,
+  .help-clean__item,
+  .help-clean__membershipLink,
+  .help-clean__jobGroup,
+  .neo-membership__hero,
+  .neo-membership__benefit,
+  .neo-membership__aside,
+  .membership-cars__tabs,
+  .membership-cars__group,
+  .membership-cars__empty,
+  .rules-picker__item,
+  .rules-document__section,
+  .rules-document__article,
+  .vehicle-showcase__head,
+  .vehicle-showcase__stage,
+  .vehicle-showcase__media,
+  .vehicle-showcase__spec,
+  .vehicle-showcase__filters,
+  .vehicle-showcase__card,
+  .live-minimal__hero,
+  .live-minimal__card,
+  .live-staff,
+  .live-staff__group,
+  .map-panel,
+  .map-stage,
+  .map-stage-card,
+  .map-detail,
+  .service-map-shell,
+  .status-card,
+  .status-note,
+  .status-empty
+){
+  border-color: var(--sgcnr-line) !important;
+  border-radius: var(--sgcnr-card-radius) !important;
+  background: var(--sgcnr-panel) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+html body :is(.section__eyebrow, .help-clean__eyebrow, .vehicle-showcase__eyebrow, .neo-kicker, .home-main__eyebrow){
+  display: none !important;
+}
+
+html body :is(.home-main, .help-clean, .neo-help, .vehicle-showcase, .status-page, .rules-clean, .rules-document, .map-page){
+  gap: var(--sgcnr-page-gap) !important;
+}
+
+html body :is(.content, body.is-landing .content, body.is-standard .content, body.is-map .content, body.is-vehicles .content){
+  padding-top: 12px !important;
+}
+
+html body :is(.home-main__hero, .help-clean__head, .neo-membership__hero, .vehicle-showcase__head, .live-minimal__hero){
+  padding: 16px !important;
+  min-height: 0 !important;
+}
+
+html body .home-main{
+  padding: 14px !important;
+  gap: 10px !important;
+}
+
+html body .home-main__hero{
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr) !important;
+  align-items: center !important;
+}
+
+html body .home-main__copy h1{
+  font-size: clamp(2.5rem, 5vw, 4.2rem) !important;
+  line-height: .95 !important;
+}
+
+html body .home-main__copy p{
+  max-width: 560px !important;
+}
+
+html body .home-main__routes{
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+
+html body .home-main__route{
+  min-height: 0 !important;
+  padding: 12px !important;
+}
+
+html body .home-main__split{
+  gap: 8px !important;
+}
+
+html body .home-main__panel{
+  padding: 13px !important;
+}
+
+html body :is(.home-main__panel h2, .help-clean__head h1, .neo-membership__hero h2, .vehicle-showcase__head h1, .live-minimal__hero h2, .rules-document__head h2){
+  font-size: clamp(1.35rem, 2.4vw, 2rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: 0 !important;
+}
+
+html body :is(.home-main__copy p, .home-main__panel p, .help-clean__item span, .neo-membership__benefit p, .neo-membership__aside p, .vehicle-showcase__head p, .live-minimal__hero p, .status-empty__text, .map-detail__body){
+  color: var(--sgcnr-muted) !important;
+  line-height: 1.45 !important;
+}
+
+html body :is(.auth__btn, .neo-help__link, .info-link, .membership-cars__tabs a, .vehicle-showcase__filter, .map-tool, .map-filter){
+  border-color: var(--sgcnr-line) !important;
+  border-radius: 8px !important;
+  background: rgba(13, 10, 9, .72) !important;
+  color: var(--sgcnr-ink) !important;
+  box-shadow: none !important;
+}
+
+html body :is(.auth__btn--primary, .membership-cars__tabs a.is-active, .vehicle-showcase__filter.is-active, .map-filter.is-active){
+  background: var(--sgcnr-panel-strong) !important;
+  border-color: rgba(218, 173, 141, .34) !important;
+}
+
+html body :is(.help-clean__grid, .neo-membership__layout, .vehicle-showcase__grid, .membership-cars__grid, .live-minimal__grid, .rules-picker){
+  gap: 10px !important;
+}
+
+html body .help-clean__item--membership,
+html body .help-clean__item--jobs{
+  grid-column: span 2 !important;
+}
+
+html body .help-clean__jobList{
+  display: grid !important;
+  gap: 8px !important;
+  margin-top: 10px !important;
+}
+
+html body .help-clean__jobGroup{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 10px 12px !important;
+}
+
+html body .help-clean__jobGroup span{
+  color: var(--sgcnr-muted) !important;
+}
+
+html body .neo-membership__benefit{
+  grid-template-columns: 34px minmax(0, 1fr) !important;
+  padding: 14px !important;
+}
+
+html body .neo-membership__benefitNumber,
+html body .rules-picker__index{
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 7px !important;
+  background: rgba(218, 173, 141, .08) !important;
+  color: var(--sgcnr-accent) !important;
+}
+
+html body .vehicle-showcase__stage{
+  grid-template-columns: minmax(0, 1.3fr) minmax(260px, .7fr) !important;
+  gap: 10px !important;
+}
+
+html body .vehicle-showcase__imagePlate{
+  border-radius: 8px !important;
+  background: rgba(8, 7, 6, .8) !important;
+}
+
+html body .vehicle-showcase__specGrid{
+  grid-template-columns: 1fr !important;
+}
+
+html body .live-minimal__value{
+  font-size: clamp(2rem, 4vw, 3.5rem) !important;
+  letter-spacing: 0 !important;
+}
+
+html body .live-staff__mainIcon{
+  display: none !important;
+}
+
+html body .map-panel__intro,
+html body .map-toolbar__hint,
+html body .map-stage-card__body{
+  color: var(--sgcnr-muted) !important;
+}
+
+html body .footer__inner{
+  border-radius: 8px !important;
+  background: rgba(8, 7, 6, .72) !important;
+  border-color: var(--sgcnr-line) !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 980px){
+  html body .home-main__hero,
+  html body .vehicle-showcase__stage,
+  html body .neo-membership__layout{
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .help-clean__item--membership,
+  html body .help-clean__item--jobs{
+    grid-column: auto !important;
+  }
+}
+
+@media (max-width: 640px){
+  html body .home-main__routes,
+  html body .home-main__split,
+  html body .live-minimal__grid{
+    grid-template-columns: 1fr !important;
+  }
 }

@@ -17,76 +17,76 @@
   const helpMembershipPages = {
     gold: {
       title: "Gold Executive Membership",
-      eyebrow: "Gold Executive Membership Details",
-      summary: "Gold Executive is the top supporter tier. It includes every Silver benefit, plus higher priority, extra vehicle access, faster admin support, testing access, and the expanded Gold wardrobe.",
+      eyebrow: "Gold membership",
+      summary: "Gold includes every Silver perk, Level 2 queue priority, the full supporter vehicle list, faster ticket handling, test server access, and the Gold wardrobe.",
       note: "Gold Executive includes all Silver Membership perks automatically. Standard in-game fees, taxes, and normal gameplay requirements still apply.",
       benefits: [
         {
           title: "VIP Priority (Level 2)",
-          text: "Our highest tier of entry. Level 2 Priority places you at the very front of the connection line, bypassing both standard players and Level 1 Priority holders. Spend less time waiting and more time in the city."
+          text: "Level 2 priority places you ahead of standard players and Level 1 priority holders when the server queue is active."
         },
         {
           title: "Gold Executive Badge & Custom Identity",
-          text: "Stand out with the exclusive Gold Crown icon next to your name. Gold also includes custom name colors in the TAB scoreboard and global chat, marking you as a top-tier supporter."
+          text: "Gold adds a crown icon next to your name, plus custom name colors in the TAB scoreboard and global chat."
         },
         {
           title: "The Complete Add-On Car Collection",
-          text: "Unlock full access to the complete fleet of custom-modeled, non-branded vehicles. This includes everything in the Silver collection, plus an additional set of high-performance luxury vehicles available only to Gold Executives. For the full list of membership cars, please use the link below.",
+          text: "Gold includes the full supporter vehicle list. This includes all Silver vehicles plus the Gold-only vehicles. For the full list, use the link below.",
           linkLabel: "Click Here",
           href: "/help/memberships/gold/cars"
         },
         {
           title: "Priority Administrative Support",
-          text: "Receive faster processing for property and city service requests. Gold members move to the front of the administrative ticket queue on Discord for property management and city service inquiries. All standard in-game fees and taxes still apply. This perk only provides faster processing times and does not bypass in-game financial requirements."
+          text: "Gold tickets for property and city service requests are handled with higher priority. Normal in-game fees, taxes, and requirements still apply."
         },
         {
           title: "Early Access & Development Testing",
-          text: "Be the first to see what is coming next. Gold members receive exclusive invites to the development server to test new maps, scripts, and features before public release. There may be bugs on the early access server, but your feedback helps us fix them before release."
+          text: "Gold members may be invited to test server changes before public release. Test builds may contain bugs, and feedback helps staff clean them up before release."
         },
         {
           title: "Expanded Gold Wardrobe",
-          text: "Unlock the full range of custom-modeled clothing. This expanded collection features unique, non-branded textures and original designs exclusive to the Gold Executive tier."
+          text: "Gold unlocks the full supporter clothing set, including the Gold-only clothing options."
         },
         {
           title: "Inherited Perks (Silver Included)",
-          text: "As a Gold Executive, you automatically receive all benefits included in the Silver Membership, including the Silver Wardrobe, Silver Lounge access, and basic supporter perks."
+          text: "Gold automatically includes Silver queue, Silver vehicles, Silver wardrobe, and Silver Discord lounge access."
         }
       ]
     },
     silver: {
       title: "Silver Membership",
-      eyebrow: "Silver Membership Details",
-      summary: "Silver gives you supporter vehicle access, Level 1 priority queue, visual rank flair, the Silver wardrobe, and access to the Silver Discord lounge.",
+      eyebrow: "Silver membership",
+      summary: "Silver includes supporter vehicles, Level 1 queue priority, Silver nameplate visuals, the Silver wardrobe, and Silver Discord lounge access.",
       note: "Membership perks are applied through the official support/store flow. Make sure your Discord account is linked to your Tebex profile for automatic role assignment.",
       benefits: [
         {
           title: "Exclusive Add-On Car Collection",
-          text: "Access a curated selection of custom-modeled vehicles. These are unique, non-branded assets designed specifically for the server to keep the experience high quality and immersive. Access is granted through the in-game Car Dealerships locations. For the full list of membership cars, please use the link below.",
+          text: "Silver includes access to selected custom, non-branded vehicles through the in-game Car Dealerships locations. For the full list, use the link below.",
           linkLabel: "Click Here",
           href: "/help/memberships/silver/cars"
         },
         {
           title: "Priority Queue (Level 1)",
-          text: "Skip the standard wait and get into the action faster. Level 1 Priority places you in the first tier of the connection queue during peak times, significantly reducing your wait time. This is applied automatically to your account upon joining."
+          text: "Level 1 priority places you ahead of the standard queue during busy periods. It is applied automatically once the membership is active."
         },
         {
           title: "Silver Nameplate & Visual Flair",
-          text: "Stand out in the community with a unique Silver icon and nameplate. This visual rank is visible to all players on the TAB scoreboard, overhead in-game, and in the global chat."
+          text: "Silver adds a Silver icon and nameplate in the TAB scoreboard, overhead display, and global chat."
         },
         {
           title: "The Silver Wardrobe",
-          text: "Access a collection of custom-modeled, non-branded clothing. This collection includes exclusive vests, hats, and jackets designed original to our server. These items can be found in any clothing store under the Silver Collection category."
+          text: "Silver includes supporter clothing such as vests, hats, and jackets. Items are available in clothing stores under the Silver Collection category."
         },
         {
           title: "Silver Lounge Access (Discord)",
-          text: "Gain exclusive access to the private Silver Supporter lounge in our official Discord. Enjoy high-level chat, early sneak peeks at upcoming updates, and community perks. Please ensure your Discord account is linked to your Tebex profile for automatic role assignment."
+          text: "Silver gives access to the Silver Supporter lounge in Discord. Link your Discord account to your Tebex profile so the role can be assigned automatically."
         }
       ]
     },
     free: {
       title: "Free Access",
       eyebrow: "Default player access",
-      summary: "Free access is the normal SGCNR player baseline. No paid membership is required to join, play, use Discord support, and take part in the city.",
+      summary: "Free access is the default player tier. No membership is required to join, play, use Discord support, and take part in the server.",
       note: "Free access does not include paid supporter perks, priority queue, supporter vehicles, supporter wardrobe items, or private supporter Discord lounges.",
       benefits: [
         {
@@ -99,7 +99,7 @@
         },
         {
           title: "Public Website Access",
-          text: "Use the public website for rules, map information, live status, and Help pages."
+          text: "Use the website for rules, map information, live status, Help pages, and vehicle lists."
         },
         {
           title: "Free Vehicle List",
@@ -218,7 +218,7 @@
         <section class="home-main__hero" aria-label="Welcome" data-reveal>
           <div class="home-main__copy">
             <h1>SGCNR</h1>
-            <p>Join from FiveM, read the rules, check the live status, and use Discord for support.</p>
+            <p>Server links, rules, live status, memberships, and Discord support.</p>
             <div class="home-main__actions">
               <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
               <a class="auth__btn" href="/live">Live</a>
@@ -234,15 +234,15 @@
         <section class="home-main__routes" aria-label="Main links">
           <a class="home-main__route" href="/rules" data-reveal>
             <span>Rules</span>
-            <strong>Discord and in-game rule sections.</strong>
+            <strong>Discord and in-game rules.</strong>
           </a>
           <a class="home-main__route" href="/live" data-reveal>
             <span>Live</span>
-            <strong>Server status, bot status, and staff list.</strong>
+            <strong>Status and staff list.</strong>
           </a>
           <a class="home-main__route" href="/help" data-reveal>
-            <span>General Help</span>
-            <strong>Memberships, events, jobs, and support links.</strong>
+            <span>Help</span>
+            <strong>Memberships, jobs, events, and support.</strong>
           </a>
         </section>
 
@@ -250,7 +250,7 @@
           <article class="home-main__panel home-main__panel--vehicles" data-reveal>
             <div>
               <span class="home-main__eyebrow">Vehicles</span>
-              <h2>Cars by membership</h2>
+              <h2>Membership vehicles</h2>
             </div>
             <div class="home-main__tierList">
               <a href="/help/memberships/gold/cars"><span>Gold Vehicles</span><strong>${escapeHtml(String(vehicleCounts.gold || 0))}</strong></a>
@@ -261,9 +261,9 @@
 
           <article class="home-main__panel" data-reveal>
             <div>
-              <span class="home-main__eyebrow">General Help</span>
-              <h2>Support and info</h2>
-              <p>Use Help for memberships, server events, jobs, rules, and Discord support.</p>
+              <span class="home-main__eyebrow">Help</span>
+              <h2>Support</h2>
+              <p>Open Help for memberships, jobs, rules, events, and Discord ticket links.</p>
             </div>
             <div class="home-main__actions home-main__actions--panel">
               <a class="auth__btn auth__btn--primary" href="/help">Open Help</a>
@@ -293,27 +293,27 @@
       label: "Discord Bot"
     };
     const serverValue = serverHealth.status === "online"
-      ? "All systems operational"
+      ? "Online"
       : serverHealth.status === "offline"
-        ? "Server feed offline"
-        : "Checking live feed";
+        ? "Offline"
+        : "Checking";
     const playersValue = snapshot
       ? `${snapshot.clients ?? 0}${snapshot.maxClients ? ` / ${snapshot.maxClients}` : ""}`
-      : "Pending";
+      : "-";
     const playersMeta = snapshot?.online
       ? `${snapshot.mapName || "Los Santos"} live`
-      : "Waiting for server feed";
+      : "Waiting for data";
     const discordValue = botHealth.status === "online"
       ? "Connected"
       : botHealth.status === "offline"
         ? "Offline"
-        : "Pending";
+        : "Checking";
     const discordMeta = botHealth.latencyMs != null
       ? `${botHealth.latencyMs} ms latency`
-      : "Support & updates";
+      : "Discord support";
     const refreshMeta = snapshot?.refreshedAt
       ? `Updated ${formatServerTimestamp(snapshot.refreshedAt)}`
-      : "Refreshing live data";
+      : "No update yet";
 
     return `
       <article class="homefront__statusCard homefront__statusCard--${escapeHtml(serverHealth.status || "pending")}">
@@ -362,11 +362,11 @@
     const topics = [
       {
         label: "Memberships",
-        text: "Vehicle access lists for Free, Silver, and Gold.",
+        text: "Membership tiers and vehicle access.",
         memberships: [
           {
             name: "Gold",
-            meta: "Highest supporter tier",
+            meta: "Top supporter tier",
             detail: "Gold perks and vehicle list.",
             href: "/help/memberships/gold"
           },
@@ -385,8 +385,16 @@
         ]
       },
       { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
-      { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
-      { label: "Jobs", text: "Job info and requests.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true }
+      { label: "Rules", text: "Discord rules and in-game rules.", href: "/rules" },
+      {
+        label: "Jobs",
+        text: "Job categories used on the server.",
+        jobs: [
+          { name: "Civilian Jobs", items: [] },
+          { name: "Public Safety Jobs", items: ["Police", "EMS"] },
+          { name: "Illegal Jobs", items: [] }
+        ]
+      }
     ];
 
     setView(`
@@ -401,7 +409,7 @@
         <section class="section help-clean__section" aria-label="Help categories">
           <div class="help-clean__grid">
             ${topics.map((topic) => `
-              ${topic.memberships ? `
+            ${topic.memberships ? `
                 <article class="help-clean__item help-clean__item--membership">
                   <strong>${escapeHtml(topic.label)}</strong>
                   <span>${escapeHtml(topic.text)}</span>
@@ -414,6 +422,19 @@
                         </span>
                         <small>${escapeHtml(item.detail)}</small>
                       </a>
+                    `).join("")}
+                  </div>
+                </article>
+              ` : topic.jobs ? `
+                <article class="help-clean__item help-clean__item--jobs">
+                  <strong>${escapeHtml(topic.label)}</strong>
+                  <span>${escapeHtml(topic.text)}</span>
+                  <div class="help-clean__jobList">
+                    ${topic.jobs.map((group) => `
+                      <div class="help-clean__jobGroup">
+                        <strong>${escapeHtml(group.name)}</strong>
+                        ${group.items.length ? `<span>${group.items.map((item) => escapeHtml(item)).join(" / ")}</span>` : `<span>Details in Discord</span>`}
+                      </div>
                     `).join("")}
                   </div>
                 </article>
@@ -461,7 +482,7 @@
             <h2>${escapeHtml(membership.title)}</h2>
             <p>${escapeHtml(membership.summary)}</p>
           </div>
-          <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Open Discord tickets</a>
+          <a class="auth__btn auth__btn--primary" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
         </section>
 
         <section class="neo-membership__layout" aria-label="${escapeHtml(membership.title)} details">
@@ -491,9 +512,9 @@
   }
 
   function getMembershipCarTitle(packageId) {
-    if (packageId === "gold") return "Gold cars";
-    if (packageId === "silver") return "Silver cars";
-    return "Free cars";
+    if (packageId === "gold") return "Gold vehicles";
+    if (packageId === "silver") return "Silver vehicles";
+    return "Free vehicles";
   }
 
   function renderMembershipCarsPage(packageId) {
@@ -514,7 +535,7 @@
           <div>
             <span class="neo-kicker">${escapeHtml(membership?.eyebrow || "Membership vehicles")}</span>
             <h2>${escapeHtml(title)}</h2>
-            <p>${escapeHtml(total ? `${total} vehicles are listed for this membership tier.` : "No vehicles are listed for this membership tier right now.")}</p>
+            <p>${escapeHtml(total ? `${total} vehicles listed for this tier.` : "No vehicles listed for this tier.")}</p>
           </div>
           <a class="auth__btn auth__btn--primary" href="/vehicles">Open full vehicle list</a>
         </section>
@@ -547,7 +568,7 @@
           `).join("") || `
             <article class="membership-cars__empty" data-reveal>
               <h3>No cars listed</h3>
-              <p>This tier has no public vehicle entries on the website right now.</p>
+              <p>There are no vehicle entries for this tier yet.</p>
             </article>
           `}
         </section>
@@ -572,7 +593,7 @@
 
     const descriptions = {
       "discord-rules": "Community conduct, Discord channels, tickets, appeals, and punishments.",
-      "ingame-rules": "Use Discord for current in-game rule questions."
+      "ingame-rules": "Civ, police, EMS, and all-player rules."
     };
 
     const cards = sections.map((section, index) => `
@@ -639,7 +660,7 @@
       <div class="rules-document rules-document--help">
         ${title}
         <section class="section rules-document__section">
-          ${body || `<div class="empty">Coming soon</div>`}
+          ${body || `<div class="empty">In-game rules are being finalized. Use Discord for current rule questions.</div>`}
         </section>
         ${renderRulesDisclaimer()}
       </div>
@@ -672,7 +693,7 @@
       <div class="rules-document">
         ${title}
         <section class="section rules-document__section">
-          ${body || `<div class="empty">No rule text is published for this item.</div>`}
+          ${body || `<div class="empty">No rule text is published for this item yet.</div>`}
         </section>
         ${renderRulesDisclaimer()}
       </div>
