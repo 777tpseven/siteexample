@@ -16561,3 +16561,62 @@ html body .footer__inner{
     grid-template-columns: 1fr !important;
   }
 }
+
+/* 2026-06-22 help page space usage */
+html body .help-clean__grid{
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+}
+
+html body .help-clean__item{
+  min-height: 118px !important;
+  padding: 16px !important;
+}
+
+html body .help-clean__item--membership,
+html body .help-clean__item--jobs{
+  grid-column: 1 / -1 !important;
+  min-height: 0 !important;
+  padding: 18px !important;
+}
+
+html body .help-clean__membershipList,
+html body .help-clean__jobList{
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  margin-top: 12px !important;
+}
+
+html body .help-clean__membershipLink,
+html body .help-clean__jobGroup{
+  min-height: 92px !important;
+  padding: 14px !important;
+}
+
+html body .help-clean__membershipLink span{
+  align-items: flex-start !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+html body .help-clean__jobGroup{
+  display: grid !important;
+  align-content: space-between !important;
+}
+
+html body .help-clean__jobGroup span{
+  margin-top: 8px !important;
+}
+
+@media (max-width: 900px){
+  html body .help-clean__grid,
+  html body .help-clean__membershipList,
+  html body .help-clean__jobList{
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .help-clean__item{
+    min-height: 0 !important;
+  }
+}

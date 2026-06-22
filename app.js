@@ -2088,10 +2088,6 @@ function renderHelp() {
         }
       ]
     },
-    { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
-    { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
-    { label: "Vehicles", text: "Browse vehicles by membership tier and type.", href: "/vehicles" },
-    { label: "Website updates", text: "Recent website changes.", href: "/changelog" },
     {
       label: "Jobs",
       text: "Civilian jobs, public safety jobs, and illegal jobs.",
@@ -2100,7 +2096,11 @@ function renderHelp() {
         { name: "Public Safety Jobs", items: ["Police", "EMS"] },
         { name: "Illegal jobs", items: [] }
       ]
-    }
+    },
+    { label: "Rules", text: "Discord rules and ingame rules.", href: "/rules" },
+    { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
+    { label: "Vehicles", text: "Browse vehicles by membership tier and type.", href: "/vehicles" },
+    { label: "Website updates", text: "Recent website changes.", href: "/changelog" }
   ];
   setView(`
     <div class="help-clean">

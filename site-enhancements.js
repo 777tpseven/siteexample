@@ -384,8 +384,6 @@
           }
         ]
       },
-      { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true },
-      { label: "Rules", text: "Discord rules and in-game rules.", href: "/rules" },
       {
         label: "Jobs",
         text: "Job categories used on the server.",
@@ -394,7 +392,9 @@
           { name: "Public Safety Jobs", items: ["Police", "EMS"] },
           { name: "Illegal Jobs", items: [] }
         ]
-      }
+      },
+      { label: "Rules", text: "Discord rules and in-game rules.", href: "/rules" },
+      { label: "Server Events", text: "Event info, timing, and questions.", href: DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL, external: true }
     ];
 
     setView(`
