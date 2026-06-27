@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260621e";
+const SITE_ASSET_VERSION = "20260627a";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -177,19 +177,19 @@ const VEHICLE_SHOWCASE = [
   { id: "gbsapphire", name: "Sapphire", membership: "gold", type: "Civilian Vehicle", image: "gbsapphire.webp" },
   { id: "gbschlagenr", name: "Schlagen R", membership: "gold", type: "Civilian Vehicle", image: "gbschlagenr.webp" },
   { id: "gbschlagensp", name: "Schlagen SP", membership: "gold", type: "Civilian Vehicle", image: "gbschlagensp.webp" },
-  { id: "gbschrauber", name: "Schrauber", membership: "silver", type: "Civilian Vehicle", image: "gbschrauber.webp" },
-  { id: "gbschwartzers", name: "Schwartzer S", membership: "silver", type: "Civilian Vehicle", image: "gbschwartzers.webp" },
-  { id: "gbscoutgsx", name: "Scout GSX", membership: "silver", type: "Civilian Vehicle", image: "gbscoutgsx.webp" },
+  { id: "gbschrauber", name: "Schrauber", membership: "silver", type: "Civilian Vehicle", image: "gbschrauber.webp", hidden: true },
+  { id: "gbschwartzers", name: "Schwartzer S", membership: "silver", type: "Civilian Vehicle", image: "gbschwartzers.webp", hidden: true },
+  { id: "gbscoutgsx", name: "Scout GSX", membership: "silver", type: "Civilian Vehicle", image: "gbscoutgsx.webp", hidden: true },
   { id: "gbsentinelgts", name: "Sentinel GTS", membership: "gold", type: "Civilian Vehicle", image: "gbsentinelgts.webp" },
   { id: "gbsidewinder", name: "Sidewinder", membership: "gold", type: "Civilian Vehicle", image: "gbsidewinder.webp" },
-  { id: "gbsolace", name: "Solace", membership: "silver", type: "Civilian Vehicle", image: "gbsolace.webp" },
-  { id: "gbsolacev", name: "Solace V", membership: "silver", type: "Civilian Vehicle", image: "gbsolacev.webp" },
-  { id: "gbstanierle", name: "Stanier LE", membership: "silver", type: "Civilian Vehicle", image: "gbstanierle.webp" },
+  { id: "gbsolace", name: "Solace", membership: "silver", type: "Civilian Vehicle", image: "gbsolace.webp", hidden: true },
+  { id: "gbsolacev", name: "Solace V", membership: "silver", type: "Civilian Vehicle", image: "gbsolacev.webp", hidden: true },
+  { id: "gbstanierle", name: "Stanier LE", membership: "silver", type: "Civilian Vehicle", image: "gbstanierle.webp", hidden: true },
   { id: "gbstarlight", name: "Starlight", membership: "silver", type: "Civilian Vehicle", image: "gbstarlight.webp" },
   { id: "gbsteedcrew", name: "Steed Crew", membership: "silver", type: "Work Vehicle", image: "gbsteedcrew.webp" },
   { id: "gbsteedvan", name: "Steed Van", membership: "silver", type: "Work Vehicle", image: "gbsteedvan.webp" },
   { id: "gbsultanrsx", name: "Sultan RSX", membership: "gold", type: "Civilian Vehicle", image: "gbsultanrsx.webp" },
-  { id: "gbtahomagt", name: "Tahoma GT", membership: "silver", type: "Civilian Vehicle", image: "gbtahomagt.webp" },
+  { id: "gbtahomagt", name: "Tahoma GT", membership: "silver", type: "Civilian Vehicle", image: "gbtahomagt.webp", hidden: true },
   { id: "gbtaxiargento7f", name: "Taxi Argento 7F", membership: "gold", type: "Work Vehicle", image: "gbtaxiargento7f.webp" },
   { id: "gbtaxieon", name: "Taxi Eon", membership: "gold", type: "Work Vehicle", image: "gbtaxieon.webp" },
   { id: "gbtaxistanierle", name: "Taxi Stanier LE", membership: "silver", type: "Work Vehicle", image: "gbtaxistanierle.webp" },
@@ -2242,6 +2242,10 @@ function getVehicleTierLabel(tier) {
   return found?.label || "Free";
 }
 
+function isVehicleListed(vehicle) {
+  return !vehicle.hidden;
+}
+
 function vehicleMatchesMembership(vehicle, membership) {
   return membership === "all" || vehicle.membership === membership;
 }
@@ -2254,7 +2258,8 @@ function vehicleMatchesCategory(vehicle, category) {
 
 function getFilteredVehicles() {
   return VEHICLE_SHOWCASE.filter((vehicle) => (
-    vehicleMatchesMembership(vehicle, vehicleShowcaseState.membership)
+    isVehicleListed(vehicle)
+    && vehicleMatchesMembership(vehicle, vehicleShowcaseState.membership)
     && vehicleMatchesCategory(vehicle, vehicleShowcaseState.category)
   ));
 }
@@ -2263,7 +2268,7 @@ function getSelectedVehicle() {
   const list = getFilteredVehicles();
   const selected = list.find((vehicle) => vehicle.id === vehicleShowcaseState.selectedId);
   if (selected) return selected;
-  const fallback = list[0] || VEHICLE_SHOWCASE[0];
+  const fallback = list[0] || VEHICLE_SHOWCASE.find(isVehicleListed) || VEHICLE_SHOWCASE[0];
   vehicleShowcaseState.selectedId = fallback?.id || "";
   return fallback;
 }
@@ -2273,14 +2278,16 @@ function renderVehicleShowcase() {
   const filteredVehicles = getFilteredVehicles();
   const countsByTier = VEHICLE_SHOWCASE_FILTERS.reduce((acc, tier) => {
     acc[tier.id] = VEHICLE_SHOWCASE.filter((vehicle) => (
-      vehicleMatchesMembership(vehicle, tier.id)
+      isVehicleListed(vehicle)
+      && vehicleMatchesMembership(vehicle, tier.id)
       && vehicleMatchesCategory(vehicle, vehicleShowcaseState.category)
     )).length;
     return acc;
   }, {});
   const countsByCategory = VEHICLE_CATEGORY_FILTERS.reduce((acc, category) => {
     acc[category.id] = VEHICLE_SHOWCASE.filter((vehicle) => (
-      vehicleMatchesMembership(vehicle, vehicleShowcaseState.membership)
+      isVehicleListed(vehicle)
+      && vehicleMatchesMembership(vehicle, vehicleShowcaseState.membership)
       && vehicleMatchesCategory(vehicle, category.id)
     )).length;
     return acc;

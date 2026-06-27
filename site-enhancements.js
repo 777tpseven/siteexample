@@ -208,7 +208,7 @@
   function renderLandingHubHomeMarkup() {
     const vehicleCounts = typeof VEHICLE_SHOWCASE !== "undefined"
       ? ["free", "silver", "gold"].reduce((acc, tier) => {
-          acc[tier] = VEHICLE_SHOWCASE.filter((vehicle) => vehicle.membership === tier).length;
+          acc[tier] = VEHICLE_SHOWCASE.filter((vehicle) => !vehicle.hidden && vehicle.membership === tier).length;
           return acc;
         }, {})
       : { free: 0, silver: 0, gold: 0 };
@@ -502,7 +502,7 @@
   function getMembershipVehicleGroups(packageId) {
     if (typeof VEHICLE_SHOWCASE === "undefined") return [];
     const labels = ["Civilian Vehicle", "Free Vehicle", "Police Vehicle", "EMS Vehicle", "Work Vehicle", "Fire Vehicle", "Armored Truck"];
-    const vehicles = VEHICLE_SHOWCASE.filter((vehicle) => vehicle.membership === packageId);
+    const vehicles = VEHICLE_SHOWCASE.filter((vehicle) => !vehicle.hidden && vehicle.membership === packageId);
     return labels
       .map((label) => ({
         label,
