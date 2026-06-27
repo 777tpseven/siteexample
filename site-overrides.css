@@ -16623,15 +16623,26 @@ html body .help-clean__jobGroup span{
 
 /* 2026-06-27 A19 Customs partnership page */
 body.is-partnership{
+  --accent: #cda7ff !important;
+  --accent-2: #bda8ff !important;
+  --site-gold: #cda7ff !important;
+  --site-green: #cda7ff !important;
+  --sgcnr-accent: #cda7ff !important;
+  --sgcnr-accent-deep: #332348 !important;
+  --sgcnr-line: rgba(184, 125, 230, .20) !important;
+  --sgcnr-panel: rgba(7, 7, 11, .84) !important;
+  --sgcnr-panel-strong: rgba(10, 9, 15, .94) !important;
+  --sgcnr-ink: rgba(249, 246, 255, .94) !important;
+  --sgcnr-muted: rgba(214, 207, 224, .76) !important;
   background:
-    linear-gradient(90deg, rgba(1, 1, 6, .88), rgba(5, 1, 18, .42) 52%, rgba(2, 1, 8, .84)),
-    linear-gradient(180deg, rgba(0, 0, 0, .18), rgba(3, 0, 15, .58)),
+    linear-gradient(90deg, rgba(3, 3, 6, .90), rgba(8, 6, 13, .50) 52%, rgba(3, 3, 6, .86)),
+    linear-gradient(180deg, rgba(0, 0, 0, .24), rgba(4, 3, 8, .66)),
     url("/branding/a19-customs-partnership-bg.jpg?v=20260627a") center / cover fixed no-repeat !important;
 }
 
 html body.is-partnership::before{
   background:
-    linear-gradient(90deg, rgba(1, 1, 6, .88), rgba(5, 1, 18, .42) 52%, rgba(2, 1, 8, .84)),
+    linear-gradient(90deg, rgba(3, 3, 6, .90), rgba(8, 6, 13, .50) 52%, rgba(3, 3, 6, .86)),
     url("/branding/a19-customs-partnership-bg.jpg?v=20260627a") center / cover fixed no-repeat !important;
   opacity: 1 !important;
   filter: none !important;
@@ -16651,21 +16662,21 @@ body.is-partnership .footer{
 body.is-partnership .topbar,
 body.is-partnership .dock,
 body.is-partnership .footer__inner{
-  border-color: rgba(193, 89, 255, .28) !important;
-  background: rgba(5, 3, 14, .74) !important;
-  box-shadow: 0 22px 56px rgba(6, 0, 24, .34) !important;
+  border-color: rgba(184, 125, 230, .24) !important;
+  background: rgba(7, 7, 11, .78) !important;
+  box-shadow: 0 22px 56px rgba(0, 0, 0, .34) !important;
   backdrop-filter: blur(14px) !important;
 }
 
 body.is-partnership .dock__item{
-  border-color: rgba(151, 104, 255, .18) !important;
-  background: rgba(9, 5, 24, .52) !important;
+  border-color: rgba(184, 125, 230, .18) !important;
+  background: rgba(9, 8, 13, .58) !important;
 }
 
 body.is-partnership .dock__item:hover,
 body.is-partnership .dock__item.is-active{
-  border-color: rgba(234, 85, 255, .52) !important;
-  background: rgba(136, 43, 224, .22) !important;
+  border-color: rgba(205, 151, 255, .46) !important;
+  background: rgba(77, 44, 104, .28) !important;
 }
 
 body.is-partnership .dock__item.is-active .dock__label,
@@ -16682,12 +16693,12 @@ body.is-partnership .content{
 }
 
 .partnership-page{
-  --a19-line: rgba(212, 103, 255, .26);
-  --a19-line-strong: rgba(255, 119, 246, .48);
-  --a19-panel: rgba(5, 3, 12, .78);
-  --a19-panel-soft: rgba(11, 8, 27, .62);
-  --a19-ink: #fff7ff;
-  --a19-muted: rgba(245, 229, 255, .76);
+  --a19-line: rgba(184, 125, 230, .24);
+  --a19-line-strong: rgba(213, 164, 255, .48);
+  --a19-panel: rgba(7, 7, 11, .82);
+  --a19-panel-soft: rgba(12, 11, 16, .66);
+  --a19-ink: rgba(249, 246, 255, .96);
+  --a19-muted: rgba(218, 211, 226, .76);
   position: relative;
   isolation: isolate;
   display: grid;
@@ -16703,8 +16714,8 @@ body.is-partnership .content{
   z-index: -2;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(1, 1, 6, .86) 0%, rgba(4, 2, 14, .48) 46%, rgba(2, 1, 8, .82) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, .24), rgba(4, 0, 15, .62)),
+    linear-gradient(90deg, rgba(3, 3, 6, .88) 0%, rgba(9, 7, 14, .50) 46%, rgba(3, 3, 6, .84) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, .30), rgba(3, 3, 6, .68)),
     var(--partnership-bg) center / cover no-repeat;
 }
 
@@ -16715,9 +16726,9 @@ body.is-partnership .content{
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(circle at 72% 28%, rgba(0, 127, 255, .18), transparent 32%),
-    radial-gradient(circle at 50% 70%, rgba(222, 35, 255, .20), transparent 36%),
-    linear-gradient(180deg, rgba(0, 0, 0, .14), rgba(0, 0, 0, .58));
+    radial-gradient(circle at 72% 28%, rgba(158, 108, 220, .08), transparent 32%),
+    radial-gradient(circle at 50% 70%, rgba(188, 91, 225, .10), transparent 36%),
+    linear-gradient(180deg, rgba(0, 0, 0, .18), rgba(0, 0, 0, .62));
 }
 
 .partnership-hero{
@@ -16728,7 +16739,7 @@ body.is-partnership .content{
   border: 1px solid var(--a19-line);
   border-radius: 12px;
   background:
-    linear-gradient(90deg, rgba(6, 3, 15, .82), rgba(12, 4, 31, .42) 60%, rgba(6, 3, 15, .22));
+    linear-gradient(90deg, rgba(7, 7, 11, .86), rgba(11, 9, 16, .52) 60%, rgba(7, 7, 11, .28));
   box-shadow: 0 28px 80px rgba(0, 0, 0, .34);
 }
 
@@ -16740,10 +16751,10 @@ body.is-partnership .content{
   width: fit-content;
   margin-bottom: 14px;
   padding: 6px 9px;
-  border: 1px solid rgba(255, 134, 245, .34);
+  border: 1px solid rgba(213, 164, 255, .32);
   border-radius: 6px;
-  background: rgba(12, 6, 28, .66);
-  color: #ffc8ff;
+  background: rgba(12, 11, 16, .74);
+  color: rgba(231, 209, 255, .92);
   font-size: .72rem;
   font-weight: 900;
   letter-spacing: .16em;
@@ -16793,12 +16804,12 @@ body.is-partnership .content{
 
 .partnership-btn:hover{
   border-color: var(--a19-line-strong);
-  background: rgba(122, 33, 201, .28);
+  background: rgba(76, 45, 101, .30);
 }
 
 .partnership-btn--primary{
-  border-color: rgba(255, 126, 239, .50);
-  background: linear-gradient(135deg, rgba(152, 48, 236, .58), rgba(0, 92, 220, .36));
+  border-color: rgba(213, 164, 255, .48);
+  background: linear-gradient(135deg, rgba(78, 48, 106, .72), rgba(23, 21, 31, .64));
 }
 
 .partnership-layout{
@@ -16843,7 +16854,7 @@ body.is-partnership .content{
 .partnership-services span{
   min-height: 42px;
   padding: 11px 12px;
-  border: 1px solid rgba(205, 118, 255, .18);
+  border: 1px solid rgba(184, 125, 230, .18);
   border-radius: 8px;
   background: var(--a19-panel-soft);
   color: rgba(255, 244, 255, .92);
@@ -16872,57 +16883,57 @@ html body.is-partnership .topbar{
   width: min(1450px, calc(100% - 36px)) !important;
   margin: 4px auto 10px !important;
   padding: 14px 36px !important;
-  border: 1px solid rgba(202, 94, 255, .34) !important;
+  border: 1px solid rgba(184, 125, 230, .30) !important;
   border-radius: 24px !important;
   background:
-    linear-gradient(90deg, rgba(9, 4, 24, .88), rgba(11, 6, 20, .74) 44%, rgba(9, 3, 22, .88)) !important;
+    linear-gradient(90deg, rgba(7, 7, 11, .90), rgba(11, 9, 16, .78) 44%, rgba(7, 7, 11, .90)) !important;
   box-shadow:
     0 14px 42px rgba(0, 0, 0, .38),
-    0 0 34px rgba(154, 53, 255, .10) !important;
+    0 0 30px rgba(155, 104, 220, .08) !important;
   backdrop-filter: blur(16px) !important;
 }
 
 html body.is-partnership .clock,
 html body.is-partnership .auth__btn,
 html body.is-partnership .auth__btn--account{
-  border-color: rgba(221, 108, 255, .30) !important;
-  background: rgba(8, 4, 22, .74) !important;
+  border-color: rgba(184, 125, 230, .26) !important;
+  background: rgba(10, 9, 14, .78) !important;
   color: rgba(255, 244, 255, .94) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .05),
-    0 0 22px rgba(139, 44, 255, .10) !important;
+    0 0 18px rgba(155, 104, 220, .08) !important;
 }
 
 html body.is-partnership .auth__btn:hover,
 html body.is-partnership .auth__btn--account:hover{
-  border-color: rgba(250, 126, 255, .55) !important;
-  background: rgba(119, 34, 190, .28) !important;
+  border-color: rgba(213, 164, 255, .48) !important;
+  background: rgba(76, 45, 101, .28) !important;
 }
 
 html body.is-partnership .auth__btn--primary{
-  border-color: rgba(255, 126, 239, .52) !important;
-  background: linear-gradient(135deg, rgba(132, 36, 226, .54), rgba(34, 32, 121, .34)) !important;
+  border-color: rgba(213, 164, 255, .46) !important;
+  background: linear-gradient(135deg, rgba(78, 48, 106, .68), rgba(23, 21, 31, .64)) !important;
 }
 
 html body.is-partnership .topbar .auth #loginBtn.auth__btn.auth__btn--primary,
 html body.is-partnership .topbar .auth #accountBtn.auth__btn.auth__btn--primary,
 html body.is-partnership .topbar .auth .auth__btn.auth__btn--primary{
-  border-color: rgba(255, 126, 239, .58) !important;
+  border-color: rgba(213, 164, 255, .50) !important;
   background-color: transparent !important;
-  background-image: linear-gradient(135deg, rgba(132, 36, 226, .58), rgba(34, 32, 121, .38)) !important;
+  background-image: linear-gradient(135deg, rgba(78, 48, 106, .70), rgba(23, 21, 31, .66)) !important;
   color: rgba(255, 247, 255, .98) !important;
 }
 
 html body.is-partnership .topbar .auth #loginBtn.auth__btn.auth__btn--primary:hover,
 html body.is-partnership .topbar .auth #accountBtn.auth__btn.auth__btn--primary:hover,
 html body.is-partnership .topbar .auth .auth__btn.auth__btn--primary:hover{
-  border-color: rgba(255, 169, 255, .74) !important;
-  background-image: linear-gradient(135deg, rgba(164, 55, 255, .66), rgba(49, 54, 154, .44)) !important;
+  border-color: rgba(232, 203, 255, .66) !important;
+  background-image: linear-gradient(135deg, rgba(91, 55, 123, .78), rgba(29, 27, 38, .70)) !important;
 }
 
 html body.is-partnership .auth__avatar{
-  border-color: rgba(251, 139, 255, .42) !important;
-  background: rgba(25, 9, 48, .84) !important;
+  border-color: rgba(213, 164, 255, .34) !important;
+  background: rgba(16, 13, 22, .84) !important;
 }
 
 html body.is-partnership .auth__accountName{
@@ -16930,26 +16941,31 @@ html body.is-partnership .auth__accountName{
 }
 
 html body.is-partnership .brandmark__badge{
-  border-color: rgba(220, 108, 255, .46) !important;
+  border-color: rgba(184, 125, 230, .38) !important;
   background:
-    linear-gradient(180deg, rgba(10, 5, 25, .94), rgba(7, 4, 16, .96)),
-    linear-gradient(90deg, rgba(170, 54, 255, .22), rgba(255,255,255,0) 40%, rgba(255, 96, 235, .16)) !important;
+    linear-gradient(180deg, rgba(10, 9, 15, .94), rgba(7, 7, 11, .96)),
+    linear-gradient(90deg, rgba(142, 94, 205, .14), rgba(255,255,255,0) 40%, rgba(170, 116, 218, .10)) !important;
   box-shadow:
     0 16px 40px rgba(0, 0, 0, .46),
-    0 0 34px rgba(178, 67, 255, .22),
+    0 0 28px rgba(154, 103, 220, .14),
     inset 0 1px 0 rgba(255,255,255,.06) !important;
 }
 
 html body.is-partnership .brandmark__badge::before{
-  border-color: rgba(255, 135, 245, .18) !important;
+  border-color: rgba(213, 164, 255, .16) !important;
+}
+
+html body.is-partnership .brandmark__logo--badge{
+  border-color: rgba(184, 125, 230, .18) !important;
+  filter: saturate(.55) hue-rotate(238deg) brightness(.92) contrast(1.06) drop-shadow(0 8px 20px rgba(105, 67, 166, .20)) !important;
 }
 
 html body.is-partnership .brandmark__light--blue{
-  background: radial-gradient(circle, rgba(87, 92, 255, .95), rgba(87, 92, 255, 0) 70%) !important;
+  background: radial-gradient(circle, rgba(156, 126, 230, .78), rgba(156, 126, 230, 0) 70%) !important;
 }
 
 html body.is-partnership .brandmark__light--red{
-  background: radial-gradient(circle, rgba(255, 78, 232, .92), rgba(255, 78, 232, 0) 70%) !important;
+  background: radial-gradient(circle, rgba(213, 126, 230, .72), rgba(213, 126, 230, 0) 70%) !important;
 }
 
 html body.is-partnership .dock{
@@ -16966,12 +16982,12 @@ html body.is-partnership .dock{
   margin: 0 !important;
   padding: 10px 12px !important;
   gap: 8px !important;
-  border: 1px solid rgba(202, 94, 255, .34) !important;
+  border: 1px solid rgba(184, 125, 230, .30) !important;
   border-radius: 24px !important;
-  background: rgba(5, 3, 14, .82) !important;
+  background: rgba(7, 7, 11, .86) !important;
   box-shadow:
     0 18px 54px rgba(0, 0, 0, .44),
-    0 0 38px rgba(154, 53, 255, .14) !important;
+    0 0 32px rgba(155, 104, 220, .10) !important;
   overflow-x: auto !important;
   overflow-y: hidden !important;
   backdrop-filter: blur(16px) !important;
@@ -16982,20 +16998,21 @@ html body.is-partnership .dock__item{
   min-width: 88px !important;
   height: 44px !important;
   padding: 0 16px !important;
-  border: 1px solid rgba(181, 101, 255, .25) !important;
+  border: 1px solid rgba(184, 125, 230, .22) !important;
   border-radius: 8px !important;
-  background: rgba(9, 5, 24, .62) !important;
+  background: rgba(10, 9, 14, .66) !important;
   color: rgba(250, 236, 255, .86) !important;
 }
 
 html body.is-partnership .dock__item:hover{
-  border-color: rgba(250, 126, 255, .50) !important;
-  background: rgba(122, 33, 201, .24) !important;
+  border-color: rgba(213, 164, 255, .46) !important;
+  background: rgba(76, 45, 101, .28) !important;
 }
 
 html body.is-partnership .dock__item.is-active{
-  border-color: rgba(255, 126, 239, .72) !important;
-  background: linear-gradient(135deg, rgba(136, 43, 224, .58), rgba(27, 40, 132, .38)) !important;
+  border-color: rgba(213, 164, 255, .62) !important;
+  background: linear-gradient(135deg, rgba(78, 48, 106, .72), rgba(23, 21, 31, .66)) !important;
+  color: rgba(255, 244, 255, .92) !important;
 }
 
 html body.is-partnership .dock__label,
@@ -17004,13 +17021,13 @@ html body.is-partnership .dock__icon{
 }
 
 html body.is-partnership .footer__inner{
-  border-color: rgba(202, 94, 255, .28) !important;
-  background: rgba(5, 3, 14, .76) !important;
+  border-color: rgba(184, 125, 230, .24) !important;
+  background: rgba(7, 7, 11, .78) !important;
 }
 
 html body.is-partnership .footer__link{
-  color: rgba(248, 193, 255, .92) !important;
-  border-bottom-color: rgba(248, 193, 255, .28) !important;
+  color: rgba(224, 202, 255, .92) !important;
+  border-bottom-color: rgba(224, 202, 255, .28) !important;
 }
 
 html body.is-partnership .footer__link:hover{
