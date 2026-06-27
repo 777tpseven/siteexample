@@ -16866,3 +16866,176 @@ body.is-partnership .content{
     grid-template-columns: 1fr;
   }
 }
+
+/* 2026-06-28 partnership shell polish */
+html body.is-partnership .topbar{
+  width: min(1480px, calc(100% - 32px)) !important;
+  margin: 0 auto 12px !important;
+  padding: 18px 42px !important;
+  border: 1px solid rgba(202, 94, 255, .34) !important;
+  border-radius: 28px !important;
+  background:
+    linear-gradient(90deg, rgba(9, 4, 24, .88), rgba(11, 6, 20, .74) 44%, rgba(9, 3, 22, .88)) !important;
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, .40),
+    0 0 42px rgba(154, 53, 255, .12) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+html body.is-partnership .clock,
+html body.is-partnership .auth__btn,
+html body.is-partnership .auth__btn--account{
+  border-color: rgba(221, 108, 255, .30) !important;
+  background: rgba(8, 4, 22, .74) !important;
+  color: rgba(255, 244, 255, .94) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .05),
+    0 0 22px rgba(139, 44, 255, .10) !important;
+}
+
+html body.is-partnership .auth__btn:hover,
+html body.is-partnership .auth__btn--account:hover{
+  border-color: rgba(250, 126, 255, .55) !important;
+  background: rgba(119, 34, 190, .28) !important;
+}
+
+html body.is-partnership .auth__btn--primary{
+  border-color: rgba(255, 126, 239, .52) !important;
+  background: linear-gradient(135deg, rgba(132, 36, 226, .54), rgba(34, 32, 121, .34)) !important;
+}
+
+html body.is-partnership .topbar .auth #loginBtn.auth__btn.auth__btn--primary,
+html body.is-partnership .topbar .auth #accountBtn.auth__btn.auth__btn--primary,
+html body.is-partnership .topbar .auth .auth__btn.auth__btn--primary{
+  border-color: rgba(255, 126, 239, .58) !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(135deg, rgba(132, 36, 226, .58), rgba(34, 32, 121, .38)) !important;
+  color: rgba(255, 247, 255, .98) !important;
+}
+
+html body.is-partnership .topbar .auth #loginBtn.auth__btn.auth__btn--primary:hover,
+html body.is-partnership .topbar .auth #accountBtn.auth__btn.auth__btn--primary:hover,
+html body.is-partnership .topbar .auth .auth__btn.auth__btn--primary:hover{
+  border-color: rgba(255, 169, 255, .74) !important;
+  background-image: linear-gradient(135deg, rgba(164, 55, 255, .66), rgba(49, 54, 154, .44)) !important;
+}
+
+html body.is-partnership .auth__avatar{
+  border-color: rgba(251, 139, 255, .42) !important;
+  background: rgba(25, 9, 48, .84) !important;
+}
+
+html body.is-partnership .auth__accountName{
+  color: rgba(255, 244, 255, .96) !important;
+}
+
+html body.is-partnership .brandmark__badge{
+  border-color: rgba(220, 108, 255, .46) !important;
+  background:
+    linear-gradient(180deg, rgba(10, 5, 25, .94), rgba(7, 4, 16, .96)),
+    linear-gradient(90deg, rgba(170, 54, 255, .22), rgba(255,255,255,0) 40%, rgba(255, 96, 235, .16)) !important;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, .46),
+    0 0 34px rgba(178, 67, 255, .22),
+    inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+html body.is-partnership .brandmark__badge::before{
+  border-color: rgba(255, 135, 245, .18) !important;
+}
+
+html body.is-partnership .brandmark__light--blue{
+  background: radial-gradient(circle, rgba(87, 92, 255, .95), rgba(87, 92, 255, 0) 70%) !important;
+}
+
+html body.is-partnership .brandmark__light--red{
+  background: radial-gradient(circle, rgba(255, 78, 232, .92), rgba(255, 78, 232, 0) 70%) !important;
+}
+
+html body.is-partnership .dock{
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  max-width: calc(100vw - 36px) !important;
+  margin: 0 !important;
+  padding: 10px 12px !important;
+  gap: 8px !important;
+  border: 1px solid rgba(202, 94, 255, .34) !important;
+  border-radius: 24px !important;
+  background: rgba(5, 3, 14, .82) !important;
+  box-shadow:
+    0 18px 54px rgba(0, 0, 0, .44),
+    0 0 38px rgba(154, 53, 255, .14) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+html body.is-partnership .dock__item{
+  flex: 0 0 auto !important;
+  min-width: 88px !important;
+  height: 44px !important;
+  padding: 0 16px !important;
+  border: 1px solid rgba(181, 101, 255, .25) !important;
+  border-radius: 8px !important;
+  background: rgba(9, 5, 24, .62) !important;
+  color: rgba(250, 236, 255, .86) !important;
+}
+
+html body.is-partnership .dock__item:hover{
+  border-color: rgba(250, 126, 255, .50) !important;
+  background: rgba(122, 33, 201, .24) !important;
+}
+
+html body.is-partnership .dock__item.is-active{
+  border-color: rgba(255, 126, 239, .72) !important;
+  background: linear-gradient(135deg, rgba(136, 43, 224, .58), rgba(27, 40, 132, .38)) !important;
+}
+
+html body.is-partnership .dock__label,
+html body.is-partnership .dock__icon{
+  color: rgba(255, 244, 255, .90) !important;
+}
+
+html body.is-partnership .footer__inner{
+  border-color: rgba(202, 94, 255, .28) !important;
+  background: rgba(5, 3, 14, .76) !important;
+}
+
+html body.is-partnership .footer__link{
+  color: rgba(248, 193, 255, .92) !important;
+  border-bottom-color: rgba(248, 193, 255, .28) !important;
+}
+
+html body.is-partnership .footer__link:hover{
+  color: #ffffff !important;
+  border-bottom-color: rgba(255, 255, 255, .60) !important;
+}
+
+@media (max-width: 760px){
+  html body.is-partnership .topbar{
+    width: calc(100% - 18px) !important;
+    padding: 12px !important;
+    border-radius: 18px !important;
+  }
+
+  html body.is-partnership .dock{
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: none !important;
+    transform: none !important;
+    justify-content: flex-start !important;
+    border-radius: 18px !important;
+  }
+
+  html body.is-partnership .dock__item{
+    min-width: 82px !important;
+  }
+}
