@@ -73,6 +73,9 @@ const APP_ASSET_BASE_URL = document.currentScript?.src
 const VEHICLE_ASSET_BASE_URL = `${APP_ASSET_BASE_URL}vehicle-assets/`;
 const BRAND_LOGO_BANNER_URL = `${APP_ASSET_BASE_URL}branding/sg-cops-and-robbers-web.png?v=${SITE_ASSET_VERSION}`;
 const BRAND_LOGO_BADGE_URL = `${APP_ASSET_BASE_URL}branding/sgcnr-badge-header.png?v=${SITE_ASSET_VERSION}`;
+const PARTNERSHIP_BACKGROUND_URL = `${APP_ASSET_BASE_URL}branding/a19-customs-partnership-bg.jpg?v=${SITE_ASSET_VERSION}`;
+const A19_DISCORD_URL = "https://discord.gg/a19customs";
+const A19_TEBEX_URL = "https://a19customs.tebex.io/";
 const VEHICLE_SHOWCASE_FILTERS = [
   { id: "all", label: "All" },
   { id: "free", label: "Free" },
@@ -6614,6 +6617,51 @@ function renderSearch(sections) {
   clearTopMeta();
 }
 
+function renderPartnership() {
+  const services = [
+    "Vehicle Development & Custom Builds",
+    "Window Tinting",
+    "Interior Modifications",
+    "LED Lighting",
+    "Wheel Swaps",
+    "Custom Handling Files",
+    "Meta Fixes",
+    "Livery Templates",
+    "Custom License Plates"
+  ];
+
+  setView(`
+    <div class="partnership-page" style="--partnership-bg: url('${escapeHtml(PARTNERSHIP_BACKGROUND_URL)}')">
+      <section class="partnership-hero" aria-label="A19 Customs">
+        <div class="partnership-hero__copy">
+          <div class="partnership-kicker">Partnership</div>
+          <h1>A19 Customs</h1>
+          <p>Professional vehicle development and customization for GTA FiveM.</p>
+          <div class="partnership-actions">
+            <a class="partnership-btn partnership-btn--primary" href="${escapeHtml(A19_DISCORD_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a class="partnership-btn" href="${escapeHtml(A19_TEBEX_URL)}" target="_blank" rel="noopener noreferrer">Tebex</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="partnership-layout" aria-label="A19 Customs details">
+        <article class="partnership-card partnership-card--wide">
+          <h2>Professional Vehicle Development & Customization for GTA FiveM</h2>
+          <p>A19 Customs delivers high-quality, lore-friendly vehicle customization designed to enhance your server while maintaining full FiveM TOS compliance.</p>
+          <p>From minor enhancements to complete custom builds, the work focuses on quality, reliability, and attention to detail.</p>
+        </article>
+
+        <article class="partnership-card">
+          <h2>Services</h2>
+          <div class="partnership-services">
+            ${services.map((service) => `<span>${escapeHtml(service)}</span>`).join("")}
+          </div>
+        </article>
+      </section>
+    </div>
+  `);
+}
+
 function parseRoute() {
   const clean = getCurrentRoutePath();
   const parts = clean.split("/").filter(Boolean);
@@ -6630,6 +6678,7 @@ function parseRoute() {
   if (parts[0] === "vehicles") return { name: "vehicles", page: parts[1] || "showcase" };
   if (parts[0] === "status") return { name: "live", metric: parts[1] || "kd" };
   if (parts[0] === "live") return { name: "live", metric: parts[1] || "kd" };
+  if (parts[0] === "partnership" || parts[0] === "partners") return { name: "partnership" };
   if (parts[0] === "help" && parts[1] === "memberships" && ["free", "silver", "gold"].includes(parts[2]) && parts[3] === "cars") {
     return { name: "vehicles", page: "membership-cars", membership: parts[2] };
   }
@@ -6676,6 +6725,7 @@ function route() {
   document.body.classList.toggle("is-landing", r.name === "home");
   document.body.classList.toggle("is-map", r.name === "map");
   document.body.classList.toggle("is-vehicles", r.name === "vehicles");
+  document.body.classList.toggle("is-partnership", r.name === "partnership");
   document.body.classList.remove("is-wiki");
   document.body.classList.toggle("is-standard", isStandardPage);
   clearTopMeta();
@@ -6708,6 +6758,10 @@ function route() {
     vehicleShowcaseState.category = "all";
     vehicleShowcaseState.selectedId = "";
     renderVehicleShowcase();
+    return;
+  }
+  if (r.name === "partnership") {
+    renderPartnership();
     return;
   }
   if (r.name === "live") {

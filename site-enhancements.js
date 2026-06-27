@@ -153,7 +153,7 @@
   }
 
   route = function enhancedRoute() {
-    document.body.classList.remove("is-help-rules", "is-membership");
+    document.body.classList.remove("is-help-rules", "is-membership", "is-membership-cars", "is-partnership");
 
     const membershipCarsId = getMembershipCarsIdFromPath();
     if (membershipCarsId) {
@@ -163,7 +163,7 @@
       if (typeof setSearchVisible === "function") setSearchVisible(false);
       if (typeof clearTopMeta === "function") clearTopMeta();
 
-      document.body.classList.remove("is-landing", "is-map", "is-wiki", "is-vehicles");
+      document.body.classList.remove("is-landing", "is-map", "is-wiki", "is-vehicles", "is-partnership");
       document.body.classList.add("is-standard", "is-membership", "is-membership-cars");
       renderMembershipCarsPage(membershipCarsId);
       window.requestAnimationFrame(initEditorialMotion);
@@ -178,7 +178,7 @@
       if (typeof setSearchVisible === "function") setSearchVisible(false);
       if (typeof clearTopMeta === "function") clearTopMeta();
 
-      document.body.classList.remove("is-landing", "is-map", "is-wiki");
+      document.body.classList.remove("is-landing", "is-map", "is-wiki", "is-partnership");
       document.body.classList.add("is-standard", "is-help-rules");
       renderHelpRuleSection(helpRuleSectionId);
       window.requestAnimationFrame(initEditorialMotion);
@@ -193,7 +193,7 @@
       if (typeof setSearchVisible === "function") setSearchVisible(false);
       if (typeof clearTopMeta === "function") clearTopMeta();
 
-      document.body.classList.remove("is-landing", "is-map", "is-wiki");
+      document.body.classList.remove("is-landing", "is-map", "is-wiki", "is-partnership");
       document.body.classList.add("is-standard", "is-membership");
       renderHelpMembershipPage(membershipId);
       window.requestAnimationFrame(initEditorialMotion);

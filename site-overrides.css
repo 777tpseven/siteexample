@@ -16620,3 +16620,249 @@ html body .help-clean__jobGroup span{
     min-height: 0 !important;
   }
 }
+
+/* 2026-06-27 A19 Customs partnership page */
+body.is-partnership{
+  background:
+    linear-gradient(90deg, rgba(1, 1, 6, .88), rgba(5, 1, 18, .42) 52%, rgba(2, 1, 8, .84)),
+    linear-gradient(180deg, rgba(0, 0, 0, .18), rgba(3, 0, 15, .58)),
+    url("/branding/a19-customs-partnership-bg.jpg?v=20260627a") center / cover fixed no-repeat !important;
+}
+
+html body.is-partnership::before{
+  background:
+    linear-gradient(90deg, rgba(1, 1, 6, .88), rgba(5, 1, 18, .42) 52%, rgba(2, 1, 8, .84)),
+    url("/branding/a19-customs-partnership-bg.jpg?v=20260627a") center / cover fixed no-repeat !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+body.is-partnership .site-brand-backdrop{
+  display: none !important;
+}
+
+body.is-partnership .topbar,
+body.is-partnership .dock,
+body.is-partnership .footer{
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+body.is-partnership .topbar,
+body.is-partnership .dock,
+body.is-partnership .footer__inner{
+  border-color: rgba(193, 89, 255, .28) !important;
+  background: rgba(5, 3, 14, .74) !important;
+  box-shadow: 0 22px 56px rgba(6, 0, 24, .34) !important;
+  backdrop-filter: blur(14px) !important;
+}
+
+body.is-partnership .dock__item{
+  border-color: rgba(151, 104, 255, .18) !important;
+  background: rgba(9, 5, 24, .52) !important;
+}
+
+body.is-partnership .dock__item:hover,
+body.is-partnership .dock__item.is-active{
+  border-color: rgba(234, 85, 255, .52) !important;
+  background: rgba(136, 43, 224, .22) !important;
+}
+
+body.is-partnership .dock__item.is-active .dock__label,
+body.is-partnership .dock__item.is-active .dock__icon{
+  color: #fff4ff !important;
+}
+
+body.is-partnership .content{
+  width: min(1440px, calc(100% - 28px)) !important;
+  max-width: none !important;
+  margin: 0 auto !important;
+  padding: 18px 0 calc(158px + env(safe-area-inset-bottom, 0px)) !important;
+  background: transparent !important;
+}
+
+.partnership-page{
+  --a19-line: rgba(212, 103, 255, .26);
+  --a19-line-strong: rgba(255, 119, 246, .48);
+  --a19-panel: rgba(5, 3, 12, .78);
+  --a19-panel-soft: rgba(11, 8, 27, .62);
+  --a19-ink: #fff7ff;
+  --a19-muted: rgba(245, 229, 255, .76);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  gap: 14px;
+  min-height: calc(100vh - 150px);
+  color: var(--a19-ink);
+}
+
+.partnership-page::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(1, 1, 6, .86) 0%, rgba(4, 2, 14, .48) 46%, rgba(2, 1, 8, .82) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, .24), rgba(4, 0, 15, .62)),
+    var(--partnership-bg) center / cover no-repeat;
+}
+
+.partnership-page::after{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 72% 28%, rgba(0, 127, 255, .18), transparent 32%),
+    radial-gradient(circle at 50% 70%, rgba(222, 35, 255, .20), transparent 36%),
+    linear-gradient(180deg, rgba(0, 0, 0, .14), rgba(0, 0, 0, .58));
+}
+
+.partnership-hero{
+  display: grid;
+  min-height: clamp(330px, 48vh, 560px);
+  align-items: end;
+  padding: clamp(24px, 5vw, 64px);
+  border: 1px solid var(--a19-line);
+  border-radius: 12px;
+  background:
+    linear-gradient(90deg, rgba(6, 3, 15, .82), rgba(12, 4, 31, .42) 60%, rgba(6, 3, 15, .22));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .34);
+}
+
+.partnership-hero__copy{
+  max-width: 720px;
+}
+
+.partnership-kicker{
+  width: fit-content;
+  margin-bottom: 14px;
+  padding: 6px 9px;
+  border: 1px solid rgba(255, 134, 245, .34);
+  border-radius: 6px;
+  background: rgba(12, 6, 28, .66);
+  color: #ffc8ff;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.partnership-hero h1{
+  margin: 0;
+  color: var(--a19-ink);
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  line-height: .85;
+  letter-spacing: 0;
+}
+
+.partnership-hero p{
+  max-width: 640px;
+  margin: 18px 0 0;
+  color: var(--a19-muted);
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1.5;
+}
+
+.partnership-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.partnership-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--a19-line);
+  border-radius: 8px;
+  background: rgba(6, 4, 16, .70);
+  color: var(--a19-ink);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.partnership-btn:hover{
+  border-color: var(--a19-line-strong);
+  background: rgba(122, 33, 201, .28);
+}
+
+.partnership-btn--primary{
+  border-color: rgba(255, 126, 239, .50);
+  background: linear-gradient(135deg, rgba(152, 48, 236, .58), rgba(0, 92, 220, .36));
+}
+
+.partnership-layout{
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+  gap: 14px;
+}
+
+.partnership-card{
+  padding: clamp(20px, 3vw, 34px);
+  border: 1px solid var(--a19-line);
+  border-radius: 12px;
+  background: var(--a19-panel);
+  box-shadow: 0 20px 58px rgba(0, 0, 0, .30);
+}
+
+.partnership-card h2{
+  margin: 0 0 12px;
+  color: var(--a19-ink);
+  font-size: clamp(1.45rem, 2.4vw, 2.3rem);
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.partnership-card p{
+  max-width: 760px;
+  margin: 0;
+  color: var(--a19-muted);
+  line-height: 1.62;
+}
+
+.partnership-card p + p{
+  margin-top: 12px;
+}
+
+.partnership-services{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.partnership-services span{
+  min-height: 42px;
+  padding: 11px 12px;
+  border: 1px solid rgba(205, 118, 255, .18);
+  border-radius: 8px;
+  background: var(--a19-panel-soft);
+  color: rgba(255, 244, 255, .92);
+  font-weight: 800;
+}
+
+@media (max-width: 900px){
+  body.is-partnership .content{
+    width: min(100% - 18px, 1440px) !important;
+    padding-top: 10px !important;
+  }
+
+  .partnership-hero{
+    min-height: 420px;
+    padding: 24px;
+  }
+
+  .partnership-layout,
+  .partnership-services{
+    grid-template-columns: 1fr;
+  }
+}
