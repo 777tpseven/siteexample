@@ -16869,16 +16869,16 @@ body.is-partnership .content{
 
 /* 2026-06-28 partnership shell polish */
 html body.is-partnership .topbar{
-  width: min(1480px, calc(100% - 32px)) !important;
-  margin: 0 auto 12px !important;
-  padding: 18px 42px !important;
+  width: min(1450px, calc(100% - 36px)) !important;
+  margin: 4px auto 10px !important;
+  padding: 14px 36px !important;
   border: 1px solid rgba(202, 94, 255, .34) !important;
-  border-radius: 28px !important;
+  border-radius: 24px !important;
   background:
     linear-gradient(90deg, rgba(9, 4, 24, .88), rgba(11, 6, 20, .74) 44%, rgba(9, 3, 22, .88)) !important;
   box-shadow:
-    0 18px 50px rgba(0, 0, 0, .40),
-    0 0 42px rgba(154, 53, 255, .12) !important;
+    0 14px 42px rgba(0, 0, 0, .38),
+    0 0 34px rgba(154, 53, 255, .10) !important;
   backdrop-filter: blur(16px) !important;
 }
 
