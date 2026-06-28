@@ -17662,3 +17662,269 @@ html body:not(.is-partnership) ::selection{
     max-height: 32px !important;
   }
 }
+
+/* 2026-06-28 SGCNR brand cleanup: logo backdrop and no warm leftovers */
+html body:not(.is-partnership){
+  --accent: #2567f5 !important;
+  --accent2: #9fbdff !important;
+  --site-accent: #2567f5 !important;
+  --site-accent-soft: rgba(37, 103, 245, .16) !important;
+  --site-gold: #9fbdff !important;
+  --site-blue: #2567f5 !important;
+  --site-green: #2567f5 !important;
+  --site-border-strong: rgba(78, 139, 255, .30) !important;
+  --sgcnr-line: rgba(78, 139, 255, .24) !important;
+  --sgcnr-line-strong: rgba(114, 164, 255, .42) !important;
+  --sgcnr-accent: #2567f5 !important;
+  --sgcnr-accent-soft: #9fbdff !important;
+  --sgcnr-accent-deep: #0a2d84 !important;
+  --sgcnr-panel: rgba(5, 8, 17, .68) !important;
+  --sgcnr-panel-soft: rgba(5, 8, 17, .56) !important;
+  --sgcnr-panel-strong: rgba(4, 7, 15, .84) !important;
+  --staff-role-tone: #9fbdff !important;
+  --staff-role-bg: rgba(37, 103, 245, .10) !important;
+  background:
+    linear-gradient(90deg, rgba(2, 5, 13, .54), rgba(2, 5, 13, .14) 42%, rgba(2, 5, 13, .72)),
+    linear-gradient(180deg, rgba(2, 5, 13, .14), rgba(2, 5, 13, .56) 56%, rgba(2, 4, 10, .92)),
+    url("/branding/sgcnr-brand-logo-20260628.png?v=20260628a") center 36% / min(1280px, 90vw) auto no-repeat fixed,
+    radial-gradient(circle at 22% 12%, rgba(37, 103, 245, .10), transparent 34%),
+    linear-gradient(135deg, #05070d 0%, #060911 42%, #02050b 100%) !important;
+}
+
+html body:not(.is-partnership) .site-brand-backdrop{
+  background:
+    radial-gradient(circle at 22% 12%, rgba(37, 103, 245, .10), transparent 34%),
+    linear-gradient(135deg, #05070d 0%, #060911 42%, #02050b 100%) !important;
+}
+
+html body:not(.is-partnership) .site-brand-backdrop::before{
+  inset: 0 !important;
+  opacity: .72 !important;
+  background:
+    url("/branding/sgcnr-brand-logo-20260628.png?v=20260628a") center 36% / min(1280px, 90vw) auto no-repeat !important;
+  filter: saturate(.96) contrast(1.08) brightness(.84) !important;
+  transform: none !important;
+}
+
+html body:not(.is-partnership) .site-brand-backdrop::after{
+  background:
+    linear-gradient(90deg, rgba(3, 6, 13, .50), rgba(3, 6, 13, .14) 36%, rgba(2, 5, 13, .68)),
+    linear-gradient(180deg, rgba(3, 6, 13, .20), rgba(3, 6, 13, .54) 48%, rgba(2, 4, 10, .88)) !important;
+}
+
+html body:not(.is-partnership) :is(
+  .topbar,
+  .dock,
+  .footer__inner,
+  .clock,
+  #localTime,
+  .brandmark__badge,
+  .section,
+  .page-hero,
+  .home-main,
+  .home-main__hero,
+  .home-main__panel,
+  .home-main__route,
+  .home-main__tierList a,
+  .landing-hub__card,
+  .help-clean__head,
+  .help-clean__item,
+  .help-clean__membershipLink,
+  .help-clean__jobGroup,
+  .neo-help__link,
+  .neo-membership__hero,
+  .neo-membership__benefit,
+  .neo-membership__aside,
+  .membership-cars__tabs,
+  .membership-cars__group,
+  .membership-cars__empty,
+  .rules-picker__item,
+  .rules-document__section,
+  .rules-document__article,
+  .rule-card,
+  .vehicle-showcase__head,
+  .vehicle-showcase__stage,
+  .vehicle-showcase__media,
+  .vehicle-showcase__spec,
+  .vehicle-showcase__filters,
+  .vehicle-showcase__card,
+  .live-minimal__hero,
+  .live-minimal__card,
+  .live-staff,
+  .live-staff__group,
+  .map-simple,
+  .map-simple__stage,
+  .map-simple__note,
+  .map-simple__soonItem,
+  .status-card,
+  .status-note,
+  .status-empty,
+  .auth-modal__panel,
+  .staff-profile
+){
+  border-color: var(--sgcnr-line) !important;
+}
+
+html body:not(.is-partnership) :is(
+  .clock,
+  #localTime,
+  .auth__btn,
+  .auth__btn--primary,
+  .info-link,
+  .dock__item,
+  .membership-cars__tabs a,
+  .vehicle-showcase__filter,
+  .map-simple__discord,
+  .leaderboard-badge,
+  .live-staff__mainIcon,
+  .live-staff__groupIcon,
+  .live-staff__groupCount,
+  .live-staff__count,
+  .live-staff__avatar,
+  .live-staff__status,
+  .live-staff__role,
+  .staff-chip,
+  .staff-profile__status,
+  .staff-profile__roles span,
+  .page-hero__badge,
+  .section__eyebrow,
+  .help-clean__eyebrow,
+  .vehicle-showcase__eyebrow,
+  .neo-kicker,
+  .home-main__eyebrow,
+  .map-simple__soonHead,
+  .status-card__label,
+  .live-minimal__label,
+  .vehicle-showcase__tier
+){
+  border-color: rgba(78, 139, 255, .28) !important;
+  background: rgba(37, 103, 245, .10) !important;
+  color: rgba(220, 229, 255, .96) !important;
+  box-shadow: none !important;
+}
+
+html body:not(.is-partnership) :is(
+  .auth__btn--primary,
+  .dock__item.is-active,
+  .dock__item[aria-current="page"],
+  .membership-cars__tabs a.is-active,
+  .vehicle-showcase__filter.is-active,
+  .rules-picker__item.is-active,
+  .rules-picker__item[aria-selected="true"]
+){
+  border-color: rgba(121, 169, 255, .52) !important;
+  background: linear-gradient(180deg, rgba(37, 103, 245, .62), rgba(12, 37, 103, .78)) !important;
+  color: #f8fbff !important;
+}
+
+html body:not(.is-partnership) :is(
+  .clock,
+  #localTime
+){
+  background:
+    linear-gradient(180deg, rgba(7, 12, 25, .94), rgba(4, 7, 15, .96)) !important;
+  border-color: rgba(78, 139, 255, .30) !important;
+  color: rgba(246, 248, 255, .96) !important;
+  text-shadow: none !important;
+}
+
+html body:not(.is-partnership) :is(
+  .live-staff__group,
+  .staff-profile,
+  .staff-profile__banner,
+  .staff-profile__metaCard,
+  .staff-profile__section,
+  .live-staff__row,
+  .live-staff__head
+){
+  --staff-role-tone: #9fbdff !important;
+  --staff-role-bg: rgba(37, 103, 245, .10) !important;
+  border-color: rgba(78, 139, 255, .22) !important;
+}
+
+html body:not(.is-partnership) :is(
+  .live-staff__groupIcon,
+  .live-staff__avatar,
+  .staff-profile__avatar,
+  .staff-profile__roles span
+){
+  border-color: rgba(78, 139, 255, .30) !important;
+  background: rgba(37, 103, 245, .12) !important;
+  color: #dce7ff !important;
+}
+
+html body:not(.is-partnership) :is(
+  a,
+  .footer__link,
+  .footer__mail,
+  .home-main__tierList strong,
+  .help-clean__membershipLink strong,
+  .membership-cars__tier,
+  .vehicle-showcase__tier,
+  .staff-profile__metaCard span,
+  .staff-profile__section > span,
+  .live-staff__row:hover .live-staff__rowName strong,
+  .live-staff__row:focus-visible .live-staff__rowName strong
+){
+  color: rgba(159, 189, 255, .96) !important;
+  border-bottom-color: rgba(78, 139, 255, .30) !important;
+  text-decoration-color: rgba(78, 139, 255, .30) !important;
+}
+
+html body:not(.is-partnership) :is(
+  .home-main__hero,
+  .page-hero,
+  .help-clean__head,
+  .neo-membership__hero,
+  .vehicle-showcase__head,
+  .live-minimal__hero,
+  .map-simple
+){
+  background:
+    linear-gradient(135deg, rgba(5, 8, 17, .72), rgba(5, 8, 17, .66) 58%, rgba(13, 36, 92, .26)) !important;
+}
+
+html body:not(.is-partnership) :is(
+  .section,
+  .home-main__panel,
+  .home-main__route,
+  .landing-hub__card,
+  .help-clean__item,
+  .help-clean__membershipLink,
+  .help-clean__jobGroup,
+  .neo-membership__benefit,
+  .neo-membership__aside,
+  .membership-cars__group,
+  .rules-picker__item,
+  .rules-document__section,
+  .rules-document__article,
+  .rule-card,
+  .vehicle-showcase__stage,
+  .vehicle-showcase__media,
+  .vehicle-showcase__spec,
+  .vehicle-showcase__filters,
+  .vehicle-showcase__card,
+  .live-minimal__card,
+  .live-staff,
+  .live-staff__group,
+  .map-simple__stage,
+  .map-simple__note,
+  .map-simple__soonItem,
+  .status-card,
+  .footer__inner
+){
+  background: rgba(5, 8, 17, .68) !important;
+}
+
+html body:not(.is-partnership) :is(
+  .landing-reboot__badge--red,
+  .landing-reboot__badge--blue,
+  .map-toolbar__badge,
+  .map-filter,
+  .map-legend__item,
+  .player-card__badge
+){
+  border-color: rgba(78, 139, 255, .24) !important;
+  background: rgba(37, 103, 245, .09) !important;
+  color: rgba(220, 229, 255, .94) !important;
+}
