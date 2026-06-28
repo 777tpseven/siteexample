@@ -66,13 +66,13 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260627a";
+const SITE_ASSET_VERSION = "20260628a";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
 const VEHICLE_ASSET_BASE_URL = `${APP_ASSET_BASE_URL}vehicle-assets/`;
-const BRAND_LOGO_BANNER_URL = `${APP_ASSET_BASE_URL}branding/sg-cops-and-robbers-web.png?v=${SITE_ASSET_VERSION}`;
-const BRAND_LOGO_BADGE_URL = `${APP_ASSET_BASE_URL}branding/sgcnr-badge-header.png?v=${SITE_ASSET_VERSION}`;
+const BRAND_LOGO_BANNER_URL = `${APP_ASSET_BASE_URL}branding/sgcnr-brand-bg-20260628.png?v=${SITE_ASSET_VERSION}`;
+const BRAND_LOGO_BADGE_URL = `${APP_ASSET_BASE_URL}branding/sgcnr-brand-logo-20260628.png?v=${SITE_ASSET_VERSION}`;
 const PARTNERSHIP_BACKGROUND_URL = `${APP_ASSET_BASE_URL}branding/a19-customs-partnership-bg.jpg?v=${SITE_ASSET_VERSION}`;
 const A19_DISCORD_URL = "https://discord.gg/a19customs";
 const A19_TEBEX_URL = "https://a19customs.tebex.io/";
