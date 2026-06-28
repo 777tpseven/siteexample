@@ -16569,7 +16569,7 @@ html body.is-map .map-page--simple{
 
 html body.is-map .map-simple{
   display: grid !important;
-  grid-template-columns: minmax(420px, 660px) minmax(300px, 380px) !important;
+  grid-template-columns: minmax(340px, 470px) minmax(300px, 380px) !important;
   justify-content: center !important;
   gap: 12px !important;
   min-height: 0 !important;
@@ -16583,7 +16583,8 @@ html body.is-map .map-simple{
 
 html body.is-map .map-simple__stage{
   position: relative !important;
-  height: clamp(400px, calc(100svh - 240px), 620px) !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
   min-height: 0 !important;
   border: 1px solid var(--sgcnr-line) !important;
   border-radius: 8px !important;
@@ -16757,6 +16758,90 @@ html body.is-map .map-simple__discord:hover{
   html body.is-map .map-simple__note{
     padding: 14px !important;
   }
+}
+
+/* 2026-06-28 map color cleanup */
+html body.is-map{
+  --accent: #d8ad8d !important;
+  --accent2: #f1d3bd !important;
+  --site-gold: #d8ad8d !important;
+  --site-green: #d8ad8d !important;
+  --sgcnr-ink: rgba(246, 239, 231, .94) !important;
+  --sgcnr-muted: rgba(224, 208, 196, .74) !important;
+  --sgcnr-line: rgba(218, 173, 141, .18) !important;
+  --sgcnr-panel: rgba(13, 10, 9, .86) !important;
+  --sgcnr-panel-strong: rgba(17, 12, 10, .94) !important;
+  --sgcnr-accent: #d8ad8d !important;
+  --sgcnr-accent-deep: #704334 !important;
+  background: #090706 !important;
+  color: var(--sgcnr-ink) !important;
+}
+
+html body.is-map .site-brand-backdrop,
+html body.is-map .site-brand-backdrop::before{
+  display: block !important;
+  background-color: #090706 !important;
+}
+
+html body.is-map .site-brand-backdrop::before{
+  opacity: 1 !important;
+  filter: saturate(.86) contrast(1.04) brightness(.82) sepia(.08) !important;
+}
+
+html body.is-map .site-brand-backdrop::after{
+  display: block !important;
+  opacity: 1 !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(216, 173, 141, .055), transparent 34%),
+    linear-gradient(180deg, rgba(8, 5, 4, .30), rgba(8, 5, 4, .48) 52%, rgba(8, 5, 4, .66)) !important;
+}
+
+html body.is-map :is(.topbar, .dock, .footer__inner, .map-simple, .map-simple__stage, .map-simple__note, .map-simple__soonItem){
+  border-color: var(--sgcnr-line) !important;
+  background: var(--sgcnr-panel) !important;
+  color: var(--sgcnr-ink) !important;
+  box-shadow: none !important;
+}
+
+html body.is-map :is(.clock, .auth__btn, .dock__item, .map-simple__label, .map-simple__discord){
+  border-color: var(--sgcnr-line) !important;
+  background: rgba(13, 10, 9, .72) !important;
+  color: var(--sgcnr-ink) !important;
+  box-shadow: none !important;
+}
+
+html body.is-map :is(.auth__btn--primary, .dock__item.is-active, .map-simple__discord:hover){
+  border-color: rgba(218, 173, 141, .34) !important;
+  background: var(--sgcnr-panel-strong) !important;
+  color: var(--sgcnr-ink) !important;
+}
+
+html body.is-map .map-simple{
+  background: rgba(13, 10, 9, .76) !important;
+}
+
+html body.is-map .map-simple__stage{
+  background: rgba(8, 7, 6, .86) !important;
+}
+
+html body.is-map .map-simple__stage::before{
+  filter: blur(14px) saturate(.58) contrast(1.04) brightness(.33) sepia(.12) !important;
+  opacity: .66 !important;
+}
+
+html body.is-map .map-simple__image{
+  filter: saturate(.66) contrast(1.04) brightness(.64) sepia(.10) !important;
+}
+
+html body.is-map .map-simple__overlay{
+  background:
+    linear-gradient(90deg, rgba(8, 5, 4, .36), transparent 24%, transparent 72%, rgba(8, 5, 4, .28)),
+    linear-gradient(180deg, rgba(8, 5, 4, .18), transparent 34%, rgba(8, 5, 4, .32)) !important;
+}
+
+html body.is-map .map-simple__kicker,
+html body.is-map .map-simple__soonHead{
+  color: var(--sgcnr-accent) !important;
 }
 
 /* 2026-06-22 help page space usage */

@@ -3476,13 +3476,10 @@ function renderMap() {
             fetchpriority="high"
           />
           <div class="map-simple__overlay" aria-hidden="true"></div>
-          <div class="map-simple__label">GTA Map</div>
         </div>
 
         <aside class="map-simple__note">
-          <span class="map-simple__kicker">Map</span>
-          <h1>City overview</h1>
-          <p>Clean GTA map view for quick orientation. No icons, no filters, just the map.</p>
+          <h1>Map</h1>
 
           <div class="map-simple__soon">
             <div class="map-simple__soonHead">Coming soon</div>
