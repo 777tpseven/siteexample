@@ -3460,81 +3460,62 @@ function renderMapFilters() {
 }
 
 function renderMap() {
-  const quickLinks = renderMapQuickLinks();
-  const filters = renderMapFilters();
-  const stageAside = renderMapStageAside();
-  const policeCount = MAP_LOCATIONS.filter((location) => location.type === "police").length;
-  const hospitalCount = MAP_LOCATIONS.filter((location) => location.type === "hospital").length;
-  const fireCount = MAP_LOCATIONS.filter((location) => location.type === "fire").length;
-  const carWashCount = MAP_LOCATIONS.filter((location) => location.type === "carwash").length;
-  const stats = [
-    { label: "Police", value: policeCount },
-    { label: "Hospitals", value: hospitalCount },
-    { label: "Fire", value: fireCount },
-    { label: "Car Wash", value: carWashCount },
-    { label: "Lester", value: 1 }
-  ].map((item) => `
-    <div class="map-stat">
-      <span class="map-stat__label">${escapeHtml(item.label)}</span>
-      <span class="map-stat__value">${escapeHtml(String(item.value))}</span>
-    </div>
-  `).join("");
-
   destroyCustomMap();
 
   setView(`
-    <div class="map-page">
-      <section class="section section--map">
-        <div class="map-embed-container map-embed-container--custom">
-          <div class="map-layout">
-            <aside class="map-panel">
-              <div class="map-panel__top">
-                <div class="section__eyebrow">Los Santos services</div>
-                <div class="map-panel__headline">Service map</div>
-                <div class="map-panel__intro">Police departments, hospitals, fire stations, car washes, and Lester's House.</div>
-              </div>
-              <div class="map-panel__stats">
-                ${stats}
-              </div>
-              <div class="map-panel__title">Filter</div>
-              <div class="map-filters">
-                ${filters}
-              </div>
-              <div class="map-detail map-detail--panel" id="customMapInfo">${renderMapDetail()}</div>
-              <div class="map-panel__title map-panel__title--spaced">Locations</div>
-              <div class="map-quick">
-                ${quickLinks}
-              </div>
-              <div class="map-panel__foot">
-                <span class="map-panel__sourceLabel">Source</span>
-                <a href="${MAP_SOURCE_URL}" target="_blank" rel="noopener noreferrer">gta-5-map.com services</a>
-              </div>
-            </aside>
-            <div class="map-stage">
-              <div class="service-map-shell">
-                <div class="map-toolbar map-toolbar--overlay">
-                  <div class="map-toolbar__group">
-                    <button class="map-tool" id="mapZoomOutBtn" type="button" aria-label="Zoom out">-</button>
-                    <span class="map-zoom-label" id="mapZoomLabel">100%</span>
-                    <button class="map-tool" id="mapZoomInBtn" type="button" aria-label="Zoom in">+</button>
-                    <button class="map-tool map-tool--ghost" id="mapResetBtn" type="button">Show all</button>
-                    <span class="map-toolbar__badge">Satellite only</span>
-                  </div>
-                  <div class="map-toolbar__hint">Scroll or use +/- to zoom. Drag to move.</div>
-                </div>
-                <div class="service-map is-loading" id="serviceMap" aria-label="Satellite-only Los Santos services map" style="height:calc(100svh - 188px); min-height:500px;"></div>
-                <aside class="map-stage__aside" id="mapStageAside">${stageAside}</aside>
-              </div>
+    <div class="map-page map-page--simple">
+      <section class="map-simple" aria-label="GTA map preview">
+        <div class="map-simple__stage">
+          <img
+            class="map-simple__image"
+            id="simpleGtaMap"
+            src="${escapeHtml(MAP_IMAGE_URL)}"
+            alt="GTA map"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <div class="map-simple__overlay" aria-hidden="true"></div>
+          <div class="map-simple__label">GTA Map</div>
+        </div>
+
+        <aside class="map-simple__note">
+          <span class="map-simple__kicker">Map</span>
+          <h1>City overview</h1>
+          <p>Clean GTA map view for quick orientation. No icons, no filters, just the map.</p>
+
+          <div class="map-simple__soon">
+            <div class="map-simple__soonHead">Coming soon</div>
+            <div class="map-simple__soonItem">
+              <strong>Live player locations</strong>
+              <span>Players who enable website tracking will appear here.</span>
+            </div>
+            <div class="map-simple__soonItem">
+              <strong>Live role stats</strong>
+              <span>Cops, EMS, mechanics, and other server counts.</span>
             </div>
           </div>
-        </div>
+
+          <a class="map-simple__discord" href="${escapeHtml(SERVER_CONFIG.discordUrl || "https://discord.gg/Y8HNFPtxkE")}" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        </aside>
       </section>
     </div>
   `);
 
-  window.setTimeout(() => {
-    initCustomMap();
-  }, 260);
+  const imageEl = document.getElementById("simpleGtaMap");
+  if (imageEl) {
+    const mapImageQueue = [MAP_IMAGE_FALLBACK_URL, MAP_IMAGE_LEGACY_URL];
+    imageEl.dataset.assetIndex = "0";
+    imageEl.addEventListener("error", () => {
+      const currentIndex = Number(imageEl.dataset.assetIndex || "0");
+      if (currentIndex < mapImageQueue.length) {
+        imageEl.dataset.assetIndex = String(currentIndex + 1);
+        imageEl.src = mapImageQueue[currentIndex];
+        return;
+      }
+      imageEl.closest(".map-simple__stage")?.classList.add("is-map-error");
+    });
+  }
 }
 
 function renderMapDetail(location) {
