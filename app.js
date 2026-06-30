@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260630c";
+const SITE_ASSET_VERSION = "20260630d";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -1990,12 +1990,17 @@ function renderLandingHome() {
     <div class="landing-hub">
       <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
         <h1 class="landing-hub__title">SGCNR</h1>
-        <p class="landing-hub__text">Rules, vehicles, map, live status, and Discord.</p>
+        <p class="landing-hub__text">Rules, server status, staff list, memberships, and Discord.</p>
         <div class="landing-hub__actions">
-          <a class="auth__btn auth__btn--primary" href="/rules">Start</a>
+          <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
+          <a class="auth__btn" href="/team">The Team</a>
           <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
         </div>
         <p class="landing-hub__support">Help can be found in the <a href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+      </section>
+
+      <section class="landing-hub__statusGrid" id="landingHomeStatus" aria-label="Live status" data-reveal>
+        ${renderLandingHomeStatusCards(null)}
       </section>
 
       <section class="landing-hub__grid" aria-label="Portal shortcuts">
@@ -2003,17 +2008,13 @@ function renderLandingHome() {
           <strong class="landing-hub__cardTitle">Rules</strong>
           <span class="landing-hub__cardText">Server and Discord rules.</span>
         </a>
-        <a class="landing-hub__card" href="/vehicles" data-reveal>
-          <strong class="landing-hub__cardTitle">Vehicles</strong>
-          <span class="landing-hub__cardText">Browse vehicles by access and type.</span>
-        </a>
-        <a class="landing-hub__card" href="/live" data-reveal>
-          <strong class="landing-hub__cardTitle">Server status</strong>
-          <span class="landing-hub__cardText">Game server and bot status.</span>
-        </a>
-        <a class="landing-hub__card" href="/live#staff-list" data-reveal>
-          <strong class="landing-hub__cardTitle">Meet the staff</strong>
+        <a class="landing-hub__card" href="/team" data-reveal>
+          <strong class="landing-hub__cardTitle">The Team</strong>
           <span class="landing-hub__cardText">Staff list and roles.</span>
+        </a>
+        <a class="landing-hub__card" href="/help" data-reveal>
+          <strong class="landing-hub__cardTitle">Help</strong>
+          <span class="landing-hub__cardText">Memberships, jobs, vehicles, and support.</span>
         </a>
         <a class="landing-hub__card" href="/changelog" data-reveal>
           <strong class="landing-hub__cardTitle">Website updates</strong>
@@ -2024,6 +2025,80 @@ function renderLandingHome() {
   `);
 
   bindLandingHomeControls();
+  window.requestAnimationFrame(() => {
+    refreshLandingHomeStatus();
+  });
+}
+
+function getHealthDisplayValue(status) {
+  const value = String(status || "pending").toLowerCase();
+  if (value === "online") return "Online";
+  if (value === "offline") return "Offline";
+  return "Pending";
+}
+
+function getHomeStatusSnapshot(snapshot) {
+  const liveOps = snapshot?.liveOps || {};
+  const discordOps = liveOps.discord || normaliseDiscordOpsPayload(null);
+  const serverStatus = normaliseHealthPayload(
+    liveOps.serverHealth || {
+      status: snapshot?.online ? "online" : "offline",
+      message: snapshot?.online
+        ? "Server feed is responding."
+        : (snapshot?.apiError || "Server feed has not responded yet.")
+    },
+    "Game Server"
+  );
+  const botStatus = {
+    ...(discordOps?.botStatus || normaliseHealthPayload(null, "Discord Bot")),
+    label: "Discord Bot"
+  };
+
+  return { serverStatus, botStatus, discordOps };
+}
+
+function renderLandingHomeStatusCards(snapshot) {
+  const { serverStatus, botStatus, discordOps } = getHomeStatusSnapshot(snapshot);
+  const playerCount = snapshot?.clients != null ? String(snapshot.clients) : "0";
+  const maxPlayers = snapshot?.maxClients ? ` / ${snapshot.maxClients}` : "";
+  const botMeta = botStatus.latencyMs != null
+    ? `${botStatus.latencyMs} ms latency`
+    : (discordOps.lastPushAt ? `Last sync ${formatServerTimestamp(discordOps.lastPushAt)}` : "No bot sync");
+  const serverMeta = snapshot?.refreshedAt
+    ? `Checked ${formatServerTimestamp(snapshot.refreshedAt)}`
+    : "Checking";
+
+  return `
+    <article class="landing-status landing-status--${escapeHtml(serverStatus.status || "pending")}">
+      <span>Server status</span>
+      <strong>${escapeHtml(getHealthDisplayValue(serverStatus.status))}</strong>
+      <em>${escapeHtml(serverMeta)}</em>
+    </article>
+    <article class="landing-status">
+      <span>Players online</span>
+      <strong>${escapeHtml(`${playerCount}${maxPlayers}`)}</strong>
+      <em>${escapeHtml(snapshot?.name || SERVER_CONFIG.name)}</em>
+    </article>
+    <article class="landing-status landing-status--${escapeHtml(botStatus.status || "pending")}">
+      <span>Bot status</span>
+      <strong>${escapeHtml(getHealthDisplayValue(botStatus.status))}</strong>
+      <em>${escapeHtml(botMeta)}</em>
+    </article>
+  `;
+}
+
+async function refreshLandingHomeStatus() {
+  const mount = document.getElementById("landingHomeStatus");
+  if (!mount || parseRoute().name !== "home") return;
+
+  try {
+    const snapshot = await loadServerSnapshot();
+    if (parseRoute().name !== "home") return;
+    mount.innerHTML = renderLandingHomeStatusCards(snapshot);
+  } catch (error) {
+    if (parseRoute().name !== "home") return;
+    mount.innerHTML = renderLandingHomeStatusCards(null);
+  }
 }
 
 function renderStart() {
@@ -4935,7 +5010,11 @@ function clearServerStatusPageState() {
 }
 
 function getServerStatusRouteActive() {
-  return parseRoute().name === "live";
+  return parseRoute().name === "status";
+}
+
+function getTeamRouteActive() {
+  return parseRoute().name === "team";
 }
 
 function formatServerTimestamp(value) {
@@ -5700,6 +5779,15 @@ function renderServerStatusShell() {
   `;
 }
 
+function renderTeamShell() {
+  return `
+    <div class="team-page">
+      ${renderHeader("The Team", [{ label: "The Team" }], { showBadge: false })}
+      <div id="teamStatusMount">${renderServerStatusLoading()}</div>
+    </div>
+  `;
+}
+
 function renderServerStatusLoading() {
   return `
     <section class="section live-minimal__loading">
@@ -6447,6 +6535,16 @@ function renderServerStatusContent(snapshot) {
   `;
 }
 
+function renderTeamContent(snapshot) {
+  const liveOps = snapshot?.liveOps || {};
+  const discordOps = liveOps.discord || normaliseDiscordOpsPayload(null);
+  return `
+    <section class="live-minimal live-minimal--team">
+      ${renderDiscordStaffList(discordOps)}
+    </section>
+  `;
+}
+
 function filterStatusPlayers(query) {
   const list = document.getElementById("statusPlayersList");
   if (!list) return;
@@ -6528,6 +6626,44 @@ function renderStatus() {
   bindStatusPageControls();
   window.requestAnimationFrame(() => {
     refreshServerStatus({ silent: false });
+  });
+}
+
+async function refreshTeamPage(options = {}) {
+  if (!getTeamRouteActive()) return;
+
+  const mount = document.getElementById("teamStatusMount");
+  if (!mount) return;
+
+  if (!options.silent || !serverStatusPageState.lastSnapshot) {
+    mount.innerHTML = renderServerStatusLoading();
+  }
+
+  clearServerStatusPageState();
+
+  try {
+    const snapshot = await loadServerSnapshot();
+    if (!getTeamRouteActive()) return;
+    serverStatusPageState.lastSnapshot = snapshot;
+    mount.innerHTML = renderTeamContent(snapshot);
+    bindStatusPageControls();
+  } catch (error) {
+    if (!getTeamRouteActive()) return;
+    mount.innerHTML = `
+      <section class="live-minimal live-minimal--team">
+        ${renderManualStaffList(normaliseDiscordOpsPayload(null))}
+      </section>
+    `;
+    bindStatusPageControls();
+  }
+}
+
+function renderTeam() {
+  clearServerStatusPageState();
+  setView(renderTeamShell());
+  bindStatusPageControls();
+  window.requestAnimationFrame(() => {
+    refreshTeamPage({ silent: false });
   });
 }
 
@@ -6812,11 +6948,12 @@ function parseRoute() {
   }
   if (parts[0] === "account") return { name: "account" };
   if (parts[0] === "staff" || parts[0] === "admin") return { name: "staff" };
-  if (parts[0] === "leaderboard") return { name: "live", metric: parts[1] || "kd" };
+  if (parts[0] === "team") return { name: "team" };
+  if (parts[0] === "leaderboard") return { name: "status", metric: parts[1] || "kd" };
   if (parts[0] === "map") return { name: "map" };
   if (parts[0] === "vehicles") return { name: "vehicles", page: parts[1] || "showcase" };
-  if (parts[0] === "status") return { name: "live", metric: parts[1] || "kd" };
-  if (parts[0] === "live") return { name: "live", metric: parts[1] || "kd" };
+  if (parts[0] === "status") return { name: "status", metric: parts[1] || "kd" };
+  if (parts[0] === "live") return { name: "team" };
   if (parts[0] === "partnership" || parts[0] === "partners") return { name: "partnership" };
   if (parts[0] === "help" && parts[1] === "memberships" && ["free", "silver", "gold"].includes(parts[2]) && parts[3] === "cars") {
     return { name: "vehicles", page: "membership-cars", membership: parts[2] };
@@ -6839,9 +6976,11 @@ function updateDockActive(routeName) {
 
   let key = routeName;
   if (routeName === "section" || routeName === "rule") key = "rules";
-  if (routeName === "status" || routeName === "leaderboard" || routeName === "live") key = "live";
+  if (routeName === "status" || routeName === "leaderboard") key = "";
+  if (routeName === "team") key = "team";
   if (routeName === "discord" || routeName === "account") return;
 
+  if (!key) return;
   const active = document.querySelector(`.dock__item[data-dock="${key}"]`);
   if (active) active.classList.add("is-active");
 }
@@ -6852,7 +6991,7 @@ function route() {
   const ruleSections = sections.filter(s => Array.isArray(s?.rules) && s.rules.length);
 
   const r = parseRoute();
-  if (r.name !== "live") {
+  if (r.name !== "status" && r.name !== "team") {
     clearServerStatusPageState();
   }
   if (r.name !== "map") {
@@ -6903,7 +7042,11 @@ function route() {
     renderPartnership();
     return;
   }
-  if (r.name === "live") {
+  if (r.name === "team") {
+    renderTeam();
+    return;
+  }
+  if (r.name === "status") {
     renderStatus();
     return;
   }

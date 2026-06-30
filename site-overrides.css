@@ -18538,3 +18538,135 @@ html body:not(.is-partnership) .live-staff__lastSeen{
   font-weight: 800 !important;
   text-transform: none !important;
 }
+
+/* 2026-06-30 public nav and home status cleanup */
+html body .dock{
+  left: 50% !important;
+  right: auto !important;
+  width: auto !important;
+  max-width: calc(100vw - 112px) !important;
+  transform: translateX(-50%) !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 10px !important;
+}
+
+html body .dock__item{
+  min-width: 92px !important;
+  min-height: 44px !important;
+  padding: 0 14px !important;
+  justify-content: center !important;
+}
+
+html body .dock__label{
+  white-space: nowrap !important;
+}
+
+html body .discord-float{
+  position: fixed !important;
+  right: 22px !important;
+  bottom: 24px !important;
+  z-index: 30 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  border: 1px solid rgba(87, 126, 255, .34) !important;
+  border-radius: 14px !important;
+  background: rgba(5, 8, 14, .88) !important;
+  color: rgba(229, 236, 255, .94) !important;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .44), inset 0 1px 0 rgba(255, 255, 255, .06) !important;
+  text-decoration: none !important;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease !important;
+}
+
+html body .discord-float:hover,
+html body .discord-float:focus-visible{
+  transform: translateY(-2px) !important;
+  border-color: rgba(112, 153, 255, .56) !important;
+  background: rgba(8, 12, 22, .94) !important;
+}
+
+html body .discord-float svg{
+  width: 22px !important;
+  height: 22px !important;
+}
+
+html body.is-partnership .discord-float{
+  border-color: rgba(207, 78, 255, .55) !important;
+  color: rgba(251, 238, 255, .96) !important;
+  background: rgba(18, 4, 26, .88) !important;
+}
+
+html body .landing-hub__statusGrid{
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  margin: 16px 0 !important;
+}
+
+html body .landing-status{
+  display: grid !important;
+  gap: 6px !important;
+  min-height: 112px !important;
+  padding: 18px !important;
+  border: 1px solid rgba(87, 126, 255, .16) !important;
+  border-radius: 10px !important;
+  background: rgba(3, 4, 8, .72) !important;
+}
+
+html body .landing-status span{
+  color: rgba(182, 192, 214, .74) !important;
+  font-size: .72rem !important;
+  font-weight: 850 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+html body .landing-status strong{
+  color: rgba(245, 248, 255, .98) !important;
+  font-size: clamp(1.35rem, 2vw, 2rem) !important;
+  line-height: 1 !important;
+}
+
+html body .landing-status em{
+  color: rgba(194, 201, 216, .70) !important;
+  font-size: .82rem !important;
+  font-style: normal !important;
+}
+
+html body .landing-status--online{
+  border-color: rgba(87, 126, 255, .30) !important;
+}
+
+html body .landing-status--offline{
+  border-color: rgba(148, 160, 184, .22) !important;
+}
+
+html body .team-page .page-hero{
+  margin-bottom: 14px !important;
+}
+
+@media (max-width: 780px){
+  html body .dock{
+    max-width: calc(100vw - 28px) !important;
+    gap: 6px !important;
+  }
+
+  html body .dock__item{
+    min-width: 0 !important;
+    padding: 0 10px !important;
+  }
+
+  html body .landing-hub__statusGrid{
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .discord-float{
+    right: 14px !important;
+    bottom: 88px !important;
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
