@@ -17928,3 +17928,302 @@ html body:not(.is-partnership) :is(
   background: rgba(37, 103, 245, .09) !important;
   color: rgba(220, 229, 255, .94) !important;
 }
+
+/* 2026-06-30 The Team staff layout */
+html body:not(.is-partnership) .live-staff{
+  display: grid !important;
+  gap: 22px !important;
+  padding: clamp(18px, 2.4vw, 30px) !important;
+  border: 1px solid rgba(78, 139, 255, .24) !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(180deg, rgba(5, 8, 17, .74), rgba(4, 7, 15, .78)),
+    rgba(5, 8, 17, .70) !important;
+}
+
+html body:not(.is-partnership) .live-staff__head{
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 18px !important;
+  margin: 0 !important;
+  padding: 0 0 18px !important;
+  border-bottom: 1px solid rgba(78, 139, 255, .18) !important;
+}
+
+html body:not(.is-partnership) .live-staff__titleBlock{
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  min-width: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__mainIcon{
+  width: 54px !important;
+  height: 54px !important;
+  flex: 0 0 54px !important;
+  border: 1px solid rgba(78, 139, 255, .30) !important;
+  border-radius: 14px !important;
+  background: rgba(37, 103, 245, .12) !important;
+  color: #eef4ff !important;
+  font-size: .92rem !important;
+  font-weight: 950 !important;
+  letter-spacing: .04em !important;
+}
+
+html body:not(.is-partnership) .live-staff__kicker{
+  display: block !important;
+  margin: 0 0 5px !important;
+  color: rgba(159, 189, 255, .92) !important;
+  font-size: .72rem !important;
+  font-weight: 900 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+}
+
+html body:not(.is-partnership) .live-staff__head h2{
+  margin: 0 !important;
+  color: rgba(247, 249, 255, .98) !important;
+  font-size: clamp(2rem, 4vw, 3.35rem) !important;
+  line-height: .96 !important;
+  letter-spacing: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__head p{
+  margin: 7px 0 0 !important;
+  color: rgba(184, 194, 216, .80) !important;
+  font-size: .96rem !important;
+}
+
+html body:not(.is-partnership) .live-staff__total{
+  display: grid !important;
+  justify-items: end !important;
+  gap: 5px !important;
+  color: rgba(184, 194, 216, .72) !important;
+  font-size: .82rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: .08em !important;
+}
+
+html body:not(.is-partnership) .live-staff__count{
+  width: auto !important;
+  min-width: 46px !important;
+  height: 38px !important;
+  padding: 0 12px !important;
+  border: 1px solid rgba(78, 139, 255, .30) !important;
+  border-radius: 10px !important;
+  background: rgba(37, 103, 245, .12) !important;
+  color: rgba(235, 241, 255, .96) !important;
+  font-size: 1rem !important;
+  font-weight: 950 !important;
+}
+
+html body:not(.is-partnership) .live-staff__groups{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 28px !important;
+}
+
+html body:not(.is-partnership) .live-staff__group{
+  display: grid !important;
+  gap: 14px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body:not(.is-partnership) .live-staff__group:hover{
+  transform: none !important;
+  background: transparent !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupHead{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  margin: 0 !important;
+  padding: 0 0 10px !important;
+  border-bottom: 1px solid rgba(78, 139, 255, .16) !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupTitle{
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  min-width: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupIcon{
+  width: 40px !important;
+  height: 40px !important;
+  flex: 0 0 40px !important;
+  border: 1px solid rgba(78, 139, 255, .26) !important;
+  border-radius: 11px !important;
+  background: rgba(37, 103, 245, .10) !important;
+  color: rgba(220, 229, 255, .96) !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupCopy{
+  display: grid !important;
+  gap: 3px !important;
+  min-width: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupCopy h3,
+html body:not(.is-partnership) .live-staff__groupHead h3{
+  margin: 0 !important;
+  color: rgba(248, 250, 255, .98) !important;
+  font-size: 1.12rem !important;
+  line-height: 1.1 !important;
+  letter-spacing: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupCopy p{
+  margin: 0 !important;
+  color: rgba(184, 194, 216, .70) !important;
+  font-size: .82rem !important;
+  line-height: 1.25 !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupCount{
+  min-width: 34px !important;
+  height: 30px !important;
+  padding: 0 10px !important;
+  border: 1px solid rgba(78, 139, 255, .22) !important;
+  border-radius: 9px !important;
+  background: rgba(255, 255, 255, .04) !important;
+  color: rgba(220, 229, 255, .88) !important;
+  font-size: .8rem !important;
+  font-weight: 900 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rows{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)) !important;
+  gap: 12px !important;
+}
+
+html body:not(.is-partnership) .live-staff__row{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100% !important;
+  min-height: 92px !important;
+  padding: 14px !important;
+  border: 1px solid rgba(78, 139, 255, .18) !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(180deg, rgba(8, 12, 24, .82), rgba(4, 7, 15, .82)),
+    rgba(5, 8, 17, .72) !important;
+  color: inherit !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  transition: transform .16s ease, border-color .16s ease, background-color .16s ease !important;
+}
+
+html body:not(.is-partnership) .live-staff__row:hover,
+html body:not(.is-partnership) .live-staff__row:focus-visible{
+  transform: translateY(-1px) !important;
+  border-color: rgba(121, 169, 255, .38) !important;
+  background:
+    linear-gradient(180deg, rgba(10, 16, 32, .90), rgba(5, 9, 20, .88)),
+    rgba(7, 11, 22, .78) !important;
+  outline: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowIdentity{
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  min-width: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowIdentity img,
+html body:not(.is-partnership) .live-staff__avatar{
+  width: 58px !important;
+  height: 58px !important;
+  flex: 0 0 58px !important;
+  border: 2px solid rgba(78, 139, 255, .28) !important;
+  border-radius: 999px !important;
+  background: rgba(37, 103, 245, .12) !important;
+  color: #eef4ff !important;
+  font-size: 1rem !important;
+  font-weight: 950 !important;
+  object-fit: cover !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName{
+  display: grid !important;
+  gap: 3px !important;
+  min-width: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName strong{
+  color: rgba(248, 250, 255, .98) !important;
+  font-size: .98rem !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName span{
+  color: rgba(184, 194, 216, .72) !important;
+  font-size: .8rem !important;
+  line-height: 1.2 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName .live-staff__discordName{
+  color: rgba(159, 189, 255, .92) !important;
+  font-weight: 800 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName span:not(.live-staff__discordName){
+  color: rgba(230, 235, 248, .82) !important;
+}
+
+html body:not(.is-partnership) .live-staff__status{
+  align-self: flex-start !important;
+  flex: 0 0 auto !important;
+  padding: 5px 8px !important;
+  border: 1px solid rgba(78, 139, 255, .24) !important;
+  border-radius: 999px !important;
+  background: rgba(37, 103, 245, .10) !important;
+  color: rgba(220, 229, 255, .86) !important;
+  font-size: .68rem !important;
+  font-weight: 900 !important;
+}
+
+html body:not(.is-partnership) .staff-profile__banner{
+  background:
+    linear-gradient(135deg, rgba(37, 103, 245, .42), rgba(5, 8, 17, .94)),
+    rgba(5, 8, 17, .92) !important;
+}
+
+html body:not(.is-partnership) .staff-profile__avatar{
+  border-color: rgba(4, 7, 15, .96) !important;
+  background: rgba(37, 103, 245, .18) !important;
+}
+
+@media (max-width: 760px){
+  html body:not(.is-partnership) .live-staff__head{
+    align-items: stretch !important;
+    flex-direction: column !important;
+  }
+
+  html body:not(.is-partnership) .live-staff__total{
+    align-items: center !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  html body:not(.is-partnership) .live-staff__head h2{
+    font-size: 2.25rem !important;
+  }
+
+  html body:not(.is-partnership) .live-staff__rows{
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260628a";
+const SITE_ASSET_VERSION = "20260630a";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -330,6 +330,18 @@ const STAFF_GROUP_ICONS = [
   { match: "translation", icon: "🌍" },
   { match: "security", icon: "🔒" },
   { match: "content-creator", icon: "📷" }
+];
+const STAFF_GROUP_SUMMARIES = [
+  { match: "owner", summary: "Server ownership" },
+  { match: "management", summary: "Server management" },
+  { match: "lead-admin", summary: "Lead administration" },
+  { match: "admin", summary: "Administration" },
+  { match: "moderation", summary: "Moderation" },
+  { match: "development", summary: "Development" },
+  { match: "testing", summary: "Testing" },
+  { match: "translation", summary: "Translation" },
+  { match: "security", summary: "Security" },
+  { match: "content-creator", summary: "Content" }
 ];
 const MAP_SOURCE_URL = "https://gta-5-map.com?embed=light";
 const MAP_IMAGE_URL = `${APP_ASSET_BASE_URL}map-assets/los-santos-satellite-z6-web.jpg?v=${SITE_ASSET_VERSION}`;
@@ -5902,15 +5914,16 @@ function renderStaffListShell(count, bodyMarkup) {
     <section class="section live-staff" id="staff-list" data-reveal>
       <div class="live-staff__head">
         <div class="live-staff__titleBlock">
-          <span class="live-staff__mainIcon" aria-hidden="true">👥</span>
+          <span class="live-staff__mainIcon" aria-hidden="true">SG</span>
           <div>
-            <h2>Staff List</h2>
-            <p>Current team members and roles.</p>
+            <span class="live-staff__kicker">The Team</span>
+            <h2>The Team</h2>
+            <p>SGCNR staff members.</p>
           </div>
         </div>
         <div class="live-staff__total">
           <span class="live-staff__count">${escapeHtml(String(count))}</span>
-          <span>Total staff members</span>
+          <span>Members</span>
         </div>
       </div>
       ${bodyMarkup}
@@ -5927,6 +5940,46 @@ function renderStaffInitial(name) {
   return escapeHtml(String(name || "S").slice(0, 1).toUpperCase());
 }
 
+function getStaffAvatarUrl(member, size = 128) {
+  const directRaw = String(pickFirstDefined(member || {}, [
+    "avatarUrl",
+    "discordAvatarUrl",
+    "displayAvatarUrl",
+    "displayAvatarURL",
+    "avatarURL",
+    "imageUrl",
+    "image"
+  ]) || "").trim();
+  if (/^(https?:)?\/\//i.test(directRaw) || directRaw.startsWith("/") || directRaw.startsWith("data:image/")) {
+    return directRaw;
+  }
+
+  const userId = String(pickFirstDefined(member || {}, [
+    "discordId",
+    "discord_id",
+    "userId",
+    "user_id",
+    "id"
+  ]) || "").trim();
+  const avatarHash = String(pickFirstDefined(member || {}, [
+    "discordAvatarHash",
+    "avatarHash",
+    "avatar_hash",
+    "avatar"
+  ]) || directRaw || "").trim();
+
+  if (!userId || !avatarHash || /^(https?:)?\/\//i.test(avatarHash)) return "";
+  const extension = avatarHash.startsWith("a_") ? "gif" : "png";
+  return `https://cdn.discordapp.com/avatars/${encodeURIComponent(userId)}/${encodeURIComponent(avatarHash)}.${extension}?size=${encodeURIComponent(String(size))}`;
+}
+
+function renderStaffAvatar(name, avatarUrl, className = "live-staff__avatar") {
+  if (avatarUrl) {
+    return `<img class="${escapeHtml(className)}" src="${escapeHtml(avatarUrl)}" alt="" loading="lazy" referrerpolicy="no-referrer" />`;
+  }
+  return `<span class="${escapeHtml(className)}">${renderStaffInitial(name)}</span>`;
+}
+
 function getStaffGroupSlug(name) {
   return String(name || "staff")
     .toLowerCase()
@@ -5939,6 +5992,12 @@ function getStaffGroupIcon(name) {
   const slug = getStaffGroupSlug(name);
   const match = STAFF_GROUP_ICONS.find((entry) => slug.includes(entry.match));
   return match?.icon || "•";
+}
+
+function getStaffGroupSummary(name) {
+  const slug = getStaffGroupSlug(name);
+  const match = STAFF_GROUP_SUMMARIES.find((entry) => slug.includes(entry.match));
+  return match?.summary || "Staff";
 }
 
 function getUniqueStaffRoles(roles) {
@@ -6024,16 +6083,21 @@ function renderManualStaffList(discord) {
       <div class="live-staff__groupHead">
         <div class="live-staff__groupTitle">
           <span class="live-staff__groupIcon" aria-hidden="true">${escapeHtml(getStaffGroupIcon(group.title))}</span>
-          <h3>${escapeHtml(group.title)}</h3>
+          <div class="live-staff__groupCopy">
+            <h3>${escapeHtml(group.title)}</h3>
+            <p>${escapeHtml(getStaffGroupSummary(group.title))}</p>
+          </div>
         </div>
         <span class="live-staff__groupCount">${escapeHtml(String(group.members.length))}</span>
       </div>
       <div class="live-staff__rows">
         ${group.members.map((member, index) => {
+          const avatarUrl = getStaffAvatarUrl(member, 128);
           const profileId = registerStaffProfile({
             id: getStaffProfileId(group.title, member.name, member.role, index),
             displayName: member.name,
             username: getManualStaffDiscordUsername(member.name) ? `@${getManualStaffDiscordUsername(member.name)}` : `@${member.name}`,
+            avatarUrl,
             groupName: group.title,
             primaryRole: member.role,
             roles: getManualStaffRoles(member.name),
@@ -6042,7 +6106,7 @@ function renderManualStaffList(discord) {
           return `
           <button class="live-staff__row" type="button" data-staff-profile-id="${escapeHtml(profileId)}" aria-label="Open profile for ${escapeHtml(member.name)}">
             <div class="live-staff__rowIdentity">
-              <span class="live-staff__avatar">${renderStaffInitial(member.name)}</span>
+              ${renderStaffAvatar(member.name, avatarUrl)}
               <div class="live-staff__rowName">
                 <strong>${escapeHtml(member.name)}</strong>
                 <span class="live-staff__discordName">${escapeHtml(getManualStaffDiscordUsername(member.name) ? `@${getManualStaffDiscordUsername(member.name)}` : `@${member.name}`)}</span>
@@ -6073,7 +6137,7 @@ function renderDiscordStaffList(discord) {
     id: String(member?.id || member?.discordId || member?.username || member?.displayName || ""),
     username: member?.username || "",
     displayName: member?.displayName || member?.username || "Unknown staff",
-    avatarUrl: member?.avatarUrl || "",
+    avatarUrl: getStaffAvatarUrl(member, 128),
     roles: Array.isArray(member?.roles) ? member.roles.map((roleName) => String(roleName || "")).filter(Boolean) : [],
     roleIds: Array.isArray(member?.roleIds) ? member.roleIds.map((roleId) => String(roleId || "")).filter(Boolean) : [],
     joinedAt: getStaffJoinedAt(member),
@@ -6122,7 +6186,10 @@ function renderDiscordStaffList(discord) {
       <div class="live-staff__groupHead">
         <div class="live-staff__groupTitle">
           <span class="live-staff__groupIcon" aria-hidden="true">${escapeHtml(getStaffGroupIcon(role.name))}</span>
-          <h3>${escapeHtml(role.name)}</h3>
+          <div class="live-staff__groupCopy">
+            <h3>${escapeHtml(role.name)}</h3>
+            <p>${escapeHtml(getStaffGroupSummary(role.name))}</p>
+          </div>
         </div>
         <span class="live-staff__groupCount">${escapeHtml(`${String(role.onlineCount)}/${String(role.count)}`)}</span>
       </div>
@@ -6145,7 +6212,7 @@ function renderDiscordStaffList(discord) {
           return `
             <button class="live-staff__row" type="button" data-staff-profile-id="${escapeHtml(profileId)}" aria-label="Open profile for ${escapeHtml(displayName)}">
               <div class="live-staff__rowIdentity">
-                ${member.avatarUrl ? `<img src="${escapeHtml(member.avatarUrl)}" alt="" loading="lazy" />` : `<span class="live-staff__avatar">${renderStaffInitial(displayName)}</span>`}
+                ${renderStaffAvatar(displayName, member.avatarUrl)}
                 <div class="live-staff__rowName">
                   <strong>${escapeHtml(displayName)}</strong>
                   <span class="live-staff__discordName">${escapeHtml(username)}</span>
