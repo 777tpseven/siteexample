@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260630a";
+const SITE_ASSET_VERSION = "20260630b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -5917,8 +5917,8 @@ function renderStaffListShell(count, bodyMarkup) {
           <span class="live-staff__mainIcon" aria-hidden="true">SG</span>
           <div>
             <span class="live-staff__kicker">The Team</span>
-            <h2>The Team</h2>
-            <p>SGCNR staff members.</p>
+            <h2>Meet Our Team</h2>
+            <p>Staff members behind SGCNR.</p>
           </div>
         </div>
         <div class="live-staff__total">

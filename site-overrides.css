@@ -18227,3 +18227,270 @@ html body:not(.is-partnership) .staff-profile__avatar{
     grid-template-columns: 1fr !important;
   }
 }
+
+/* 2026-06-30 Truckline-style team page correction */
+html body:not(.is-partnership) .live-staff{
+  padding: clamp(18px, 4vw, 44px) 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body:not(.is-partnership) .live-staff__head{
+  position: relative !important;
+  display: block !important;
+  max-width: 980px !important;
+  margin: 0 auto clamp(42px, 6vw, 72px) !important;
+  padding: 0 0 0 28px !important;
+  border: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__head::before{
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 4px !important;
+  bottom: 6px !important;
+  width: 5px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, #2567f5, rgba(159, 189, 255, .76)) !important;
+}
+
+html body:not(.is-partnership) .live-staff__titleBlock{
+  display: block !important;
+}
+
+html body:not(.is-partnership) .live-staff__mainIcon,
+html body:not(.is-partnership) .live-staff__total{
+  display: none !important;
+}
+
+html body:not(.is-partnership) .live-staff__kicker{
+  display: block !important;
+  margin: 0 0 8px !important;
+  color: rgba(159, 189, 255, .96) !important;
+  font-size: .78rem !important;
+  font-weight: 950 !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
+}
+
+html body:not(.is-partnership) .live-staff__head h2{
+  margin: 0 !important;
+  color: #f8fbff !important;
+  font-size: clamp(2.35rem, 5.2vw, 4.9rem) !important;
+  line-height: .92 !important;
+  text-transform: uppercase !important;
+}
+
+html body:not(.is-partnership) .live-staff__head p{
+  max-width: 720px !important;
+  margin: 18px 0 0 !important;
+  color: rgba(206, 214, 232, .78) !important;
+  font-size: clamp(.98rem, 1.3vw, 1.18rem) !important;
+  line-height: 1.55 !important;
+}
+
+html body:not(.is-partnership) .live-staff__groups{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: clamp(46px, 7vw, 84px) !important;
+}
+
+html body:not(.is-partnership) .live-staff__group{
+  display: block !important;
+  max-width: 1180px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupHead{
+  display: block !important;
+  margin: 0 auto 28px !important;
+  padding: 0 !important;
+  text-align: center !important;
+  border: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupTitle{
+  display: block !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupIcon,
+html body:not(.is-partnership) .live-staff__groupCount{
+  display: none !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupCopy{
+  display: grid !important;
+  justify-items: center !important;
+  gap: 12px !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupCopy h3,
+html body:not(.is-partnership) .live-staff__groupHead h3{
+  margin: 0 !important;
+  color: rgba(159, 189, 255, .98) !important;
+  font-size: clamp(1.55rem, 3vw, 2.35rem) !important;
+  line-height: .95 !important;
+  font-weight: 950 !important;
+  text-transform: uppercase !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupCopy h3::after{
+  content: "" !important;
+  display: block !important;
+  width: min(120px, 36vw) !important;
+  height: 3px !important;
+  margin: 16px auto 0 !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, transparent, rgba(37, 103, 245, .95), transparent) !important;
+}
+
+html body:not(.is-partnership) .live-staff__groupCopy p{
+  margin: 0 !important;
+  color: rgba(190, 199, 218, .72) !important;
+  font-size: .9rem !important;
+  line-height: 1.45 !important;
+  text-transform: uppercase !important;
+}
+
+html body:not(.is-partnership) .live-staff__rows{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 18px !important;
+}
+
+html body:not(.is-partnership) .live-staff__row{
+  position: relative !important;
+  display: block !important;
+  min-height: 0 !important;
+  padding: 16px !important;
+  border: 1px solid rgba(78, 139, 255, .18) !important;
+  border-radius: 8px !important;
+  background: rgba(0, 0, 0, .36) !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+html body:not(.is-partnership) .live-staff__row::after{
+  content: "" !important;
+  position: absolute !important;
+  left: 18px !important;
+  right: 18px !important;
+  bottom: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent, rgba(37, 103, 245, .64), transparent) !important;
+  opacity: 0 !important;
+  transform: scaleX(.4) !important;
+  transition: opacity .18s ease, transform .18s ease !important;
+}
+
+html body:not(.is-partnership) .live-staff__row:hover,
+html body:not(.is-partnership) .live-staff__row:focus-visible{
+  border-color: rgba(121, 169, 255, .34) !important;
+  background: rgba(2, 5, 13, .58) !important;
+}
+
+html body:not(.is-partnership) .live-staff__row:hover::after,
+html body:not(.is-partnership) .live-staff__row:focus-visible::after{
+  opacity: 1 !important;
+  transform: scaleX(1) !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowIdentity{
+  display: block !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowIdentity img,
+html body:not(.is-partnership) .live-staff__avatar{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  margin: 0 0 16px !important;
+  border: 1px solid rgba(78, 139, 255, .16) !important;
+  border-radius: 4px !important;
+  background:
+    linear-gradient(135deg, rgba(37, 103, 245, .18), rgba(3, 6, 13, .94)),
+    rgba(5, 8, 17, .88) !important;
+  color: rgba(235, 241, 255, .92) !important;
+  font-size: clamp(3.1rem, 7vw, 6rem) !important;
+  font-weight: 950 !important;
+  object-fit: cover !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName{
+  display: grid !important;
+  gap: 5px !important;
+  min-width: 0 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName strong{
+  color: #f8fbff !important;
+  font-size: 1.04rem !important;
+  line-height: 1.12 !important;
+  font-weight: 950 !important;
+  text-transform: uppercase !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName span{
+  color: rgba(191, 202, 225, .76) !important;
+  font-size: .8rem !important;
+  line-height: 1.25 !important;
+  font-weight: 800 !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName .live-staff__discordName{
+  color: rgba(159, 189, 255, .88) !important;
+  font-size: .78rem !important;
+  text-transform: none !important;
+}
+
+html body:not(.is-partnership) .live-staff__rowName span:not(.live-staff__discordName){
+  color: rgba(232, 237, 249, .86) !important;
+  text-transform: uppercase !important;
+}
+
+html body:not(.is-partnership) .live-staff__status{
+  position: absolute !important;
+  top: 26px !important;
+  right: 26px !important;
+  padding: 5px 8px !important;
+  border: 1px solid rgba(78, 139, 255, .24) !important;
+  border-radius: 999px !important;
+  background: rgba(2, 5, 13, .70) !important;
+  color: rgba(220, 229, 255, .88) !important;
+  font-size: .68rem !important;
+}
+
+@media (min-width: 1180px){
+  html body:not(.is-partnership) .live-staff__rows{
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 760px){
+  html body:not(.is-partnership) .live-staff{
+    padding-top: 18px !important;
+  }
+
+  html body:not(.is-partnership) .live-staff__head{
+    margin-bottom: 36px !important;
+    padding-left: 22px !important;
+  }
+
+  html body:not(.is-partnership) .live-staff__head h2{
+    font-size: 2.35rem !important;
+  }
+
+  html body:not(.is-partnership) .live-staff__rows{
+    grid-template-columns: 1fr !important;
+  }
+}
