@@ -140,7 +140,8 @@ function discord_live_avatar_url(array $user): string
         return '';
     }
 
-    return "https://cdn.discordapp.com/avatars/{$id}/{$avatar}.png?size=96";
+    $extension = str_starts_with($avatar, 'a_') ? 'gif' : 'png';
+    return "https://cdn.discordapp.com/avatars/{$id}/{$avatar}.{$extension}?size=256";
 }
 
 function discord_live_member_payload(array $member, array $roleNames): array
@@ -152,14 +153,25 @@ function discord_live_member_payload(array $member, array $roleNames): array
     $globalName = (string) ($user['global_name'] ?? '');
     $nick = (string) ($member['nick'] ?? '');
     $displayName = $nick !== '' ? $nick : ($globalName !== '' ? $globalName : $username);
+    $avatarHash = (string) ($user['avatar'] ?? '');
+    $avatarUrl = discord_live_avatar_url($user);
 
     return [
         'id' => (string) ($user['id'] ?? ''),
+        'discordId' => (string) ($user['id'] ?? ''),
+        'discordUserId' => (string) ($user['id'] ?? ''),
         'username' => $username,
         'displayName' => $displayName !== '' ? $displayName : 'Unknown staff',
-        'avatarUrl' => discord_live_avatar_url($user),
+        'avatarUrl' => $avatarUrl,
+        'discordAvatarUrl' => $avatarUrl,
+        'displayAvatarUrl' => $avatarUrl,
+        'avatarHash' => $avatarHash,
+        'discordAvatarHash' => $avatarHash,
+        'joinedAt' => (string) ($member['joined_at'] ?? ''),
         'roleIds' => $matchedRoles,
         'roles' => array_map(static fn (string $roleId): string => $roleNames[$roleId], $matchedRoles),
+        'status' => 'offline',
+        'isOnline' => false,
     ];
 }
 

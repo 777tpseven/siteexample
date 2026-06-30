@@ -84,6 +84,8 @@ function api_default_snapshot(): array
                 'oauthUrl' => api_config('oauth_url', 'https://sgcnr.net/auth/login.php'),
             ],
             'announcements' => [],
+            'staffRoles' => [],
+            'staffMembers' => [],
         ],
         'leaderboard' => [
             'updatedAt' => null,
@@ -563,6 +565,22 @@ function api_apply_named_update(array &$snapshot, string $key, $value, array &$a
             if (is_array($value)) {
                 $snapshot['discord']['announcements'] = $value;
                 $applied[] = 'announcements';
+            }
+            return;
+
+        case 'staff_roles':
+        case 'staffroles':
+            if (is_array($value)) {
+                $snapshot['discord']['staffRoles'] = $value;
+                $applied[] = 'staff_roles';
+            }
+            return;
+
+        case 'staff_members':
+        case 'staffmembers':
+            if (is_array($value)) {
+                $snapshot['discord']['staffMembers'] = $value;
+                $applied[] = 'staff_members';
             }
             return;
 

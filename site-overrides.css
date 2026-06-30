@@ -18494,3 +18494,47 @@ html body:not(.is-partnership) .live-staff__status{
     grid-template-columns: 1fr !important;
   }
 }
+
+/* 2026-06-30 Discord staff sync details */
+html body:not(.is-partnership) .live-staff__status,
+html body .staff-profile__status{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+html body:not(.is-partnership) .live-staff__status::before,
+html body .staff-profile__status::before{
+  content: "" !important;
+  width: 7px !important;
+  height: 7px !important;
+  flex: 0 0 7px !important;
+  border-radius: 999px !important;
+  background: rgba(132, 147, 168, .95) !important;
+  box-shadow: 0 0 0 3px rgba(132, 147, 168, .12) !important;
+}
+
+html body:not(.is-partnership) .live-staff__status--online::before,
+html body .staff-profile__status--online::before{
+  background: #4ade80 !important;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, .14) !important;
+}
+
+html body:not(.is-partnership) .live-staff__status--idle::before,
+html body .staff-profile__status--idle::before{
+  background: #facc15 !important;
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, .14) !important;
+}
+
+html body:not(.is-partnership) .live-staff__status--dnd::before,
+html body .staff-profile__status--dnd::before{
+  background: #fb7185 !important;
+  box-shadow: 0 0 0 3px rgba(251, 113, 133, .14) !important;
+}
+
+html body:not(.is-partnership) .live-staff__lastSeen{
+  color: rgba(159, 189, 255, .72) !important;
+  font-size: .72rem !important;
+  font-weight: 800 !important;
+  text-transform: none !important;
+}
