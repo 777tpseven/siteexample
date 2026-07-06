@@ -18539,6 +18539,14 @@ html body:not(.is-partnership) .live-staff__lastSeen{
   text-transform: none !important;
 }
 
+html body:not(.is-partnership) .live-staff__rowName .live-staff__roleCount{
+  color: rgba(181, 190, 210, .62) !important;
+  font-size: .72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .01em !important;
+  text-transform: none !important;
+}
+
 /* 2026-06-30 public nav and home status cleanup */
 html body .dock{
   left: 50% !important;

@@ -15,8 +15,12 @@ $botToken = trim((string) (
     api_config('discord_bot_token', '') ?:
     getenv('SGCNR_DISCORD_BOT_TOKEN') ?:
     getenv('DISCORD_BOT_TOKEN') ?:
+    getenv('DISCORD_TOKEN') ?:
     ''
 ));
+if (stripos($botToken, 'Bot ') === 0) {
+    $botToken = trim(substr($botToken, 4));
+}
 $memberPageLimit = max(1, min(50, (int) (
     api_config('discord_member_page_limit', 20) ?:
     getenv('SGCNR_DISCORD_MEMBER_PAGE_LIMIT') ?:

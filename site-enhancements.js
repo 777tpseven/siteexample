@@ -218,10 +218,10 @@
         <section class="home-main__hero" aria-label="Welcome" data-reveal>
           <div class="home-main__copy">
             <h1>SGCNR</h1>
-            <p>Server links, rules, live status, memberships, and Discord support.</p>
+            <p>Rules, server status, staff team, memberships, and Discord support.</p>
             <div class="home-main__actions">
               <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
-              <a class="auth__btn" href="/live">Live</a>
+              <a class="auth__btn" href="/team">The Team</a>
               <a class="auth__btn" href="/help">Help</a>
               <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
             </div>
@@ -236,9 +236,9 @@
             <span>Rules</span>
             <strong>Discord and in-game rules.</strong>
           </a>
-          <a class="home-main__route" href="/live" data-reveal>
-            <span>Live</span>
-            <strong>Status and staff list.</strong>
+          <a class="home-main__route" href="/team" data-reveal>
+            <span>The Team</span>
+            <strong>Staff list and roles.</strong>
           </a>
           <a class="home-main__route" href="/help" data-reveal>
             <span>Help</span>
@@ -268,7 +268,7 @@
             <div class="home-main__actions home-main__actions--panel">
               <a class="auth__btn auth__btn--primary" href="/help">Open Help</a>
               <a class="auth__btn" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
-              <a class="auth__btn" href="/live#staff-list">Staff list</a>
+              <a class="auth__btn" href="/team">Staff list</a>
             </div>
           </article>
         </section>

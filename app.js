@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260630d";
+const SITE_ASSET_VERSION = "20260706a";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -6137,6 +6137,63 @@ function getUniqueStaffRoles(roles) {
   ));
 }
 
+function getStaffMemberKey(member) {
+  const id = String(pickFirstDefined(member || {}, [
+    "discordId",
+    "discordUserId",
+    "userId",
+    "id"
+  ]) || "").trim();
+  if (id && /^\d+$/.test(id)) return `discord:${id}`;
+  const name = String(pickFirstDefined(member || {}, [
+    "displayName",
+    "name",
+    "username",
+    "nick",
+    "nickname"
+  ]) || "").trim();
+  return `name:${normalize(name)}`;
+}
+
+function getStaffGroupPriority(groupName, orderedGroups = MANUAL_STAFF_GROUPS) {
+  const groupSlug = getStaffGroupSlug(groupName);
+  const index = orderedGroups.findIndex((group) => getStaffGroupSlug(group?.title || group?.name) === groupSlug);
+  return index === -1 ? 999 : index;
+}
+
+function getManualStaffDisplayGroups() {
+  const staffByKey = new Map();
+
+  MANUAL_STAFF_GROUPS.forEach((group, groupIndex) => {
+    group.members.forEach((member, memberIndex) => {
+      const key = getStaffMemberKey(member);
+      const existing = staffByKey.get(key);
+      const roles = getUniqueStaffRoles([...(existing?.roles || []), member.role]);
+      const currentIsHigher = !existing || groupIndex < existing.groupIndex;
+      const currentIsSameGroupEarlier = existing && groupIndex === existing.groupIndex && memberIndex < existing.memberIndex;
+
+      staffByKey.set(key, {
+        ...(existing || {}),
+        key,
+        name: member.name,
+        discordUsername: member.discordUsername || existing?.discordUsername || "",
+        roles,
+        groupTitle: currentIsHigher ? group.title : (existing?.groupTitle || group.title),
+        groupIndex: currentIsHigher ? groupIndex : (existing?.groupIndex ?? groupIndex),
+        memberIndex: currentIsHigher || currentIsSameGroupEarlier ? memberIndex : (existing?.memberIndex ?? memberIndex),
+        primaryRole: currentIsHigher || currentIsSameGroupEarlier ? member.role : (existing?.primaryRole || member.role)
+      });
+    });
+  });
+
+  return MANUAL_STAFF_GROUPS.map((group, groupIndex) => ({
+    ...group,
+    members: Array.from(staffByKey.values())
+      .filter((member) => member.groupIndex === groupIndex)
+      .sort((a, b) => a.memberIndex - b.memberIndex)
+  })).filter((group) => group.members.length);
+}
+
 function getStaffProfileId(groupName, memberName, roleName, index) {
   return `staff-${getStaffGroupSlug(`${groupName}-${memberName}-${roleName}-${index}`)}`;
 }
@@ -6232,8 +6289,9 @@ function registerStaffProfile(profile) {
 
 function renderManualStaffList(discord) {
   serverStatusPageState.staffProfiles = new Map();
-  const totalEntries = MANUAL_STAFF_GROUPS.reduce((sum, group) => sum + group.members.length, 0);
-  const groupMarkup = MANUAL_STAFF_GROUPS.map((group) => {
+  const displayGroups = getManualStaffDisplayGroups();
+  const totalEntries = displayGroups.reduce((sum, group) => sum + group.members.length, 0);
+  const groupMarkup = displayGroups.map((group) => {
     const groupSlug = getStaffGroupSlug(group.title);
     return `
     <article class="live-staff__group live-staff__group--${escapeHtml(groupSlug)}" data-staff-group="${escapeHtml(groupSlug)}">
@@ -6251,13 +6309,13 @@ function renderManualStaffList(discord) {
         ${group.members.map((member, index) => {
           const avatarUrl = getStaffAvatarUrl(member, 128);
           const profileId = registerStaffProfile({
-            id: getStaffProfileId(group.title, member.name, member.role, index),
+            id: getStaffProfileId(group.title, member.name, member.primaryRole, index),
             displayName: member.name,
             username: getManualStaffDiscordUsername(member.name) ? `@${getManualStaffDiscordUsername(member.name)}` : `@${member.name}`,
             avatarUrl,
             groupName: group.title,
-            primaryRole: member.role,
-            roles: getManualStaffRoles(member.name),
+            primaryRole: member.primaryRole,
+            roles: member.roles,
             source: "Manual staff list"
           });
           return `
@@ -6267,7 +6325,8 @@ function renderManualStaffList(discord) {
               <div class="live-staff__rowName">
                 <strong>${escapeHtml(member.name)}</strong>
                 <span class="live-staff__discordName">${escapeHtml(getManualStaffDiscordUsername(member.name) ? `@${getManualStaffDiscordUsername(member.name)}` : `@${member.name}`)}</span>
-                <span>${escapeHtml(member.role)}</span>
+                <span>${escapeHtml(member.primaryRole)}</span>
+                ${member.roles.length > 1 ? `<span class="live-staff__roleCount">${escapeHtml(`${member.roles.length} current roles`)}</span>` : ""}
               </div>
             </div>
           </button>
@@ -6348,10 +6407,65 @@ function renderDiscordStaffList(discord) {
   if (!roleGroups.length) return renderManualStaffList(discord);
 
   serverStatusPageState.staffProfiles = new Map();
-  const uniqueStaff = new Set();
-  roleGroups.forEach((role) => role.members.forEach((member) => uniqueStaff.add(member.id)));
-  const count = uniqueStaff.size || roleGroups.reduce((sum, role) => sum + role.members.length, 0);
-  const groupMarkup = roleGroups.map((role) => {
+  const staffByKey = new Map();
+  roleGroups.forEach((role, roleIndex) => {
+    role.members.forEach((member, memberIndex) => {
+      const key = getStaffMemberKey(member);
+      if (!key || key === "name:") return;
+      const existing = staffByKey.get(key);
+      const currentIsHigher = !existing || roleIndex < existing.roleIndex;
+      const mergedRoles = getUniqueStaffRoles([
+        ...(existing?.roles || []),
+        ...(member.roles || []),
+        role.name
+      ]);
+      const mergedRoleIds = getUniqueStaffRoles([
+        ...(existing?.roleIds || []),
+        ...(member.roleIds || []),
+        role.id
+      ]);
+
+      staffByKey.set(key, {
+        ...(existing || {}),
+        ...member,
+        key,
+        roles: mergedRoles,
+        roleIds: mergedRoleIds,
+        displayName: existing?.displayName || member.displayName,
+        username: existing?.username || member.username,
+        avatarUrl: existing?.avatarUrl || member.avatarUrl,
+        joinedAt: existing?.joinedAt || member.joinedAt,
+        lastSeenAt: existing?.lastSeenAt || member.lastSeenAt,
+        status: existing?.status || member.status,
+        isOnline: Boolean(existing?.isOnline || member.isOnline),
+        groupName: currentIsHigher ? role.name : existing.groupName,
+        groupId: currentIsHigher ? role.id : existing.groupId,
+        roleIndex: currentIsHigher ? roleIndex : existing.roleIndex,
+        memberIndex: currentIsHigher ? memberIndex : existing.memberIndex,
+        primaryRole: currentIsHigher ? role.name : existing.primaryRole
+      });
+    });
+  });
+
+  const displayRoleGroups = roleGroups.map((role, roleIndex) => {
+    const members = Array.from(staffByKey.values())
+      .filter((member) => member.roleIndex === roleIndex)
+      .sort((a, b) => {
+        const onlineOrder = Number(Boolean(b.isOnline)) - Number(Boolean(a.isOnline));
+        if (onlineOrder !== 0) return onlineOrder;
+        return String(a.displayName || a.username).localeCompare(String(b.displayName || b.username));
+      });
+
+    return {
+      ...role,
+      count: members.length,
+      onlineCount: members.filter((member) => member.isOnline).length,
+      members
+    };
+  }).filter((role) => role.members.length);
+
+  const count = staffByKey.size || displayRoleGroups.reduce((sum, role) => sum + role.members.length, 0);
+  const groupMarkup = displayRoleGroups.map((role) => {
     const groupSlug = getStaffGroupSlug(role.name);
     return `
     <article class="live-staff__group live-staff__group--${escapeHtml(groupSlug)}" data-staff-group="${escapeHtml(groupSlug)}">
@@ -6376,8 +6490,8 @@ function renderDiscordStaffList(discord) {
             username,
             avatarUrl: member.avatarUrl,
             groupName: role.name,
-            primaryRole: role.name,
-            roles: getUniqueStaffRoles([...member.roles, role.name]),
+            primaryRole: member.primaryRole || role.name,
+            roles: member.roles,
             joinedAt: member.joinedAt,
             lastSeenAt: member.lastSeenAt,
             status: member.status,
@@ -6392,7 +6506,8 @@ function renderDiscordStaffList(discord) {
                 <div class="live-staff__rowName">
                   <strong>${escapeHtml(displayName)}</strong>
                   <span class="live-staff__discordName">${escapeHtml(username)}</span>
-                  ${member.roles?.length ? `<span>${escapeHtml(member.roles.join(", "))}</span>` : `<span>${escapeHtml(role.name)}</span>`}
+                  <span>${escapeHtml(member.primaryRole || role.name)}</span>
+                  ${member.roles?.length > 1 ? `<span class="live-staff__roleCount">${escapeHtml(`${member.roles.length} current roles`)}</span>` : ""}
                   <span class="live-staff__lastSeen">${escapeHtml(lastSeenLabel)}</span>
                 </div>
               </div>
