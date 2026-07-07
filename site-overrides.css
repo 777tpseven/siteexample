@@ -18678,3 +18678,51 @@ html body .team-page .page-hero{
     height: 44px !important;
   }
 }
+
+/* 2026-07-07 partnership dock click layer */
+html body.is-partnership .dock{
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
+  transform: translateX(-50%) !important;
+  z-index: 1200 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+html body.is-partnership .dock__item,
+html body.is-partnership .dock__item *{
+  pointer-events: auto !important;
+}
+
+html body.is-partnership .footer{
+  position: relative !important;
+  z-index: 5 !important;
+  margin-bottom: calc(104px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+html body.is-partnership .footer__inner{
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+html body.is-partnership .discord-float{
+  z-index: 1210 !important;
+}
+
+@media (max-width: 780px){
+  html body.is-partnership .dock{
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: none !important;
+    transform: none !important;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  html body.is-partnership .footer{
+    margin-bottom: calc(116px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
