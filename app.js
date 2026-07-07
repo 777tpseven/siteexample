@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260707b";
+const SITE_ASSET_VERSION = "20260707c";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -5375,8 +5375,24 @@ function normaliseDiscordOpsPayload(payload) {
   const normaliseStaffMember = (member) => {
     const source = member || {};
     const discordId = String(pickFirstDefined(source, ["discordId", "discordUserId", "userId", "id"]) || "");
-    const status = String(pickFirstDefined(source, ["status", "presenceStatus"]) || "offline").toLowerCase();
-    const isOnline = Boolean(pickFirstDefined(source, ["isOnline", "online"])) || ["online", "idle", "dnd"].includes(status);
+    const rawStatus = String(pickFirstDefined(source, ["status", "presenceStatus"]) || "").toLowerCase();
+    const explicitPresence = pickFirstDefined(source, ["presenceSynced", "hasPresenceData", "presenceAvailable"]);
+    const hasRawPresenceStatus = Object.prototype.hasOwnProperty.call(source, "status") || Object.prototype.hasOwnProperty.call(source, "presenceStatus");
+    const hasPresenceData = explicitPresence === true || explicitPresence === "true" || explicitPresence === 1 || explicitPresence === "1"
+      || (
+        explicitPresence !== false
+        && explicitPresence !== "false"
+        && explicitPresence !== 0
+        && explicitPresence !== "0"
+        && (
+          Boolean(pickFirstDefined(source, ["isOnline", "online"]))
+          || ["online", "idle", "dnd", "offline"].includes(rawStatus)
+          || hasRawPresenceStatus
+          || Boolean(pickFirstDefined(source, ["lastSeenAt", "last_seen_at", "lastSeen", "last_seen", "presenceLastSeenAt"]))
+        )
+      );
+    const status = hasPresenceData ? (rawStatus || "offline") : "";
+    const isOnline = hasPresenceData && (Boolean(pickFirstDefined(source, ["isOnline", "online"])) || ["online", "idle", "dnd"].includes(status));
     const roles = getUniqueStaffRoles([
       ...(Array.isArray(source.roles) ? source.roles : []),
       ...(Array.isArray(source.teamNames) ? source.teamNames : []),
@@ -5407,7 +5423,9 @@ function normaliseDiscordOpsPayload(payload) {
       status,
       presenceStatus: status,
       isOnline,
-      online: isOnline
+      online: isOnline,
+      presenceSynced: hasPresenceData,
+      hasPresenceData
     };
   };
   const staffRoleSource = Array.isArray(payload.staffRoles)
@@ -5422,6 +5440,7 @@ function normaliseDiscordOpsPayload(payload) {
       name: pickFirstDefined(role || {}, ["name", "label", "title"]) || "Staff role",
       count: toFiniteNumber(pickFirstDefined(role || {}, ["count", "memberCount"])) ?? members.length,
       onlineCount: toFiniteNumber(pickFirstDefined(role || {}, ["onlineCount", "onlineMembers"])) ?? members.filter((member) => member.isOnline).length,
+      hasPresenceData: members.some((member) => member.hasPresenceData),
       members
     };
   });
@@ -6030,7 +6049,7 @@ function renderDiscordLinking(discord) {
 }
 
 function getStaffStatusLabel(member) {
-  if (!hasStaffPresenceData(member)) return "";
+  if (!hasStaffPresenceData(member)) return "Offline";
   if (!member?.isOnline) return "Offline";
   if (member.status === "idle") return "Idle";
   if (member.status === "dnd") return "DND";
@@ -6043,7 +6062,7 @@ function hasStaffPresenceData(member) {
   if (explicit === true || explicit === "true" || explicit === 1 || explicit === "1") return true;
   if (explicit === false || explicit === "false" || explicit === 0 || explicit === "0") return false;
   const status = String(pickFirstDefined(member, ["status", "presenceStatus"]) || "").toLowerCase();
-  if (["online", "idle", "dnd"].includes(status)) return true;
+  if (["online", "idle", "dnd", "offline"].includes(status)) return true;
   return Boolean(getStaffLastSeenAt(member));
 }
 
@@ -6054,9 +6073,9 @@ function renderStaffListShell(count, bodyMarkup) {
         <div class="live-staff__titleBlock">
           <span class="live-staff__mainIcon" aria-hidden="true">SG</span>
           <div>
-            <span class="live-staff__kicker">The Team</span>
-            <h2>Meet Our Team</h2>
-            <p>Staff members behind SGCNR.</p>
+            <span class="live-staff__kicker">Staff</span>
+            <h2>The Team</h2>
+            <p>Current SGCNR staff list.</p>
           </div>
         </div>
         <div class="live-staff__total">
@@ -6070,9 +6089,11 @@ function renderStaffListShell(count, bodyMarkup) {
 }
 
 function renderStaffStatusBadge(member) {
-  if (!hasStaffPresenceData(member)) return "";
-  const status = String(member?.isOnline ? (member.status || "online") : "offline").toLowerCase();
-  const lastSeenLabel = formatStaffLastSeenDate(getStaffLastSeenAt(member), Boolean(member?.isOnline));
+  const hasPresence = hasStaffPresenceData(member);
+  const status = String(hasPresence && member?.isOnline ? (member.status || "online") : "offline").toLowerCase();
+  const lastSeenLabel = hasPresence
+    ? formatStaffLastSeenDate(getStaffLastSeenAt(member), Boolean(member?.isOnline))
+    : "Presence sync pending";
   return `<span class="live-staff__status live-staff__status--${escapeHtml(status)}" title="${escapeHtml(lastSeenLabel)}">${escapeHtml(getStaffStatusLabel(member))}</span>`;
 }
 
@@ -6230,6 +6251,32 @@ function getManualStaffRoles(name) {
   return getUniqueStaffRoles(roles);
 }
 
+function mergeStaffMemberData(baseMember, extraMember) {
+  const base = baseMember || {};
+  const extra = extraMember || {};
+  const extraHasPresence = hasStaffPresenceData(extra);
+  const baseHasPresence = hasStaffPresenceData(base);
+  const presenceSource = extraHasPresence ? extra : base;
+
+  return {
+    ...base,
+    ...extra,
+    id: base.id || extra.id || base.discordId || extra.discordId || base.username || extra.username || "",
+    discordId: base.discordId || extra.discordId || base.discordUserId || extra.discordUserId || "",
+    username: base.username || extra.username || "",
+    displayName: base.displayName || extra.displayName || base.nick || extra.nick || base.username || extra.username || "Unknown staff",
+    avatarUrl: base.avatarUrl || extra.avatarUrl || "",
+    roles: getUniqueStaffRoles([...(base.roles || []), ...(extra.roles || [])]),
+    roleIds: getUniqueStaffRoles([...(base.roleIds || []), ...(extra.roleIds || [])]),
+    joinedAt: base.joinedAt || extra.joinedAt || null,
+    lastSeenAt: presenceSource.lastSeenAt || null,
+    status: presenceSource.status || "",
+    isOnline: Boolean(presenceSource.isOnline),
+    hasPresenceData: Boolean(extraHasPresence || baseHasPresence),
+    presenceSynced: Boolean(extraHasPresence || baseHasPresence)
+  };
+}
+
 function getStaffJoinedAt(member) {
   return parseSnapshotDate(pickFirstDefined(member || {}, [
     "joinedAt",
@@ -6251,6 +6298,10 @@ function formatStaffJoinedDate(value) {
     month: "short",
     year: "numeric"
   }).format(date);
+}
+
+function formatStaffJoinedLine(value) {
+  return `Joined on: ${formatStaffJoinedDate(value)}`;
 }
 
 function getStaffLastSeenAt(member) {
@@ -6291,10 +6342,10 @@ function registerStaffProfile(profile) {
     roles: getUniqueStaffRoles(profile.roles?.length ? profile.roles : [profile.primaryRole]),
     joinedAt: profile.joinedAt || null,
     lastSeenAt: profile.lastSeenAt || null,
-    status: profile.status || "",
+    status: profile.status || "offline",
     isOnline: Boolean(profile.isOnline),
     hasPresenceData: Boolean(profile.hasPresenceData),
-    statusLabel: profile.statusLabel || "",
+    statusLabel: profile.statusLabel || getStaffStatusLabel(profile),
     source: profile.source || "Staff list"
   });
   return id;
@@ -6339,9 +6390,11 @@ function renderManualStaffList(discord) {
                 <strong>${escapeHtml(member.name)}</strong>
                 <span class="live-staff__discordName">${escapeHtml(getManualStaffDiscordUsername(member.name) ? `@${getManualStaffDiscordUsername(member.name)}` : `@${member.name}`)}</span>
                 <span>${escapeHtml(member.primaryRole)}</span>
+                <span class="live-staff__joined">${escapeHtml(formatStaffJoinedLine(member.joinedAt))}</span>
                 ${member.roles.length > 1 ? `<span class="live-staff__roleCount">${escapeHtml(`${member.roles.length} current roles`)}</span>` : ""}
               </div>
             </div>
+            ${renderStaffStatusBadge(member)}
           </button>
         `;
         }).join("")}
@@ -6366,6 +6419,7 @@ function renderDiscordStaffList(discord) {
     const source = member || {};
     const rawStatus = String(source.status || source.presenceStatus || "").toLowerCase();
     const explicitPresence = pickFirstDefined(source, ["presenceSynced", "hasPresenceData", "presenceAvailable"]);
+    const hasRawPresenceStatus = Object.prototype.hasOwnProperty.call(source, "status") || Object.prototype.hasOwnProperty.call(source, "presenceStatus");
     const hasPresenceData = explicitPresence === true || explicitPresence === "true" || explicitPresence === 1 || explicitPresence === "1"
       || (
         explicitPresence !== false
@@ -6374,7 +6428,8 @@ function renderDiscordStaffList(discord) {
         && explicitPresence !== "0"
         && (
           Boolean(source.isOnline || source.online)
-          || ["online", "idle", "dnd"].includes(rawStatus)
+          || ["online", "idle", "dnd", "offline"].includes(rawStatus)
+          || hasRawPresenceStatus
           || Boolean(getStaffLastSeenAt(source))
         )
       );
@@ -6407,11 +6462,15 @@ function renderDiscordStaffList(discord) {
   const sourceById = new Map();
   sourceMembers.map(normaliseStaffMember).forEach((member) => {
     if (member.id) sourceById.set(member.id, member);
+    const key = getStaffMemberKey(member);
+    if (key) sourceById.set(key, member);
   });
 
   const roleGroups = roles.map((role) => {
     const roleId = String(role?.id || "");
-    const directMembers = Array.isArray(role?.members) ? role.members.map(normaliseStaffMember) : [];
+    const directMembers = Array.isArray(role?.members)
+      ? role.members.map(normaliseStaffMember).map((member) => mergeStaffMemberData(member, sourceById.get(member.id) || sourceById.get(getStaffMemberKey(member))))
+      : [];
     const fallbackMembers = directMembers.length
       ? []
       : Array.from(sourceById.values()).filter((member) => member.roleIds.includes(roleId));
@@ -6516,6 +6575,7 @@ function renderDiscordStaffList(discord) {
           const username = member.username ? `@${member.username}` : (member.id ? `ID ${member.id}` : "Discord user");
           const hasPresence = hasStaffPresenceData(member);
           const lastSeenLabel = hasPresence ? formatStaffLastSeenDate(member.lastSeenAt, member.isOnline) : "";
+          const joinedLine = formatStaffJoinedLine(member.joinedAt);
           const profileId = registerStaffProfile({
             id: getStaffProfileId(role.name, member.id || displayName, username, index),
             displayName,
@@ -6540,6 +6600,7 @@ function renderDiscordStaffList(discord) {
                   <strong>${escapeHtml(displayName)}</strong>
                   <span class="live-staff__discordName">${escapeHtml(username)}</span>
                   <span>${escapeHtml(member.primaryRole || role.name)}</span>
+                  <span class="live-staff__joined">${escapeHtml(joinedLine)}</span>
                   ${member.roles?.length > 1 ? `<span class="live-staff__roleCount">${escapeHtml(`${member.roles.length} current roles`)}</span>` : ""}
                   ${lastSeenLabel ? `<span class="live-staff__lastSeen">${escapeHtml(lastSeenLabel)}</span>` : ""}
                 </div>
@@ -6557,13 +6618,11 @@ function renderDiscordStaffList(discord) {
 }
 
 function renderStaffProfileModal(profile) {
-  const joinedLabel = profile.joinedAt
-    ? `Joined on ${formatStaffJoinedDate(profile.joinedAt)}`
-    : "Joined date not synced yet";
+  const joinedLabel = formatStaffJoinedDate(profile.joinedAt);
   const lastSeenLabel = formatStaffLastSeenDate(profile.lastSeenAt, profile.isOnline);
   const roles = profile.roles?.length ? profile.roles : [profile.primaryRole || "Staff"];
   const hasPresence = hasStaffPresenceData(profile);
-  const statusMarkup = hasPresence && profile.statusLabel
+  const statusMarkup = profile.statusLabel
     ? `<span class="staff-profile__status staff-profile__status--${escapeHtml(profile.status || "offline")}">${escapeHtml(profile.statusLabel)}</span>`
     : "";
 
@@ -6585,8 +6644,12 @@ function renderStaffProfileModal(profile) {
         </div>
         <div class="staff-profile__metaGrid">
           <div class="staff-profile__metaCard">
-            <span>Joined</span>
+            <span>Joined on</span>
             <strong>${escapeHtml(joinedLabel)}</strong>
+          </div>
+          <div class="staff-profile__metaCard">
+            <span>Status</span>
+            <strong>${escapeHtml(profile.statusLabel || "Offline")}</strong>
           </div>
           ${hasPresence ? `<div class="staff-profile__metaCard">
             <span>Last seen</span>
