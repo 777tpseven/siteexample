@@ -192,6 +192,8 @@ function discord_live_member_payload(array $member, array $roleNames): array
         'roles' => array_map(static fn (string $roleId): string => $roleNames[$roleId], $matchedRoles),
         'status' => 'offline',
         'isOnline' => false,
+        'presenceSynced' => false,
+        'hasPresenceData' => false,
     ];
 }
 
@@ -302,5 +304,6 @@ api_json([
         'lastSource' => 'Discord REST API',
         'memberPages' => $pages,
         'memberError' => $memberError,
+        'presenceSource' => 'not_available_from_rest_api',
     ],
 ]);
