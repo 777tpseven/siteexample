@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260707c";
+const SITE_ASSET_VERSION = "20260709a";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -1988,39 +1988,70 @@ function renderLanding() {
 function renderLandingHome() {
   setView(`
     <div class="landing-hub">
-      <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
-        <h1 class="landing-hub__title">SGCNR</h1>
-        <p class="landing-hub__text">Rules, server status, staff list, memberships, and Discord.</p>
-        <div class="landing-hub__actions">
-          <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
-          <a class="auth__btn" href="/team">The Team</a>
-          <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+      <div class="home-grid landing-hub__layout">
+        <div class="main-left landing-hub__main">
+          <section class="section section--hero landing-hub__hero" aria-label="Welcome" data-reveal>
+            <h1 class="landing-hub__title">SGCNR</h1>
+            <p class="landing-hub__text">Rules, server status, staff list, memberships, and Discord.</p>
+            <div class="landing-hub__actions">
+              <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
+              <a class="auth__btn" href="/team">The Team</a>
+              <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+            </div>
+            <p class="landing-hub__support">Help can be found in the <a href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+          </section>
+
+          <section class="landing-hub__statusGrid" id="landingHomeStatus" aria-label="Live status" data-reveal>
+            ${renderLandingHomeStatusCards(null)}
+          </section>
+
+          <section class="landing-hub__grid" aria-label="Portal shortcuts">
+            <a class="landing-hub__card" href="/rules" data-reveal>
+              <strong class="landing-hub__cardTitle">Rules</strong>
+              <span class="landing-hub__cardText">Server and Discord rules.</span>
+            </a>
+            <a class="landing-hub__card" href="/team" data-reveal>
+              <strong class="landing-hub__cardTitle">The Team</strong>
+              <span class="landing-hub__cardText">Staff list and roles.</span>
+            </a>
+            <a class="landing-hub__card" href="/help" data-reveal>
+              <strong class="landing-hub__cardTitle">Help</strong>
+              <span class="landing-hub__cardText">Memberships, jobs, vehicles, and support.</span>
+            </a>
+            <a class="landing-hub__card" href="/changelog" data-reveal>
+              <strong class="landing-hub__cardTitle">Website updates</strong>
+              <span class="landing-hub__cardText">Recent website changes.</span>
+            </a>
+          </section>
         </div>
-        <p class="landing-hub__support">Help can be found in the <a href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
-      </section>
 
-      <section class="landing-hub__statusGrid" id="landingHomeStatus" aria-label="Live status" data-reveal>
-        ${renderLandingHomeStatusCards(null)}
-      </section>
+        <aside class="main-right landing-hub__aside" aria-label="Server events" data-reveal>
+          <section class="event-card">
+            <div class="event-content">
+              <span class="event-label">Server event</span>
+              <h2>Sommer Event</h2>
+              <p>Event details, meeting point, and entry rules will be posted in Discord before it starts.</p>
 
-      <section class="landing-hub__grid" aria-label="Portal shortcuts">
-        <a class="landing-hub__card" href="/rules" data-reveal>
-          <strong class="landing-hub__cardTitle">Rules</strong>
-          <span class="landing-hub__cardText">Server and Discord rules.</span>
-        </a>
-        <a class="landing-hub__card" href="/team" data-reveal>
-          <strong class="landing-hub__cardTitle">The Team</strong>
-          <span class="landing-hub__cardText">Staff list and roles.</span>
-        </a>
-        <a class="landing-hub__card" href="/help" data-reveal>
-          <strong class="landing-hub__cardTitle">Help</strong>
-          <span class="landing-hub__cardText">Memberships, jobs, vehicles, and support.</span>
-        </a>
-        <a class="landing-hub__card" href="/changelog" data-reveal>
-          <strong class="landing-hub__cardTitle">Website updates</strong>
-          <span class="landing-hub__cardText">Recent website changes.</span>
-        </a>
-      </section>
+              <div class="event-meta">
+                <div>
+                  <strong>Date</strong>
+                  <span>Announced soon</span>
+                </div>
+                <div>
+                  <strong>Time</strong>
+                  <span>Discord</span>
+                </div>
+                <div>
+                  <strong>Location</strong>
+                  <span>Ingame</span>
+                </div>
+              </div>
+
+              <a href="${escapeHtml(DISCORD_INVITE_URL)}" class="event-btn" target="_blank" rel="noopener noreferrer">Open Discord</a>
+            </div>
+          </section>
+        </aside>
+      </div>
     </div>
   `);
 

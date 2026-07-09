@@ -214,64 +214,93 @@
       : { free: 0, silver: 0, gold: 0 };
 
     return `
-      <div class="home-main">
-        <section class="home-main__hero" aria-label="Welcome" data-reveal>
-          <div class="home-main__copy">
-            <h1>SGCNR</h1>
-            <p>Rules, server status, staff team, memberships, and Discord support.</p>
-            <div class="home-main__actions">
-              <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
-              <a class="auth__btn" href="/team">The Team</a>
-              <a class="auth__btn" href="/help">Help</a>
-              <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+      <div class="home-main home-grid">
+        <div class="main-left home-main__left">
+          <section class="home-main__hero" aria-label="Welcome" data-reveal>
+            <div class="home-main__copy">
+              <h1>SGCNR</h1>
+              <p>Rules, server status, staff list, memberships, and Discord support.</p>
+              <div class="home-main__actions">
+                <a class="auth__btn auth__btn--primary" href="/rules">Rules</a>
+                <a class="auth__btn" href="/team">The Team</a>
+                <a class="auth__btn" href="/help">Help</a>
+                <a class="auth__btn" href="${escapeHtml(DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord</a>
+              </div>
             </div>
-          </div>
-          <div class="home-main__status" id="homefrontStatusGrid">
-            ${renderHomefrontStatusCards(null)}
-          </div>
-        </section>
+            <div class="home-main__status" id="homefrontStatusGrid">
+              ${renderHomefrontStatusCards(null)}
+            </div>
+          </section>
 
-        <section class="home-main__routes" aria-label="Main links">
-          <a class="home-main__route" href="/rules" data-reveal>
-            <span>Rules</span>
-            <strong>Discord and in-game rules.</strong>
-          </a>
-          <a class="home-main__route" href="/team" data-reveal>
-            <span>The Team</span>
-            <strong>Staff list and roles.</strong>
-          </a>
-          <a class="home-main__route" href="/help" data-reveal>
-            <span>Help</span>
-            <strong>Memberships, jobs, events, and support.</strong>
-          </a>
-        </section>
+          <section class="home-main__routes" aria-label="Main links">
+            <a class="home-main__route" href="/rules" data-reveal>
+              <span>Rules</span>
+              <strong>Discord and in-game rules.</strong>
+            </a>
+            <a class="home-main__route" href="/team" data-reveal>
+              <span>The Team</span>
+              <strong>Staff list and roles.</strong>
+            </a>
+            <a class="home-main__route" href="/help" data-reveal>
+              <span>Help</span>
+              <strong>Memberships, jobs, events, and support.</strong>
+            </a>
+          </section>
 
-        <section class="home-main__split" aria-label="Useful links">
-          <article class="home-main__panel home-main__panel--vehicles" data-reveal>
-            <div>
-              <span class="home-main__eyebrow">Vehicles</span>
-              <h2>Membership vehicles</h2>
-            </div>
-            <div class="home-main__tierList">
-              <a href="/help/memberships/gold/cars"><span>Gold Vehicles</span><strong>${escapeHtml(String(vehicleCounts.gold || 0))}</strong></a>
-              <a href="/help/memberships/silver/cars"><span>Silver Vehicles</span><strong>${escapeHtml(String(vehicleCounts.silver || 0))}</strong></a>
-              <a href="/help/memberships/free/cars"><span>Free Vehicles</span><strong>${escapeHtml(String(vehicleCounts.free || 0))}</strong></a>
-            </div>
-          </article>
+          <section class="home-main__split" aria-label="Useful links">
+            <article class="home-main__panel home-main__panel--vehicles" data-reveal>
+              <div>
+                <span class="home-main__eyebrow">Vehicles</span>
+                <h2>Membership vehicles</h2>
+              </div>
+              <div class="home-main__tierList">
+                <a href="/help/memberships/gold/cars"><span>Gold Vehicles</span><strong>${escapeHtml(String(vehicleCounts.gold || 0))}</strong></a>
+                <a href="/help/memberships/silver/cars"><span>Silver Vehicles</span><strong>${escapeHtml(String(vehicleCounts.silver || 0))}</strong></a>
+                <a href="/help/memberships/free/cars"><span>Free Vehicles</span><strong>${escapeHtml(String(vehicleCounts.free || 0))}</strong></a>
+              </div>
+            </article>
 
-          <article class="home-main__panel" data-reveal>
-            <div>
-              <span class="home-main__eyebrow">Help</span>
-              <h2>Support</h2>
-              <p>Open Help for memberships, jobs, rules, events, and Discord ticket links.</p>
+            <article class="home-main__panel" data-reveal>
+              <div>
+                <span class="home-main__eyebrow">Help</span>
+                <h2>Support</h2>
+                <p>Memberships, jobs, rules, events, and ticket links.</p>
+              </div>
+              <div class="home-main__actions home-main__actions--panel">
+                <a class="auth__btn auth__btn--primary" href="/help">Open Help</a>
+                <a class="auth__btn" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
+                <a class="auth__btn" href="/team">Staff list</a>
+              </div>
+            </article>
+          </section>
+        </div>
+
+        <aside class="main-right home-main__event" aria-label="Server event" data-reveal>
+          <section class="event-card">
+            <div class="event-content">
+              <span class="event-label">Server event</span>
+              <h2>Sommer Event</h2>
+              <p>Details, Treffpunkt und Regeln werden vor dem Start im Discord gepostet.</p>
+
+              <div class="event-meta">
+                <div>
+                  <strong>Datum</strong>
+                  <span>Folgt</span>
+                </div>
+                <div>
+                  <strong>Uhrzeit</strong>
+                  <span>Discord</span>
+                </div>
+                <div>
+                  <strong>Ort</strong>
+                  <span>Ingame</span>
+                </div>
+              </div>
+
+              <a href="${escapeHtml(DISCORD_INVITE_URL)}" class="event-btn" target="_blank" rel="noopener noreferrer">Discord öffnen</a>
             </div>
-            <div class="home-main__actions home-main__actions--panel">
-              <a class="auth__btn auth__btn--primary" href="/help">Open Help</a>
-              <a class="auth__btn" href="${escapeHtml(DISCORD_TICKET_CHANNEL_URL || DISCORD_INVITE_URL)}" target="_blank" rel="noopener noreferrer">Discord tickets</a>
-              <a class="auth__btn" href="/team">Staff list</a>
-            </div>
-          </article>
-        </section>
+          </section>
+        </aside>
       </div>
     `;
   }
