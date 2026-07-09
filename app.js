@@ -66,7 +66,7 @@ const SERVER_JOIN_URL = SERVER_CONFIG.joinUrl || (SERVER_JOIN_CODE ? `https://cf
 const SERVER_SINGLE_API_URL = SERVER_JOIN_CODE
   ? `https://servers-frontend.fivem.net/api/servers/single/${SERVER_JOIN_CODE}`
   : "";
-const SITE_ASSET_VERSION = "20260709a";
+const SITE_ASSET_VERSION = "20260709b";
 const APP_ASSET_BASE_URL = document.currentScript?.src
   ? new URL(".", document.currentScript.src).href
   : `${window.location.origin}/`;
@@ -2025,25 +2025,25 @@ function renderLandingHome() {
           </section>
         </div>
 
-        <aside class="main-right landing-hub__aside" aria-label="Server events" data-reveal>
+        <aside class="main-right landing-hub__aside" aria-label="Events" data-reveal>
           <section class="event-card">
             <div class="event-content">
-              <span class="event-label">Server event</span>
-              <h2>Sommer Event</h2>
-              <p>Event details, meeting point, and entry rules will be posted in Discord before it starts.</p>
+              <span class="event-label">Active / Upcoming</span>
+              <h2>Events</h2>
+              <p>Active and upcoming events can be listed here. Details will be posted in Discord.</p>
 
               <div class="event-meta">
                 <div>
-                  <strong>Date</strong>
-                  <span>Announced soon</span>
+                  <strong>Active</strong>
+                  <span>None listed</span>
                 </div>
                 <div>
-                  <strong>Time</strong>
+                  <strong>Upcoming</strong>
+                  <span>To be announced</span>
+                </div>
+                <div>
+                  <strong>Details</strong>
                   <span>Discord</span>
-                </div>
-                <div>
-                  <strong>Location</strong>
-                  <span>Ingame</span>
                 </div>
               </div>
 

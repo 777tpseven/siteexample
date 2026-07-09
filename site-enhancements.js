@@ -275,29 +275,29 @@
           </section>
         </div>
 
-        <aside class="main-right home-main__event" aria-label="Server event" data-reveal>
+        <aside class="main-right home-main__event" aria-label="Events" data-reveal>
           <section class="event-card">
             <div class="event-content">
-              <span class="event-label">Server event</span>
-              <h2>Sommer Event</h2>
-              <p>Details, Treffpunkt und Regeln werden vor dem Start im Discord gepostet.</p>
+              <span class="event-label">Active / Upcoming</span>
+              <h2>Events</h2>
+              <p>Active and upcoming events can be listed here. Details will be posted in Discord.</p>
 
               <div class="event-meta">
                 <div>
-                  <strong>Datum</strong>
-                  <span>Folgt</span>
+                  <strong>Active</strong>
+                  <span>None listed</span>
                 </div>
                 <div>
-                  <strong>Uhrzeit</strong>
+                  <strong>Upcoming</strong>
+                  <span>To be announced</span>
+                </div>
+                <div>
+                  <strong>Details</strong>
                   <span>Discord</span>
-                </div>
-                <div>
-                  <strong>Ort</strong>
-                  <span>Ingame</span>
                 </div>
               </div>
 
-              <a href="${escapeHtml(DISCORD_INVITE_URL)}" class="event-btn" target="_blank" rel="noopener noreferrer">Discord öffnen</a>
+              <a href="${escapeHtml(DISCORD_INVITE_URL)}" class="event-btn" target="_blank" rel="noopener noreferrer">Open Discord</a>
             </div>
           </section>
         </aside>
